@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://chdn5sa1ckg2s"]
+
+[ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
+[ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="2_ip2wh"]
+[ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
+[ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2pfv"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
+script = ExtResource("1_vrt2t")
+_abilityManager = NodePath("AbilityManager")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ip2wh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e2pfv")
+
+[node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("Ability1")]
+script = ExtResource("3_u00fe")
+Ability1 = NodePath("SoldierShoot")
+
+[node name="SoldierShoot" type="Node" parent="AbilityManager"]
+script = ExtResource("4_2082f")
