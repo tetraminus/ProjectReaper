@@ -15,35 +15,37 @@ public partial class Player : CharacterBody2D
 		}
 		
 		GameManager.Player = this;
+		
 	}
 
 	public void GetInput()
 	{
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
 		Velocity += inputDir * _speed;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	
+
+	public override void _Process(double delta)
 	{
-		if (@event.IsActionPressed("ability1"))
+		if (Input.IsActionPressed("ability1"))
 		{
 			_abilityManager.UseAbility1();
 		}
-		if (@event.IsActionPressed("ability2"))
+		if (Input.IsActionPressed("ability2"))
 		{
 			_abilityManager.UseAbility2();
 		}
-		if (@event.IsActionPressed("ability3"))
+		if (Input.IsActionPressed("ability3"))
 		{
 			_abilityManager.UseAbility3();
 		}
-		if (@event.IsActionPressed("ability4"))
+		if (Input.IsActionPressed("ability4"))
 		{
 			_abilityManager.UseAbility4();
 		}
-		
-		
 	}
+
 
 	public override void _PhysicsProcess(double delta)
 	{

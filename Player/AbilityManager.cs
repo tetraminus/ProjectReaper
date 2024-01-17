@@ -14,30 +14,42 @@ public partial class AbilityManager : Node
     
     public void UseAbility1()
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability1, 1);
-        Ability1.Use();
-        
+        if (!Ability1.CheckCooldown())
+        {
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability1, 1);
+            Ability1.Use();
+            Ability1.StartCooldown();
+        }
     }
-    
+
     public void UseAbility2()
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability2, 2);
-        Ability2.Use();
-        
+        if (!Ability2.CheckCooldown())
+        {
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability2, 2);
+            Ability2.Use();
+            Ability2.StartCooldown();
+        }
     }
-    
+
     public void UseAbility3()
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability3, 3);
-        Ability3.Use();
-        
+        if (!Ability3.CheckCooldown())
+        {
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability3, 3);
+            Ability3.Use();
+            Ability3.StartCooldown();
+        }
     }
-    
+
     public void UseAbility4()
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability4, 4);
-        Ability4.Use();
-        
+        if (!Ability4.CheckCooldown())
+        {
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability4, 4);
+            Ability4.Use();
+            Ability4.StartCooldown();
+        }
     }
     
 }

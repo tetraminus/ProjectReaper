@@ -17,6 +17,6 @@ public partial class SoldierShoot : AbstractAbility
         
     }
 
-    public override float Cooldown { get; set; } = 0.5f;
+    public override float Cooldown { get; set; } = 0.2f;
     
 }
