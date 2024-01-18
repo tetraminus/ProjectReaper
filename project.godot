@@ -24,6 +24,10 @@ GameManager="*res://Globals/GameManager.cs"
 
 project/assembly_name="ProjectReaper"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
 [input]
 
 ability1={

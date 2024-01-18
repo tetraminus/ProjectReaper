@@ -13,8 +13,6 @@ public partial class SoldierShoot : AbstractAbility
         bullet.Position = GameManager.Player.GlobalPosition;
         bullet.LookAt(GetViewport().GetMousePosition());
         GetTree().Root.AddChild(bullet);
-        
-        
     }
 
     public override float Cooldown { get; set; } = 0.2f;

@@ -26,3 +26,5 @@ Ability1 = NodePath("SoldierShoot")
 
 [node name="SoldierShoot" type="Node" parent="AbilityManager"]
 script = ExtResource("4_2082f")
+
+[node name="Camera2D" type="Camera2D" parent="."]
