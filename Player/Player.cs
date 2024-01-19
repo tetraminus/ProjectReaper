@@ -1,11 +1,13 @@
 using Godot;
 using System;
 using ProjectReaper.Player;
+using ProjectReaper.Util;
 
 public partial class Player : CharacterBody2D
 {
-	private int _speed = 100;
 	[Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
+	
+	public Stats Stats { get; set; } = new Stats();
 
 	public override void _Ready()
 	{
@@ -15,13 +17,15 @@ public partial class Player : CharacterBody2D
 		}
 		
 		GameManager.Player = this;
-		
+
+		InitStats();
+
 	}
 
 	public void GetInput()
 	{
 		Vector2 inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
-		Velocity += inputDir * _speed;
+		Velocity += inputDir * Stats.Speed * (float)GetProcessDeltaTime();
 	}
 
 	
@@ -53,4 +57,10 @@ public partial class Player : CharacterBody2D
 		Velocity = Velocity.Lerp(Vector2.Zero, 0.2f);
 		MoveAndSlide();
 	}
+
+	private void InitStats() {
+		Stats.Init();
+	}
+	
+	
 }

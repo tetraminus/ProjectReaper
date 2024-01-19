@@ -6,7 +6,6 @@ namespace ProjectReaper.Globals;
 
 public partial class Callbacks : Node
 {
-	// Called when the node enters the scene tree for the first time.
 	
 	public static Callbacks Instance { get; private set; }
 	
@@ -16,9 +15,10 @@ public partial class Callbacks : Node
 	[Signal]
 	public delegate void BulletCreatedEventHandler(AbstractBullet bullet);
 	
-	public override void _Ready()
-	{
+	[Signal]
+	public delegate void BulletHitEventHandler(AbstractBullet bullet);
+	
+	public override void _Ready() {
 		Instance = this;
-		GD.Print("Callbacks: _Ready");
 	}
 }

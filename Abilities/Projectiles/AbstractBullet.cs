@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Globals;
 
 namespace ProjectReaper.Abilities.Projectiles;
 
@@ -14,8 +15,11 @@ public abstract partial class AbstractBullet : Area2D
         _timer.Timeout += () => QueueFree();
     }
     public void OnShoot() {}
-    
-    public void OnHit() {}
+
+    public void OnHit()
+    {
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletHit, this);
+    }
     
     public abstract float Speed { get; set; }
     
