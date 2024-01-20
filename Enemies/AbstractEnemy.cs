@@ -8,6 +8,8 @@ public abstract partial class AbstractEnemy : CharacterBody2D {
     public Stats Stats { get; set; } = new Stats();
     
     public Area2D Hurtbox { get; set; }
+    
+    public NavigationAgent2D NavigationAgent { get; set; }
 
     public override void _Ready() {
         Stats.Init();

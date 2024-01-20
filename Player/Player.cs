@@ -25,7 +25,7 @@ public partial class Player : CharacterBody2D
 	public void GetInput()
 	{
 		Vector2 inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
-		Velocity += inputDir * Stats.Speed * (float)GetProcessDeltaTime();
+		Velocity += inputDir * Stats.Speed;
 	}
 
 	

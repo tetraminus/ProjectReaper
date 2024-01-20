@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rooms>
+    <room id="room0">
+        <connections>
+            <top/>
+            <bottom/>
+            <left/>
+            <right/>
+        </connections>
+    </room>
+    <room id="room1">
+        <connections>
+            <top/>
+            <left/>
+            <right/>
+        </connections>
+    </room>
+    <room id="room2">
+        <connections>
+            <top/>
+            <bottom/>
+            <left/>
+        </connections>
+    </room>
+    <room id="room3">
+        <connections>
+            <top/>
+            <bottom/>
+            <right/>
+        </connections>
+    </room>
+    <room id="room4">
+        <connections>
+            <bottom/>
+            <left/>
+            <right/>
+        </connections>
+    </room>
+    
+</rooms>

@@ -3,14 +3,14 @@
 <tileset name="TestSet" >
     <tile id="Ground">
         <Weights>
-            <Weight id="Ground" value="0.8" />
-            <Weight id="Wall" value="0.5" />
+            <Weight id="Ground" value="1.0" />
+            <Weight id="Wall" value="0.1" />
         </Weights>
     </tile>
     <tile id="Wall">
         <Weights>
-            <Weight id="Ground" value="0.5" />
-            <Weight id="Wall" value="0.8" />
+            <Weight id="Wall" value=".80" />
+            <Weight id="Ground" value="0.1" />
         </Weights>
     </tile>
 </tileset>
