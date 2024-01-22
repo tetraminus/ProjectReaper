@@ -15,11 +15,16 @@ public abstract partial class AbstractBullet : Area2D
 		_timer.Timeout += () => QueueFree();
 	}
 	public void OnShoot() {}
+<<<<<<< Updated upstream
 
 	public void OnHit()
 	{
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletHit, this);
 	}
+=======
+	
+	public void OnHit() {}
+>>>>>>> Stashed changes
 	
 	public abstract float Speed { get; set; }
 	

@@ -1,9 +1,17 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
+=======
+[gd_scene load_steps=3 format=3 uid="uid://b6447c6lsiptv"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_jljdq"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
 [ext_resource type="PackedScene" uid="uid://3monbpogi5vc" path="res://Enemies/Enemy.tscn" id="5_2xisa"]
+=======
+[ext_resource type="PackedScene" uid="uid://c3madycyn822b" path="res://Enemy/enemy.tscn" id="2_tojad"]
+>>>>>>> Stashed changes
 
 [node name="Main" type="Node2D"]
 
@@ -16,6 +24,7 @@ script = ExtResource("1_i6kjr")
 [node name="Player" parent="." instance=ExtResource("1_jljdq")]
 position = Vector2(592, 318)
 
+<<<<<<< Updated upstream
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 position = Vector2(592, 318)
 script = ExtResource("3_2wyrr")
@@ -41,3 +50,7 @@ inactive_update_mode = 0
 
 [node name="Enemy" parent="." instance=ExtResource("5_2xisa")]
 position = Vector2(17, 67)
+=======
+[node name="Enemy" parent="." instance=ExtResource("2_tojad")]
+position = Vector2(243, 183)
+>>>>>>> Stashed changes
