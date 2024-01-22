@@ -54,7 +54,7 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		GetInput();
-		Velocity = Velocity.Lerp(Vector2.Zero, 0.2f);
+		Velocity = Velocity.Lerp(Vector2.Zero, 2f);
 		MoveAndSlide();
 	}
 
