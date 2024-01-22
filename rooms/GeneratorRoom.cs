@@ -15,7 +15,7 @@ public partial class GeneratorRoom : GodotObject
 
     public GeneratorRoom(Array<RoomDef> possibleRooms, Vector2I position)
     {
-        PossibleRooms = possibleRooms;
+        PossibleRooms = possibleRooms.Duplicate();
         Position = position;
     }
 
@@ -23,11 +23,17 @@ public partial class GeneratorRoom : GodotObject
     {
         return PossibleRooms.Count - 1;
     }
-
-
-
     public void Collapse(RandomNumberGenerator random, GeneratorRoom[,] states, RoomSet roomSet)
     {
+        RecalculatePossibleRooms(roomSet, states);
+        
+        if (PossibleRooms.Count == 0)
+        {
+            GD.Print($"Room at {Position} has no possible rooms");
+            Globals.LevelGenerator.Instance.Failed = true;
+            return;
+        }
+        
         var room = PossibleRooms[random.RandiRange(0, PossibleRooms.Count - 1)];
         PossibleRooms = new Array<RoomDef> { room };
         IsCollapsed = true;
@@ -35,15 +41,16 @@ public partial class GeneratorRoom : GodotObject
 
     }
 
-    public Array<RoomDef> GetALLPossibleRooms(RoomSet set, GeneratorRoom[,] state)
+    public Array<RoomDef> GetALLPossibleRooms(RoomSet set, GeneratorRoom[,] state, GeneratorRoom exclude = null)
     {
         var possibleRooms = new Array<RoomDef>();
         foreach (var room in set.Rooms)
         {
+           
             var allowed = true;
-            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>())
-            {
-                allowed = allowed && CheckConnection(side, room, state, set);
+            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>()) {
+                if (GetNeighbor(side, state) != null && GetNeighbor(side, state).PossibleRooms.Count == 0) continue;
+                allowed = allowed && (CheckConnection(side, room, state, set));
             }
 
             if (allowed) possibleRooms.Add(room);
@@ -54,35 +61,26 @@ public partial class GeneratorRoom : GodotObject
     }
 
 
-    public void RecalculatePossibleRooms(RoomSet set, GeneratorRoom[,] state)
+    public void RecalculatePossibleRooms(RoomSet set, GeneratorRoom[,] state, GeneratorRoom exclude = null)
     {
         if (IsCollapsed) return;
-        var possibleRooms = GetALLPossibleRooms(set, state);
+        var possibleRooms = GetALLPossibleRooms(set, state, exclude);
 
         PossibleRooms = possibleRooms;
         if (PossibleRooms.Count == 1) IsCollapsed = true;
         if (PossibleRooms.Count == 0)
         {
-            // see if collapsed neighbors can be changed to allow this room
-            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>())
-            {
-                var neighbor = GetNeighbor(side, state);
-                if (neighbor == null) continue;
-                var numPossibleRooms = neighbor.GetALLPossibleRooms(set, state).Count;
-                if (numPossibleRooms > 1)
-                {
-                    neighbor.IsCollapsed = false;
-                    neighbor.RecalculatePossibleRooms(set, state);
-                    
-                }
-            }
-            RecalculatePossibleRooms(set, state);
-
+            GD.Print($"Room at {Position} has no possible rooms");
+            Globals.LevelGenerator.Instance.Failed = true;
         }
+        GD.Print($"Room at {Position} has {PossibleRooms.Count} possible rooms");
+    }
+    
+    public void Reset(RoomSet r)
+    {
+        IsCollapsed = false;
+        PossibleRooms = r.Rooms;
         
-        
-        
-GD.Print($"Room at {Position} has {PossibleRooms.Count} possible rooms");
     }
 
     private bool CheckConnection(RoomDef.Side side, RoomDef room, GeneratorRoom[,] state, RoomSet set)
@@ -92,8 +90,6 @@ GD.Print($"Room at {Position} has {PossibleRooms.Count} possible rooms");
         var connection = set.GetConnectionOfId(room.GetConnectionType(side));
         var allowedConnections = connection.AllowedConnections;
         var neighborSideConnectionType = neighbor.PossibleRooms[0].GetConnectionType(RoomDef.GetOppositeSide(side));
-        
-       
         
         return allowedConnections.Contains(neighborSideConnectionType);
     }

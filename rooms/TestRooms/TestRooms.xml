@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <rooms>
+	
+
 	<room id="room0">
+		<rotatable/>
 		<connections>
 			<top type="2"/>
 			<bottom type="2"/>
@@ -9,15 +12,14 @@
 			<right type="2"/>
 		</connections>
 	</room>
-
 	
 	<room id="room2">
 		<rotatable/>
 		<connections>
 			<top type="0"/>
 			<bottom type="0"/>
-			<left type="1"/>
-			<right type="1"/>
+			<left type="2"/>
+			<right type="2"/>
 		</connections>
 	</room>
 	<room id="room3">

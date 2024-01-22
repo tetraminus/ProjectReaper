@@ -10,7 +10,7 @@ public partial class Level : Node2D
 	{
 		GameManager.Level = this;
 		GD.Randomize();
-		LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 5, 5, GD.Randi());
+		LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, GD.Randi());
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

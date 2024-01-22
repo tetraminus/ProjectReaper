@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
@@ -22,7 +23,7 @@ public partial class LevelGenerator : Node
     {
         Failed = false;
         // preloading rooms
-        var rooms = new Dictionary<string, PackedScene>();
+        var rooms = new Godot.Collections.Dictionary<string, PackedScene>();
         foreach (var room in set.Rooms)
         {
             rooms[room.ID] = ResourceLoader.Load<PackedScene>($"res://rooms/{set.ID}/{room.ID}.tscn");
@@ -36,20 +37,22 @@ public partial class LevelGenerator : Node
         
         
         // creating state
-        var state = new GeneratorRoom[width, height];
+        GeneratorRoom[,] state;
         do
         {
             Failed = false;
             
-            for (var i = 0; i < width; i++)
-            {
-                for (var j = 0; j < height; j++) state[i, j] = new GeneratorRoom(set.Rooms, new Vector2I(i, j));
-            }
+            
+            state = DefaultState(set, width, height);
+            
+            // create state history for backtracking
+            var stateHistory = new Stack<GeneratorRoom[,]>();
+            stateHistory.Push(state);
 
             // generating level
             while (!state.Cast<GeneratorRoom>().All(room => room.IsCollapsed))
             {
-                Array<GeneratorRoom> stack = new Array<GeneratorRoom>();
+                Stack<GeneratorRoom> stack = new Stack<GeneratorRoom>();
                 // grab lowest entropy
                 var lowestEntropy = state.Cast<GeneratorRoom>().Where(room => !room.IsCollapsed).Min(room => room.GetEntropy());
                 // pick random room with lowest entropy
@@ -61,26 +64,34 @@ public partial class LevelGenerator : Node
 
                 // propagate information
 
-                stack.AddRange(GetNeighbors(lowEntRoom, state));
-
-                while (stack.Count > 0)
+                foreach (var neighbor in GetNeighbors(lowEntRoom, state))
                 {
-                    var room = stack[0];
-                    stack.RemoveAt(0);
-                    room.RecalculatePossibleRooms(set, state);
-                    if (room.IsCollapsed) stack.AddRange(GetNeighbors(room, state));
+                    stack.Push(neighbor);
+                }
 
-                    // check if failed and reset state if so
-                    if (Failed)
+                while (stack.Count > 0) {
+                    var room = stack.Pop();
+                    room.RecalculatePossibleRooms(set, state);
+                    // if collapsed, propagate
+                    if (room.IsCollapsed)
                     {
-                        break;
+                        foreach (var neighbor in GetNeighbors(room, state))
+                        {
+                            stack.Push(neighbor);
+                        }
+                    }
+                    if (Failed) {
+                        BlastRooms(set, width, height, state);
+                        Failed = false;
                     }
                 }
-                
                 if (Failed)
                 {
-                    break;
+                    BlastRooms(set, width, height, state);
+                    Failed = false;
+                    
                 }
+                
             }
             if (Failed)
             {
@@ -162,7 +173,38 @@ public partial class LevelGenerator : Node
         }
         
     }
+
+    private static void BlastRooms(RoomSet set, int width, int height, GeneratorRoom[,] state) {
+        // find failed rooms, and reset an area around them
+        var failedRooms = state.Cast<GeneratorRoom>().Where(room => !room.IsCollapsed && room.PossibleRooms.Count == 0)
+            .ToList();
+        foreach (var failedRoom in failedRooms) {
+            var pos = failedRoom.Position;
+            for (var i = pos.X - 1; i <= pos.X + 1; i++) {
+                for (var j = pos.Y - 1; j <= pos.Y + 1; j++) {
+                    if (i < 0 || i >= width || j < 0 || j >= height) continue;
+                    state[i, j].Reset(set);
+                }
+            }
+
+            for (var i = pos.X - 1; i <= pos.X + 1; i++) {
+                for (var j = pos.Y - 1; j <= pos.Y + 1; j++) {
+                    if (i < 0 || i >= width || j < 0 || j >= height) continue;
+                    state[i, j].RecalculatePossibleRooms(set, state);
+                }
+            }
+        }
+    }
+
+    private static GeneratorRoom[,] DefaultState(RoomSet set, int width, int height) {
+        GeneratorRoom[,] state = new GeneratorRoom[width, height];
+        for (var i = 0; i < width; i++) {
+            for (var j = 0; j < height; j++) state[i, j] = new GeneratorRoom(set.Rooms, new Vector2I(i, j));
+        }
+        return state;
+    }
     
+
     private Array<GeneratorRoom> GetNeighbors(GeneratorRoom room, GeneratorRoom[,] state)
     {
         var neighbors = new Array<GeneratorRoom>();

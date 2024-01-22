@@ -7,7 +7,7 @@ namespace ProjectReaper.Util;
 public partial class RoomSet : GodotObject
 {
     public string ID { get; set; }
-    public Array<RoomDef> Rooms { get; set; }
+    public Array<RoomDef> Rooms { get; private set; }
     public Array<ConnectionDef> Connections { get; set; }
     
     public RoomSet(Array<RoomDef> rooms, Array<ConnectionDef> connections, string id = null) {
