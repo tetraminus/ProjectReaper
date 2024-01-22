@@ -1,3 +1,4 @@
+
 using System.Xml;
 using Godot;
 using Godot.Collections;
@@ -47,12 +48,11 @@ public partial class LevelGenerator : Node {
 	   </Weights>
 	   </tile>
 	   </tileset>*/ //example of tileset xml
-
 	public override void _EnterTree() {
 		var parser = new XmlParser();
 		parser.Open("res://Tilesets/TestSet.xml");
 		while (parser.Read() != Error.FileEof) {
-			if (parser.GetNodeType() == XmlParser.NodeType.Element;
+			
 			
 		}
 	}

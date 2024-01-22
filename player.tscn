@@ -19,6 +19,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ip2wh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -2)
 shape = SubResource("RectangleShape2D_e2pfv")
 
 [node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("Ability1")]
