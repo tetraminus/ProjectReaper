@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rooms>
+	<room id="room0">
+		<connections>
+			<top type="2"/>
+			<bottom type="2"/>
+			<left type="2"/>
+			<right type="2"/>
+		</connections>
+	</room>
+
+	
+	<room id="room2">
+		<rotatable/>
+		<connections>
+			<top type="0"/>
+			<bottom type="0"/>
+			<left type="1"/>
+			<right type="1"/>
+		</connections>
+	</room>
+	<room id="room3">
+		<rotatable/>
+		<connections>
+			<top type="1"/>
+			<bottom type="0"/>
+			<left type="1"/>
+			<right type="0"/>
+		</connections>
+	</room>
+	<room id="room4">
+		<rotatable/>
+		<connections>
+			<top type="0"/>
+			<bottom type="1"/>
+			<left type="0"/>
+			<right type="0"/>
+		</connections>
+	</room>
+	<room id="room5">
+		<connections>
+			<top type="0"/>
+			<bottom type="0"/>
+			<left type="0"/>
+			<right type="0"/>
+		</connections>
+	</room>
+	
+	<relations>
+		<relation id="0" allowed="0"/>
+		<relation id="1" allowed="1,2"/>
+		<relation id="2" allowed="1"/>
+	</relations>
+</rooms>

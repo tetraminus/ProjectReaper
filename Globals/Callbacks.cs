@@ -13,10 +13,10 @@ public partial class Callbacks : Node
 	public delegate void AbilityUsedEventHandler(AbstractAbility ability, int slot);
 	
 	[Signal]
-	public delegate void BulletCreatedEventHandler(AbstractBullet bullet);
+	public delegate void BulletCreatedEventHandler(AbstractDamageArea bullet);
 	
 	[Signal]
-	public delegate void BulletHitEventHandler(AbstractBullet bullet);
+	public delegate void BulletHitEventHandler(AbstractDamageArea bullet);
 	
 	public override void _Ready() {
 		Instance = this;

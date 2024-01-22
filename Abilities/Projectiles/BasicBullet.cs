@@ -2,7 +2,7 @@ using Godot;
 
 namespace ProjectReaper.Abilities.Projectiles;
 
-public partial class BasicBullet : AbstractBullet
+public partial class BasicBullet : AbstractDamageArea
 {
 		
 		private Timer _timer = new Timer();

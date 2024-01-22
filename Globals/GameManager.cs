@@ -5,6 +5,7 @@ public partial class GameManager : Node
 {
 	// Called when the node enters the scene tree for the first time.
 	public static Player Player { get; set; }
+	public static Node2D Level { get; set; }
 	
 	
 	public override void _Ready()
