@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=6 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_jljdq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
 [ext_resource type="Script" path="res://Util/LevelGenerator.cs" id="4_kstts"]
+[ext_resource type="PackedScene" uid="uid://3monbpogi5vc" path="res://Enemies/Enemy.tscn" id="5_2xisa"]
 
 [node name="Main" type="Node2D"]
 
@@ -41,3 +42,6 @@ inactive_update_mode = 0
 
 [node name="LevelGenerator" type="Node" parent="."]
 script = ExtResource("4_kstts")
+
+[node name="Enemy" parent="." instance=ExtResource("5_2xisa")]
+position = Vector2(267, 176)
