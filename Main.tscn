@@ -3,9 +3,7 @@
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_jljdq"]
-<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
-[ext_resource type="Script" path="res://Util/LevelGenerator.cs" id="4_kstts"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5rvjs")
@@ -19,7 +17,6 @@ script = ExtResource("1_i6kjr")
 [node name="Player" parent="." instance=ExtResource("1_jljdq")]
 position = Vector2(592, 318)
 
-<<<<<<< Updated upstream
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 position = Vector2(592, 318)
 script = ExtResource("3_2wyrr")
@@ -42,6 +39,3 @@ limit/smoothed = false
 tween_parameters = null
 tween_on_load = true
 inactive_update_mode = 0
-
-[node name="LevelGenerator" type="Node" parent="."]
-script = ExtResource("4_kstts")

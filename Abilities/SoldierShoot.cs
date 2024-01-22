@@ -8,7 +8,7 @@ public partial class SoldierShoot : AbstractAbility
     private static PackedScene BulletScene { get; } = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
     public override void Use()
     {
-        var bullet = (AbstractBullet) BulletScene.Instantiate();
+        var bullet = (AbstractDamageArea) BulletScene.Instantiate();
         Globals.Callbacks.Instance.EmitSignal(Globals.Callbacks.SignalName.BulletCreated, bullet);
         bullet.Position = GameManager.Player.GlobalPosition;
         bullet.LookAt(GetViewport().GetMousePosition());

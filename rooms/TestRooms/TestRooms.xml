@@ -18,8 +18,8 @@
 		<connections>
 			<top type="0"/>
 			<bottom type="0"/>
-			<left type="2"/>
-			<right type="2"/>
+			<left type="1"/>
+			<right type="1"/>
 		</connections>
 	</room>
 	<room id="room3">

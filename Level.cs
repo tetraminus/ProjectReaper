@@ -9,8 +9,8 @@ public partial class Level : Node2D
 	public override void _Ready()
 	{
 		GameManager.Level = this;
-		GD.Randomize();
-		LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, GD.Randi());
+		
+		LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, 1);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

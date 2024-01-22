@@ -6,7 +6,6 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="OldLevelGenerator\TestSet.xml" />
     <Content Include="rooms\TestRooms\room0.tscn" />
     <Content Include="rooms\TestRooms\TestRooms.xml" />
   </ItemGroup>
