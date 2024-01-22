@@ -18,3 +18,5 @@ shape = SubResource("RectangleShape2D_g0q8q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 shape = SubResource("RectangleShape2D_g0q8q")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

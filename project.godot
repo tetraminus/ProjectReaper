@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Callbacks="*res://Globals/Callbacks.cs"
 GameManager="*res://Globals/GameManager.cs"
+LevelGenerator="*res://Globals/LevelGenerator.cs"
 
 [dotnet]
 

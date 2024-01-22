@@ -1,6 +1,6 @@
 ﻿namespace ProjectReaper.Enemies;
 
-public class Goober : AbstractEnemy
+public partial class Goober : AbstractEnemy
 {
     public override void _PhysicsProcess(double delta)
     {

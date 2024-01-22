@@ -14,8 +14,18 @@ public abstract partial class AbstractEnemy : CharacterBody2D {
     public override void _Ready() {
         Stats.Init();
         Hurtbox = FindChild("Hurtbox") as Area2D;
+        NavigationAgent = FindChild("NavigationAgent") as NavigationAgent2D;
         
     }
+    
+    
+    public override void _PhysicsProcess(double delta) {
+        NavigationAgent.TargetPosition = GlobalPosition;
+        Velocity = NavigationAgent.Velocity;
+        MoveAndSlide();
+
+    }
+    
 
     public abstract void OnHit();
     

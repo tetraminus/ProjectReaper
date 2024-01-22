@@ -3,7 +3,7 @@ using ProjectReaper.Globals;
 
 namespace ProjectReaper.Abilities.Projectiles;
 
-public abstract partial class AbstractBullet : Area2D
+public abstract partial class AbstractDamageArea : Area2D
 {
     
     private Timer _timer;

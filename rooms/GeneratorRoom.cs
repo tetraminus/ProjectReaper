@@ -1,144 +1,120 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Godot;
 using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace ProjectReaper.Util;
 
-public class GeneratorRoom : GodotObject
+public partial class GeneratorRoom : GodotObject
 {
-   
+
     public bool IsCollapsed { get; set; } = false;
-    public string[] PossibleRooms { get; set; }
+    public Array<RoomDef> PossibleRooms { get; set; }
     public Vector2I Position { get; set; }
-    
-    public GeneratorRoom(string[] possibleRooms, Vector2I position)  {
+
+    public GeneratorRoom(Array<RoomDef> possibleRooms, Vector2I position)
+    {
         PossibleRooms = possibleRooms;
         Position = position;
     }
-    
-    public int GetEntropy() {
-        return PossibleRooms.Length - 1;
-    }
-    
-    
 
-    public object Collapse(RandomNumberGenerator random, GeneratorTile[,] states, RoomSet roomSet)
+    public int GetEntropy()
     {
-        // collapse tile to one of the possible Rooms based on weights, and this tile's neighbors
-        var neighborRooms = GetNeighborTileIds(states);
-        
-        var tileWeights = new Dictionary<string, double>();
-        // foreach (var tileId in PossibleRooms) {
-        //     double weight = 0;
-        //     int neighborCount = 0;
-        //     foreach (var neighborTile in neighborRooms) {
-        //         var neighborWeight = weights.GetWeights(neighborTile);
-        //         weight += neighborWeight.GetWeight(tileId);
-        //         neighborCount++;
-        //     }
-        //     if (neighborCount > 0) {
-        //         tileWeights[tileId] = weight / neighborCount;
-        //     }
-        //     else
-        //     {
-        //         // no neighbors, use self weight
-        //         tileWeights[tileId] = weights.GetWeights(tileId).GetSelfWeight();
-        //     }
-        // }
-        
-        var chosentileId = GetRandomWeightedTile(random, tileWeights);
-        
-        // collapse tile
-        
+        return PossibleRooms.Count - 1;
+    }
+
+
+
+    public void Collapse(RandomNumberGenerator random, GeneratorRoom[,] states, RoomSet roomSet)
+    {
+        var room = PossibleRooms[random.RandiRange(0, PossibleRooms.Count - 1)];
+        PossibleRooms = new Array<RoomDef> { room };
         IsCollapsed = true;
-        PossibleRooms = new[] {chosentileId};
-        
-        
-        return chosentileId;
-    }
-    
-    private string GetRandomWeightedTile(RandomNumberGenerator random, Dictionary<string, double> tileWeights) {
-        var totalWeight = tileWeights.Values.Sum();
-        var randomWeight = random.RandfRange(0, (float) totalWeight);
-        var currentWeight = 0f;
-        foreach (var tileWeight in tileWeights) {
-            currentWeight += (float) tileWeight.Value;
-            if (currentWeight >= randomWeight) {
-                return tileWeight.Key;
-            }
-        }
-        
-        return null;
-    }
-    
-    public Array<Vector2> GetNeighborRooms(GeneratorTile[,] states) {
-        var neighborRooms = new Array<Vector2>();
-        var x = (int)Position.X;
-        var y = (int)Position.Y;
-        if (x > 0) {
-            neighborRooms.Add(new Vector2(x - 1, y));
-        }
-        
-        if (x < states.GetLength(0) - 1) {
-            neighborRooms.Add(new Vector2(x + 1, y));
-        }
-        
-        if (y > 0) {
-            neighborRooms.Add(new Vector2(x, y - 1));
-        }
-        
-        if (y < states.GetLength(1) - 1) {
-            neighborRooms.Add(new Vector2(x, y + 1));
-        }
-        
-        return neighborRooms;
+        GD.Print($"Room at {Position} collapsed to {room.ID}");
+
     }
 
-    private Array<string> GetNeighborTileIds(GeneratorTile[,] states)
+    public Array<RoomDef> GetALLPossibleRooms(RoomSet set, GeneratorRoom[,] state)
     {
-        var neighborRooms = new Array<string>();
-        var x = (int)Position.X;
-        var y = (int)Position.Y;
-        // if (x > 0)
-        // {
-        //     neighborRooms.Add(states[x - 1, y].GetCollapsedTile());
-        // }
-        //
-        // if (x < states.GetLength(0) - 1)
-        // {
-        //     neighborRooms.Add(states[x + 1, y].GetCollapsedTile());
-        // }
-        //
-        // if (y > 0)
-        // {
-        //     neighborRooms.Add(states[x, y - 1].GetCollapsedTile());
-        // }
-        //
-        // if (y < states.GetLength(1) - 1)
-        // {
-        //     neighborRooms.Add(states[x, y + 1].GetCollapsedTile());
-        // }
+        var possibleRooms = new Array<RoomDef>();
+        foreach (var room in set.Rooms)
+        {
+            var allowed = true;
+            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>())
+            {
+                allowed = allowed && CheckConnection(side, room, state, set);
+            }
 
-        // remove nulls and empty strings
-        var nonNullNeighborRooms = new Array<string>();
-        nonNullNeighborRooms.AddRange(neighborRooms.Where(tile => tile != null && tile != ""));
-    
-
-    return nonNullNeighborRooms;
-    }
-    
-    private string GetCollapsedTile() {
-        if (IsCollapsed) {
-            return PossibleRooms[0];
+            if (allowed) possibleRooms.Add(room);
         }
-        return null;
-    }
-    
-    
-    
-    
-    
-   
 
-    
+        return possibleRooms;
+
+    }
+
+
+    public void RecalculatePossibleRooms(RoomSet set, GeneratorRoom[,] state)
+    {
+        if (IsCollapsed) return;
+        var possibleRooms = GetALLPossibleRooms(set, state);
+
+        PossibleRooms = possibleRooms;
+        if (PossibleRooms.Count == 1) IsCollapsed = true;
+        if (PossibleRooms.Count == 0)
+        {
+            // see if collapsed neighbors can be changed to allow this room
+            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>())
+            {
+                var neighbor = GetNeighbor(side, state);
+                if (neighbor == null) continue;
+                var numPossibleRooms = neighbor.GetALLPossibleRooms(set, state).Count;
+                if (numPossibleRooms > 1)
+                {
+                    neighbor.IsCollapsed = false;
+                    neighbor.RecalculatePossibleRooms(set, state);
+                    
+                }
+            }
+            RecalculatePossibleRooms(set, state);
+
+        }
+        
+        
+        
+GD.Print($"Room at {Position} has {PossibleRooms.Count} possible rooms");
+    }
+
+    private bool CheckConnection(RoomDef.Side side, RoomDef room, GeneratorRoom[,] state, RoomSet set)
+    {
+        var neighbor = GetNeighbor(side, state);
+        if (neighbor == null) return true;
+        var connection = set.GetConnectionOfId(room.GetConnectionType(side));
+        var allowedConnections = connection.AllowedConnections;
+        var neighborSideConnectionType = neighbor.PossibleRooms[0].GetConnectionType(RoomDef.GetOppositeSide(side));
+        
+       
+        
+        return allowedConnections.Contains(neighborSideConnectionType);
+    }
+
+    private GeneratorRoom GetNeighbor(RoomDef.Side side, GeneratorRoom[,] state) {
+        var pos = Position;
+        switch (side) {
+            case RoomDef.Side.Top:
+                if (pos.Y == 0) return null;
+                return state[pos.X, pos.Y - 1];
+            case RoomDef.Side.Bottom:
+                if (pos.Y == state.GetLength(1) - 1) return null;
+                return state[pos.X, pos.Y + 1];
+            case RoomDef.Side.Left:
+                if (pos.X == 0) return null;
+                return state[pos.X - 1, pos.Y];
+            case RoomDef.Side.Right:
+                if (pos.X == state.GetLength(0) - 1) return null;
+                return state[pos.X + 1, pos.Y];
+            default:
+                throw new ArgumentOutOfRangeException(nameof(side), side, null);
+        }
+    }
 }

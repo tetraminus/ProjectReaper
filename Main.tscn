@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=7 format=3 uid="uid://b6447c6lsiptv"]
 
+[ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_jljdq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
 [ext_resource type="PackedScene" uid="uid://dyhvyouvfhdra" path="res://Enemies/Goober.tscn" id="4_n2avl"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8heds"]
+vertices = PackedVector2Array(2191, -198, 2143, 1592, -237, 1539, -411, -512)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-423.219, -523.512, 2295.34, -476.502, 2288.7, 1912.42, -655.574, 2134.65)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
 [node name="Main" type="Node2D"]
+script = ExtResource("1_5rvjs")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(592, 318)
@@ -41,3 +49,7 @@ inactive_update_mode = 0
 
 [node name="Goober" parent="." instance=ExtResource("4_n2avl")]
 position = Vector2(205, 123)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+scale = Vector2(0.602525, 0.467993)
+navigation_polygon = SubResource("NavigationPolygon_8heds")
