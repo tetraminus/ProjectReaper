@@ -1,13 +1,11 @@
 using Godot;
 using ProjectReaper.Abilities;
+using ProjectReaper.Util;
 using System;
 
 public partial class Enemy : CharacterBody2D
-{
-	[Export]
-	private float speed = 100.0f;
-
-	
+{ 
+	public Stats stats = new Stats();
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void  _PhysicsProcess(double delta)
@@ -25,7 +23,7 @@ public partial class Enemy : CharacterBody2D
 
 		// Move the enemy towards the player
 		if (Math.Abs((playerPosition-GlobalPosition).Length()) > 100){
-            Velocity = direction * speed;
+            Velocity = direction * stats.Speed ;
 		    MoveAndSlide();
         }
            
