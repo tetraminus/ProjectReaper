@@ -6,6 +6,11 @@ using System;
 public partial class Enemy : CharacterBody2D
 { 
 	public Stats stats = new Stats();
+	public override void _Ready()
+	{
+		stats.Init();
+	}
+		
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void  _PhysicsProcess(double delta)
@@ -23,10 +28,12 @@ public partial class Enemy : CharacterBody2D
 
 		// Move the enemy towards the player
 		if (Math.Abs((playerPosition-GlobalPosition).Length()) > 100){
-            Velocity = direction * stats.Speed ;
-		    MoveAndSlide();
-        }
-           
+			Velocity = direction * stats.Speed ;
+			MoveAndSlide();
+		}
+		
+	
+
 	}
 
 	

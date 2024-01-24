@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0q8q"]
 size = Vector2(128, 130)
 
-[node name="Goober" type="CharacterBody2D"]
+[node name="Gooberbert" type="CharacterBody2D"]
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0.0156863, 1)
