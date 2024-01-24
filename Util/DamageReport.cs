@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Godot;
+using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Util; 
 
@@ -9,23 +10,30 @@ public partial class DamageReport : GodotObject {
     public float BaseDamage { get; set; }
     
     
-    [AllowNull] public Node2D Source { get; set; }
+    [AllowNull] public AbstractCreature Source { get; set; }
     
-    public Node2D Target { get; set; }
+    public AbstractCreature Target { get; set; }
     
-    public DamageReport(float damage, Node2D source, Node2D target)
+    public Stats SourceStats { get; set; }
+    
+    public Stats TargetStats { get; set; }
+    
+    public DamageReport(float damage, AbstractCreature source, AbstractCreature target, Stats sourceStats = null, Stats targetStats = null)
     {
         Damage = damage;
         BaseDamage = damage;
         Source = source;
         Target = target;
+        SourceStats = sourceStats;
+        TargetStats = targetStats;
     }
-    
-    public DamageReport(float damage, Node2D target)
-    {
+
+
+    public DamageReport(float damage, AbstractCreature target, Stats targetStats = null, Stats sourceStats = null){
         Damage = damage;
         BaseDamage = damage;
         Target = target;
+        TargetStats = targetStats;
     }
     
     public float GetDamage()

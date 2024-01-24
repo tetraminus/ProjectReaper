@@ -3,15 +3,7 @@
 <rooms>
 	
 
-	<room id="room0">
-		<rotatable/>
-		<connections>
-			<top type="2"/>
-			<bottom type="2"/>
-			<left type="2"/>
-			<right type="2"/>
-		</connections>
-	</room>
+	
 	
 	<room id="room2">
 		<rotatable/>

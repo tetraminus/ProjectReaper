@@ -10,7 +10,7 @@ public partial class Level : Node2D
 	{
 		GameManager.Level = this;
 		
-		LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, 1);
+		//LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, 1);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=6 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_jljdq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
+[ext_resource type="PackedScene" uid="uid://dyhvyouvfhdra" path="res://Enemies/Goober.tscn" id="5_p82x3"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5rvjs")
@@ -39,3 +40,6 @@ limit/smoothed = false
 tween_parameters = null
 tween_on_load = true
 inactive_update_mode = 0
+
+[node name="Goober" parent="." instance=ExtResource("5_p82x3")]
+position = Vector2(242, 113)

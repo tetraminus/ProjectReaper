@@ -1,25 +1,26 @@
 using Godot;
-using System;
-using ProjectReaper.Player;
-using ProjectReaper.Util;
+using ProjectReaper.Enemies;
 
-public partial class Player : CharacterBody2D
+namespace ProjectReaper.Player; 
+
+public partial class Player : AbstractCreature
 {
 	[Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
 	
-	public Stats Stats { get; set; } = new Stats();
-
 	public override void _Ready()
 	{
 		if (_abilityManager.GetParent() != this)
 		{
 			_abilityManager.Reparent(this);
 		}
-		
 		GameManager.Player = this;
-
 		InitStats();
+	}
 
+	public override void OnHit() {
+	}
+
+	public override void OnDeath() {
 	}
 
 	public void GetInput()

@@ -1,6 +1,7 @@
 using Godot;
 using ProjectReaper.Abilities;
 using ProjectReaper.Abilities.Projectiles;
+using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Globals;
 
@@ -17,6 +18,9 @@ public partial class Callbacks : Node
 	
 	[Signal]
 	public delegate void BulletHitEventHandler(AbstractDamageArea bullet);
+	
+	[Signal]
+	public delegate void CreatureDamagedEventHandler(AbstractCreature creature, float damage);
 	
 	public override void _Ready() {
 		Instance = this;
