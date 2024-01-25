@@ -13,22 +13,12 @@ script = ExtResource("1_uxw6u")
 modulate = Color(1, 0, 0.0156863, 1)
 texture = ExtResource("1_clqeg")
 
-
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g0q8q")
 
 [node name="Hurtbox" type="Area2D" parent="."]
->>>>>>> parent of cd7ebe1 (KILL)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_g0q8q")
-
-
-[node name="Hurtbox" type="Area2D" parent="."]
-
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_g0q8q")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
