@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3madycyn822b"]
+
+[ext_resource type="Script" path="res://Enemy/Enemy.cs" id="1_cq1dk"]
+[ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="2_vo7jb"]
+[ext_resource type="Script" path="res://Enemy/Range.cs" id="3_ehses"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q1q3e"]
+radius = 92.0054
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttso5"]
+size = Vector2(21, 25)
+
+[node name="Sludgebert" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_cq1dk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, -4)
+scale = Vector2(0.625, 0.546875)
+texture = ExtResource("2_vo7jb")
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ehses")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+position = Vector2(7, 0)
+shape = SubResource("CircleShape2D_q1q3e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -5.5)
+shape = SubResource("RectangleShape2D_ttso5")
