@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://Enemy/EnemyShoot.cs" id="4_h68by"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q1q3e"]
+
 radius = 97.8246
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttso5"]
 size = Vector2(21, 25)
@@ -16,6 +18,9 @@ position = Vector2(165, 220)
 rotation = -0.0120244
 collision_layer = 3
 script = ExtResource("1_i1vqe")
+
+metadata/_edit_group_ = true
+
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, -4)
