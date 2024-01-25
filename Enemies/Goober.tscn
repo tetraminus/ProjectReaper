@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyhvyouvfhdra"]
+[gd_scene load_steps=5 format=3 uid="uid://dyhvyouvfhdra"]
 
 [ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="1_clqeg"]
 [ext_resource type="Script" path="res://Enemies/Goober.cs" id="1_uxw6u"]
+[ext_resource type="Script" path="res://Enemies/Hurtbox.cs" id="3_xkdwv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0q8q"]
 size = Vector2(128, 130)
@@ -17,6 +18,7 @@ texture = ExtResource("1_clqeg")
 shape = SubResource("RectangleShape2D_g0q8q")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("3_xkdwv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_g0q8q")
