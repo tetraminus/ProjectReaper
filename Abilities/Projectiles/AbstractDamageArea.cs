@@ -1,4 +1,4 @@
-using Godot;
+using Godot;	
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Util;
@@ -23,7 +23,7 @@ public abstract partial class AbstractDamageArea : Area2D
 				enemy.Damage(new DamageReport(Damage, GameManager.Player, enemy));
 				QueueFree();
 			}
-			else if (area is global::ProjectReaper.Player.Player player && IsEnemy)
+			else if (area is Player.Player player && IsEnemy)
 			{
 				player.Damage(new DamageReport(Damage, GameManager.Player, player));
 				QueueFree();

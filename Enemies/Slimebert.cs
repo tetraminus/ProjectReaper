@@ -2,8 +2,9 @@ using Godot;
 using ProjectReaper.Abilities;
 using ProjectReaper.Util;
 using System;
+using ProjectReaper.Enemies;
 
-public partial class Slimebert : CharacterBody2D
+public partial class Slimebert : AbstractCreature
 {
 	private EnemyShoot  Shooting = new EnemyShoot();
 
@@ -43,6 +44,14 @@ public partial class Slimebert : CharacterBody2D
 		ShootTimer.Start();
 
 		this.AddChild(Shooting);
+    }
+
+    public override void OnHit() {
+        
+    }
+
+    public override void OnDeath() {
+        
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
