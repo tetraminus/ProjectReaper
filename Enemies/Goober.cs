@@ -5,6 +5,7 @@ public partial class Goober : AbstractCreature
     public override void _Ready() {
         Stats.Init();
         Stats.Speed = 10;
+        
         base._Ready();
     }
 
@@ -18,14 +19,5 @@ public partial class Goober : AbstractCreature
         MoveAndCollide(Velocity * (float) delta);
 
     }
-
-    public override void OnHit()
-    {
-        
-    }
-
-    public override void OnDeath()
-    {
-        
-    }
+    
 }

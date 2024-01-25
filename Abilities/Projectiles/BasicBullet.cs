@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Abilities.Projectiles;
 
@@ -6,8 +7,12 @@ public partial class BasicBullet : AbstractDamageArea
 {
 		
 		private Timer _timer = new Timer();
+		
+	
+	
 		public override void _Ready()
 		{
+			base._Ready();
 				AddChild(_timer);
 				_timer.Timeout += () => QueueFree();
 				_timer.Start(Duration);
