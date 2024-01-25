@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://sha3oq7c7tjd"]
 
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://player.tscn" id="1_2gs8l"]
-[ext_resource type="PackedScene" uid="uid://c3madycyn822b" path="res://Enemy/enemy.tscn" id="2_tsnhj"]
-[ext_resource type="PackedScene" uid="uid://c6gqfew1uq5xq" path="res://Enemy/Slimebert.tscn" id="3_d6e6g"]
+[ext_resource type="PackedScene" path="res://Enemies/enemy.tscn" id="2_tsnhj"]
+[ext_resource type="PackedScene" path="res://Enemies/Slimebert.tscn" id="3_d6e6g"]
 
 [node name="Main 2" type="Node2D"]
 
