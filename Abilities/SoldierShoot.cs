@@ -12,7 +12,6 @@ public partial class SoldierShoot : AbstractAbility
         Globals.Callbacks.Instance.EmitSignal(Globals.Callbacks.SignalName.BulletCreated, bullet);
         bullet.Position = GameManager.Player.GlobalPosition;
         bullet.LookAt(GameManager.Player.GetGlobalMousePosition());
-        bullet.Source = GameManager.Player;
         GetTree().Root.AddChild(bullet);
     }
 
