@@ -16,9 +16,15 @@ public abstract partial class AbstractCreature : CharacterBody2D {
         
     }
 
-	public abstract void OnHit();
+    public virtual void OnHit()
+    {
+	    
+    }
 	
-	public abstract void OnDeath();
+	public virtual void OnDeath() {
+		Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
+		QueueFree();
+	}
 
 
 	public void Damage(DamageReport damageReport) {

@@ -1,15 +1,20 @@
-﻿namespace ProjectReaper.Enemies;
+﻿using Godot;
+
+namespace ProjectReaper.Enemies;
 
 public partial class Goober : AbstractCreature
 {
+    AnimatedSprite2D sprite; 
+    
     public override void _Ready() {
 
         base._Ready();
-        Stats.Speed = 10;
+        Stats.Speed = 50;
         Stats.Health = 10;
         Stats.MaxHealth = 10;
         
-        
+        sprite = GetNode<AnimatedSprite2D>("Sprite");
+        sprite.Play();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -22,14 +27,5 @@ public partial class Goober : AbstractCreature
         MoveAndCollide(Velocity * (float) delta);
 
     }
-
-    public override void OnHit()
-    {
-        
-    }
-
-    public override void OnDeath()
-    {
-        
-    }
+    
 }

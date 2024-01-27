@@ -11,6 +11,8 @@ public partial class BasicBullet : AbstractDamageArea
 				AddChild(_timer);
 				_timer.Timeout += () => QueueFree();
 				_timer.Start(Duration);
+				
+				base._Ready();
 		}
 
 		public override void _Process(double delta)

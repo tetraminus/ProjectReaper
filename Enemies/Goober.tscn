@@ -1,10 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://dyhvyouvfhdra"]
 
 [ext_resource type="Script" path="res://Enemies/Goober.cs" id="1_uxw6u"]
-[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_5ytd8"]
+[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_38o8w"]
 [ext_resource type="Texture2D" uid="uid://bt1t5gakn04cr" path="res://Enemies/Assets/shadow-enemy.png" id="3_ysvns"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_uxt6j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcu0q"]
 atlas = ExtResource("3_ysvns")
@@ -70,30 +68,27 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uxt6j"]
+
 [node name="Goober" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_uxw6u")
 
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0.0156863, 1)
-texture = ExtResource("1_clqeg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_g0q8q")
-
-[node name="Hurtbox" type="Area2D" parent="."]
-script = ExtResource("3_xkdwv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CircleShape2D_uxt6j")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6t6pw")
 animation = &"Idle"
 frame_progress = 0.186129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uxt6j")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_38o8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_uxt6j")
