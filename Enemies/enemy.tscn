@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3madycyn822b"]
 
-[ext_resource type="Script" path="res://Enemy/Enemy.cs" id="1_cq1dk"]
+[ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_cq1dk"]
 [ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="2_vo7jb"]
-[ext_resource type="Script" path="res://Enemy/Range.cs" id="3_ehses"]
+[ext_resource type="Script" path="res://Enemies/Range.cs" id="3_ehses"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q1q3e"]
 radius = 92.0054
