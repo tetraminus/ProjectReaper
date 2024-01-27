@@ -1,13 +1,78 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyhvyouvfhdra"]
+[gd_scene load_steps=14 format=3 uid="uid://dyhvyouvfhdra"]
 
-[ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="1_clqeg"]
 [ext_resource type="Script" path="res://Enemies/Goober.cs" id="1_uxw6u"]
-[ext_resource type="Script" path="res://Enemies/Hurtbox.cs" id="3_xkdwv"]
+[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_5ytd8"]
+[ext_resource type="Texture2D" uid="uid://bt1t5gakn04cr" path="res://Enemies/Assets/shadow-enemy.png" id="3_ysvns"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0q8q"]
-size = Vector2(128, 130)
+[sub_resource type="CircleShape2D" id="CircleShape2D_uxt6j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcu0q"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlmvc"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqb2i"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3l4d"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2em1"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw5vc"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b7ms"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2533m"]
+atlas = ExtResource("3_ysvns")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6t6pw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcu0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlmvc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqb2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3l4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2em1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw5vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b7ms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2533m")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 16.0
+}]
 
 [node name="Goober" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_uxw6u")
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -21,6 +86,14 @@ shape = SubResource("RectangleShape2D_g0q8q")
 script = ExtResource("3_xkdwv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_g0q8q")
+shape = SubResource("CircleShape2D_uxt6j")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6t6pw")
+animation = &"Idle"
+frame_progress = 0.186129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uxt6j")

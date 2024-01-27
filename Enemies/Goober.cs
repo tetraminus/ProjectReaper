@@ -3,9 +3,13 @@
 public partial class Goober : AbstractCreature
 {
     public override void _Ready() {
-        Stats.Init();
-        Stats.Speed = 10;
+
         base._Ready();
+        Stats.Speed = 10;
+        Stats.Health = 10;
+        Stats.MaxHealth = 10;
+        
+        
     }
 
     public override void _PhysicsProcess(double delta)

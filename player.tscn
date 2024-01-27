@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2pfv"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
 collision_layer = 3
@@ -15,11 +15,10 @@ _abilityManager = NodePath("AbilityManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.13, 0.13)
 texture = ExtResource("2_ip2wh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_e2pfv")
 
 [node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("Ability1")]
