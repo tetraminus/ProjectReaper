@@ -1,39 +1,39 @@
 [gd_scene load_steps=15 format=3 uid="uid://c3madycyn822b"]
 
 [ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_cq1dk"]
-[ext_resource type="Texture2D" uid="uid://cgaa8s5t8gkmr" path="res://Enemies/shadow-enemy.png" id="2_neoav"]
-[ext_resource type="Script" path="res://Enemies/Range.cs" id="3_ehses"]
+[ext_resource type="Texture2D" uid="uid://cgaa8s5t8gkmr" path="res://Enemies/Assets/shadow-enemy (2).png" id="2_bm7bj"]
+[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_igvfp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vs3g"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3lek"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8lc0"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rxvwo"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_arif2"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tstx6"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tf5hp"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_atdfc"]
-atlas = ExtResource("2_neoav")
+atlas = ExtResource("2_bm7bj")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3la00"]
@@ -69,31 +69,28 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q1q3e"]
-radius = 92.0054
+radius = 8.60233
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttso5"]
-size = Vector2(73.25, 72.5)
+size = Vector2(14.625, 15.25)
 
 [node name="Sludgebert" type="CharacterBody2D"]
 collision_layer = 3
 script = ExtResource("1_cq1dk")
-metadata/_edit_group_ = true
 
 [node name="ShadowGuy" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.19209e-07, -1.13687e-13)
-scale = Vector2(4.37067, 4.26129)
 sprite_frames = SubResource("SpriteFrames_3la00")
 animation = &"Moving "
 frame_progress = 0.600021
 
-[node name="Range" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("3_ehses")
+script = ExtResource("3_igvfp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_q1q3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ttso5")

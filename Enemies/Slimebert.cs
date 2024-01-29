@@ -9,14 +9,14 @@ using System.Diagnostics;
 
 
 
-public partial class Slimebert : CharacterBody2D
+public partial class Slimebert : AbstractCreature
 {
 
     public AnimatedSprite2D sprite;
 
 	private EnemyShoot  Shooting = new EnemyShoot();
 
-    public Stats stats = new Stats();
+
 
     private enum EnemyState
     {
@@ -34,7 +34,7 @@ public partial class Slimebert : CharacterBody2D
     private Vector2 randomDirection = Vector2.Zero; // Store the random direction
     ulong lastTimeMs = 0;
 
-    float movementDist = 50.0f;
+    float movementDist = 25.0f;
 
 
 
@@ -43,7 +43,8 @@ public partial class Slimebert : CharacterBody2D
 
     public override void _Ready()
     {
-        stats.Init();
+        Stats.Init();
+        Stats.Health = 20;
 
         // Create and add a timer for state switching
         stateTimer = new Timer();
@@ -100,7 +101,7 @@ public partial class Slimebert : CharacterBody2D
         switch (currentState)
         {
             case EnemyState.Moving:
-                MoveRandomly(randomDirection * stats.Speed);
+                MoveRandomly(randomDirection * Stats.Speed);
                 break;
             case EnemyState.Shooting:
                 ShootState();
@@ -124,7 +125,7 @@ public partial class Slimebert : CharacterBody2D
         // Move the enemy towards the player
         if (Math.Abs((playerPosition - GlobalPosition).Length()) > 100)
         {
-            Velocity = direction * stats.Speed;
+            Velocity = direction * Stats.Speed;
             MoveAndSlide();
         }
     }

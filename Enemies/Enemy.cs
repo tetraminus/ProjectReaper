@@ -1,10 +1,11 @@
 using Godot;
 using ProjectReaper.Abilities;
+using ProjectReaper.Enemies;
 using ProjectReaper.Player;
 using ProjectReaper.Util;
 using System;
 
-public partial class Enemy : CharacterBody2D
+public partial class Enemy : AbstractCreature 
 { 
 	public Stats stats = new Stats();
 	public AnimatedSprite2D sprite;
