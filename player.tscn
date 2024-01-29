@@ -10,6 +10,7 @@ size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
 collision_layer = 3
+motion_mode = 1
 script = ExtResource("1_vrt2t")
 _abilityManager = NodePath("AbilityManager")
 
