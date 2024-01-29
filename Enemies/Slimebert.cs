@@ -11,6 +11,9 @@ using System.Diagnostics;
 
 public partial class Slimebert : CharacterBody2D
 {
+
+    public AnimatedSprite2D sprite;
+
 	private EnemyShoot  Shooting = new EnemyShoot();
 
     public Stats stats = new Stats();
@@ -67,7 +70,29 @@ public partial class Slimebert : CharacterBody2D
 		ShootTimer.Start();
 
 		this.AddChild(Shooting);
+
+            //Animated sprite 
+
+
+        
+
+        sprite = (FindChild("Slimeboy") as AnimatedSprite2D);
+		sprite.Play();
+	
+		
     }
+     public override void _Process(double delta)
+    {
+		if(Position.X > GameManager.Player.Position.X) {
+			sprite.FlipH = false;
+		} else {
+			sprite.FlipH = true;
+		}
+
+     
+    }
+
+
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
@@ -112,7 +137,7 @@ public partial class Slimebert : CharacterBody2D
         ulong currentTimeMs = Time.GetTicksMsec();       
 
         //if ((currentTimeMs - lastTimeMs) > 20.0) {
-        Debug.Print(randomDirection.ToString());
+        
 
         if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f) {
             randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
