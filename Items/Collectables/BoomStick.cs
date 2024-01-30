@@ -19,7 +19,7 @@ public partial class BoomStick : AbstractItem
 	
 	public void onCreatureDied(AbstractCreature creature) {
 		
-		GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 3f);
+		GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1f);
 		
 	}
 
