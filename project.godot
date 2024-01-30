@@ -81,6 +81,10 @@ Move_Left={
 ]
 }
 
+[physics]
+
+2d/physics_engine="Box2D"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
