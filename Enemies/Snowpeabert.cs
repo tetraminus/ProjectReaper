@@ -1,27 +1,28 @@
 using Godot;
-using ProjectReaper.Abilities;
+
 using ProjectReaper.Util;
 using System;
 
-using ProjectReaper.Enemies;
+using ProjectReaper.Abilities;
 using System.Collections.Specialized;
 using System.Diagnostics;
+namespace ProjectReaper.Enemies;
 
 
-
-public partial class Slimebert : AbstractCreature
+public partial class Snowpeabert : AbstractCreature
 {
 
     public AnimatedSprite2D sprite;
 
-	private SlimeBertShoot  Shooting = new SlimeBertShoot();
+	private SnowPeaShoot Shooting = new SnowPeaShoot();
 
 
 
     private enum EnemyState
     {
         Moving,
-        Shooting
+        Shooting,
+        Burrowing
     }
 
     private EnemyState currentState = EnemyState.Moving;
@@ -38,8 +39,28 @@ public partial class Slimebert : AbstractCreature
 
 
 
+    private float burrowTime = 2.0f; // Time in seconds for how long the character will burrow
 
-    
+    private CollisionShape2D collisionShape;
+    private Timer burrowTimer;
+
+   
+
+    private void Burrow()
+    {
+        currentState = EnemyState.Burrowing;
+        Visible = false; // Make the KinematicBody2D invisible
+        collisionShape.Disabled = true; // Disable the collisions
+        burrowTimer.Start(2); // Start the timer
+    }
+
+    private void Unburrow()
+    {   
+        currentState = EnemyState.Moving; 
+        Visible = true; // Make the KinematicBody2D visible again
+        collisionShape.Disabled = false; // Enable the collisions
+        burrowTimer.Start(2);
+    }
 
     public override void _Ready()
     {
@@ -59,35 +80,42 @@ public partial class Slimebert : AbstractCreature
         randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
         randomDirection.X += GlobalPosition.X;
         randomDirection.Y += GlobalPosition.Y;
-        
-
-
-		        // Create and add a timer for state switching
-        ShootTimer = new Timer();
-        AddChild(ShootTimer);
-        ShootTimer.WaitTime = 0.5f; // Adjust the time as needed
-        ShootTimer.OneShot = true;
-        ShootTimer.Timeout += _OnStateTimerTimeout;
-		ShootTimer.Start();
 
 		this.AddChild(Shooting);
 
-            //Animated sprite 
-
-
-        
-
-        sprite = (FindChild("Slimeboy") as AnimatedSprite2D);
+        sprite = (FindChild("Snowboy") as AnimatedSprite2D);
 		sprite.Play();
-	
-		
-    }
+
+       
+       
+     collisionShape = GetNode<CollisionShape2D>("CollisionShape2D"); // Replace with your actual CollisionShape2D path
+        
+        
+        burrowTimer = new Timer();
+        AddChild(burrowTimer);
+        burrowTimer.WaitTime = burrowTime;
+        burrowTimer.Timeout += () => {
+            if (currentState == EnemyState.Burrowing){
+                Unburrow();
+            } else {
+                Burrow();
+            }
+
+        };
+        
+        burrowTimer.Start(2);
+
+
+
+
+
+        }
      public override void _Process(double delta)
     {
 		if(Position.X > GameManager.Player.Position.X) {
-			sprite.FlipH = false;
-		} else {
 			sprite.FlipH = true;
+		} else {
+			sprite.FlipH = false;
 		}
 
      
@@ -100,12 +128,15 @@ public partial class Slimebert : AbstractCreature
     {
         switch (currentState)
         {
-            case EnemyState.Moving:
-                MoveRandomly(randomDirection * Stats.Speed);
-                break;
-            case EnemyState.Shooting:
+             case EnemyState.Shooting:
                 ShootState();
                 break;
+            case EnemyState.Burrowing:
+                MoveRandomly(randomDirection * Stats.Speed);
+                break;
+
+                
+
         }
     }
 
@@ -168,19 +199,24 @@ public partial class Slimebert : AbstractCreature
 
     private void ShootState()
     {
-		if (ShootTimer.TimeLeft > 0) return;
         Shooting.Use();
-		ShootTimer.Start();
+	
 	
     }
 
     private void _OnStateTimerTimeout()
     {
         // Switch between Moving and Shooting states when the timer expires
-        currentState = (currentState == EnemyState.Moving) ? EnemyState.Shooting : EnemyState.Moving;
+        currentState = (currentState == EnemyState.Burrowing) ? EnemyState.Shooting : EnemyState.Burrowing;
 
         // Reset the timer for the next state switch
         stateTimer.Start();
     }
-}
 
+
+
+
+           
+    
+
+}
