@@ -56,10 +56,11 @@ public partial class Snowpeabert : AbstractCreature
 
     private void Unburrow()
     {   
-        currentState = EnemyState.Moving; 
+        currentState = EnemyState.Shooting; 
         Visible = true; // Make the KinematicBody2D visible again
         collisionShape.Disabled = false; // Enable the collisions
         burrowTimer.Start(2);
+        
     }
 
     public override void _Ready()
