@@ -104,12 +104,12 @@ public partial class Snowpeabert : AbstractCreature
             if (currentState == EnemyState.Burrowing)
             {
                 Unburrow();
-                burrowTimer.Start(10);
+                burrowTimer.Stop();
             }
             else
             {
                 Burrow();
-                burrowTimer.Start(10);
+                burrowTimer.Start(2);
 
 
             }
