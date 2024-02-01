@@ -2,7 +2,7 @@ using Godot;
 
 namespace ProjectReaper.Enemies; 
 
-public class EnemySpawnCard : GodotObject{
+public partial class EnemySpawnCard : GodotObject{
     
     public PackedScene Enemy;
     public string id;
