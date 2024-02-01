@@ -49,6 +49,7 @@ public partial class Player : AbstractCreature
 		{
 			_abilityManager.UseAbility4();
 		}
+		MoveAndSlide();
 	}
 
 
@@ -56,11 +57,12 @@ public partial class Player : AbstractCreature
 	{
 		GetInput();
 		Velocity = Velocity.Lerp(Vector2.Zero, .2f);
-		MoveAndSlide();
+		
 	}
 
 	private void InitStats() {
 		Stats.Init();
+		Stats.Speed = 50;
 	}
 	
 	

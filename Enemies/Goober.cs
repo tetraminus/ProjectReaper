@@ -24,7 +24,7 @@ public partial class Goober : AbstractCreature
         
         Velocity = dir.Normalized() * Stats.Speed;
 
-        MoveAndCollide(Velocity * (float) delta);
+        MoveAndSlide();
 
     }
     

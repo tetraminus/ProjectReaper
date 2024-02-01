@@ -8,7 +8,7 @@ namespace ProjectReaper.Abilities.Projectiles;
 public abstract partial class AbstractDamageArea : Area2D
 {
 	
-	private Timer _timer;
+	protected Timer Timer;
 	public bool IsEnemy = false;
 	
 	public AbstractCreature Source { get; set; }
