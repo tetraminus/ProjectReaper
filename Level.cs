@@ -13,7 +13,7 @@ public partial class Level : Node2D
 		GameManager.Level = this;
 		
 		AddChild(EnemySpawnTimer);
-		EnemySpawnTimer.WaitTime = 1;
+		EnemySpawnTimer.WaitTime = 0.1;
 		EnemySpawnTimer.Timeout += _OnEnemySpawnTimerTimeout;
 		EnemySpawnTimer.Start();
 		
@@ -31,8 +31,8 @@ public partial class Level : Node2D
 		AddChild(enemy);
 		
 		Vector2 randomDirection = new Vector2();
-		randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f));
-		randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f));
+		randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
+		randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
 		randomDirection = randomDirection.Normalized();
 		randomDirection *= 1000;
 		enemy.GlobalPosition = randomDirection + GameManager.Player.GlobalPosition;

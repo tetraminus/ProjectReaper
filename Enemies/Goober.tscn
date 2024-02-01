@@ -73,6 +73,7 @@ animations = [{
 [node name="Goober" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_uxw6u")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

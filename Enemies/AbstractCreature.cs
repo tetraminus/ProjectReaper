@@ -9,6 +9,7 @@ public abstract partial class AbstractCreature : CharacterBody2D {
     public Stats Stats { get; set; } = new Stats();
     
     public Area2D Hurtbox { get; set; }
+    public bool dead = false;
 
     public override void _Ready() {
         Stats.Init();
@@ -23,11 +24,14 @@ public abstract partial class AbstractCreature : CharacterBody2D {
 	
 	public virtual void OnDeath() {
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
+		dead = true;
 		QueueFree();
 	}
 
 
 	public void Damage(DamageReport damageReport) {
+		if (dead) return;
+		
 		var damage = damageReport.Damage;
 		var source = damageReport.Source;
 		var target = damageReport.Target;
