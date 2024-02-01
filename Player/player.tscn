@@ -1,9 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=8 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
-[ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="2_ip2wh"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_r31u1"]
 [ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
+[ext_resource type="Texture2D" uid="uid://dbio2bpmovm07" path="res://Player/PlayerTest.png" id="3_vje4l"]
 [ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k72yq"]
+shader = ExtResource("2_r31u1")
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2pfv"]
 size = Vector2(16, 16)
@@ -16,8 +25,8 @@ _abilityManager = NodePath("AbilityManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("2_ip2wh")
+material = SubResource("ShaderMaterial_k72yq")
+texture = ExtResource("3_vje4l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_e2pfv")
