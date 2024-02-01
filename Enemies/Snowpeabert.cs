@@ -14,21 +14,21 @@ public partial class Snowpeabert : AbstractCreature
 
     public AnimatedSprite2D sprite;
 
-	private SnowPeaShoot Shooting = new SnowPeaShoot();
+    private SnowPeaShoot Shooting = new SnowPeaShoot();
 
 
 
     private enum EnemyState
     {
-        Moving,
+
         Shooting,
         Burrowing
     }
 
-    private EnemyState currentState = EnemyState.Moving;
+    private EnemyState currentState = EnemyState.Burrowing;
     private Timer stateTimer;
 
-	private Timer ShootTimer;
+    private Timer ShootTimer;
 
 
     private Random random = new Random();
@@ -44,10 +44,11 @@ public partial class Snowpeabert : AbstractCreature
     private CollisionShape2D collisionShape;
     private Timer burrowTimer;
 
-   
+
 
     private void Burrow()
     {
+        GD.Print("Burrow");
         currentState = EnemyState.Burrowing;
         Visible = false; // Make the KinematicBody2D invisible
         collisionShape.Disabled = true; // Disable the collisions
@@ -55,12 +56,14 @@ public partial class Snowpeabert : AbstractCreature
     }
 
     private void Unburrow()
-    {   
-        currentState = EnemyState.Shooting; 
+    {
+        GD.Print("Unburrow");
+
+        currentState = EnemyState.Shooting;
         Visible = true; // Make the KinematicBody2D visible again
         collisionShape.Disabled = false; // Enable the collisions
         burrowTimer.Start(2);
-        
+
     }
 
     public override void _Ready()
@@ -74,7 +77,7 @@ public partial class Snowpeabert : AbstractCreature
         stateTimer.WaitTime = 2.0f; // Adjust the time as needed
         stateTimer.OneShot = true;
         stateTimer.Timeout += _OnStateTimerTimeout;
-		stateTimer.Start();
+        stateTimer.Start();
 
 
         randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
@@ -82,44 +85,56 @@ public partial class Snowpeabert : AbstractCreature
         randomDirection.X += GlobalPosition.X;
         randomDirection.Y += GlobalPosition.Y;
 
-		this.AddChild(Shooting);
+        this.AddChild(Shooting);
 
         sprite = (FindChild("Snowboy") as AnimatedSprite2D);
-		sprite.Play();
+        sprite.Play();
 
-       
-       
-     collisionShape = GetNode<CollisionShape2D>("CollisionShape2D"); // Replace with your actual CollisionShape2D path
-        
-        
+
+
+        collisionShape = GetNode<CollisionShape2D>("CollisionShape2D"); // Replace with your actual CollisionShape2D path
+
+
         burrowTimer = new Timer();
         AddChild(burrowTimer);
-        burrowTimer.WaitTime = burrowTime;
-        burrowTimer.Timeout += () => {
-            if (currentState == EnemyState.Burrowing){
+        burrowTimer.Timeout += _OnStateTimerTimeout;
+        burrowTimer.Timeout += () =>
+        {
+            GD.Print(currentState);
+            if (currentState == EnemyState.Burrowing)
+            {
                 Unburrow();
-            } else {
+                burrowTimer.Start(10);
+            }
+            else
+            {
                 Burrow();
+                burrowTimer.Start(10);
+
+
             }
 
         };
-        
-        burrowTimer.Start(2);
 
 
 
 
 
-        }
-     public override void _Process(double delta)
+
+
+    }
+    public override void _Process(double delta)
     {
-		if(Position.X > GameManager.Player.Position.X) {
-			sprite.FlipH = true;
-		} else {
-			sprite.FlipH = false;
-		}
+        if (Position.X > GameManager.Player.Position.X)
+        {
+            sprite.FlipH = true;
+        }
+        else
+        {
+            sprite.FlipH = false;
+        }
 
-     
+
     }
 
 
@@ -129,14 +144,14 @@ public partial class Snowpeabert : AbstractCreature
     {
         switch (currentState)
         {
-             case EnemyState.Shooting:
+            case EnemyState.Shooting:
                 ShootState();
                 break;
             case EnemyState.Burrowing:
                 MoveRandomly(randomDirection * Stats.Speed);
                 break;
 
-                
+
 
         }
     }
@@ -161,24 +176,27 @@ public partial class Snowpeabert : AbstractCreature
             MoveAndSlide();
         }
     }
-    
-    
+
+
     private void MoveRandomly(Vector2 vector2)
     {
         // Generate a random direction
         //Vector2 randomDirection = new Vector2((float)GD.Randf() * 2 - 1, (float)GD.Randf() * 2 - 1).Normalized();
-        ulong currentTimeMs = Time.GetTicksMsec();       
+        ulong currentTimeMs = Time.GetTicksMsec();
 
         //if ((currentTimeMs - lastTimeMs) > 20.0) {
-        
 
-        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f) {
+
+        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f)
+        {
             randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
             randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f)
+            {
                 randomDirection.X *= -1.0f;
             }
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f)
+            {
                 randomDirection.Y *= -1.0f;
             }
             randomDirection.X += GlobalPosition.X;
@@ -186,7 +204,7 @@ public partial class Snowpeabert : AbstractCreature
         }
 
         GlobalPosition = GlobalPosition.Lerp(randomDirection, 0.05f);
-        
+
 
         // Move the enemy in the random direction
         //Velocity = randomDirection * stats.Speed;
@@ -201,8 +219,8 @@ public partial class Snowpeabert : AbstractCreature
     private void ShootState()
     {
         Shooting.Use();
-	
-	
+
+
     }
 
     private void _OnStateTimerTimeout()
@@ -217,7 +235,7 @@ public partial class Snowpeabert : AbstractCreature
 
 
 
-           
-    
+
+
 
 }

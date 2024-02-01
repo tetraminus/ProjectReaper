@@ -18,7 +18,7 @@ public abstract partial class AbstractDamageArea : Area2D
 		Monitoring = true;
 		
 		AreaEntered += (area) => {
-			GD.Print("Area entered");
+			//GD.Print("Area entered");
 			if (area is not HurtBox hurtBox) return;
 			var enemy = hurtBox.GetParentCreature();
 			if (enemy == Source)return;
