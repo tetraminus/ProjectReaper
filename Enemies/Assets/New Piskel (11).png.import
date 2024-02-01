@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgaa8s5t8gkmr"
-path="res://.godot/imported/shadow-enemy.png-a5682574ff4a9bb093aab0af90cf0ce0.ctex"
+uid="uid://ckgpu0oj8qasi"
+path="res://.godot/imported/New Piskel (11).png-de0eb6feae3c2f84b732350d91e46047.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/shadow-enemy.png"
-dest_files=["res://.godot/imported/shadow-enemy.png-a5682574ff4a9bb093aab0af90cf0ce0.ctex"]
+source_file="res://Enemies/Assets/New Piskel (11).png"
+dest_files=["res://.godot/imported/New Piskel (11).png-de0eb6feae3c2f84b732350d91e46047.ctex"]
 
 [params]
 

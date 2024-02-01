@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://sha3oq7c7tjd"]
+[gd_scene load_steps=5 format=3 uid="uid://sha3oq7c7tjd"]
 
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_2gs8l"]
 [ext_resource type="PackedScene" uid="uid://c3madycyn822b" path="res://Enemies/enemy.tscn" id="2_tsnhj"]
 [ext_resource type="PackedScene" uid="uid://c6gqfew1uq5xq" path="res://Enemies/Slimebert.tscn" id="3_d6e6g"]
+[ext_resource type="PackedScene" uid="uid://so8wjykmd2e6" path="res://Enemies/Snowpeabert.tscn" id="4_hq2f5"]
 
 [node name="Main 2" type="Node2D"]
 
@@ -10,7 +11,10 @@
 position = Vector2(151, 147)
 
 [node name="Player" parent="." instance=ExtResource("1_2gs8l")]
-position = Vector2(511, 383)
+position = Vector2(384, 338)
 
 [node name="Slimebert" parent="." instance=ExtResource("3_d6e6g")]
-position = Vector2(723, 193)
+position = Vector2(409, 139)
+
+[node name="Snowpeabert" parent="." instance=ExtResource("4_hq2f5")]
+position = Vector2(304, 134)

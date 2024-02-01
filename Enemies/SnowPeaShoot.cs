@@ -4,9 +4,9 @@ using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Abilities;
 
-public partial class SlimeBertShoot : AbstractAbility
+public partial class SnowPeaShoot : AbstractAbility
 {
-    private static PackedScene BulletScene { get; } = GD.Load<PackedScene>("res://Abilities/Projectiles/SlimeBullet.tscn");
+    private static PackedScene BulletScene { get; } = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
     public override void Use()
     {
         var bullet = (AbstractDamageArea) BulletScene.Instantiate();
@@ -15,7 +15,6 @@ public partial class SlimeBertShoot : AbstractAbility
         bullet.LookAt( GameManager.Player.GlobalPosition);
         GetTree().Root.AddChild(bullet);
         bullet.Source = GetParent<AbstractCreature>();
-
     }
 
 	public override float Cooldown { get; set; } = 0.2f;

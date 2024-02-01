@@ -1,33 +1,34 @@
 using Godot;
-using ProjectReaper.Abilities;
+
 using ProjectReaper.Util;
 using System;
 
-using ProjectReaper.Enemies;
+using ProjectReaper.Abilities;
 using System.Collections.Specialized;
 using System.Diagnostics;
+namespace ProjectReaper.Enemies;
 
 
-
-public partial class Slimebert : AbstractCreature
+public partial class Snowpeabert : AbstractCreature
 {
 
     public AnimatedSprite2D sprite;
 
-	private SlimeBertShoot  Shooting = new SlimeBertShoot();
+    private SnowPeaShoot Shooting = new SnowPeaShoot();
 
 
 
     private enum EnemyState
     {
-        Moving,
-        Shooting
+
+        Shooting,
+        Burrowing
     }
 
-    private EnemyState currentState = EnemyState.Moving;
+    private EnemyState currentState = EnemyState.Burrowing;
     private Timer stateTimer;
 
-	private Timer ShootTimer;
+    private Timer ShootTimer;
 
 
     private Random random = new Random();
@@ -38,8 +39,32 @@ public partial class Slimebert : AbstractCreature
 
 
 
+    private float burrowTime = 2.0f; // Time in seconds for how long the character will burrow
 
-    
+    private CollisionShape2D collisionShape;
+    private Timer burrowTimer;
+
+
+
+    private void Burrow()
+    {
+        GD.Print("Burrow");
+        currentState = EnemyState.Burrowing;
+        Visible = false; // Make the KinematicBody2D invisible
+        collisionShape.Disabled = true; // Disable the collisions
+        burrowTimer.Start(2); // Start the timer
+    }
+
+    private void Unburrow()
+    {
+        GD.Print("Unburrow");
+
+        currentState = EnemyState.Shooting;
+        Visible = true; // Make the KinematicBody2D visible again
+        collisionShape.Disabled = false; // Enable the collisions
+        burrowTimer.Start(2);
+
+    }
 
     public override void _Ready()
     {
@@ -52,45 +77,64 @@ public partial class Slimebert : AbstractCreature
         stateTimer.WaitTime = 2.0f; // Adjust the time as needed
         stateTimer.OneShot = true;
         stateTimer.Timeout += _OnStateTimerTimeout;
-		stateTimer.Start();
+        stateTimer.Start();
 
 
         randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
         randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
         randomDirection.X += GlobalPosition.X;
         randomDirection.Y += GlobalPosition.Y;
-        
+
+        this.AddChild(Shooting);
+
+        sprite = (FindChild("Snowboy") as AnimatedSprite2D);
+        sprite.Play();
 
 
-		        // Create and add a timer for state switching
-        ShootTimer = new Timer();
-        AddChild(ShootTimer);
-        ShootTimer.WaitTime = 0.5f; // Adjust the time as needed
-        ShootTimer.OneShot = true;
-        ShootTimer.Timeout += _OnStateTimerTimeout;
-		ShootTimer.Start();
 
-		this.AddChild(Shooting);
-
-            //Animated sprite 
+        collisionShape = GetNode<CollisionShape2D>("CollisionShape2D"); // Replace with your actual CollisionShape2D path
 
 
-        
+        burrowTimer = new Timer();
+        AddChild(burrowTimer);
+        burrowTimer.Timeout += _OnStateTimerTimeout;
+        burrowTimer.Timeout += () =>
+        {
+            GD.Print(currentState);
+            if (currentState == EnemyState.Burrowing)
+            {
+                Unburrow();
+                burrowTimer.Stop();
+            }
+            else
+            {
+                Burrow();
+                burrowTimer.Start(2);
 
-        sprite = (FindChild("Slimeboy") as AnimatedSprite2D);
-		sprite.Play();
-	
-		
+
+            }
+
+        };
+
+
+
+
+
+
+
     }
-     public override void _Process(double delta)
+    public override void _Process(double delta)
     {
-		if(Position.X > GameManager.Player.Position.X) {
-			sprite.FlipH = false;
-		} else {
-			sprite.FlipH = true;
-		}
+        if (Position.X > GameManager.Player.Position.X)
+        {
+            sprite.FlipH = true;
+        }
+        else
+        {
+            sprite.FlipH = false;
+        }
 
-     
+
     }
 
 
@@ -100,12 +144,15 @@ public partial class Slimebert : AbstractCreature
     {
         switch (currentState)
         {
-            case EnemyState.Moving:
-                MoveRandomly(randomDirection * Stats.Speed);
-                break;
             case EnemyState.Shooting:
                 ShootState();
                 break;
+            case EnemyState.Burrowing:
+                MoveRandomly(randomDirection * Stats.Speed);
+                break;
+
+
+
         }
     }
 
@@ -129,24 +176,27 @@ public partial class Slimebert : AbstractCreature
             MoveAndSlide();
         }
     }
-    
-    
+
+
     private void MoveRandomly(Vector2 vector2)
     {
         // Generate a random direction
         //Vector2 randomDirection = new Vector2((float)GD.Randf() * 2 - 1, (float)GD.Randf() * 2 - 1).Normalized();
-        ulong currentTimeMs = Time.GetTicksMsec();       
+        ulong currentTimeMs = Time.GetTicksMsec();
 
         //if ((currentTimeMs - lastTimeMs) > 20.0) {
-        
 
-        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f) {
+
+        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f)
+        {
             randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
             randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f)
+            {
                 randomDirection.X *= -1.0f;
             }
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f)
+            {
                 randomDirection.Y *= -1.0f;
             }
             randomDirection.X += GlobalPosition.X;
@@ -154,7 +204,7 @@ public partial class Slimebert : AbstractCreature
         }
 
         GlobalPosition = GlobalPosition.Lerp(randomDirection, 0.05f);
-        
+
 
         // Move the enemy in the random direction
         //Velocity = randomDirection * stats.Speed;
@@ -168,19 +218,24 @@ public partial class Slimebert : AbstractCreature
 
     private void ShootState()
     {
-		if (ShootTimer.TimeLeft > 0) return;
         Shooting.Use();
-		ShootTimer.Start();
-	
+
+
     }
 
     private void _OnStateTimerTimeout()
     {
         // Switch between Moving and Shooting states when the timer expires
-        currentState = (currentState == EnemyState.Moving) ? EnemyState.Shooting : EnemyState.Moving;
+        currentState = (currentState == EnemyState.Burrowing) ? EnemyState.Shooting : EnemyState.Burrowing;
 
         // Reset the timer for the next state switch
         stateTimer.Start();
     }
-}
 
+
+
+
+
+
+
+}

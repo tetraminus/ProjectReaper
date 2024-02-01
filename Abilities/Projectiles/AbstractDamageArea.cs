@@ -18,12 +18,14 @@ public abstract partial class AbstractDamageArea : Area2D
 		Monitoring = true;
 		
 		AreaEntered += (area) => {
-			GD.Print("Area entered");
+			//GD.Print("Area entered");
 			if (area is not HurtBox hurtBox) return;
 			var enemy = hurtBox.GetParentCreature();
+			if (enemy == Source)return;
 			enemy.Damage(new DamageReport(Damage, Source, enemy, Source.Stats, enemy.Stats));
 			QueueFree();
 			
+
 			
 		};
 		
@@ -34,6 +36,7 @@ public abstract partial class AbstractDamageArea : Area2D
 	public void OnHit()
 	{
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletHit, this);
+
 	}
 	
 	
