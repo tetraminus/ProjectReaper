@@ -4,7 +4,7 @@ using Godot.Collections;
 
 namespace ProjectReaper.Enemies; 
 
-public class Spawnset : GodotObject {
+public partial class Spawnset : GodotObject {
     
     Array<EnemySpawnCard> _enemies = new();
     

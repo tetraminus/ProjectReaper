@@ -4,7 +4,7 @@ using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Globals; 
 
-public class SpawnDirector : Node {
+public partial class SpawnDirector : Node {
     const float CreditRate = 1;
     const float SpawnRate = 1;
     private Spawnset _spawnset;
