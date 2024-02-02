@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using ProjectReaper.Enemies;
@@ -7,16 +8,22 @@ namespace ProjectReaper.Globals;
 public partial class SpawnDirector : Node {
     const float CreditRate = 1;
     const float SpawnRate = 1;
+    const float SaveChance = 0.25f;
     private Spawnset _spawnset;
     private int _credits = 0;
     private bool _isSpawning = false;
     private Timer _creditsTimer = new Timer();
     private Timer _spawnTimer = new Timer();
+    private bool _waiting = false;
+    private int _lastNumberOfOptions = 0;
+    
+    public static SpawnDirector Instance { get; private set; }
     
     public override void _Ready() {
+        Instance = this;
         AddChild(_creditsTimer);
         _creditsTimer.Timeout += () => {
-            AddCredits(10);
+            AddCredits((10 + (int)GD.Randi() % 10) * ((_waiting) ? 1 : 2));
         };
         _creditsTimer.WaitTime = CreditRate;
         _creditsTimer.OneShot = false;
@@ -69,7 +76,18 @@ public partial class SpawnDirector : Node {
         var creditsLeft = _credits;
         var enemiesToSpawn = new Array<EnemySpawnCard>();
         while (creditsLeft > 0 && availableEnemies.Count > 0) {
-            var enemy = availableEnemies[GD.RandRange(0, availableEnemies.Count)];
+            // pick the most expensive enemy that can be spawned
+            availableEnemies = GetAvailableEnemies(creditsLeft);
+            
+            if (availableEnemies.Count == 0) {
+                break;
+            }
+            
+            availableEnemies = new Array<EnemySpawnCard>(availableEnemies.OrderBy(enemy => enemy.Cost));
+            var enemy = availableEnemies[availableEnemies.Count - 1];
+            
+            
+            
             if (enemy.Cost <= creditsLeft) {
                 enemiesToSpawn.Add(enemy);
                 creditsLeft -= enemy.Cost;
@@ -91,6 +109,23 @@ public partial class SpawnDirector : Node {
     }
     
     private void SpawnWave() {
+        GD.Print(_credits);
+
+        if (GD.Randf() < SaveChance && _waiting == false) {
+            _waiting = true;
+            _lastNumberOfOptions = GetAvailableEnemies(_credits).Count;
+        }
+        
+        if (_waiting) {
+            if (GetAvailableEnemies(_credits).Count > _lastNumberOfOptions && GD.Randf() < SaveChance) {
+                
+                _waiting = false;
+            }
+            else {
+                return;
+            }
+        }
+
         var enemies = GetEnemiesToSpawn();
         foreach (var enemy in enemies) {
             SpawnEnemy(enemy);
@@ -103,7 +138,7 @@ public partial class SpawnDirector : Node {
         randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
         randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
         randomDirection = randomDirection.Normalized();
-        randomDirection *= 1000;
+        randomDirection *= 500;
         enemyInstance.GlobalPosition = randomDirection + GameManager.Player.GlobalPosition;
         GetTree().Root.AddChild(enemyInstance);
     }
