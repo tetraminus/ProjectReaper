@@ -1,8 +1,29 @@
-[gd_scene load_steps=18 format=3 uid="uid://so8wjykmd2e6"]
+[gd_scene load_steps=22 format=3 uid="uid://so8wjykmd2e6"]
 
 [ext_resource type="Script" path="res://Enemies/Snowpeabert.cs" id="1_7qjy0"]
 [ext_resource type="Texture2D" uid="uid://i04mvvq846is" path="res://Enemies/Assets/snow-pea (1).png" id="1_7x7i4"]
+[ext_resource type="Texture2D" uid="uid://ogljek4y77l4" path="res://kenney_particle-pack/PNG (Transparent)/dirt_03.png" id="2_kd3k0"]
 [ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_6r0sw"]
+
+[sub_resource type="Curve" id="Curve_8oa6k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.664756, 0.477084), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0luxl"]
+curve = SubResource("Curve_8oa6k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vcgmy"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 29.85
+initial_velocity_max = 29.85
+angular_velocity_min = -358.21
+angular_velocity_max = 365.37
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_0luxl")
+color = Color(0.901961, 0.768627, 0.568627, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_130je"]
 atlas = ExtResource("1_7x7i4")
@@ -98,6 +119,10 @@ size = Vector2(17, 19)
 
 [node name="Snowpeabert" type="CharacterBody2D"]
 script = ExtResource("1_7qjy0")
+
+[node name="BurrowParticles" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_vcgmy")
+texture = ExtResource("2_kd3k0")
 
 [node name="Snowboy" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mcism")

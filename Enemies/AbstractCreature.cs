@@ -10,6 +10,8 @@ public abstract partial class AbstractCreature : CharacterBody2D {
     
     public Area2D Hurtbox { get; set; }
     public bool dead = false;
+    public HitBoxState HitState { get; set; } = HitBoxState.Normal;
+    
 
     public override void _Ready() {
         Stats.Init();
@@ -30,7 +32,9 @@ public abstract partial class AbstractCreature : CharacterBody2D {
 
 
 	public void Damage(DamageReport damageReport) {
-		if (dead) return;
+		if (dead || HitState == HitBoxState.Invincible) {
+			return;
+		}
 		
 		var damage = damageReport.Damage;
 		var source = damageReport.Source;
@@ -50,5 +54,11 @@ public abstract partial class AbstractCreature : CharacterBody2D {
 			OnHit();
 		}
 		
+	}
+	
+	public enum HitBoxState {
+		Normal,
+		Invincible,
+		Spectral
 	}
 }

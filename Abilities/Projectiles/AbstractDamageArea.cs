@@ -21,7 +21,7 @@ public abstract partial class AbstractDamageArea : Area2D
 			//GD.Print("Area entered");
 			if (area is not HurtBox hurtBox) return;
 			var enemy = hurtBox.GetParentCreature();
-			if (enemy == Source)return;
+			if (enemy == Source || enemy.HitState == AbstractCreature.HitBoxState.Spectral) return;
 			enemy.Damage(new DamageReport(Damage, Source, enemy, Source.Stats, enemy.Stats));
 			QueueFree();
 			
