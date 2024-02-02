@@ -1,45 +1,34 @@
 using Godot;
 using ProjectReaper.Enemies;
+using ProjectReaper.Globals;
 
 namespace ProjectReaper;
 
 public partial class Level : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
-	Timer EnemySpawnTimer = new Timer();
-	PackedScene EnemyScene = ResourceLoader.Load<PackedScene>("res://enemies/Goober.tscn");
+	private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
+	private PackedScene SlimeScn = GD.Load<PackedScene>("res://Enemies/Slimebert.tscn");
+	private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/Snowpeabert.tscn");
+	
+
 	public override void _Ready()
 	{
 		GameManager.Level = this;
 		
-		AddChild(EnemySpawnTimer);
-		EnemySpawnTimer.WaitTime = 0.1;
-		EnemySpawnTimer.Timeout += _OnEnemySpawnTimerTimeout;
-		EnemySpawnTimer.Start();
+		var spawnset = new Spawnset();
+		
+		spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 5));
+		spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
+		spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
 		
 		
 		
-		
-		//LevelGenerator.Instance.GenerateLevel(RoomSetLoader.LoadRoomSet("TestRooms"), 10, 10, 1);
+		SpawnDirector.Instance.Init(spawnset);
+		SpawnDirector.Instance.StartSpawning();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	
-	public void _OnEnemySpawnTimerTimeout()
-	{
-		var enemy = (AbstractCreature)EnemyScene.Instantiate();
-		AddChild(enemy);
-		
-		Vector2 randomDirection = new Vector2();
-		randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
-		randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
-		randomDirection = randomDirection.Normalized();
-		randomDirection *= 1000;
-		enemy.GlobalPosition = randomDirection + GameManager.Player.GlobalPosition;
-		EnemySpawnTimer.Start();
-		
-		
-	}
 	
 	public override void _Process(double delta)
 	{

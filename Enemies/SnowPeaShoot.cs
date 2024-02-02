@@ -10,9 +10,11 @@ public partial class SnowPeaShoot : AbstractAbility
     public override void Use(float angle)
     {
         var bullet = (AbstractDamageArea) BulletScene.Instantiate();
+        bullet.Duration = 0.2f;
         Globals.Callbacks.Instance.EmitSignal(Globals.Callbacks.SignalName.BulletCreated, bullet);
         bullet.Position = GetParent<Node2D>().GlobalPosition;
         bullet.Rotation = angle;
+        
         GetTree().Root.AddChild(bullet);
         bullet.Source = GetParent<AbstractCreature>();
     }
