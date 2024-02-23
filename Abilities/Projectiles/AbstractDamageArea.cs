@@ -33,15 +33,10 @@ public abstract partial class AbstractDamageArea : Area2D
 	public void OnShoot() {}
 
 
-	public void OnHit()
-	{
-		Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletHit, this);
-
+	public void OnHit() {
+		Callbacks.Instance.BulletHitEvent?.Invoke(this);
 	}
-	
-	
 
-	
 	public abstract float Speed { get; set; }
 	
 	public abstract float Damage { get; set; }

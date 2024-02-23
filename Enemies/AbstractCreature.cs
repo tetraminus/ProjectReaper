@@ -25,7 +25,7 @@ public abstract partial class AbstractCreature : CharacterBody2D {
     }
 	
 	public virtual void OnDeath() {
-		Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
+		Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
 		dead = true;
 		QueueFree();
 	}
@@ -44,7 +44,7 @@ public abstract partial class AbstractCreature : CharacterBody2D {
 
 		var finalDamage = Stats.CalculateDamage(damage, source, target, sourceStats, targetStats);
 		
-		Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDamaged, this, finalDamage);
+		Callbacks.Instance.CreatureDamagedEvent?.Invoke(this, finalDamage);
 		
 		Stats.Health -= finalDamage;
 		if (Stats.Health <= 0) {
