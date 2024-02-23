@@ -6,6 +6,8 @@ using ProjectReaper.Util;
 
 public partial class BoomStick : AbstractItem
 {
+	public override string ID => "boom_stick";
+
 	public override void init() {
 		Callbacks.Instance.CreatureDiedEvent += onCreatureDied;
 	}

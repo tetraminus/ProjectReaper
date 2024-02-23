@@ -4,29 +4,26 @@ using Godot.Collections;
 namespace ProjectReaper.Globals; 
 
 public partial class ItemLibrary : Node {
-    
         public static ItemLibrary Instance { get; private set; }
+        public Dictionary<AbstractItem, string> Items { get; set; } = new ();
         
-        public Array<AbstractItem> Items { get; set; } = new Array<AbstractItem>();
-        
-        [Signal]
         public delegate void LoadItemEventHandler(ItemLibrary itemLibrary);
+        public LoadItemEventHandler LoadItemEvent;
         
         public override void _Ready() {
             Instance = this;
-            
             LoadBaseItems();
-            
-            EmitSignal(SignalName.LoadItem, this);
         }
         
         public void LoadBaseItems() {
             AbstractItem item;
             
             item = new BoomStick();
-            item.init();
-            item.Stacks = 1;
-            Items.Add(item);
+            Items.Add(item, item.ID);
+            
+            item = new DamageDestroyer();
+            Items.Add(item, item.ID);
+            
             
             
         }

@@ -27,6 +27,9 @@ public partial class Callbacks : Node
 
 	public delegate void CreatureSpawnedEventHandler(AbstractCreature creature);
 	public CreatureSpawnedEventHandler CreatureSpawnedEvent;
+	
+	public delegate float FinalDamageEventHandler(AbstractCreature creature, float damage);
+	public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
 
 	public override void _Ready() {
 		Instance = this;
