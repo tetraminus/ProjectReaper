@@ -19,7 +19,7 @@ public partial class Goober : AbstractCreature
 
     public override void _PhysicsProcess(double delta)
     {
-        var player = GameManager.Player;
+        var player = Globals.GameManager.Player;
         var dir = player.GlobalPosition - GlobalPosition;
 
         Velocity = dir.Normalized() * Stats.Speed;

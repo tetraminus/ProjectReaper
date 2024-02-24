@@ -1,14 +1,15 @@
 using Godot;
-using System;
 using ProjectReaper.Enemies;
-using ProjectReaper.Util;
+using ProjectReaper.Player;
+
+namespace ProjectReaper.Globals; 
 
 public partial class GameManager : Node
 {
 	// Called when the node enters the scene tree for the first time.
-	public static ProjectReaper.Player.Player Player { get; set; }
+	public static Player.Player Player { get; set; }
 	public static PackedScene ExplosionScene = ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
-
+	public static PlayerHud PlayerHud { get; set; }
 	public static Node2D Level { get; set; }
 	
 	public static bool RandomBool(int luck)
@@ -38,12 +39,7 @@ public partial class GameManager : Node
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
+
 	public override void _Ready()
 	{
 	}
@@ -64,7 +60,5 @@ public partial class GameManager : Node
 			explosion.Source = Player;
 		}
 		Level.CallDeferred("add_child", explosion);
-		
-		
 	}
 }

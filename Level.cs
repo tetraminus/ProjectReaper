@@ -13,7 +13,7 @@ public partial class Level : Node2D
 
 	public override void _Ready()
 	{
-		GameManager.Level = this;
+		Globals.GameManager.Level = this;
 		
 		var spawnset = new Spawnset();
 		

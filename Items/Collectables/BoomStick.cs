@@ -16,7 +16,7 @@ public partial class BoomStick : AbstractItem
 	
 	public void onCreatureDied(AbstractCreature creature) {
 		
-		GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1.5f);
+		ProjectReaper.Globals.GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1.5f);
 		
 	}
 

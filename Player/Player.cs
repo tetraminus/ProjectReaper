@@ -13,7 +13,7 @@ public partial class Player : AbstractCreature
 		{
 			_abilityManager.Reparent(this);
 		}
-		GameManager.Player = this;
+		Globals.GameManager.Player = this;
 		InitStats();
 	}
 

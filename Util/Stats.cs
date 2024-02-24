@@ -65,7 +65,7 @@ public partial class Stats {
         var finalDamage = 0f;
         
         if (crit > 0f) {
-            var roll = GameManager.Randf(0f, 1f, sourceStats.Luck);
+            var roll = Globals.GameManager.Randf(0f, 1f, sourceStats.Luck);
             if (roll <= crit) {
                 critMultiplier = critDamage;
             }

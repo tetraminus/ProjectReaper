@@ -32,17 +32,27 @@ public abstract partial class AbstractCreature : CharacterBody2D {
     
     public int GetItemStacks<T>() where T : AbstractItem {
 	    var stacks = 0;
-	    foreach (var item in GetChildren()) {
+	    foreach (var item in Items.GetChildren()) {
 		    if (item is T) {
-			    stacks += (item as T).GetStacks();
+			    stacks += (item as AbstractItem).Stacks;
 		    }
+		    
 	    }
-
 	    return stacks;
 	}
+    
+    public int GetItemStacks(string id) {
+	    var stacks = 0;
+	    foreach (var item in Items.GetChildren()) {
+		    if (item is AbstractItem abstractItem && abstractItem.ID == id) {
+			    stacks += abstractItem.Stacks;
+		    }
+	    }
+	    return stacks;
+    }
 
     public bool HasItem<T>() where T : AbstractItem {
-	    foreach (var item in GetChildren()) {
+	    foreach (var item in Items.GetChildren()) {
 		    if (item is T) {
 			    return true;
 		    }
@@ -50,10 +60,40 @@ public abstract partial class AbstractCreature : CharacterBody2D {
 
 	    return false;
     }
-
-    public void AddItem(AbstractItem item) { 
-	    
+    
+    public bool HasItem(string id) {
+	    foreach (var item in Items.GetChildren()) {
+		    if (item is AbstractItem abstractItem && abstractItem.ID == id) {
+			    return true;
+		    }
+	    }
+	    return false;
 	}
+
+    private AbstractItem GetItem(string id) {
+	    foreach (var item in Items.GetChildren()) {
+		    if (item is AbstractItem abstractItem && abstractItem.ID == id) {
+			    return abstractItem;
+		    }
+	    }
+
+	    return null;
+    }
+
+
+    public void AddItem(string id, int stacks = 1) {
+	    var item = GetItem(id);
+	    if (item != null) {
+		    item.Stacks += stacks;
+	    }
+	    else {
+		    var newItem = ItemLibrary.Instance.CreateItem(id);
+		    newItem.Stacks = stacks;
+		    Items.AddChild(newItem);
+	    }
+	} 
+	
+	
 	
 	public virtual void OnDeath() {
 		Callbacks.Instance.CreatureDiedEvent?.Invoke(this);

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://tdgmuo3j5ltv"]
+
+[ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
+[ext_resource type="Texture2D" uid="uid://dbio2bpmovm07" path="res://Player/PlayerTest.png" id="2_khe7k"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="PlayerHud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_map4d")
+
+[node name="Panel" type="Panel" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="PlayerHud/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_khe7k")

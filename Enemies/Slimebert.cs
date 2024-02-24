@@ -84,7 +84,7 @@ public partial class Slimebert : AbstractCreature
     }
      public override void _Process(double delta)
     {
-		if(Position.X > GameManager.Player.Position.X) {
+		if(Position.X > ProjectReaper.Globals.GameManager.Player.Position.X) {
 			sprite.FlipH = false;
 		} else {
 			sprite.FlipH = true;
@@ -112,7 +112,7 @@ public partial class Slimebert : AbstractCreature
     private void MoveTowardsPlayer()
     {
         // Get the player's position
-        Node player = GameManager.Player;
+        Node player = ProjectReaper.Globals.GameManager.Player;
         if (player == null)
         {
             return;

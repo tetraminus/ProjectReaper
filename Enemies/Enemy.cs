@@ -23,7 +23,7 @@ public partial class Enemy : AbstractCreature
 
     public override void _Process(double delta)
     {
-		if(Position.X > GameManager.Player.Position.X) {
+		if(Position.X > ProjectReaper.Globals.GameManager.Player.Position.X) {
 			sprite.FlipH = true;
 		} else {
 			sprite.FlipH = false;
@@ -37,7 +37,7 @@ public partial class Enemy : AbstractCreature
     public override void  _PhysicsProcess(double delta)
 	{
 		// Get the player's position 
-		Node player = GameManager.Player;
+		Node player = ProjectReaper.Globals.GameManager.Player;
 		if (player == null)
 		{
 			return;

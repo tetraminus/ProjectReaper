@@ -10,10 +10,10 @@ public partial class SoldierShoot : AbstractAbility
     {
         var bullet = (AbstractDamageArea) BulletScene.Instantiate();
         Globals.Callbacks.Instance.BulletCreatedEvent?.Invoke(bullet);
-        bullet.Position = GameManager.Player.GlobalPosition;
-        bullet.LookAt(GameManager.Player.GetGlobalMousePosition());
+        bullet.Position = Globals.GameManager.Player.GlobalPosition;
+        bullet.LookAt(Globals.GameManager.Player.GetGlobalMousePosition());
         GetTree().Root.AddChild(bullet);
-        bullet.Source = GameManager.Player;
+        bullet.Source = Globals.GameManager.Player;
     }
 
 	public override float Cooldown { get; set; } = 0.2f;

@@ -75,7 +75,7 @@ public partial class Snowpeabert : AbstractCreature {
     }
 
     public override void _Process(double delta) {
-        if (Position.X > GameManager.Player.Position.X)
+        if (Position.X > Globals.GameManager.Player.Position.X)
             Sprite.FlipH = true;
         else
             Sprite.FlipH = false;
@@ -96,7 +96,7 @@ public partial class Snowpeabert : AbstractCreature {
 
     private void MoveTowardsPlayer() {
         // Get the player's position
-        Node player = GameManager.Player;
+        Node player = Globals.GameManager.Player;
         if (player == null) return;
         var playerPosition = ((Node2D)player).GlobalPosition;
 
@@ -133,7 +133,7 @@ public partial class Snowpeabert : AbstractCreature {
         if (_justStartedShooting) {
             _justStartedShooting = false;
             // set the target position to a spot in near the player
-            var angletoPlayer = GlobalPosition.AngleToPoint(GameManager.Player.GlobalPosition);
+            var angletoPlayer = GlobalPosition.AngleToPoint(Globals.GameManager.Player.GlobalPosition);
             angletoPlayer += (GD.Randf() > 0.5) ? 0.7f : -0.7f;
             _shootangle = angletoPlayer;
         }
@@ -141,7 +141,7 @@ public partial class Snowpeabert : AbstractCreature {
         // rotate the angle towards the angle to the player
         
         // account for the 0-2pi radian wrap
-        var anglediff =_shootangle -GlobalPosition.AngleToPoint(GameManager.Player.GlobalPosition) ;
+        var anglediff =_shootangle -GlobalPosition.AngleToPoint(Globals.GameManager.Player.GlobalPosition) ;
         if (anglediff > Math.PI) anglediff -= (float)(2 * Math.PI);
         if (anglediff < -Math.PI) anglediff += (float)(2 * Math.PI);
         if (Math.Abs(anglediff) < 0.03) return;

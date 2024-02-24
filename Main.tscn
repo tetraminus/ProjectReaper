@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=7 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_jljdq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
+[ext_resource type="PackedScene" uid="uid://tdgmuo3j5ltv" path="res://Player/PlayerHud.tscn" id="5_iuc0o"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="5_jnt7y"]
 
 [node name="Main" type="Node2D"]
@@ -20,6 +21,8 @@ layer_0/tile_data = PackedInt32Array(720898, 1048576, 16, 786434, 1179648, 17, 8
 
 [node name="PhantomCameraHost" type="Node" parent="Player/Camera2D"]
 script = ExtResource("1_i6kjr")
+
+[node name="PlayerHud" parent="Player" instance=ExtResource("5_iuc0o")]
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 script = ExtResource("3_2wyrr")

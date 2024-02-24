@@ -12,7 +12,7 @@ public partial class SlimeBertShoot : AbstractAbility
         var bullet = (AbstractDamageArea) BulletScene.Instantiate();
         Globals.Callbacks.Instance.BulletCreatedEvent?.Invoke(bullet);
         bullet.Position = GetParent<Node2D>().GlobalPosition;
-        bullet.LookAt( GameManager.Player.GlobalPosition);
+        bullet.LookAt( Globals.GameManager.Player.GlobalPosition);
         GetTree().Root.AddChild(bullet);
         bullet.Source = GetParent<AbstractCreature>();
 
