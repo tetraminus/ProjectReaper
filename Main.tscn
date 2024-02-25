@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_i6kjr"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_jljdq"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_2wyrr"]
+[ext_resource type="PackedScene" uid="uid://tdgmuo3j5ltv" path="res://Player/PlayerHud.tscn" id="5_iuc0o"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="5_jnt7y"]
 
 [node name="Main" type="Node2D"]
@@ -16,30 +15,4 @@ layer_0/tile_data = PackedInt32Array(720898, 1048576, 16, 786434, 1179648, 17, 8
 
 [node name="Player" parent="." instance=ExtResource("1_jljdq")]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D"]
-script = ExtResource("1_i6kjr")
-
-[node name="PhantomCamera2D" type="Node2D" parent="."]
-script = ExtResource("3_2wyrr")
-priority_override = false
-priority = 0
-zoom = Vector2(1, 1)
-follow_mode = 2
-follow_target = NodePath("../Player")
-follow_parameters/target_offset = Vector2(0, 0)
-follow_parameters/damping = true
-follow_parameters/damping_value = 10.0
-frame_preview = true
-pixel_perfect = true
-limit/draw_limits = false
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-limit/limit_node_target = NodePath("")
-limit/smoothed = false
-tween_parameters = null
-tween_on_load = true
-inactive_update_mode = 0
+[node name="PlayerHud" parent="Player" instance=ExtResource("5_iuc0o")]

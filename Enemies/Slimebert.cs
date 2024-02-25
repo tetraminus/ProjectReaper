@@ -1,45 +1,27 @@
-using Godot;
-using ProjectReaper.Abilities;
-using ProjectReaper.Util;
 using System;
+using Godot;
+using ProjectReaper.Globals;
 
-using ProjectReaper.Enemies;
-using System.Collections.Specialized;
-using System.Diagnostics;
-
-
+namespace ProjectReaper.Enemies;
 
 public partial class Slimebert : AbstractCreature
 {
-
-    public AnimatedSprite2D sprite;
-
-	private SlimeBertShoot  Shooting = new SlimeBertShoot();
-
-
-
-    private enum EnemyState
-    {
-        Moving,
-        Shooting
-    }
+    private SlimeBertShoot _shooting = new();
 
     private EnemyState currentState = EnemyState.Moving;
+    private ulong lastTimeMs;
+
+    private float movementDist = 25.0f;
+
+
+    private Random random = new();
+    private Vector2 randomDirection = Vector2.Zero; // Store the random direction
+
+    private Timer ShootTimer;
+
+    public AnimatedSprite2D Sprite;
     private Timer stateTimer;
 
-	private Timer ShootTimer;
-
-
-    private Random random = new Random();
-    private Vector2 randomDirection = Vector2.Zero; // Store the random direction
-    ulong lastTimeMs = 0;
-
-    float movementDist = 25.0f;
-
-
-
-
-    
 
     public override void _Ready()
     {
@@ -52,47 +34,39 @@ public partial class Slimebert : AbstractCreature
         stateTimer.WaitTime = 2.0f; // Adjust the time as needed
         stateTimer.OneShot = true;
         stateTimer.Timeout += _OnStateTimerTimeout;
-		stateTimer.Start();
+        stateTimer.Start();
 
 
         randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
         randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
         randomDirection.X += GlobalPosition.X;
         randomDirection.Y += GlobalPosition.Y;
-        
 
 
-		        // Create and add a timer for state switching
+        // Create and add a timer for state switching
         ShootTimer = new Timer();
         AddChild(ShootTimer);
         ShootTimer.WaitTime = 0.5f; // Adjust the time as needed
         ShootTimer.OneShot = true;
         ShootTimer.Timeout += _OnStateTimerTimeout;
-		ShootTimer.Start();
+        ShootTimer.Start();
 
-		this.AddChild(Shooting);
+        AddChild(_shooting);
 
-            //Animated sprite 
+        //Animated sprite 
 
 
-        
-
-        sprite = (FindChild("Slimeboy") as AnimatedSprite2D);
-		sprite.Play();
-	
-		
+        Sprite = FindChild("Slimeboy") as AnimatedSprite2D;
+        Sprite.Play();
     }
-     public override void _Process(double delta)
+
+    public override void _Process(double delta)
     {
-		if(Position.X > GameManager.Player.Position.X) {
-			sprite.FlipH = false;
-		} else {
-			sprite.FlipH = true;
-		}
-
-     
+        if (Position.X > GameManager.Player.Position.X)
+            Sprite.FlipH = false;
+        else
+            Sprite.FlipH = true;
     }
-
 
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -113,14 +87,11 @@ public partial class Slimebert : AbstractCreature
     {
         // Get the player's position
         Node player = GameManager.Player;
-        if (player == null)
-        {
-            return;
-        }
-        Vector2 playerPosition = ((Node2D)player).GlobalPosition;
+        if (player == null) return;
+        var playerPosition = ((Node2D)player).GlobalPosition;
 
         // Calculate the direction to the player
-        Vector2 direction = (playerPosition - GlobalPosition).Normalized();
+        var direction = (playerPosition - GlobalPosition).Normalized();
 
         // Move the enemy towards the player
         if (Math.Abs((playerPosition - GlobalPosition).Length()) > 100)
@@ -129,32 +100,29 @@ public partial class Slimebert : AbstractCreature
             MoveAndSlide();
         }
     }
-    
-    
+
+
     private void MoveRandomly(Vector2 vector2)
     {
         // Generate a random direction
         //Vector2 randomDirection = new Vector2((float)GD.Randf() * 2 - 1, (float)GD.Randf() * 2 - 1).Normalized();
-        ulong currentTimeMs = Time.GetTicksMsec();       
+        var currentTimeMs = Time.GetTicksMsec();
 
         //if ((currentTimeMs - lastTimeMs) > 20.0) {
-        
 
-        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f) {
+
+        if (GlobalPosition.DistanceSquaredTo(randomDirection) < 5.0f)
+        {
             randomDirection.X = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
             randomDirection.Y = (2.0f - (float)GD.RandRange(0.0f, 1.0f)) * movementDist;
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
-                randomDirection.X *= -1.0f;
-            }
-            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) {
-                randomDirection.Y *= -1.0f;
-            }
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) randomDirection.X *= -1.0f;
+            if ((float)GD.RandRange(0.0f, 1.0f) > 0.5f) randomDirection.Y *= -1.0f;
             randomDirection.X += GlobalPosition.X;
             randomDirection.Y += GlobalPosition.Y;
         }
 
         GlobalPosition = GlobalPosition.Lerp(randomDirection, 0.05f);
-        
+
 
         // Move the enemy in the random direction
         //Velocity = randomDirection * stats.Speed;
@@ -162,25 +130,26 @@ public partial class Slimebert : AbstractCreature
     }
 
 
-
-
-
-
     private void ShootState()
     {
-		if (ShootTimer.TimeLeft > 0) return;
-        Shooting.Use();
-		ShootTimer.Start();
-	
+        if (ShootTimer.TimeLeft > 0) return;
+        _shooting.Use();
+        ShootTimer.Start();
     }
 
     private void _OnStateTimerTimeout()
     {
         // Switch between Moving and Shooting states when the timer expires
-        currentState = (currentState == EnemyState.Moving) ? EnemyState.Shooting : EnemyState.Moving;
+        currentState = currentState == EnemyState.Moving ? EnemyState.Shooting : EnemyState.Moving;
 
         // Reset the timer for the next state switch
         stateTimer.Start();
     }
-}
 
+
+    private enum EnemyState
+    {
+        Moving,
+        Shooting
+    }
+}
