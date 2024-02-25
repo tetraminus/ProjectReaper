@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -13,7 +12,7 @@ public partial class RoomSetLoader : Node
     {
         Instance = this;
     }
-    
+
     //example of roomset xml, welcome to hell :)
     /*<rooms>
     <room id="room0">
@@ -41,15 +40,15 @@ public partial class RoomSetLoader : Node
             <right type="0"/>
         </connections>
     </room>
-    
+
     <relations>
         <relation id="0" allowed="0"/>
         <relation id="1" allowed="1"/>
     </relations>
-</rooms>*/ 
-    
-    public static RoomSet LoadRoomSet(string name) {
-        
+</rooms>*/
+
+    public static RoomSet LoadRoomSet(string name)
+    {
         var roomDefs = new Array<RoomDef>();
         var relations = new Array<RoomSet.ConnectionDef>();
 
@@ -57,27 +56,31 @@ public partial class RoomSetLoader : Node
         xml.Open("res://rooms/" + name + "/" + name + ".xml");
 
 
-        while (xml.Read() == Error.Ok) {
-            if (xml.GetNodeType() == XmlParser.NodeType.Element) {
-                
-                if (xml.GetNodeName() == "room") {
+        while (xml.Read() == Error.Ok)
+            if (xml.GetNodeType() == XmlParser.NodeType.Element)
+            {
+                if (xml.GetNodeName() == "room")
+                {
                     var roomDef = new RoomDef();
-                    roomDef.ID = (xml.GetAttributeValue(0));
+                    roomDef.ID = xml.GetAttributeValue(0);
                     roomDefs.Add(roomDef);
                 }
-                
-                if (xml.GetNodeName() == "rotatable") {
-                    var roomDef = roomDefs[roomDefs.Count - 1] as RoomDef;
+
+                if (xml.GetNodeName() == "rotatable")
+                {
+                    var roomDef = roomDefs[roomDefs.Count - 1];
                     roomDef.Rotatable = true;
                 }
-                
-                if (xml.GetNodeName() == "connections") {
-                    var roomDef = roomDefs[roomDefs.Count - 1] as RoomDef;
+
+                if (xml.GetNodeName() == "connections")
+                {
+                    var roomDef = roomDefs[roomDefs.Count - 1];
                     var connections = new Dictionary<RoomDef.Side, int>();
-                    
-                    while (xml.Read() == Error.Ok) {
-                        
-                        if (xml.GetNodeType() == XmlParser.NodeType.Element) {
+
+                    while (xml.Read() == Error.Ok)
+                    {
+                        if (xml.GetNodeType() == XmlParser.NodeType.Element)
+                        {
                             var side = xml.GetNodeName();
                             var type = int.Parse(xml.GetAttributeValue(0));
                             connections[side switch
@@ -88,28 +91,23 @@ public partial class RoomSetLoader : Node
                                 "left" => RoomDef.Side.Left,
                                 _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
                             }] = type;
-                            
-                           
                         }
-                        if (xml.GetNodeType() == XmlParser.NodeType.ElementEnd) {
-                            if (xml.GetNodeName() == "connections") {
-                                
+
+                        if (xml.GetNodeType() == XmlParser.NodeType.ElementEnd)
+                            if (xml.GetNodeName() == "connections")
+                            {
                                 roomDef.SideConnections = connections;
-                                
+
                                 break;
                             }
-                        }
                     }
                 }
-                
+
 
                 if (xml.GetNodeName() == "relations")
-                {
-
                     while (xml.Read() == Error.Ok)
                     {
                         if (xml.GetNodeType() == XmlParser.NodeType.Element)
-                        {
                             if (xml.GetNodeName() == "relation")
                             {
                                 var connectionDef = new RoomSet.ConnectionDef();
@@ -118,36 +116,19 @@ public partial class RoomSetLoader : Node
                                 var allowedConnections = xml.GetAttributeValue(1).Split(",");
 
                                 foreach (var allowedConnection in allowedConnections)
-                                {
                                     connectionDef.AllowedConnections.Add(int.Parse(allowedConnection));
-                                }
 
                                 relations.Add(connectionDef);
                             }
 
-                        }
-
                         if (xml.GetNodeType() == XmlParser.NodeType.ElementEnd)
-                        {
                             if (xml.GetNodeName() == "relations")
-                            {
                                 break;
-                            }
-                        }
                     }
-
-                }
-
             }
-        }
-        
+
         var roomSet = new RoomSet(roomDefs, relations, name);
-        
+
         return roomSet;
     }
-    
-    
-    
-    
-    
 }

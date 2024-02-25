@@ -2,43 +2,41 @@
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using Array = Godot.Collections.Array;
 
 namespace ProjectReaper.Util;
 
 public partial class GeneratorRoom : GodotObject
 {
-
-    public bool IsCollapsed { get; set; } = false;
-    public Array<RoomDef> PossibleRooms { get; set; }
-    public Vector2I Position { get; set; }
-
     public GeneratorRoom(Array<RoomDef> possibleRooms, Vector2I position)
     {
         PossibleRooms = possibleRooms.Duplicate();
         Position = position;
     }
 
+    public bool IsCollapsed { get; set; }
+    public Array<RoomDef> PossibleRooms { get; set; }
+    public Vector2I Position { get; set; }
+
     public int GetEntropy()
     {
         return PossibleRooms.Count - 1;
     }
+
     public void Collapse(RandomNumberGenerator random, GeneratorRoom[,] states, RoomSet roomSet)
     {
         RecalculatePossibleRooms(roomSet, states);
-        
+
         if (PossibleRooms.Count == 0)
         {
             GD.Print($"Room at {Position} has no possible rooms");
             Globals.LevelGenerator.Instance.Failed = true;
             return;
         }
-        
+
         var room = PossibleRooms[random.RandiRange(0, PossibleRooms.Count - 1)];
         PossibleRooms = new Array<RoomDef> { room };
         IsCollapsed = true;
         GD.Print($"Room at {Position} collapsed to {room.ID}");
-
     }
 
     public Array<RoomDef> GetALLPossibleRooms(RoomSet set, GeneratorRoom[,] state, GeneratorRoom exclude = null)
@@ -46,18 +44,17 @@ public partial class GeneratorRoom : GodotObject
         var possibleRooms = new Array<RoomDef>();
         foreach (var room in set.Rooms)
         {
-           
             var allowed = true;
-            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>()) {
+            foreach (var side in Enum.GetValues(typeof(RoomDef.Side)).Cast<RoomDef.Side>())
+            {
                 if (GetNeighbor(side, state) != null && GetNeighbor(side, state).PossibleRooms.Count == 0) continue;
-                allowed = allowed && (CheckConnection(side, room, state, set));
+                allowed = allowed && CheckConnection(side, room, state, set);
             }
 
             if (allowed) possibleRooms.Add(room);
         }
 
         return possibleRooms;
-
     }
 
 
@@ -73,14 +70,14 @@ public partial class GeneratorRoom : GodotObject
             GD.Print($"Room at {Position} has no possible rooms");
             Globals.LevelGenerator.Instance.Failed = true;
         }
+
         GD.Print($"Room at {Position} has {PossibleRooms.Count} possible rooms");
     }
-    
+
     public void Reset(RoomSet r)
     {
         IsCollapsed = false;
         PossibleRooms = r.Rooms;
-        
     }
 
     private bool CheckConnection(RoomDef.Side side, RoomDef room, GeneratorRoom[,] state, RoomSet set)
@@ -90,13 +87,15 @@ public partial class GeneratorRoom : GodotObject
         var connection = set.GetConnectionOfId(room.GetConnectionType(side));
         var allowedConnections = connection.AllowedConnections;
         var neighborSideConnectionType = neighbor.PossibleRooms[0].GetConnectionType(RoomDef.GetOppositeSide(side));
-        
+
         return allowedConnections.Contains(neighborSideConnectionType);
     }
 
-    private GeneratorRoom GetNeighbor(RoomDef.Side side, GeneratorRoom[,] state) {
+    private GeneratorRoom GetNeighbor(RoomDef.Side side, GeneratorRoom[,] state)
+    {
         var pos = Position;
-        switch (side) {
+        switch (side)
+        {
             case RoomDef.Side.Top:
                 if (pos.Y == 0) return null;
                 return state[pos.X, pos.Y - 1];

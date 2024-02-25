@@ -7,31 +7,34 @@ namespace ProjectReaper.Globals;
 
 public partial class Callbacks : Node
 {
-	
-	public static Callbacks Instance { get; private set; }
+    public delegate void AbilityUsedEventHandler(AbstractAbility ability, int slot);
 
-	public delegate void AbilityUsedEventHandler(AbstractAbility ability, int slot);
-	public AbilityUsedEventHandler AbilityUsedEvent; 
+    public delegate void BulletCreatedEventHandler(AbstractDamageArea bullet);
 
-	public delegate void BulletCreatedEventHandler(AbstractDamageArea bullet);
-	public BulletCreatedEventHandler BulletCreatedEvent;
+    public delegate void BulletHitEventHandler(AbstractDamageArea bullet);
 
-	public delegate void BulletHitEventHandler(AbstractDamageArea bullet);
-	public BulletHitEventHandler BulletHitEvent;
+    public delegate void CreatureDamagedEventHandler(AbstractCreature creature, float damage);
 
-	public delegate void CreatureDamagedEventHandler(AbstractCreature creature, float damage);
-	public CreatureDamagedEventHandler CreatureDamagedEvent;
+    public delegate void CreatureDiedEventHandler(AbstractCreature creature);
 
-	public delegate void CreatureDiedEventHandler(AbstractCreature creature);
-	public CreatureDiedEventHandler CreatureDiedEvent;
+    public delegate void CreatureSpawnedEventHandler(AbstractCreature creature);
 
-	public delegate void CreatureSpawnedEventHandler(AbstractCreature creature);
-	public CreatureSpawnedEventHandler CreatureSpawnedEvent;
-	
-	public delegate float FinalDamageEventHandler(AbstractCreature creature, float damage);
-	public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
+    public delegate float FinalDamageEventHandler(AbstractCreature creature, float damage);
+    public delegate void PlayerDeathEventHandler();
 
-	public override void _Ready() {
-		Instance = this;
-	}
+    public AbilityUsedEventHandler AbilityUsedEvent;
+    public BulletCreatedEventHandler BulletCreatedEvent;
+    public BulletHitEventHandler BulletHitEvent;
+    public CreatureDamagedEventHandler CreatureDamagedEvent;
+    public CreatureDiedEventHandler CreatureDiedEvent;
+    public CreatureSpawnedEventHandler CreatureSpawnedEvent;
+    public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
+    public PlayerDeathEventHandler PlayerDeathEvent;
+
+    public static Callbacks Instance { get; private set; }
+
+    public override void _Ready()
+    {
+        Instance = this;
+    }
 }

@@ -1,23 +1,26 @@
 using Godot;
-using System;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
-using ProjectReaper.Util;
+using ProjectReaper.Items;
 
 public partial class BoomStick : AbstractItem
 {
-	public override string ID => "boom_stick";
+    public override string Id => "boom_stick";
+    public override Texture2D Icon => GD.Load<Texture2D>("res://Items/Collectables/Icons/boom_stick.png");
 
-	public override void init() {
-		Callbacks.Instance.CreatureDiedEvent += onCreatureDied;
-	}
-	
-	
-	
-	public void onCreatureDied(AbstractCreature creature) {
-		
-		ProjectReaper.Globals.GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1.5f);
-		
-	}
+    public override void OnInitalPickup()
+    {
+        Callbacks.Instance.CreatureDiedEvent += OnCreatureDied;
+    }
 
+    public override void Init()
+    {
+        
+    }
+
+
+    public void OnCreatureDied(AbstractCreature creature)
+    {
+        GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1.5f);
+    }
 }

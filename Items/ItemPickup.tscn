@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cqyvy8cx8r6xk"]
+
+[node name="ItemPickup" type="Area2D"]
+scale = Vector2(1.0014, 1.00757)

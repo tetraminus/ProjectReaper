@@ -1,24 +1,22 @@
 using Godot;
-using System;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
-using ProjectReaper.Util;
+
+namespace ProjectReaper.Items.Collectables;
 
 public partial class DamageDestroyer : AbstractItem
 {
-	
-	
-	public override string ID => "damage_destroyer";
+    public override string Id => "damage_destroyer";
+    public override Texture2D Icon => GD.Load<Texture2D>("res://Items/Collectables/Icons/boom_stick.png");
 
-	public override void init() {
+    public override void Init()
+    {
         Callbacks.Instance.FinalDamageEvent += onFinalDamage;
     }
-    
-	
-	
-	
-    public float onFinalDamage(AbstractCreature creature, float damage) {
-		return damage * 2;
-    }
 
+
+    public float onFinalDamage(AbstractCreature creature, float damage)
+    {
+        return damage * 2;
+    }
 }

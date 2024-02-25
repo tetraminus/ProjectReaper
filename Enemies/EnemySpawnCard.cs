@@ -1,29 +1,33 @@
 using Godot;
 
-namespace ProjectReaper.Enemies; 
+namespace ProjectReaper.Enemies;
 
-public partial class EnemySpawnCard : GodotObject{
-    
+public partial class EnemySpawnCard : GodotObject
+{
+    public int Cost;
+
     public PackedScene Enemy;
     public string id;
-    public int Cost;
-    
-    public EnemySpawnCard(PackedScene enemy, string id, int cost) {
+
+    public EnemySpawnCard(PackedScene enemy, string id, int cost)
+    {
         Enemy = enemy;
         this.id = id;
         Cost = cost;
     }
-     
-    public int GetCost() {
+
+    public int GetCost()
+    {
         return Cost;
     }
-    
-    public string GetId() {
+
+    public string GetId()
+    {
         return id;
     }
-    
-    public PackedScene GetEnemy() {
+
+    public PackedScene GetEnemy()
+    {
         return Enemy;
     }
-    
 }

@@ -1,39 +1,73 @@
-using Godot;
 using ProjectReaper.Enemies;
+using ProjectReaper.Globals;
 
-namespace ProjectReaper.Util; 
+namespace ProjectReaper.Util;
 
-public partial class Stats {
-    
-    public float Health { get; set; }
-    
-    public float MaxHealth { get; set; }
-    
+public class Stats
+{
+    public delegate void ValueChangedDelegate(float oldValue, float newValue);
+
+    private float _health;
+
+    private float _maxHealth;
+    public ValueChangedDelegate HealthChanged;
+    public ValueChangedDelegate MaxHealthChanged;
+
+    public float Health
+    {
+        get => _health;
+        set
+        {
+            if (value != _health)
+            {
+                var handler = HealthChanged;
+                handler?.Invoke(_health, value);
+                _health = value;
+            }
+        }
+    }
+
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            if (value != _maxHealth)
+            {
+                var handler = MaxHealthChanged;
+                handler?.Invoke(_maxHealth, value);
+                _maxHealth = value;
+            }
+        }
+    }
+
     public float Damage { get; set; }
     
+    public bool ContactDamage { get; set; }
     public float Defense { get; set; }
-    
+
     public float Armor { get; set; }
-    
+
     public float Speed { get; set; }
     public float CritChance { get; set; }
     public float CritDamage { get; set; }
     public float AttackSpeed { get; set; }
-    
+
     public float Range { get; set; }
-    
+
     public float AttackDamage { get; set; }
-    
+
     public float AttackKnockback { get; set; }
-    
+
     public float AttackStun { get; set; }
-    
+
     public float AttackDuration { get; set; }
-    
+
     public float AttackSpread { get; set; }
     public int Luck { get; set; }
 
-    public void Init() {
+    public void Init()
+    {
         Health = 100;
         MaxHealth = 100;
         Damage = 10;
@@ -52,8 +86,9 @@ public partial class Stats {
         Luck = 0;
     }
 
-    public static float CalculateDamage(float damage, AbstractCreature source, AbstractCreature target, Stats sourceStats, Stats targetStats) {
-        
+    public static float CalculateDamage(float damage, AbstractCreature source, AbstractCreature target,
+        Stats sourceStats, Stats targetStats)
+    {
         var crit = sourceStats.CritChance;
         var critDamage = sourceStats.CritDamage;
         var defense = targetStats.Defense;
@@ -63,26 +98,20 @@ public partial class Stats {
         var defenseMultiplier = 1f;
         var armorMultiplier = 1f;
         var finalDamage = 0f;
-        
-        if (crit > 0f) {
-            var roll = Globals.GameManager.Randf(0f, 1f, sourceStats.Luck);
-            if (roll <= crit) {
-                critMultiplier = critDamage;
-            }
+
+        if (crit > 0f)
+        {
+            var roll = GameManager.Randf(0f, 1f, sourceStats.Luck);
+            if (roll <= crit) critMultiplier = critDamage;
         }
-        
-        if (defense > 0f) {
-            defenseMultiplier = 1f - defense;
-        }
-        
-        if (armor > 0f) {
-            armorMultiplier = 1f - armor;
-        }
-        
+
+        if (defense > 0f) defenseMultiplier = 1f - defense;
+
+        if (armor > 0f) armorMultiplier = 1f - armor;
+
         damageMultiplier = critMultiplier * defenseMultiplier * armorMultiplier;
         finalDamage = damage * damageMultiplier;
-        
+
         return finalDamage;
-        
     }
 }

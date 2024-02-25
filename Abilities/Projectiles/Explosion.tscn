@@ -61,6 +61,8 @@ scale_curve = SubResource("CurveTexture_17cn3")
 color = Color(1, 0.282353, 0, 1)
 
 [node name="Explosion" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_da37i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
