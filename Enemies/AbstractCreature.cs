@@ -1,8 +1,10 @@
 using Godot;
+using Godot.Collections;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
 using ProjectReaper.Player;
+using ProjectReaper.Powers;
 using ProjectReaper.Util;
 
 namespace ProjectReaper.Enemies;
@@ -23,8 +25,11 @@ public abstract partial class AbstractCreature : CharacterBody2D
     public Area2D Hurtbox { get; set; }
     public Node Items { get; set; }
     public Teams Team { get; set; } = Teams.Enemy;
+    public Array<AbstractPower> Powers { get; set; } = new();
 
     public HitBoxState HitState { get; set; } = HitBoxState.Normal;
+    
+    protected int navGroup;
 
 
     public override void _Ready()
@@ -36,11 +41,44 @@ public abstract partial class AbstractCreature : CharacterBody2D
             Name = "Items"
         };
         AddChild(Items);
+        navGroup = SpawnDirector.Instance.GetNavGroup();
     }
 
     public virtual void OnHit()
     {
+        
     }
+    
+    public void AddPower(AbstractPower power)
+    {
+        power.Creature = this;
+        AddChild(power);
+        power.OnApply();
+        Powers.Add(power);
+    }
+    
+    public bool HasPower(string id)
+    {
+        foreach (var power in Powers)
+            if (power.Id == id)
+                return true;
+        return false;
+    }
+    
+    public AbstractPower GetPower(string id)
+    {
+        foreach (var power in Powers)
+            if (power.Id == id)
+                return power;
+        return null;
+    }
+    
+    public void RemovePower(AbstractPower power)
+    {
+        power.OnRemove();
+        Powers.Remove(power);
+    }
+    
 
     public int GetItemStacks<T>() where T : AbstractItem
     {
@@ -143,6 +181,8 @@ public abstract partial class AbstractCreature : CharacterBody2D
         var targetStats = damageReport.TargetStats;
 
         var finalDamage = Stats.CalculateDamage(damage, source, target, sourceStats, targetStats);
+        
+        Callbacks.Instance.CreatureDamagedEvent?.Invoke(this, finalDamage);
 
         finalDamage = Callbacks.Instance.FinalDamageEvent?.Invoke(this, finalDamage) ?? finalDamage;
 
@@ -162,5 +202,10 @@ public abstract partial class AbstractCreature : CharacterBody2D
     public void Knockback(Vector2 knockback)
     {
         Velocity += knockback;
+    }
+
+    public bool IsPlayer()
+    {
+        return Team == Teams.Player;
     }
 }

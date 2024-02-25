@@ -11,6 +11,10 @@ public partial class Player : AbstractCreature
     [Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
     public Vector2 MoveDirection { get; set; }
     public Camera2D Camera  => GetNode<Camera2D>("Camera2D");
+    
+    public Vector2 LastNavPos { get; private set; }
+    public int NavGroup { get; set; } = 1;
+    
 
     public override void _Ready()
     {
@@ -19,6 +23,7 @@ public partial class Player : AbstractCreature
         GameManager.Player = this;
         InitStats();
         Team = Teams.Player;
+        LastNavPos = GlobalPosition;
     }
 
 
@@ -38,6 +43,11 @@ public partial class Player : AbstractCreature
     public void GetInput(float delta )
     {
         var inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
+        // add less speed when moving fast
+        
+       
+        
+        
         Velocity += inputDir * Stats.Speed * delta;
         MoveDirection = inputDir;
     }
@@ -51,6 +61,14 @@ public partial class Player : AbstractCreature
         // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
         MoveAndSlide();
         
+        if ( (LastNavPos - GlobalPosition).Length() > 25)
+        {
+            LastNavPos = GlobalPosition;
+            Callbacks.Instance.EnemyShouldRenavEvent?.Invoke(GlobalPosition, NavGroup);
+            NavGroup++;
+            NavGroup %= SpawnDirector.MaxNavGroups;
+        }
+        
    
         
     }
@@ -59,7 +77,8 @@ public partial class Player : AbstractCreature
     public override void _PhysicsProcess(double delta)
     {
         GetInput( (float)delta);
-        Velocity = Velocity.Lerp(Vector2.Zero, .2f);
+        // simulate friction whith delta
+        Velocity = Velocity.Lerp(Vector2.Zero, 8f * (float)delta);
     }
 
     private void InitStats()

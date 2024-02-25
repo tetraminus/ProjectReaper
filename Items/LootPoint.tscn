@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5gs84n8k3y28"]
+
+[ext_resource type="Script" path="res://Items/LootPoint.cs" id="1_f37x3"]
+
+[node name="LootPoint" type="Node2D"]
+script = ExtResource("1_f37x3")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+gizmo_extents = 76.9

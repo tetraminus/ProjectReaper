@@ -8,6 +8,7 @@ line_spacing = 0.0
 font_size = 24
 
 [node name="ItemDisplay" type="Control"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ca4px")

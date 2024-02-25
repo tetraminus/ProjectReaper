@@ -137,12 +137,36 @@ public partial class SpawnDirector : Node
     {
         if (GameManager.Player.Dead) return;
         var enemyInstance = enemy.GetEnemy().Instantiate<AbstractCreature>();
+        
+        GameManager.Level.AddChild(enemyInstance);
+        var level = GameManager.Level;
+        
+        // check if the enemy is out of bounds
+        do 
+        {
+            var randomDirection = RandomDirection();
+            enemyInstance.GlobalPosition = NavigationServer2D.MapGetClosestPoint(GetTree().Root.World2D.NavigationMap, GameManager.Player.GlobalPosition + randomDirection);
+        } while (enemyInstance.GlobalPosition.X < level.BoundsLeft || enemyInstance.GlobalPosition.X > level.BoundsRight ||
+                 enemyInstance.GlobalPosition.Y < level.BoundsTop || enemyInstance.GlobalPosition.Y > level.BoundsBottom);
+    }
+
+    private static Vector2 RandomDirection()
+    {
         var randomDirection = new Vector2();
         randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
         randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
         randomDirection = randomDirection.Normalized();
         randomDirection *= 500;
-        enemyInstance.GlobalPosition = randomDirection + GameManager.Player.GlobalPosition;
-        GetTree().Root.AddChild(enemyInstance);
+        return randomDirection;
+    }
+
+    private int _currentNavGroup = 1;
+    public const int MaxNavGroups = 32;
+
+    public int GetNavGroup()
+    {
+        _currentNavGroup++;
+        _currentNavGroup %= MaxNavGroups;
+        return _currentNavGroup;
     }
 }

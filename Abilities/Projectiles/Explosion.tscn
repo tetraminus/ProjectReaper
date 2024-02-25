@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://yfothlx0by8s"]
+[gd_scene load_steps=13 format=3 uid="uid://yfothlx0by8s"]
 
 [ext_resource type="Texture2D" uid="uid://wsop8whq1fts" path="res://kenney_particle-pack/PNG (Transparent)/flame_01.png" id="1_8s3kl"]
 [ext_resource type="Script" path="res://Abilities/Projectiles/Explosion.cs" id="1_da37i"]
@@ -9,6 +9,7 @@ radius = 32.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vfos4"]
 blend_mode = 1
+light_mode = 1
 
 [sub_resource type="Curve" id="Curve_3ars5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.484536, 0), 0.0, 0.0, 0, 0]
@@ -44,20 +45,12 @@ emission_curve = SubResource("CurveTexture_bo2in")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_81roe"]
 blend_mode = 1
 
-[sub_resource type="Curve" id="Curve_7nubt"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.82, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="CurveTexture" id="CurveTexture_17cn3"]
-curve = SubResource("Curve_7nubt")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iaqxl"]
 resource_local_to_scene = true
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 0.15
 scale_max = 0.15
-scale_curve = SubResource("CurveTexture_17cn3")
 color = Color(1, 0.282353, 0, 1)
 
 [node name="Explosion" type="Area2D"]

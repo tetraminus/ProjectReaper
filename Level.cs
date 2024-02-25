@@ -14,6 +14,7 @@ public partial class Level : Node2D
     [Export] public int BoundsRight { get; set; }
     [Export] public int BoundsTop { get; set; }
     [Export] public int BoundsBottom { get; set; }
+    [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
 
     public override void _Ready()
     {
@@ -32,7 +33,7 @@ public partial class Level : Node2D
         
        
         
-        
+        LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
         
 
         SpawnDirector.Instance.Init(spawnset);

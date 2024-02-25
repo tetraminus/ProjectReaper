@@ -28,10 +28,15 @@ public abstract partial class AbstractDamageArea : Area2D
 
         AreaEntered += OnAreaEntered;
         AreaExited += OnAreaExited;
+        
+        BodyEntered += OnBodyEntered;
+        BodyExited += OnBodyExited;
+        
     }
     
     public virtual void OnAreaEntered(Area2D area)
     {
+        // enemy check
         if (area is not HurtBox hurtBox) return;
         var creature = hurtBox.GetParentCreature();
         if (creature == null) return;
@@ -41,6 +46,19 @@ public abstract partial class AbstractDamageArea : Area2D
     }
     
     public virtual void OnAreaExited(Area2D area)
+    {
+    }
+    
+    public virtual void OnBodyEntered(Node body)
+    {
+        // terrain check
+        if (body is not TileMap) return;
+        // check if collison layer is terrain
+         QueueFree();
+        
+    }
+    
+    public virtual void OnBodyExited(Node body)
     {
     }
 

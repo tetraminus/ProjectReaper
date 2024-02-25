@@ -72,7 +72,10 @@ public partial class ItemLibrary : Node
     /// <returns>A new item with the given id</returns>
     public AbstractItem CreateItem(string id)
     {
-        if (Items.ContainsKey(id)) return Items[id].MakeCopy();
+        if (Items.ContainsKey(id))
+        {
+            return Items[id].MakeCopy();
+        }
         return null;
     }
 
