@@ -9,6 +9,8 @@ namespace ProjectReaper.Player;
 public partial class Player : AbstractCreature
 {
     [Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
+    public Vector2 MoveDirection { get; set; }
+    public Camera2D Camera  => GetNode<Camera2D>("Camera2D");
 
     public override void _Ready()
     {
@@ -37,6 +39,7 @@ public partial class Player : AbstractCreature
     {
         var inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
         Velocity += inputDir * Stats.Speed * delta;
+        MoveDirection = inputDir;
     }
 
 
@@ -44,7 +47,7 @@ public partial class Player : AbstractCreature
     {
         if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
         // if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility2();
-        // if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility3();
+        if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility3();
         // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
         MoveAndSlide();
         

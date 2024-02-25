@@ -61,4 +61,31 @@ public abstract partial class AbstractItem : Node2D
         var copy = (AbstractItem)Duplicate();
         return copy;
     }
+    
+    public string GetLocalizedName()
+    {
+        return TranslationServer.Translate(GetNameKey());
+    }
+    public string GetNameKey()
+    {
+        return "n_" + Id;
+    }
+    
+    public string GetLocalizedDescription()
+    {
+        return TranslationServer.Translate(GetDescriptionKey());
+    }
+    public string GetDescriptionKey()
+    {
+        return "d_" + Id;
+    }
+    
+    public string GetLocalizedFlavor()
+    {
+        return TranslationServer.Translate(GetFlavorKey());
+    }
+    public string GetFlavorKey()
+    {
+        return "f_" + Id;
+    }
 }

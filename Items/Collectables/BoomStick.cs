@@ -1,7 +1,9 @@
+using System;
 using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
-using ProjectReaper.Items;
+
+namespace ProjectReaper.Items.Collectables;
 
 public partial class BoomStick : AbstractItem
 {
@@ -24,3 +26,4 @@ public partial class BoomStick : AbstractItem
         GameManager.SpawnExplosion(creature.GlobalPosition, 10 * Stacks, 1.5f);
     }
 }
+

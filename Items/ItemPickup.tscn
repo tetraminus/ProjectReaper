@@ -1,4 +1,14 @@
-[gd_scene format=3 uid="uid://cqyvy8cx8r6xk"]
+[gd_scene load_steps=3 format=3 uid="uid://cqyvy8cx8r6xk"]
+
+[ext_resource type="Script" path="res://Items/ItemPickup.cs" id="1_cmxk8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkbol"]
+radius = 16.0
 
 [node name="ItemPickup" type="Area2D"]
-scale = Vector2(1.0014, 1.00757)
+script = ExtResource("1_cmxk8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qkbol")

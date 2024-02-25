@@ -101,7 +101,8 @@ public abstract partial class AbstractCreature : CharacterBody2D
             newItem.Stacks = stacks;
             Items.AddChild(newItem);
             newItem.Gain();
-            PlayerHud.Instance.AddItem(newItem);
+            if (isPlayer)
+                GameManager.PlayerHud.AddItem(newItem);
         }
     }
     
@@ -114,9 +115,11 @@ public abstract partial class AbstractCreature : CharacterBody2D
         }
         else
         {
+            if (item.Stacks <= 0) item.Stacks = 1;
+                
             Items.AddChild(item);
             item.Gain();
-            PlayerHud.Instance.AddItem(item);
+            GameManager.PlayerHud.AddItem(item);
         }
     }
 

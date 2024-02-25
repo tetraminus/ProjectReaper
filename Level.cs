@@ -10,6 +10,10 @@ public partial class Level : Node2D
     private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
     private PackedScene SlimeScn = GD.Load<PackedScene>("res://Enemies/Slimebert.tscn");
 
+    [Export] public int BoundsLeft { get; set; }
+    [Export] public int BoundsRight { get; set; }
+    [Export] public int BoundsTop { get; set; }
+    [Export] public int BoundsBottom { get; set; }
 
     public override void _Ready()
     {
@@ -20,7 +24,16 @@ public partial class Level : Node2D
         spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 5));
         // spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
         // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
-
+        
+        GameManager.Player.Camera.LimitLeft = BoundsLeft;
+        GameManager.Player.Camera.LimitRight = BoundsRight;
+        GameManager.Player.Camera.LimitTop = BoundsTop;
+        GameManager.Player.Camera.LimitBottom = BoundsBottom;
+        
+       
+        
+        
+        
 
         SpawnDirector.Instance.Init(spawnset);
         SpawnDirector.Instance.StartSpawning();

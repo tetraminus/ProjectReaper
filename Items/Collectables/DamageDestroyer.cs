@@ -3,7 +3,7 @@ using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 
 namespace ProjectReaper.Items.Collectables;
-
+[ItemLibrary.IgnoreAutoadd]
 public partial class DamageDestroyer : AbstractItem
 {
     public override string Id => "damage_destroyer";

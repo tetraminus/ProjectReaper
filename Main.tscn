@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=6 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_jljdq"]
-[ext_resource type="PackedScene" uid="uid://tdgmuo3j5ltv" path="res://Player/PlayerHud.tscn" id="5_iuc0o"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="5_jnt7y"]
+[ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="5_qfjfo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55nkt"]
+size = Vector2(362, 20)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5rvjs")
@@ -15,4 +18,13 @@ layer_0/tile_data = PackedInt32Array(720898, 1048576, 16, 786434, 1179648, 17, 8
 
 [node name="Player" parent="." instance=ExtResource("1_jljdq")]
 
-[node name="PlayerHud" parent="Player" instance=ExtResource("5_iuc0o")]
+[node name="ItemPickup" parent="." instance=ExtResource("5_qfjfo")]
+position = Vector2(118, 65)
+RollItem = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(215, 19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(42, 0)
+shape = SubResource("RectangleShape2D_55nkt")
