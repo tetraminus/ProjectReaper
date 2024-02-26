@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq1ic1a4uc2vt"]
+
+[ext_resource type="Script" path="res://Items/ItemHudPopup.cs" id="1_svbul"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pyhhw"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HudPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_svbul")
+
+[node name="HudPanel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HudPanel"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="HudPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Item Not Loaded"
+label_settings = SubResource("LabelSettings_pyhhw")
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="HudPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Not loaded! "
+fit_content = true
+scroll_active = false

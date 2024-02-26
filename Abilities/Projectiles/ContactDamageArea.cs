@@ -59,7 +59,7 @@ public partial class ContactDamageArea : AbstractDamageArea
             
         }
         
-        GetParentCreature().Knockback(knockback * -1000);
+        GetParentCreature().Knockback(knockback * -10000);
         
     }
     

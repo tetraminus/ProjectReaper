@@ -35,6 +35,8 @@ public partial class Explosion : AbstractDamageArea
 
         _particles1.Restart();
         _ringParticle.Restart();
+        
+        Team = Source?.Team ?? AbstractCreature.Teams.Player;
 
         AreaEntered += _areaEntered;
         Timer = new Timer();
@@ -50,12 +52,13 @@ public partial class Explosion : AbstractDamageArea
         _particles1.ProcessMaterial.Set("scale_min",
             _particles1.ProcessMaterial.Get("scale_min").AsDouble() * Scale.X);
         _particles1.ProcessMaterial.Set("scale_max",
-            _particles1.ProcessMaterial.Get("scale_max").AsDouble() * Scale.X);
+            _particles1.ProcessMaterial.Get("scale_min"));
 
         _ringParticle.ProcessMaterial.Set("scale_min",
             _ringParticle.ProcessMaterial.Get("scale_min").AsDouble() * Scale.X);
         _ringParticle.ProcessMaterial.Set("scale_max",
-            _ringParticle.ProcessMaterial.Get("scale_max").AsDouble() * Scale.X);
+            _ringParticle.ProcessMaterial.Get("scale_min"));
+        
     }
 
     public void setDamage(float damage)
@@ -71,12 +74,11 @@ public partial class Explosion : AbstractDamageArea
 
     private void _areaEntered(Area2D area)
     {
-        if (area is HurtBox hurtBox && !_creatures.Contains(hurtBox.GetParentCreature()))
+        if (area is HurtBox hurtBox && !_creatures.Contains(hurtBox.GetParentCreature()) && hurtBox.GetParentCreature().Team != Team)
         {
             hurtBox.GetParentCreature().Damage(new DamageReport(10, Source, hurtBox.GetParentCreature(), Source.Stats,
                 hurtBox.GetParentCreature().Stats));
             _creatures.Add(hurtBox.GetParentCreature());
-            GD.Print("bonk");
         }
     }
 }
