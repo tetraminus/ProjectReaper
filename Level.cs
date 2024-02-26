@@ -23,15 +23,14 @@ public partial class Level : Node2D
 
         var spawnset = new Spawnset();
 
-        //spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 5));
-        spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
+        spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 1));
+        //spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
         // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
         
         GameManager.Player.Camera.LimitLeft = BoundsLeft;
         GameManager.Player.Camera.LimitRight = BoundsRight;
         GameManager.Player.Camera.LimitTop = BoundsTop;
         GameManager.Player.Camera.LimitBottom = BoundsBottom;
-        
        
         
         LootDirector.Instance.PlaceInteractables(NumberOfChests, this);

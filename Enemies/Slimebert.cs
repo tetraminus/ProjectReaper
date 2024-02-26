@@ -113,6 +113,7 @@ public partial class Slimebert : AbstractCreature
         bullet.LookAt(GameManager.Player.GlobalPosition);
         GameManager.Level.AddChild(bullet);
         bullet.Source = this;
+        bullet.Speed = 200;
         bullet.Team = Teams.Enemy;
     }
 

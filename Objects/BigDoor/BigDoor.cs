@@ -10,12 +10,14 @@ public partial class BigDoor : AnimatableBody2D
 {
 	
 	private CollisionPolygon2D CollisionPolygon2D => GetNode<CollisionPolygon2D>("CollisionPolygon2D");
+	
 	private Line2D BGdisplay => GetNode<Line2D>("BGdisplay");
 	private Line2D FGdisplay => GetNode<Line2D>("FGdisplay");
 	private float _percentage = 1;
 	private bool _opening = false;
 	private bool _closing = false;
 	[Export(PropertyHint.NodeType, "Path2D")] public Path2D Curve { get; set; }
+	[Export(PropertyHint.NodeType, "NavigationRegion2D")] public NavigationRegion2D NavigationRegion2D { get; set; }
 	[Export] public float DoorThickness { get; set; } = 10;
 	[Export] public Color DoorColor { get; set; } = new Color(1, 1, 1, 1);
 	
@@ -42,6 +44,8 @@ public partial class BigDoor : AnimatableBody2D
 	{
 		_closing = true;
 		_opening = false;
+		NavigationRegion2D.Enabled = false;
+		
 	}
 	public bool IsOpen()
 	{
@@ -79,6 +83,7 @@ public partial class BigDoor : AnimatableBody2D
 				{
 					_percentage = 0;
 					_opening = false;
+					NavigationRegion2D.Enabled = true;
 				}
 
 				ConstructCollision(_percentage);
@@ -92,6 +97,7 @@ public partial class BigDoor : AnimatableBody2D
 				{
 					_percentage = 1;
 					_closing = false;
+					
 				}
 
 				ConstructCollision(_percentage);
@@ -142,4 +148,6 @@ public partial class BigDoor : AnimatableBody2D
 	    FGdisplay.Points = newPoints.ToArray();
 	    FGdisplay.Width = DoorThickness * 2;
 	}
+
+	
 }

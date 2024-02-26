@@ -99,6 +99,10 @@ locale/translations=PackedStringArray("res://Loc/Localization.en.translation")
 2d_physics/layer_3="playerenemy"
 2d_physics/layer_4="PlayerTriggers"
 
+[navigation]
+
+2d/default_edge_connection_margin=4.0
+
 [physics]
 
 common/physics_ticks_per_second=120

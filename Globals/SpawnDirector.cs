@@ -146,8 +146,19 @@ public partial class SpawnDirector : Node
         {
             var randomDirection = RandomDirection();
             enemyInstance.GlobalPosition = NavigationServer2D.MapGetClosestPoint(GetTree().Root.World2D.NavigationMap, GameManager.Player.GlobalPosition + randomDirection);
-        } while (enemyInstance.GlobalPosition.X < level.BoundsLeft || enemyInstance.GlobalPosition.X > level.BoundsRight ||
-                 enemyInstance.GlobalPosition.Y < level.BoundsTop || enemyInstance.GlobalPosition.Y > level.BoundsBottom);
+        } while (CheckOutOfBounds(enemyInstance.GlobalPosition, level, enemyInstance));
+    }
+
+    private bool CheckOutOfBounds(Vector2 enemyInstanceGlobalPosition, Level level, AbstractCreature enemyInstance) {
+        
+        var query = new PhysicsShapeQueryParameters2D();
+        if (enemyInstance is PhysicsBody2D body2D) {
+            query.Shape = body2D.GetChild<CollisionShape2D>(0).Shape.Duplicate();
+            query.Transform = new Transform2D(0, enemyInstanceGlobalPosition);
+        }
+        
+        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query);
+        return collision.Count == 0;
     }
 
     private static Vector2 RandomDirection()
