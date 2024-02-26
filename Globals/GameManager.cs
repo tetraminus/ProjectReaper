@@ -12,7 +12,7 @@ public partial class GameManager : Node
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
     public static PlayerHud PlayerHud { get; set; }
-    public static Node2D Level { get; set; }
+    public static Level Level { get; set; }
 
     public static bool RandomBool(int luck)
     {
@@ -52,7 +52,7 @@ public partial class GameManager : Node
         explosion.GlobalPosition = globalPosition;
         explosion.Scale = new Vector2(scale, scale);
         explosion.setDamage(damage);
-        if (creature == null) explosion.Source = Player;
+        explosion.Source = creature ?? Player;
         Level.CallDeferred("add_child", explosion);
     }
 
@@ -60,4 +60,5 @@ public partial class GameManager : Node
     {
         
     }
+    
 }

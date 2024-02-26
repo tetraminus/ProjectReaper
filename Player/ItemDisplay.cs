@@ -1,4 +1,5 @@
 ﻿using Godot;
+using ProjectReaper.Globals;
 using ProjectReaper.Items;
 
 namespace ProjectReaper.Player;
@@ -12,6 +13,17 @@ public partial class ItemDisplay : Control
 
     public void SetItem(AbstractItem item)
     {
+        MouseEntered += () =>
+        {
+          
+            GameManager.PlayerHud.ShowItemInfo(Item);
+        };
+        
+        MouseExited += () =>
+        {
+            GameManager.PlayerHud.HideItemInfo();
+        };
+        
         Item = item;
         Icon.Texture = item.Icon;
         Stacks.Text = item.Stacks.ToString();

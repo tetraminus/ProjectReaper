@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dx51uvkh4s1pk" path="res://Enemies/Assets/slime.png" id="2_elcav"]
 [ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_j6gfa"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8sryk"]
+radius = 5.01128
+height = 20.118
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttso5"]
+size = Vector2(15.6527, 10.2698)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ubyd8"]
 atlas = ExtResource("2_elcav")
 region = Rect2(0, 0, 16, 16)
@@ -96,38 +103,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8sryk"]
-radius = 5.01128
-height = 20.118
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttso5"]
-size = Vector2(15.6527, 10.2698)
-
 [node name="Slimebert" type="CharacterBody2D"]
-position = Vector2(165, 220)
-rotation = -0.0120244
-collision_layer = 3
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_i1vqe")
 
-[node name="Slimeboy" type="AnimatedSprite2D" parent="."]
-position = Vector2(-3.8147e-06, 4.29153e-06)
-sprite_frames = SubResource("SpriteFrames_b45rn")
-frame_progress = 0.37112
-
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(134.159, -12.3878)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("3_j6gfa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-134.159, 12.3878)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8sryk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.44499e-06, 2.20537e-06)
 shape = SubResource("RectangleShape2D_ttso5")
 
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_b45rn")
+frame_progress = 0.37112
+
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

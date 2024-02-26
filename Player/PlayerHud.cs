@@ -7,12 +7,22 @@ namespace ProjectReaper.Player;
 
 public partial class PlayerHud : Control
 {
-    public static PlayerHud Instance { get; private set; }
+    public static PackedScene ItemHudPopupScn => GD.Load<PackedScene>("res://Items/ItemHudPopup.tscn");
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
+    
+    public ItemHudPopup ItemHudPopup;
     public Label FPS => GetNode<Label>("FPS");
     public override void _Ready()
     {
-        Instance = this;
+        GD.Print("PlayerHud ready");
+        GameManager.PlayerHud = this;
+
+        ItemHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
+        AddChild(ItemHudPopup);
+        
+        ItemHudPopup.Visible = false;
+        
+        
 
         GetTree().ProcessFrame += OnProcessFrame;
     }
@@ -56,6 +66,20 @@ public partial class PlayerHud : Control
                 break;
             }
         }
+    }
+
+    public void ShowItemInfo(AbstractItem item)
+    {
+        ItemHudPopup.SetItem(item);
+        ItemHudPopup.Visible = true;
+        ItemHudPopup.QueueRedraw();
+    }
+    
+    public void HideItemInfo()
+    {
+        ItemHudPopup.Visible = false;
+        ItemHudPopup.QueueRedraw();
+       
     }
 }
 

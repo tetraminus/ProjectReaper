@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
+layer = 2
 
 [node name="PlayerHud" type="Control" parent="."]
 layout_mode = 3
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_map4d")
 
 [node name="Health" type="Control" parent="PlayerHud"]
