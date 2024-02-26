@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dnaptcdl5dudr"]
 
-[ext_resource type="Script" path="res://Abilities/Projectiles/SlimeBullet.cs" id="1_hbcvx"]
+[ext_resource type="Script" path="res://Abilities/Projectiles/BasicBullet.cs" id="1_ug6fj"]
 [ext_resource type="Texture2D" uid="uid://ckgpu0oj8qasi" path="res://Enemies/Assets/New Piskel (11).png" id="2_43735"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4xqpp"]
@@ -45,7 +45,7 @@ radius = 7.0
 [node name="SlimeBall" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_hbcvx")
+script = ExtResource("1_ug6fj")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-4.76837e-07, 0)

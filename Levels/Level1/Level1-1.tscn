@@ -27,7 +27,6 @@ point_count = 3
 
 [node name="Level1-1" type="Node2D"]
 script = ExtResource("1_n8soa")
-DisableSpawning = true
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024
