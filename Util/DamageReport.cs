@@ -2,23 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 using Godot;
 using ProjectReaper.Enemies;
 
-namespace ProjectReaper.Util; 
+namespace ProjectReaper.Util;
 
-public partial class DamageReport : GodotObject {
-    
-    public float Damage { get; set; }
-    public float BaseDamage { get; set; }
-    
-    
-    [AllowNull] public AbstractCreature Source { get; set; }
-    
-    public AbstractCreature Target { get; set; }
-    
-    public Stats SourceStats { get; set; }
-    
-    public Stats TargetStats { get; set; }
-    
-    public DamageReport(float damage, AbstractCreature source, AbstractCreature target, Stats sourceStats = null, Stats targetStats = null)
+public partial class DamageReport : GodotObject
+{
+    public DamageReport(float damage, AbstractCreature source, AbstractCreature target, Stats sourceStats = null,
+        Stats targetStats = null)
     {
         Damage = damage;
         BaseDamage = damage;
@@ -29,20 +18,33 @@ public partial class DamageReport : GodotObject {
     }
 
 
-    public DamageReport(float damage, AbstractCreature target, Stats targetStats = null, Stats sourceStats = null){
+    public DamageReport(float damage, AbstractCreature target, Stats targetStats = null, Stats sourceStats = null)
+    {
         Damage = damage;
         BaseDamage = damage;
         Target = target;
         TargetStats = targetStats;
     }
-    
+
+    public float Damage { get; set; }
+    public float BaseDamage { get; set; }
+
+
+    [AllowNull] public AbstractCreature Source { get; set; }
+
+    public AbstractCreature Target { get; set; }
+
+    public Stats SourceStats { get; set; }
+
+    public Stats TargetStats { get; set; }
+
     public float GetDamage()
     {
         return Damage;
     }
+
     public void ChangeDamage(float damage)
     {
         Damage = damage;
     }
-    
 }

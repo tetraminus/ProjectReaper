@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://tdgmuo3j5ltv"]
+
+[ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="PlayerHud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_map4d")
+
+[node name="Health" type="Control" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Value" type="Label" parent="PlayerHud/Health"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "asdasd"
+
+[node name="ItemGrid" type="GridContainer" parent="PlayerHud"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 40.0
+columns = 17
+
+[node name="FPS" type="Label" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0

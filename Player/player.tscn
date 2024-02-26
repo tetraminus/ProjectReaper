@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=10 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_r31u1"]
 [ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
 [ext_resource type="Texture2D" uid="uid://dbio2bpmovm07" path="res://Player/PlayerTest.png" id="3_vje4l"]
 [ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
+[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="6_k1hhn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k72yq"]
 shader = ExtResource("2_r31u1")
@@ -14,11 +15,13 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2pfv"]
-size = Vector2(16, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_xbyij"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qdpoa"]
+radius = 7.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
-collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_vrt2t")
 _abilityManager = NodePath("AbilityManager")
@@ -29,7 +32,7 @@ material = SubResource("ShaderMaterial_k72yq")
 texture = ExtResource("3_vje4l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_e2pfv")
+shape = SubResource("CircleShape2D_xbyij")
 
 [node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("Ability1")]
 script = ExtResource("3_u00fe")
@@ -37,3 +40,15 @@ Ability1 = NodePath("SoldierShoot")
 
 [node name="SoldierShoot" type="Node" parent="AbilityManager"]
 script = ExtResource("4_2082f")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("6_k1hhn")
+
+[node name="HurtBoxshape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_qdpoa")
