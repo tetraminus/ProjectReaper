@@ -32,8 +32,8 @@ text = "asdasd"
 
 [node name="ItemGrid" type="GridContainer" parent="PlayerHud"]
 layout_mode = 0
-offset_right = 1915.0
-offset_bottom = 1084.0
+offset_right = 640.0
+offset_bottom = 40.0
 columns = 17
 
 [node name="FPS" type="Label" parent="PlayerHud"]

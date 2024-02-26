@@ -110,7 +110,7 @@ public abstract partial class AbstractItem : Node2D
         do
         {
             direction = Vector2.FromAngle((float)(GD.Randf() * Math.Tau));
-            direction = direction * (GD.Randf() * 50f + 100f); 
+            direction = direction * (25f); 
 
         } while (!checkDropPosition(globalPosition, direction));
         

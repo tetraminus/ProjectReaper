@@ -797,7 +797,7 @@ texture = ExtResource("1_r4ccu")
 8:8/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_d0uy8")
 
 [resource]
-occlusion_layer_0/light_mask = 1
+occlusion_layer_0/light_mask = 3
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Walls"

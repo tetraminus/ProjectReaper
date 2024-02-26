@@ -32,6 +32,8 @@ public partial class Chest : Node2D
             _opened = true;
             _item.Drop(GlobalPosition);
             AnimatedSprite2D.Play("open");
+            Area2D.Monitoring = false;
+            OnBodyExited(GameManager.Player);
         }
         
     }
@@ -61,6 +63,7 @@ public partial class Chest : Node2D
         if (_playerInRadius && Input.IsActionJustPressed("interact"))
         {
             Open();
+            
         }
     }
 }

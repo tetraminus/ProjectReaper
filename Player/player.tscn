@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=14 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_r31u1"]
@@ -24,6 +24,9 @@ radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qdpoa"]
 radius = 7.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qjn8v"]
+polygon = PackedVector2Array(7, -6, 6, 0.5, 5, 6, 3, 9, -3, 9, -5, 6, -5, 2, -6, -4, -6, -6, -4, -7, -2, -8, 6, -7)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
 collision_layer = 12
@@ -66,8 +69,15 @@ script = ExtResource("6_k1hhn")
 shape = SubResource("CircleShape2D_qdpoa")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1, 1)
+energy = 0.5
 shadow_enabled = true
+shadow_item_cull_mask = 2
 texture = ExtResource("8_cacyo")
-texture_scale = 2.0
+texture_scale = 0.5
 
 [node name="CanvasLayer" parent="." instance=ExtResource("9_i8hed")]
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_qjn8v")
+sdf_collision = false

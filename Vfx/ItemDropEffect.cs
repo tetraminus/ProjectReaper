@@ -27,16 +27,25 @@ public partial class ItemDropEffect : Node2D
         // smooth curve from the start to the end
         
         _path2D.Curve.ClearPoints();
-        _path2D.Curve.AddPoint(fromPosition);
-        _path2D.Curve.AddPoint((fromPosition + toPosition) / 2 + new Vector2(0, -10));
-        _path2D.Curve.AddPoint(toPosition);
+        _path2D.Curve.AddPoint(fromPosition, Vector2.Down, Vector2.Up * 50);
         
-        _pathFollow2D.ProgressRatio = 0;
+        _path2D.Curve.AddPoint(toPosition, Vector2.Up * 50, Vector2.Down);
+        
+        
+        // smooth curve from the start to the end
         
         
         // tween the sprite to the target position in a curve
+        _pathFollow2D.ProgressRatio = 0;
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_pathFollow2D, "progress_ratio", 1, 0.5);
+        tween.TweenProperty(_pathFollow2D, "progress_ratio", .5, 0.15)
+            .SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Sine);
+        
+        tween.TweenProperty(_pathFollow2D, "progress_ratio", 1, 0.35)
+            .SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Bounce);
+            
         tween.Finished += Finish;
         tween.Play();
         

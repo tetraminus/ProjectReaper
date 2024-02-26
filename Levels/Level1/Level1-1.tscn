@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=9 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="Texture2D" uid="uid://qqebpf7668u2" path="res://Tilesets/BG.png" id="2_laqu7"]
 [ext_resource type="Texture2D" uid="uid://blw8deuavnnxr" path="res://Levels/Level1/level1-1.png" id="3_25e50"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 
 [sub_resource type="Environment" id="Environment_r8h6l"]
 background_energy_multiplier = 0.0
@@ -13,6 +14,7 @@ adjustment_brightness = 0.01
 
 [node name="Level1-1" type="Node2D"]
 script = ExtResource("1_n8soa")
+DisableSpawning = true
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024
@@ -94,3 +96,6 @@ position = Vector2(-695, -937)
 
 [node name="LootPoint15" parent="loot" instance=ExtResource("6_6w5hx")]
 position = Vector2(72, -488)
+
+[node name="Lamp" parent="." instance=ExtResource("7_foyrk")]
+position = Vector2(367, 139)

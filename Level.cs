@@ -9,6 +9,7 @@ public partial class Level : Node2D
     private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/Snowpeabert.tscn");
     private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
     private PackedScene SlimeScn = GD.Load<PackedScene>("res://Enemies/Slimebert.tscn");
+    [Export] public bool DisableSpawning { get; set; }
 
     [Export] public int BoundsLeft { get; set; }
     [Export] public int BoundsRight { get; set; }
@@ -37,7 +38,7 @@ public partial class Level : Node2D
         
 
         SpawnDirector.Instance.Init(spawnset);
-        SpawnDirector.Instance.StartSpawning();
+        if (!DisableSpawning) SpawnDirector.Instance.StartSpawning();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
