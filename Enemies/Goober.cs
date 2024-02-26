@@ -12,6 +12,8 @@ public partial class Goober : AbstractCreature
     private Vector2 _movementTargetPosition = Vector2.Zero;
     private bool _directSight = false;
     
+    
+    
     public Vector2 MovementTarget
     {
         get { return _navigationAgent.TargetPosition; }
@@ -22,7 +24,7 @@ public partial class Goober : AbstractCreature
     {
         base._Ready();
         
-        Stats.Speed = 10000;
+        Stats.Speed = 100;
         Stats.Health = 10;
         Stats.MaxHealth = 10;
         Stats.Damage = 0;
@@ -92,7 +94,7 @@ public partial class Goober : AbstractCreature
         // else move towards player
         else
         {
-            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta;
+            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta * 20f;
         }
         
 
@@ -104,7 +106,7 @@ public partial class Goober : AbstractCreature
         if (nextPos != Vector2.Zero)
         {
             var dir = (nextPos - GlobalPosition).Normalized();
-            Velocity = dir * Stats.Speed * (float)delta;
+            Velocity = dir * Stats.Speed * (float)delta * 20f;
         }
         else
         {

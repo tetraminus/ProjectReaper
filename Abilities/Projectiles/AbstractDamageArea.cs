@@ -48,15 +48,22 @@ public abstract partial class AbstractDamageArea : Area2D
     public virtual void OnAreaExited(Area2D area)
     {
     }
-    
+
     public virtual void OnBodyEntered(Node body)
     {
-        // terrain check
-        if (body is not TileMap) return;
-        // check if collison layer is terrain
-         QueueFree();
+        if (body is TileMap tileMap)
+        {
+            QueueFree();
+            return;
+        }
         
-    }
+        
+        if (body is not PhysicsBody2D physBody ) return;
+        // objects check
+        if (!physBody.GetCollisionLayerValue(1)) return;
+        QueueFree();
+
+}
     
     public virtual void OnBodyExited(Node body)
     {

@@ -8,6 +8,8 @@ namespace ProjectReaper.Player;
 
 public partial class Player : AbstractCreature
 {
+    
+    private const float Accelfac = 20.0f;
     [Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
     public Vector2 MoveDirection { get; set; }
     public Camera2D Camera  => GetNode<Camera2D>("Camera2D");
@@ -44,13 +46,11 @@ public partial class Player : AbstractCreature
     {
         var inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
         // add less speed when moving fast
-        
-       
-        
-        
-        Velocity += inputDir * Stats.Speed * delta;
+        Velocity += inputDir * Stats.Speed * delta * Accelfac;
         MoveDirection = inputDir;
     }
+
+    
 
 
     public override void _Process(double delta)
@@ -78,13 +78,17 @@ public partial class Player : AbstractCreature
     {
         GetInput( (float)delta);
         // simulate friction whith delta
-        Velocity = Velocity.Lerp(Vector2.Zero, 8f * (float)delta);
+        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        {
+            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+        }
+        
     }
 
     private void InitStats()
     {
         Stats.Init();
-        Stats.Speed = 2000;
+        Stats.Speed = 100;
     }
 
     public override void AddItem(string id, int stacks = 1, bool _ = false)

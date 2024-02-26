@@ -1,10 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2vmwyncwtew0"]
+[gd_scene load_steps=4 format=3 uid="uid://c2vmwyncwtew0"]
 
 [ext_resource type="Script" path="res://Objects/BigDoor/BigDoor.cs" id="1_eesn8"]
+[ext_resource type="Texture2D" uid="uid://dbieir7aihffd" path="res://Objects/BigDoor/BigDoorTileBG.png" id="2_cts3n"]
+[ext_resource type="Texture2D" uid="uid://w1kol3yr5ih0" path="res://Objects/BigDoor/BigDoorTileFG.png" id="3_0ugfd"]
 
 [node name="BigDoor" type="AnimatableBody2D"]
 script = ExtResource("1_eesn8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="BGdisplay" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 100, 0)
+texture = ExtResource("2_cts3n")
+texture_mode = 1
+
+[node name="FGdisplay" type="Line2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("3_0ugfd")
+texture_mode = 1

@@ -5,17 +5,22 @@ using Godot;
 using Godot.NativeInterop;
 
 namespace ProjectReaper.Objects.BigDoor;
-
+[Tool]
 public partial class BigDoor : AnimatableBody2D
 {
-	private const int Resolution = 25;
+	
 	private CollisionPolygon2D CollisionPolygon2D => GetNode<CollisionPolygon2D>("CollisionPolygon2D");
-	private Line2D Line2D => GetNode<Line2D>("Line2D");
+	private Line2D BGdisplay => GetNode<Line2D>("BGdisplay");
+	private Line2D FGdisplay => GetNode<Line2D>("FGdisplay");
 	private float _percentage = 1;
 	private bool _opening = false;
 	private bool _closing = false;
 	[Export(PropertyHint.NodeType, "Path2D")] public Path2D Curve { get; set; }
 	[Export] public float DoorThickness { get; set; } = 10;
+	[Export] public Color DoorColor { get; set; } = new Color(1, 1, 1, 1);
+	
+	[Export(PropertyHint.Range, "1,100")] 
+	private int Resolution = 25;
 	
 	// ready 
 	public override void _Ready()
@@ -25,6 +30,7 @@ public partial class BigDoor : AnimatableBody2D
 			ConstructVisuals();
 			_percentage = 1;
 		}
+		FGdisplay.Modulate = DoorColor;
 	}
 	
 	public void Open()
@@ -44,9 +50,13 @@ public partial class BigDoor : AnimatableBody2D
 	public override void _Process(double delta)
 	{
 		
-		if (Engine.IsEditorHint())
+		if (Engine.IsEditorHint() )
 		{
-			ConstructVisuals();
+			if (Curve != null)
+			{
+				ConstructVisuals();
+				FGdisplay.Modulate = DoorColor;
+			}
 		}
 		else
 		{
@@ -127,7 +137,9 @@ public partial class BigDoor : AnimatableBody2D
 	        
 	    }
 	    
-	    Line2D.Points = newPoints.ToArray();
-	    Line2D.Width = DoorThickness * 2;
+	    BGdisplay.Points = newPoints.ToArray();
+	    BGdisplay.Width = DoorThickness * 2;
+	    FGdisplay.Points = newPoints.ToArray();
+	    FGdisplay.Width = DoorThickness * 2;
 	}
 }
