@@ -62,6 +62,11 @@ public partial class Goober : AbstractCreature
     {
         base._Process(delta);
         MoveAndSlide();
+        
+        if (Position.X > GameManager.Player.Position.X)
+            _sprite.FlipH = true;
+        else
+            _sprite.FlipH = false;
     }
 
     public override void _PhysicsProcess(double delta)

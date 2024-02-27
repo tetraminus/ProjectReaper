@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://g706fe53phrb"]
+
+[ext_resource type="Texture2D" uid="uid://rw4xj5p4hpcm" path="res://icon.svg" id="1_xt3dw"]
+
+[node name="Pizzamanbert" type="Node2D"]
+
+[node name="Pizzaman" type="Sprite2D" parent="."]
+texture = ExtResource("1_xt3dw")
