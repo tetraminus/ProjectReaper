@@ -94,7 +94,7 @@ public partial class Goober : AbstractCreature
         // else move towards player
         else
         {
-            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta * 20f;
+            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta * 50f;
         }
         
 

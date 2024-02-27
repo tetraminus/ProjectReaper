@@ -61,7 +61,7 @@ public partial class Player : AbstractCreature
         // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
         MoveAndSlide();
         
-        if ( (LastNavPos - GlobalPosition).Length() > 25)
+        if ( (LastNavPos - GlobalPosition).Length() > 10)
         {
             LastNavPos = GlobalPosition;
             Callbacks.Instance.EnemyShouldRenavEvent?.Invoke(GlobalPosition, NavGroup);

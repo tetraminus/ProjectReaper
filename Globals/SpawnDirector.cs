@@ -142,23 +142,34 @@ public partial class SpawnDirector : Node
         var level = GameManager.Level;
         
         // check if the enemy is out of bounds
+        Vector2 position;
         do 
         {
-            var randomDirection = RandomDirection();
-            enemyInstance.GlobalPosition = NavigationServer2D.MapGetClosestPoint(GetTree().Root.World2D.NavigationMap, GameManager.Player.GlobalPosition + randomDirection);
-        } while (CheckOutOfBounds(enemyInstance.GlobalPosition, level, enemyInstance));
+            position = GameManager.Level.GetSpawnPosition();
+            
+        } while (CheckOutOfBounds(position, level, enemyInstance));
+        
+        enemyInstance.GlobalPosition = position;
     }
 
+    /// <summary>
+    /// Check if the enemy is out of bounds
+    /// </summary>
+    /// <param name="enemyInstanceGlobalPosition"></param>
+    /// <param name="level"></param>
+    /// <param name="enemyInstance"></param>
+    /// <returns> True if the enemy is out of bounds </returns>
     private bool CheckOutOfBounds(Vector2 enemyInstanceGlobalPosition, Level level, AbstractCreature enemyInstance) {
         
         var query = new PhysicsShapeQueryParameters2D();
-        if (enemyInstance is PhysicsBody2D body2D) {
-            query.Shape = body2D.GetChild<CollisionShape2D>(0).Shape.Duplicate();
-            query.Transform = new Transform2D(0, enemyInstanceGlobalPosition);
-        }
+
+        query.Shape = enemyInstance.GetCollisionShape().Shape.Duplicate();
         
-        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query);
-        return collision.Count == 0;
+        query.Transform = new Transform2D(0, enemyInstanceGlobalPosition);
+        
+        
+        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query,1);
+        return collision.Count != 0;
     }
 
     private static Vector2 RandomDirection()

@@ -16,6 +16,7 @@ public partial class Level : Node2D
     [Export] public int BoundsTop { get; set; }
     [Export] public int BoundsBottom { get; set; }
     [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
+    [Export] public Node SpawnRects { get; set; }
 
     public override void _Ready()
     {
@@ -45,5 +46,12 @@ public partial class Level : Node2D
 
     public override void _Process(double delta)
     {
+    }
+
+    public Vector2 GetSpawnPosition()
+    {
+        var spawnRect = (SpawnRect)SpawnRects.GetChild((int)GD.Randi() % SpawnRects.GetChildCount());
+        return spawnRect.Position + new Vector2(GD.Randf() * spawnRect.RectShape.Size.X, GD.Randf() * spawnRect.RectShape.Size.Y);
+        
     }
 }
