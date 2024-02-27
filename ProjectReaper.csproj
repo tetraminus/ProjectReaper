@@ -5,8 +5,4 @@
         <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
-    <ItemGroup>
-        <Content Include="rooms\TestRooms\room0.tscn"/>
-        <Content Include="rooms\TestRooms\TestRooms.xml"/>
-    </ItemGroup>
 </Project>

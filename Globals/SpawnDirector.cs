@@ -143,11 +143,18 @@ public partial class SpawnDirector : Node
         
         // check if the enemy is out of bounds
         Vector2 position;
+        int attempts = 0;
         do 
         {
             position = GameManager.Level.GetSpawnPosition();
+            attempts++;
             
-        } while (CheckOutOfBounds(position, level, enemyInstance));
+        } while (CheckOutOfBounds(position, level, enemyInstance) && attempts < 10);
+
+        if (attempts >= 10) {
+            enemyInstance.QueueFree();
+            return;
+        }
         
         enemyInstance.GlobalPosition = position;
     }
@@ -155,32 +162,22 @@ public partial class SpawnDirector : Node
     /// <summary>
     /// Check if the enemy is out of bounds
     /// </summary>
-    /// <param name="enemyInstanceGlobalPosition"></param>
+    /// <param name="position"></param>
     /// <param name="level"></param>
     /// <param name="enemyInstance"></param>
     /// <returns> True if the enemy is out of bounds </returns>
-    private bool CheckOutOfBounds(Vector2 enemyInstanceGlobalPosition, Level level, AbstractCreature enemyInstance) {
+    private bool CheckOutOfBounds(Vector2 position, Level level, AbstractCreature enemyInstance) {
         
         var query = new PhysicsShapeQueryParameters2D();
-
         query.Shape = enemyInstance.GetCollisionShape().Shape.Duplicate();
-        
-        query.Transform = new Transform2D(0, enemyInstanceGlobalPosition);
+        query.Transform = new Transform2D(0, position);
         
         
         var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query,1);
         return collision.Count != 0;
     }
 
-    private static Vector2 RandomDirection()
-    {
-        var randomDirection = new Vector2();
-        randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
-        randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
-        randomDirection = randomDirection.Normalized();
-        randomDirection *= 500;
-        return randomDirection;
-    }
+  
 
     private int _currentNavGroup = 1;
     public const int MaxNavGroups = 32;

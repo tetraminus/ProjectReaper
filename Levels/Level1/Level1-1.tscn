@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=17 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
@@ -40,16 +40,25 @@ source_geometry_mode = 1
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
-size = Vector2(96.195, 81.495)
+size = Vector2(105.785, 100)
 
-[node name="Level1-1" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suw0w"]
+size = Vector2(97.905, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1s6f"]
+size = Vector2(200, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
+size = Vector2(400, 100)
+
+[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects")]
 script = ExtResource("1_n8soa")
-DisableSpawning = null
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024
 BoundsBottom = 1024
 NumberOfChests = 8
+SpawnRects = NodePath("SpawnAreas")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
 tile_set = ExtResource("4_g1xfc")
@@ -120,13 +129,12 @@ position = Vector2(72, -488)
 [node name="Lamp" parent="." instance=ExtResource("7_foyrk")]
 position = Vector2(367, 139)
 
-[node name="BigDoor" parent="." instance=ExtResource("8_67fyu")]
+[node name="BigDoor" parent="." node_paths=PackedStringArray("Curve", "NavigationRegion2D") instance=ExtResource("8_67fyu")]
 position = Vector2(806, -17)
+Curve = NodePath("Path2D")
+NavigationRegion2D = NodePath("NavigationRegion2D2")
 DoorThickness = 8.0
 DoorColor = Color(1, 0, 0, 1)
-_percentage = 1.0
-_opening = false
-_closing = false
 Resolution = 50
 
 [node name="Path2D" type="Path2D" parent="BigDoor"]
@@ -140,7 +148,7 @@ navigation_polygon = SubResource("NavigationPolygon_7g7gs")
 [node name="nav" type="Node" parent="."]
 
 [node name="Main" type="NavigationRegion2D" parent="nav"]
-position = Vector2(8, 7)
+position = Vector2(7, 7)
 navigation_polygon = SubResource("NavigationPolygon_dqg1l")
 
 [node name="littleroom" type="NavigationRegion2D" parent="nav"]
@@ -153,4 +161,68 @@ navigation_polygon = SubResource("NavigationPolygon_f0yvs")
 position = Vector2(-296, 147)
 script = ExtResource("7_vjclb")
 RectShape = SubResource("RectangleShape2D_tjagf")
-_rectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect2" type="Node2D" parent="SpawnAreas"]
+position = Vector2(192, 99)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_suw0w")
+
+[node name="SpawnRect3" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-744, 481)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect4" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-924, 804)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect5" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-130, 770)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect6" type="Node2D" parent="SpawnAreas"]
+position = Vector2(257, 453)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_j1s6f")
+
+[node name="SpawnRect7" type="Node2D" parent="SpawnAreas"]
+position = Vector2(695, 33)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect8" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-187, -378)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_7x32r")
+
+[node name="SpawnRect9" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-515, -375)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_suw0w")
+
+[node name="SpawnRect10" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-366, -842)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_suw0w")
+
+[node name="SpawnRect11" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-825, -865)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_suw0w")
+
+[node name="SpawnRect12" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-813, -316)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_suw0w")
+
+[node name="SpawnRect13" type="Node2D" parent="SpawnAreas"]
+position = Vector2(836, 216)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="SpawnRect14" type="Node2D" parent="SpawnAreas"]
+position = Vector2(-985, 495)
+script = ExtResource("7_vjclb")
+RectShape = SubResource("RectangleShape2D_tjagf")

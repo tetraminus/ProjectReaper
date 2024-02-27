@@ -1,60 +1,33 @@
 using Godot;
 using System;
+using ProjectReaper.Globals;
+
 [Tool]
 [GlobalClass]
-public partial class SpawnRect : Node2D
-{
+public partial class SpawnRect : Node2D {
 
-	private RectangleShape2D _rectShape;
-	[Export]
-	public RectangleShape2D RectShape
-	{
-		get => _rectShape;
-		set
-		{
-			if (_rectShape != null && Engine.IsEditorHint())
-			{
-				_rectShape.Changed -= RectShapeOnChanged;
-			}
-			
-			_rectShape = value;
-			
-			if (Engine.IsEditorHint())
-			{
-				_rectShape.Changed += RectShapeOnChanged;
-				QueueRedraw();
-			}
-		}
-	}
+
+	[Export] public RectangleShape2D RectShape;
 	
 	
 
-	public override void _Ready()
-	{
-		if (Engine.IsEditorHint() && RectShape != null)
-		{
-			RectShape.Changed += RectShapeOnChanged;
-		}
-		
-	}
-
-	public override void _ExitTree()
-	{
-		if (Engine.IsEditorHint() && RectShape != null)
-		{
-			RectShape.Changed -= RectShapeOnChanged;
-		}
-		
-	}
-
-	private void RectShapeOnChanged()
-	{
-		QueueRedraw();
-	}
 
 
 	public override void _Process(double delta)
 	{
+		if (Engine.IsEditorHint())
+		{
+			if (RectShape != null)
+			{
+				QueueRedraw();
+			}
+		}
+		
+	}
+	
+	public float GetArea()
+	{
+		return RectShape.Size.X * RectShape.Size.X;
 	}
 
 	public override void _Draw()
@@ -63,8 +36,19 @@ public partial class SpawnRect : Node2D
 		{
 			if (RectShape != null)
 			{
-				DrawRect(new Rect2(Vector2.Zero, RectShape.Size), new Color(1, 1, 1, 1f));
+				DrawRect(new Rect2(Vector2.Zero, RectShape.Size), Colors.Purple, false, 4);
 			}
 		}
+	}
+	
+	public bool PlayerTooClose(float distance)
+	{
+		var playerPos = GameManager.Player.Position;
+		return playerPos.DistanceTo(Position + RectShape.Size / 2) < distance;
+	}
+	
+
+	public Vector2 GetRandomPosition() {
+		return Position + new Vector2(GD.Randf() * RectShape.Size.X, GD.Randf() * RectShape.Size.Y);
 	}
 }
