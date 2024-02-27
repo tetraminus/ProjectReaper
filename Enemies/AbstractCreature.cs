@@ -168,6 +168,32 @@ public abstract partial class AbstractCreature : CharacterBody2D
         Dead = true;
         QueueFree();
     }
+    
+    public CollisionShape2D GetCollisionShape()
+    {
+        CollisionShape2D biggest = null;
+        foreach (var child in GetChildren())
+        {
+            if (child is CollisionShape2D shape)
+            {
+                if (biggest == null)
+                {
+                    biggest = shape;
+                    continue;
+                }
+                
+                if (shape.Shape.GetRect().Area > biggest.Shape.GetRect().Area)
+                    biggest = shape;
+                
+            }
+        }
+        
+        if (biggest == null)
+            GD.PrintErr("No collision shape found");
+        
+        return biggest;
+        
+    }
 
 
     public void Damage(DamageReport damageReport)

@@ -142,34 +142,42 @@ public partial class SpawnDirector : Node
         var level = GameManager.Level;
         
         // check if the enemy is out of bounds
+        Vector2 position;
+        int attempts = 0;
         do 
         {
-            var randomDirection = RandomDirection();
-            enemyInstance.GlobalPosition = NavigationServer2D.MapGetClosestPoint(GetTree().Root.World2D.NavigationMap, GameManager.Player.GlobalPosition + randomDirection);
-        } while (CheckOutOfBounds(enemyInstance.GlobalPosition, level, enemyInstance));
-    }
+            position = GameManager.Level.GetSpawnPosition();
+            attempts++;
+            
+        } while (CheckOutOfBounds(position, level, enemyInstance) && attempts < 10);
 
-    private bool CheckOutOfBounds(Vector2 enemyInstanceGlobalPosition, Level level, AbstractCreature enemyInstance) {
-        
-        var query = new PhysicsShapeQueryParameters2D();
-        if (enemyInstance is PhysicsBody2D body2D) {
-            query.Shape = body2D.GetChild<CollisionShape2D>(0).Shape.Duplicate();
-            query.Transform = new Transform2D(0, enemyInstanceGlobalPosition);
+        if (attempts >= 10) {
+            enemyInstance.QueueFree();
+            return;
         }
         
-        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query);
-        return collision.Count == 0;
+        enemyInstance.GlobalPosition = position;
     }
 
-    private static Vector2 RandomDirection()
-    {
-        var randomDirection = new Vector2();
-        randomDirection.X = (float)GD.RandRange(-1.0f, 1.0f);
-        randomDirection.Y = (float)GD.RandRange(-1.0f, 1.0f);
-        randomDirection = randomDirection.Normalized();
-        randomDirection *= 500;
-        return randomDirection;
+    /// <summary>
+    /// Check if the enemy is out of bounds
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="level"></param>
+    /// <param name="enemyInstance"></param>
+    /// <returns> True if the enemy is out of bounds </returns>
+    private bool CheckOutOfBounds(Vector2 position, Level level, AbstractCreature enemyInstance) {
+        
+        var query = new PhysicsShapeQueryParameters2D();
+        query.Shape = enemyInstance.GetCollisionShape().Shape.Duplicate();
+        query.Transform = new Transform2D(0, position);
+        
+        
+        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query,1);
+        return collision.Count != 0;
     }
+
+  
 
     private int _currentNavGroup = 1;
     public const int MaxNavGroups = 32;
