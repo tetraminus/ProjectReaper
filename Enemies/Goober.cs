@@ -7,10 +7,12 @@ public partial class Goober : AbstractCreature
 {
     private AnimatedSprite2D _sprite;
     private NavigationAgent2D _navigationAgent;
-    
-    private float _movementSpeed = 200.0f;
     private Vector2 _movementTargetPosition = Vector2.Zero;
     private bool _directSight = false;
+
+    private const float Accelfac = 20.0f;
+    public Vector2 MoveDirection { get; set; }
+
     
     
     
@@ -24,7 +26,7 @@ public partial class Goober : AbstractCreature
     {
         base._Ready();
         
-        Stats.Speed = 100;
+        Stats.Speed = 70;
         Stats.Health = 10;
         Stats.MaxHealth = 10;
         Stats.Damage = 0;
@@ -69,7 +71,7 @@ public partial class Goober : AbstractCreature
         // raycast to player
         var player = GameManager.Player;
         if (player.Dead) return;
-        
+
         if (player.GlobalPosition.DistanceTo(GlobalPosition) < 500){
             var parameters = new PhysicsRayQueryParameters2D();
             parameters.From = GlobalPosition;
@@ -94,23 +96,33 @@ public partial class Goober : AbstractCreature
         // else move towards player
         else
         {
-            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta * 20f;
+            MoveDirection = (player.GlobalPosition - GlobalPosition).Normalized();
+            Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
         }
-        
 
+        // simulate friction with delta
+        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        {
+            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+        }
     }
-
     private void FollowPath(double delta)
     {
         var nextPos = _navigationAgent.GetNextPathPosition();
         if (nextPos != Vector2.Zero)
         {
-            var dir = (nextPos - GlobalPosition).Normalized();
-            Velocity = dir * Stats.Speed * (float)delta * 20f;
+            MoveDirection = (nextPos - GlobalPosition).Normalized();
+            Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
         }
         else
         {
-            Velocity = Vector2.Zero;
+            MoveDirection = Vector2.Zero;
+        }
+
+        // simulate friction with delta
+        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        {
+            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
         }
     }
 
