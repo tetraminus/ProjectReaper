@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgw3rlyaxe306"]
+
+[ext_resource type="Script" path="res://Items/Prefabs/ForcefieldOrbital.cs" id="1_4xor3"]
+[ext_resource type="Texture2D" uid="uid://b68guieqo8wh2" path="res://Assets/forceField.png" id="2_mt0c2"]
+[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="2_voi6v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4t4l"]
+size = Vector2(16, 4)
+
+[node name="Forcefield" type="Node2D"]
+script = ExtResource("1_4xor3")
+
+[node name="shield" type="Area2D" parent="."]
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_voi6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shield"]
+shape = SubResource("RectangleShape2D_r4t4l")
+
+[node name="ForceField" type="Sprite2D" parent="shield"]
+texture = ExtResource("2_mt0c2")

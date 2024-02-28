@@ -22,6 +22,7 @@ public partial class Callbacks : Node
     public delegate float FinalDamageEventHandler(AbstractCreature creature, float damage);
     public delegate void PlayerDeathEventHandler();
     public delegate void EnemyRenavEventHandler(Vector2 position, int group);
+    public delegate void ProjectileHitEventHandler(AbstractDamageArea projectile, AbstractCreature creature);
 
     public AbilityUsedEventHandler AbilityUsedEvent;
     public BulletCreatedEventHandler BulletCreatedEvent;
@@ -32,9 +33,11 @@ public partial class Callbacks : Node
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
     public PlayerDeathEventHandler PlayerDeathEvent;
     public EnemyRenavEventHandler EnemyShouldRenavEvent;
+    public ProjectileHitEventHandler ProjectileHitEvent { get; set; }
 
     public static Callbacks Instance { get; private set; }
     
+
 
     public override void _Ready()
     {

@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Vfx;
 
@@ -18,6 +19,7 @@ public abstract partial class AbstractItem : Node2D
         {
             _stacks = value;
             StacksChanged?.Invoke(this, _stacks);
+            
             if (_stacks <= 0)
             {
                 QueueFree();
@@ -35,9 +37,22 @@ public abstract partial class AbstractItem : Node2D
     {
     }
 
-    public void Gain()
+    public void Gain(int newstacks)
     {
-        OnInitalPickup();
+        if (Stacks <= 1)
+        {
+            OnInitalPickup();
+        }
+        else
+        {
+            OnStack(newstacks);
+        }
+        
+    }
+    
+    public virtual void OnStack(int newstacks)
+    {
+        
     }
 
     public virtual void OnInitalPickup() { }
@@ -129,6 +144,13 @@ public abstract partial class AbstractItem : Node2D
         var ray = GameManager.Level.GetWorld2D().DirectSpaceState.IntersectRay(parameters);
         
         return ray.Count == 0;
+    }
+    
+    public AbstractCreature GetHolder()
+    {
+        if (GetParent().GetParent() is AbstractCreature creature)
+            return creature;
+        return null;
     }
     
 }

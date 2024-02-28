@@ -7,7 +7,15 @@ public partial class ItemPickup : Area2D
 {
     public AbstractItem Item { get; set; }
     
+    /// <summary>
+    /// for testing purposes, roll an item on spawn
+    /// </summary>
     [Export] public bool RollItem = false;
+    
+    /// <summary>
+    ///   for testing purposes, override the item id on spawn
+    /// </summary>
+    [Export] public string OverrideItemId = "";
     
    
     private Sprite2D _sprite;
@@ -30,8 +38,21 @@ public partial class ItemPickup : Area2D
         
         if (RollItem)
         {
-            SetItem(Globals.ItemLibrary.Instance.RollItem());
+            if (OverrideItemId != "")
+            {
+                var item = ItemLibrary.Instance.CreateItem(OverrideItemId);
+                SetItem(item);
+                
+            }
+            else
+            {
+                var item = ItemLibrary.Instance.RollItem();
+                SetItem(item);
+            }
+            
         }
+       
+        
     }
 
     public override void _ExitTree()
@@ -39,7 +60,7 @@ public partial class ItemPickup : Area2D
         
         BodyEntered -= OnBodyEntered;
         GameManager.PlayerHud.HideItemInfo();
-        base._ExitTree();
+        
         
     }
 

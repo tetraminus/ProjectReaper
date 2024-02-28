@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Callbacks="*res://Globals/Callbacks.cs"
 GameManager="*res://Globals/GameManager.cs"
-LevelGenerator="*res://Globals/LevelGenerator.cs"
 ItemLibrary="*res://Globals/ItemLibrary.cs"
 SpawnDirector="*res://Globals/SpawnDirector.cs"
 LootDirector="*res://Globals/LootDirector.cs"

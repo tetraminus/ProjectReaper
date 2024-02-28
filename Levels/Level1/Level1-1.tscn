@@ -1,12 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=18 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
+[ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="8_j42nk"]
 
 [sub_resource type="Environment" id="Environment_r8h6l"]
 background_energy_multiplier = 0.0
@@ -228,3 +229,18 @@ RectShape = SubResource("RectangleShape2D_tjagf")
 position = Vector2(-985, 495)
 script = ExtResource("7_vjclb")
 RectShape = SubResource("RectangleShape2D_tjagf")
+
+[node name="ItemPickup" parent="." instance=ExtResource("8_j42nk")]
+position = Vector2(210, 347)
+RollItem = true
+OverrideItemId = "force_field"
+
+[node name="ItemPickup2" parent="." instance=ExtResource("8_j42nk")]
+position = Vector2(260, 383)
+RollItem = true
+OverrideItemId = "force_field"
+
+[node name="ItemPickup3" parent="." instance=ExtResource("8_j42nk")]
+position = Vector2(256, 317)
+RollItem = true
+OverrideItemId = "force_field"

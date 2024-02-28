@@ -3,13 +3,14 @@ using Godot.Collections;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
+using ProjectReaper.Objects;
 using ProjectReaper.Player;
 using ProjectReaper.Powers;
 using ProjectReaper.Util;
 
 namespace ProjectReaper.Enemies;
 
-public abstract partial class AbstractCreature : CharacterBody2D
+public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlocker
 {
     public enum HitBoxState
     {
@@ -130,15 +131,15 @@ public abstract partial class AbstractCreature : CharacterBody2D
          var item = GetItem(id);
         if (item != null)
         {
-            GD.Print("Adding stacks to item");
             item.Stacks += stacks;
+            item.Gain(stacks);
         }
         else
         {
             var newItem = ItemLibrary.Instance.CreateItem(id);
             newItem.Stacks = stacks;
             Items.AddChild(newItem);
-            newItem.Gain();
+            newItem.Gain(stacks);
             if (isPlayer)
                 GameManager.PlayerHud.AddItem(newItem);
         }
@@ -150,16 +151,19 @@ public abstract partial class AbstractCreature : CharacterBody2D
         if (existingItem != null)
         {
             existingItem.Stacks += item.Stacks;
+            existingItem.Gain(item.Stacks);
         }
         else
         {
             if (item.Stacks <= 0) item.Stacks = 1;
                 
             Items.AddChild(item);
-            item.Gain();
+            item.Gain(1);
             GameManager.PlayerHud.AddItem(item);
         }
     }
+    
+   
 
 
     public virtual void OnDeath()
@@ -233,5 +237,15 @@ public abstract partial class AbstractCreature : CharacterBody2D
     public bool IsPlayer()
     {
         return Team == Teams.Player;
+    }
+
+    public virtual bool CanBlockProjectile(AbstractDamageArea projectile)
+    {
+        return true;
+    }
+
+    public virtual void OnProjectileBlocked(AbstractDamageArea projectile)
+    {
+        Callbacks.Instance.ProjectileHitEvent?.Invoke(projectile, this);
     }
 }

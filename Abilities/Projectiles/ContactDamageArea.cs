@@ -1,6 +1,8 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 using Godot.Collections;
 using ProjectReaper.Enemies;
+using ProjectReaper.Objects;
 using ProjectReaper.Util;
 
 namespace ProjectReaper.Abilities.Projectiles;
@@ -11,7 +13,7 @@ public partial class ContactDamageArea : AbstractDamageArea
     [Export(PropertyHint.Range, "0,100")] 
     public override float Damage { get; set; } = 10;
     public override float Duration { get; set; } = 0.2f;
-    public Array<AbstractCreature> Creatures = new();
+    public List<IProjectileBlocker> Blockers = new();
      
     public override void _Ready()
     {
@@ -29,33 +31,35 @@ public partial class ContactDamageArea : AbstractDamageArea
     {
         
         if (area is not HurtBox hurtBox) return;
-        if (Creatures.Contains(hurtBox.GetParentCreature())) return;
-        var creature = hurtBox.GetParentCreature();
+        if (Blockers.Contains(hurtBox.GetParentBlocker())) return;
+        var creature = hurtBox.GetParentBlocker();
         if (creature == null) return;
         if (creature.Team == Team) return;
-        if (Creatures.Count == 0) Timer.Start(Duration);
-        Creatures.Add(creature);
+        if (Blockers.Count == 0) Timer.Start(Duration);
+        Blockers.Add(creature);
         
     }
     
     public override void OnAreaExited(Area2D area)
     {
         if (area is not HurtBox hurtBox) return;
-        var creature = hurtBox.GetParentCreature();
+        var creature = hurtBox.GetParentBlocker();
         if (creature == null) return;
         if (creature.Team == Team) return;
-        Creatures.Remove(creature);
-        if (Creatures.Count == 0) Timer.Stop();
+        Blockers.Remove(creature);
+        if (Blockers.Count == 0) Timer.Stop();
     }
 
     public void OnTimerTimeout()
     {
         Vector2 knockback = new Vector2(0, 0);
-        foreach (var creature in Creatures)
+        foreach (var blocker in Blockers)
         {
-            if (creature.Dead) continue;
-            creature.Damage(new DamageReport(Damage, Source, creature, GetParentCreature().Stats, creature.Stats));
-            knockback = new Vector2(1,0).Rotated(GlobalPosition.AngleToPoint(creature.GlobalPosition));
+            if (blocker is AbstractCreature creature)
+            {
+                creature.Damage(new DamageReport(Damage, Source, creature, Source.Stats, creature.Stats));
+                knockback += (creature.GlobalPosition - GlobalPosition).Normalized();
+            }
             
         }
         
