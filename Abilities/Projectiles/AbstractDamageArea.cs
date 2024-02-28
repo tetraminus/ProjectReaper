@@ -25,6 +25,8 @@ public abstract partial class AbstractDamageArea : Area2D
     public override void _Ready()
     {
         Monitoring = true;
+        
+        
 
         AreaEntered += OnAreaEntered;
         AreaExited += OnAreaExited;
@@ -41,11 +43,13 @@ public abstract partial class AbstractDamageArea : Area2D
         var blocker = hurtBox.GetParentBlocker();
         if (blocker == null) return;
         if (!blocker.CanBlockProjectile(this)) return;
+        if (blocker.Team == Team) return;
         blocker.OnProjectileBlocked(this);
+        
         
          if (blocker is AbstractCreature creature)
         {
-            if (creature.Team == Team) return;
+           
             creature.Damage(new DamageReport(Damage, Source, creature, Source.Stats, creature.Stats));
         }
         if (DestroyOnHit) QueueFree();

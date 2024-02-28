@@ -16,7 +16,8 @@ public partial class Player : AbstractCreature
     
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
-    
+    public float ShootDirection { get; private set; }
+
 
     public override void _Ready()
     {
@@ -69,8 +70,7 @@ public partial class Player : AbstractCreature
             NavGroup %= SpawnDirector.MaxNavGroups;
         }
         
-   
-        
+        ShootDirection = (GetGlobalMousePosition() - GlobalPosition).Angle();
     }
 
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwpqet2uv8u54"]
+
+[ext_resource type="Script" path="res://Abilities/Projectiles/BasicBullet.cs" id="1_570gh"]
+[ext_resource type="Texture2D" uid="uid://nh8sboibb5so" path="res://Assets/GrapeBullet.png" id="2_s47fy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_taakt"]
+radius = 4.0
+
+[node name="GrapeBullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_570gh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s47fy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_taakt")

@@ -233,14 +233,14 @@ RectShape = SubResource("RectangleShape2D_tjagf")
 [node name="ItemPickup" parent="." instance=ExtResource("8_j42nk")]
 position = Vector2(210, 347)
 RollItem = true
-OverrideItemId = "force_field"
+OverrideItemId = "grapeshot"
 
 [node name="ItemPickup2" parent="." instance=ExtResource("8_j42nk")]
 position = Vector2(260, 383)
 RollItem = true
-OverrideItemId = "force_field"
+OverrideItemId = "grapeshot"
 
 [node name="ItemPickup3" parent="." instance=ExtResource("8_j42nk")]
 position = Vector2(256, 317)
 RollItem = true
-OverrideItemId = "force_field"
+OverrideItemId = "grapeshot"

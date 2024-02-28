@@ -10,14 +10,16 @@ namespace ProjectReaper.Abilities.Projectiles;
 public partial class ContactDamageArea : AbstractDamageArea
 {
     public override float Speed { get; set; } = 0;
+    public override float Damage { get; set; }
+
     [Export(PropertyHint.Range, "0,100")] 
-    public override float Damage { get; set; } = 10;
     public override float Duration { get; set; } = 0.2f;
     public List<IProjectileBlocker> Blockers = new();
      
     public override void _Ready()
     {
         Source = GetParentCreature();
+        
         Timer = new Timer();
         AddChild(Timer);
         Timer.OneShot = false;
@@ -25,6 +27,7 @@ public partial class ContactDamageArea : AbstractDamageArea
         
         base._Ready();
         DestroyOnHit = false;
+        Source.Ready += () => { Damage = Source.Stats.Damage; };
     }
 
     public override void OnAreaEntered(Area2D area)
@@ -35,7 +38,11 @@ public partial class ContactDamageArea : AbstractDamageArea
         var creature = hurtBox.GetParentBlocker();
         if (creature == null) return;
         if (creature.Team == Team) return;
-        if (Blockers.Count == 0) Timer.Start(Duration);
+        if (Blockers.Count == 0)
+        {
+            Timer.Start(Duration);
+            OnTimerTimeout();
+        }
         Blockers.Add(creature);
         
     }

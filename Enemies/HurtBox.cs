@@ -12,6 +12,16 @@ public partial class HurtBox : Area2D
         return GetParent() as IProjectileBlocker;
     }
     
+    public void Disable()
+    {
+        SetDeferred("monitoring", false);
+    }
+    
+    public void Enable()
+    {
+        SetDeferred("monitoring", true);
+    }
+    
 
     public override void _Ready()
     {
