@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://djs4w12bsfxbc"]
+
+[ext_resource type="Script" path="res://Interactables/InteractableComponent.cs" id="1_3s62e"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/ControllerIconTexture.gd" id="2_u5dp3"]
+
+[sub_resource type="Texture2D" id="Texture2D_4ogh4"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("2_u5dp3")
+path = "interact"
+show_mode = 0
+force_type = 0
+
+[node name="InteractableComponent" type="Node2D"]
+script = ExtResource("1_3s62e")
+
+[node name="Prompt" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -51.0
+offset_right = 16.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("Texture2D_4ogh4")
+expand_mode = 1

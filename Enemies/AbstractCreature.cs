@@ -248,4 +248,8 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     {
         Callbacks.Instance.ProjectileHitEvent?.Invoke(projectile, this);
     }
+
+    public virtual float AimDirection() {
+        return GlobalRotation;
+    }
 }

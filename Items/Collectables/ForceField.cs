@@ -30,7 +30,7 @@ public partial class ForceField : AbstractItem {
     {
         var orbital = _forceFieldOrbitalScn.Instantiate<ForcefieldOrbital>();
         orbital.GlobalPosition = GlobalPosition;
-        GetHolder().AddChild(orbital);
+        GetHolder().CallDeferred("add_child", orbital);
         _forceFieldOrbitals.Add(orbital);
         // evenlly distribute the orbitals rotation
         for (var i = 0; i < _forceFieldOrbitals.Count; i++)

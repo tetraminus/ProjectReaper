@@ -22,6 +22,7 @@ GameManager="*res://Globals/GameManager.cs"
 ItemLibrary="*res://Globals/ItemLibrary.cs"
 SpawnDirector="*res://Globals/SpawnDirector.cs"
 LootDirector="*res://Globals/LootDirector.cs"
+ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 
 [display]
 
@@ -37,7 +38,7 @@ project/assembly_name="ProjectReaper"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [input]
 

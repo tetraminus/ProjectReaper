@@ -16,7 +16,7 @@ public partial class Player : AbstractCreature
     
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
-    public float ShootDirection { get; private set; }
+    
 
 
     public override void _Ready()
@@ -40,6 +40,10 @@ public partial class Player : AbstractCreature
         base.OnDeath();
         Callbacks.Instance.PlayerDeathEvent?.Invoke();
         GameManager.GameOver();
+    }
+    
+    public override float AimDirection() {
+        return (GetGlobalMousePosition() - GlobalPosition).Angle();
     }
 
 
@@ -69,8 +73,6 @@ public partial class Player : AbstractCreature
             NavGroup++;
             NavGroup %= SpawnDirector.MaxNavGroups;
         }
-        
-        ShootDirection = (GetGlobalMousePosition() - GlobalPosition).Angle();
     }
 
 
@@ -100,6 +102,7 @@ public partial class Player : AbstractCreature
     {
         base.AddItem(item);
     }
+    
     
     
 }

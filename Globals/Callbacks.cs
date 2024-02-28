@@ -33,7 +33,7 @@ public partial class Callbacks : Node
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
     public PlayerDeathEventHandler PlayerDeathEvent;
     public EnemyRenavEventHandler EnemyShouldRenavEvent;
-    public ProjectileHitEventHandler ProjectileHitEvent { get; set; }
+    public ProjectileHitEventHandler ProjectileHitEvent;
 
     public static Callbacks Instance { get; private set; }
     

@@ -11,6 +11,8 @@ public partial class BasicBullet : AbstractDamageArea
     public override float Damage { get; set; } = 10f;
 
     public override float Duration { get; set; } = 1f;
+   
+   
 
     public override void _Ready()
     {
@@ -24,6 +26,7 @@ public partial class BasicBullet : AbstractDamageArea
     public override void _Process(double delta)
     {
         //move towards local x
+        base._Process(delta);
         Translate(Transform.X * Speed * (float)delta);
     }
 }

@@ -13,6 +13,7 @@ public partial class GrapeShot : AbstractItem
     
     private int _count = 0; 
     private const float Spread = 0.2f;
+    private const int BaseBullets = 3;
     public override string Id => "grapeshot";
     
     private PackedScene _bulletScene = GD.Load<PackedScene>("res://Items/Prefabs/GrapeBullet.tscn");
@@ -33,20 +34,18 @@ public partial class GrapeShot : AbstractItem
 
     private void FireGrapeshot()
     {
-        // fire 3 bullets in a spread
-        for (var i = 0; i < 3; i++)
+        var bullets = BaseBullets + Stacks - 1;
+        
+        // fire bullets in a spread
+        for (var i = 0; i < bullets; i++)
         {
             var bullet = _bulletScene.Instantiate<BasicBullet>();
-            bullet.Damage = 10;
+            bullet.Damage = 4;
             bullet.Speed = 500;
-            var angle = GlobalRotation + (i - 1) * Spread;
-            bullet.GlobalRotation = GameManager.Player.ShootDirection + angle;
-            bullet.Position = GetHolder().GlobalPosition;
-            bullet.Team = GetHolder().Team;
+            bullet.Range = 200;
+            var angle = GetHolder().AimDirection() + (i - bullets / 2) * Spread;
+            bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
             GameManager.Level.AddChild(bullet);
         }
-        
-        
-        
     }
 }

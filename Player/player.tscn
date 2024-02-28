@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
-[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_r31u1"]
+[ext_resource type="Shader" path="res://Player/PlayerOutline.gdshader" id="2_s81kq"]
 [ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
 [ext_resource type="Texture2D" uid="uid://dbio2bpmovm07" path="res://Player/PlayerTest.png" id="3_vje4l"]
 [ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
@@ -11,13 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://tdgmuo3j5ltv" path="res://Player/PlayerHud.tscn" id="9_i8hed"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k72yq"]
-shader = ExtResource("2_r31u1")
+shader = ExtResource("2_s81kq")
 shader_parameter/color = Color(0, 1, 0, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xbyij"]
 radius = 6.0
@@ -55,7 +54,7 @@ script = ExtResource("4_2082f")
 script = ExtResource("6_aui5x")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

@@ -7,7 +7,7 @@ namespace ProjectReaper.Abilities.Projectiles;
 
 public abstract partial class AbstractDamageArea : Area2D
 {
-    public bool IsEnemy = false;
+    
 
     protected Timer Timer;
 
@@ -20,7 +20,10 @@ public abstract partial class AbstractDamageArea : Area2D
     public abstract float Damage { get; set; }
 
     public abstract float Duration { get; set; }
+    public float Range { get; set; } = -1f;
     public bool DestroyOnHit { get; set; } = true;
+    
+    protected Vector2 startPosition;
 
     public override void _Ready()
     {
@@ -35,6 +38,24 @@ public abstract partial class AbstractDamageArea : Area2D
         BodyExited += OnBodyExited;
         
     }
+    
+    
+    /// <summary>
+    /// Initialize the projectile with required parameters
+    /// </summary>
+    /// <param name="source">source of the projectile</param>
+    /// <param name="team">team of the source</param>
+    /// <param name="position">global position</param>
+    /// <param name="rotation"> rotation in radians</param>
+    public void Init(AbstractCreature source, AbstractCreature.Teams team, Vector2 position, float rotation)
+    {
+        GlobalPosition = position;
+        startPosition = position;
+        GlobalRotation = rotation;
+        Source = source;
+        Team = team;
+    }
+    
     
     public virtual void OnAreaEntered(Area2D area)
     {
@@ -88,6 +109,12 @@ public abstract partial class AbstractDamageArea : Area2D
     {
         Callbacks.Instance.BulletHitEvent?.Invoke(this);
     }
-    
-    
+
+    public override void _Process(double delta) {
+        base._Process(delta);
+        if (Range > 0 && startPosition.DistanceTo(GlobalPosition) > Range)
+        {
+            QueueFree();
+        }
+    }
 }
