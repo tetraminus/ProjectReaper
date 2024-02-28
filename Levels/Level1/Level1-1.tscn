@@ -148,10 +148,12 @@ navigation_polygon = SubResource("NavigationPolygon_7g7gs")
 [node name="nav" type="Node" parent="."]
 
 [node name="Main" type="NavigationRegion2D" parent="nav"]
+visible = false
 position = Vector2(7, 7)
 navigation_polygon = SubResource("NavigationPolygon_dqg1l")
 
 [node name="littleroom" type="NavigationRegion2D" parent="nav"]
+visible = false
 position = Vector2(6, -3)
 navigation_polygon = SubResource("NavigationPolygon_f0yvs")
 
