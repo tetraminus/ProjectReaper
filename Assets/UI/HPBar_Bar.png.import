@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br0pxf32qyyx8"
-path="res://.godot/imported/revenge_bomber.png-c1ec0f26d0ecf0f10645c1589d478586.ctex"
+uid="uid://bcn6vkak5ayn"
+path="res://.godot/imported/HPBar_Bar.png-edcfd3fa29f29fed778c47b2c49c7aff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Collectables/Icons/revenge_bomber.png"
-dest_files=["res://.godot/imported/revenge_bomber.png-c1ec0f26d0ecf0f10645c1589d478586.ctex"]
+source_file="res://Assets/UI/HPBar_Bar.png"
+dest_files=["res://.godot/imported/HPBar_Bar.png-edcfd3fa29f29fed778c47b2c49c7aff.ctex"]
 
 [params]
 

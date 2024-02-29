@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgaa8s5t8gkmr"
-path="res://.godot/imported/shadow-enemy (2).png-d6da38985bbc5188e6c8158ddaa3ea97.ctex"
+uid="uid://dpe7avvjlki6f"
+path="res://.godot/imported/HPBar_Over.png-d0ebcdda973c239ee7b76cf6dc26f6f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/Assets/shadow-enemy (2).png"
-dest_files=["res://.godot/imported/shadow-enemy (2).png-d6da38985bbc5188e6c8158ddaa3ea97.ctex"]
+source_file="res://Assets/UI/HPBar_Over.png"
+dest_files=["res://.godot/imported/HPBar_Over.png-d0ebcdda973c239ee7b76cf6dc26f6f0.ctex"]
 
 [params]
 

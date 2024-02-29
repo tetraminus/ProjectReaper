@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=6 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
+[ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
+[ext_resource type="Texture2D" uid="uid://dpe7avvjlki6f" path="res://Assets/UI/HPBar_Over.png" id="3_tdvmn"]
+[ext_resource type="Texture2D" uid="uid://bcn6vkak5ayn" path="res://Assets/UI/HPBar_Bar.png" id="4_8vlgm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ybkti"]
+font_size = 131
 
 [node name="CanvasLayer" type="CanvasLayer"]
 layer = 2
@@ -15,39 +21,61 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_map4d")
 
-[node name="Health" type="Control" parent="PlayerHud"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
+[node name="FPS" type="Label" parent="PlayerHud"]
+layout_mode = 2
+offset_top = 527.0
+offset_right = 1920.0
+offset_bottom = 553.0
+grow_horizontal = 0
 
-[node name="Value" type="Label" parent="PlayerHud/Health"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PlayerHud"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = -1.2
-anchor_right = 2.625
+anchor_left = 0.043
+anchor_top = 1.0
+anchor_right = 0.043
 anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -3.0
-offset_right = 5.0
-offset_bottom = -17.0
+offset_left = -0.560005
+offset_top = -143.0
+offset_right = 297.44
 grow_vertical = 0
-text = "Health"
+ratio = 5.0
 
-[node name="ItemGrid" type="GridContainer" parent="PlayerHud"]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 40.0
-columns = 17
+[node name="HealthBar" type="TextureProgressBar" parent="PlayerHud/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 31.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_pti3b")
+texture_over = ExtResource("3_tdvmn")
+texture_progress = ExtResource("4_8vlgm")
 
-[node name="FPS" type="Label" parent="PlayerHud"]
+[node name="Value" type="Label" parent="PlayerHud/AspectRatioContainer/HealthBar"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = -105.0
+offset_right = 54.0
+grow_horizontal = 2
+text = "100
+"
+label_settings = SubResource("LabelSettings_ybkti")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ItemGrid" type="HFlowContainer" parent="PlayerHud/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1

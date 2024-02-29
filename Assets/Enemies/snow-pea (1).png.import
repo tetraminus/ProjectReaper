@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0b8mgtq8ymru"
-path="res://.godot/imported/chest.png-f092903f06deff3acdcbcbe7dfb1d3f3.ctex"
+uid="uid://i04mvvq846is"
+path="res://.godot/imported/snow-pea (1).png-34e2c00ed4cbf34916796ab17c54a397.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Interactables/chest.png"
-dest_files=["res://.godot/imported/chest.png-f092903f06deff3acdcbcbe7dfb1d3f3.ctex"]
+source_file="res://Assets/Enemies/snow-pea (1).png"
+dest_files=["res://.godot/imported/snow-pea (1).png-34e2c00ed4cbf34916796ab17c54a397.ctex"]
 
 [params]
 

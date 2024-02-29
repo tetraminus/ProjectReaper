@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemies/Goober.cs" id="1_uxw6u"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_38o8w"]
-[ext_resource type="Texture2D" uid="uid://bt1t5gakn04cr" path="res://Enemies/Assets/shadow-enemy.png" id="3_ysvns"]
+[ext_resource type="Texture2D" uid="uid://bt1t5gakn04cr" path="res://Assets/Enemies/shadow-enemy.png" id="3_ysvns"]
 [ext_resource type="PackedScene" uid="uid://4wm1u61jhro2" path="res://Abilities/Projectiles/ContactDamageArea.tscn" id="4_35p8f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcu0q"]

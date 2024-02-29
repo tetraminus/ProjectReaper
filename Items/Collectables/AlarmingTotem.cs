@@ -5,7 +5,7 @@ using ProjectReaper.Powers;
 namespace ProjectReaper.Items.Collectables;
 
 /// <summary>
-/// 10% speed increase per stack on kill
+/// 20% speed increase per stack on kill
 /// </summary>
 public partial class AlarmingTotem : AbstractItem
 {
@@ -16,8 +16,13 @@ public partial class AlarmingTotem : AbstractItem
     {
         Callbacks.Instance.CreatureDiedEvent += OnCreatureDied;
     }
-    
-    
+
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+    }
+
+
     public void OnCreatureDied(AbstractCreature creature)
     {
         var powid = AbstractPower.GetId<Speedboost>();

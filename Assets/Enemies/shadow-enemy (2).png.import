@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vqhr1fe00760"
-path="res://.godot/imported/alarming_totem.png-b64367ae6ab13a599c92a675471d44e4.ctex"
+uid="uid://cgaa8s5t8gkmr"
+path="res://.godot/imported/shadow-enemy (2).png-dda8ca8299c07fd086ddb4b6440f78d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Collectables/Icons/alarming_totem.png"
-dest_files=["res://.godot/imported/alarming_totem.png-b64367ae6ab13a599c92a675471d44e4.ctex"]
+source_file="res://Assets/Enemies/shadow-enemy (2).png"
+dest_files=["res://.godot/imported/shadow-enemy (2).png-dda8ca8299c07fd086ddb4b6440f78d2.ctex"]
 
 [params]
 

@@ -42,7 +42,7 @@ enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://add
 
 [gui]
 
-theme/custom="res://Assets/MainTheme.tres"
+theme/custom="res://Assets/General/MainTheme.tres"
 
 [input]
 

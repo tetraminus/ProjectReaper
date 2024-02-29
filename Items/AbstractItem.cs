@@ -30,7 +30,7 @@ public abstract partial class AbstractItem : Node2D
     
     
     public abstract string Id { get; }
-    public Texture2D Icon => GD.Load<Texture2D>($"res://Items/Collectables/Icons/{Id}.png");
+    public Texture2D Icon => GD.Load<Texture2D>($"res://Assets/Icons/{Id}.png");
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

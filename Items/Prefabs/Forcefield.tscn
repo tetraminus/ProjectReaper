@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bgw3rlyaxe306"]
 
 [ext_resource type="Script" path="res://Items/Prefabs/ForcefieldOrbital.cs" id="1_4xor3"]
-[ext_resource type="Texture2D" uid="uid://b68guieqo8wh2" path="res://Assets/forceField.png" id="2_mt0c2"]
+[ext_resource type="Texture2D" uid="uid://b68guieqo8wh2" path="res://Assets/objects/forceField.png" id="2_mt0c2"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="2_voi6v"]
 [ext_resource type="PackedScene" uid="uid://ckqcoryvavs5i" path="res://Components/CreatureOwnerComponent.tscn" id="4_luyen"]
 

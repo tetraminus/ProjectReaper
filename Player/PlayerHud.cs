@@ -29,7 +29,8 @@ public partial class PlayerHud : Control
 
     public void UpdateHealth(float oldHealth, float health)
     {
-        GetNode<Label>("Health/Value").Text = health.ToString();
+        GetNode<TextureProgressBar>("%HealthBar").Value = health;
+        GetNode<Label>("%HealthBar/Value").Text = health.ToString();
     }
 
     public override void _Process(double delta)
@@ -53,12 +54,12 @@ public partial class PlayerHud : Control
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();
         itemDisplay.SetItem(item);
-        GetNode<GridContainer>("ItemGrid").AddChild(itemDisplay);
+        GetNode<HFlowContainer>("%ItemGrid").AddChild(itemDisplay);
     }
     
     public void RemoveItem(AbstractItem item)
     {
-        foreach (var child in GetNode<GridContainer>("ItemGrid").GetChildren())
+        foreach (var child in GetNode<HFlowContainer>("%ItemGrid").GetChildren())
         {
             if (child is ItemDisplay itemDisplay && itemDisplay.Item == item)
             {

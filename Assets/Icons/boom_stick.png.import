@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i04mvvq846is"
-path="res://.godot/imported/snow-pea (1).png-02f5c9ce2a4c0602f8f038a4737b3286.ctex"
+uid="uid://cvxn350pypkr2"
+path="res://.godot/imported/boom_stick.png-08f6367fd199aae8aefd906d7c129167.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/Assets/snow-pea (1).png"
-dest_files=["res://.godot/imported/snow-pea (1).png-02f5c9ce2a4c0602f8f038a4737b3286.ctex"]
+source_file="res://Assets/Icons/boom_stick.png"
+dest_files=["res://.godot/imported/boom_stick.png-08f6367fd199aae8aefd906d7c129167.ctex"]
 
 [params]
 

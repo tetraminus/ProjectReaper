@@ -14,6 +14,10 @@ public partial class BoomStick : AbstractItem
     {
         Callbacks.Instance.CreatureDiedEvent += OnCreatureDied;
     }
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+    }
 
 
     public void OnCreatureDied(AbstractCreature creature)

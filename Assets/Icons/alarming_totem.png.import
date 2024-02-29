@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwnto4nqe8t7k"
-path="res://.godot/imported/force_field.png-e02c008e1fe2ab39d9c7870c22fe7c71.ctex"
+uid="uid://vqhr1fe00760"
+path="res://.godot/imported/alarming_totem.png-93309564a7656ecd22063264ea59fd1c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Collectables/Icons/force_field.png"
-dest_files=["res://.godot/imported/force_field.png-e02c008e1fe2ab39d9c7870c22fe7c71.ctex"]
+source_file="res://Assets/Icons/alarming_totem.png"
+dest_files=["res://.godot/imported/alarming_totem.png-93309564a7656ecd22063264ea59fd1c.ctex"]
 
 [params]
 

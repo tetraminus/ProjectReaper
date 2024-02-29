@@ -22,6 +22,10 @@ public partial class GrapeShot : AbstractItem
     {
         Callbacks.Instance.AbilityUsedEvent += OnAbilityUsed;
     }
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.AbilityUsedEvent -= OnAbilityUsed;
+    }
 
     public override void OnStack(int newstacks)
     {

@@ -54,7 +54,6 @@ size = Vector2(400, 100)
 
 [node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects")]
 script = ExtResource("1_n8soa")
-DisableSpawning = true
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024

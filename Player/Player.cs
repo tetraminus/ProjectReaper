@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using ProjectReaper.Abilities;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
@@ -102,7 +103,24 @@ public partial class Player : AbstractCreature
     {
         base.AddItem(item);
     }
-    
-    
+
+
+    public AbstractAbility GetAbility(int slot)
+    {
+        switch (slot)
+        {
+            case 1:
+                return _abilityManager.Ability1;
+            case 2:
+                return _abilityManager.Ability2;
+            case 3:
+                return _abilityManager.Ability3;
+            case 4:
+                return _abilityManager.Ability4;
+            default:
+                return null;
+        }
+        
+    }
     
 }
