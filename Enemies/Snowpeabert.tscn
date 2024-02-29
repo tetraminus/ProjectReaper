@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Enemies/Snowpeabert.cs" id="1_7qjy0"]
 [ext_resource type="Texture2D" uid="uid://i04mvvq846is" path="res://Enemies/Assets/snow-pea (1).png" id="1_7x7i4"]
 [ext_resource type="Texture2D" uid="uid://ogljek4y77l4" path="res://Assets/kenney_particle-pack/PNG (Transparent)/dirt_03.png" id="2_kd3k0"]
-[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_6r0sw"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_6r0sw"]
 
 [sub_resource type="Curve" id="Curve_8oa6k"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.664756, 0.477084), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

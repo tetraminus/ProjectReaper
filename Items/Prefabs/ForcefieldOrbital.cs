@@ -1,8 +1,11 @@
 using Godot;
-using System;
 using ProjectReaper.Abilities.Projectiles;
+using ProjectReaper.Components;
 using ProjectReaper.Enemies;
 using ProjectReaper.Objects;
+using ProjectReaper.Util;
+
+namespace ProjectReaper.Items.Prefabs;
 
 public partial class ForcefieldOrbital : Node2D, IProjectileBlocker
 {
@@ -13,6 +16,7 @@ public partial class ForcefieldOrbital : Node2D, IProjectileBlocker
 	public AbstractCreature.Teams Team { get; } = AbstractCreature.Teams.Player;
 	private Timer _dissipateTimer = new Timer();
 	private AnimatedSprite2D _sprite;
+	private CreatureOwnerComponent CreatureOwnerComponent => GetNode<CreatureOwnerComponent>("CreatureOwnerComponent") ;
 	private HurtBox Shield => GetNode<HurtBox>("shield");
 	
 	private bool _dissipated = false;
@@ -36,6 +40,7 @@ public partial class ForcefieldOrbital : Node2D, IProjectileBlocker
 		if (area is not HurtBox hurtBox) return;
 		if (hurtBox.GetParentBlocker() is not AbstractCreature creature) return;
 		Dissipate();
+		creature.Damage(new DamageReport(5, creature));
 		creature.Knockback(GlobalPosition.DirectionTo(creature.GlobalPosition) * 1000);
 	}
 

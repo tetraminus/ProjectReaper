@@ -71,15 +71,13 @@ public partial class PlayerHud : Control
     public void ShowItemInfo(AbstractItem item)
     {
         ItemHudPopup.SetItem(item);
-        ItemHudPopup.Visible = true;
-        ItemHudPopup.QueueRedraw();
+        ItemHudPopup.Show();
+        
     }
     
     public void HideItemInfo()
     {
-        ItemHudPopup.Visible = false;
-        ItemHudPopup.QueueRedraw();
-       
+        ItemHudPopup.Hide();
     }
 }
 

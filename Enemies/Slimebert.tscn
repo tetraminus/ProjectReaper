@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemies/Slimebert.cs" id="1_i1vqe"]
 [ext_resource type="Texture2D" uid="uid://dx51uvkh4s1pk" path="res://Enemies/Assets/slime.png" id="2_elcav"]
-[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_j6gfa"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_j6gfa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8sryk"]
 radius = 5.01128

@@ -12,8 +12,9 @@ public partial class GrapeShot : AbstractItem
 {
     
     private int _count = 0; 
-    private const float Spread = 0.2f;
-    private const int BaseBullets = 3;
+    private float _spreaddeg = 20;
+    private const float MinSpreadDeg = 5;
+    private const int BaseBullets = 2;
     public override string Id => "grapeshot";
     
     private PackedScene _bulletScene = GD.Load<PackedScene>("res://Items/Prefabs/GrapeBullet.tscn");
@@ -21,7 +22,13 @@ public partial class GrapeShot : AbstractItem
     {
         Callbacks.Instance.AbilityUsedEvent += OnAbilityUsed;
     }
-    
+
+    public override void OnStack(int newstacks)
+    {
+        // reduce spread
+        _spreaddeg = Mathf.Max(MinSpreadDeg, _spreaddeg - newstacks );
+    }
+
     public void OnAbilityUsed(AbstractAbility ability, int slot)
     {
         _count++;
@@ -43,7 +50,7 @@ public partial class GrapeShot : AbstractItem
             bullet.Damage = 4;
             bullet.Speed = 500;
             bullet.Range = 200;
-            var angle = GetHolder().AimDirection() + (i - bullets / 2) * Spread;
+            var angle = GetHolder().AimDirection() + Mathf.DegToRad(_spreaddeg * i - _spreaddeg * (bullets - 1) / 2);
             bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
             GameManager.Level.AddChild(bullet);
         }

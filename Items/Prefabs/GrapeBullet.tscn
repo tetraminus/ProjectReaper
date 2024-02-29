@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://nh8sboibb5so" path="res://Assets/GrapeBullet.png" id="2_s47fy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_taakt"]
-radius = 4.0
+radius = 5.0
 
 [node name="GrapeBullet" type="Area2D"]
 collision_layer = 2

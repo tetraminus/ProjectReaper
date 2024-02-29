@@ -40,6 +40,10 @@ project/assembly_name="ProjectReaper"
 
 enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
+[gui]
+
+theme/custom="res://Assets/MainTheme.tres"
+
 [input]
 
 ability1={

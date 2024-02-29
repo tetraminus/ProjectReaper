@@ -85,10 +85,20 @@ public class Stats
         AttackSpread = 0f;
         Luck = 0;
     }
+    
+    public Stats Initalized()
+    {
+        var stats = new Stats();
+        stats.Init();
+        return stats;
+    }
 
     public static float CalculateDamage(float damage, AbstractCreature source, AbstractCreature target,
         Stats sourceStats, Stats targetStats)
     {
+        sourceStats ??= new Stats().Initalized();
+        targetStats ??= new Stats().Initalized();
+
         var crit = sourceStats.CritChance;
         var critDamage = sourceStats.CritDamage;
         var defense = targetStats.Defense;

@@ -22,24 +22,27 @@ public partial class ItemHudPopup : Control
 
 	public override void _Process(double delta)
 	{
+		// stay near the mouse, but not on it
+		// also stay within the screen bounds
 		
-		
-		// Clamp to top of screen
-		var panelRect = _panel.GetRect();
+		var mousePos = GetGlobalMousePosition();
 		var screenSize = GetViewportRect().Size;
-		var newPos = Position;
+		var panelSize = _panel.GetRect().Size;
+		var offset = new Vector2(20, 20);
+		var pos = mousePos + offset;
+		if (pos.X + panelSize.X > screenSize.X)
+		{
+			pos.X = screenSize.X - panelSize.X;
+		}
+
+		if (pos.Y + panelSize.Y > screenSize.Y)
+		{
+			pos.Y = screenSize.Y - panelSize.Y;
+		}
+
+		GlobalPosition = pos;
 		
-		if (Position.Y - panelRect.Size.Y < 0)
-		{
-			Position = GetGlobalMousePosition();
-
-		}
-		else
-		{
-			Position = GetGlobalMousePosition() + new Vector2(0, panelRect.Size.Y);
-
-		}
-
+		
 		base._Process(delta);
 	}
 }

@@ -21,6 +21,7 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public abstract float Duration { get; set; }
     public float Range { get; set; } = -1f;
+    public float Knockback { get; set; } = 0f;
     public bool DestroyOnHit { get; set; } = true;
     
     protected Vector2 startPosition;
@@ -72,10 +73,20 @@ public abstract partial class AbstractDamageArea : Area2D
         {
            
             creature.Damage(new DamageReport(Damage, Source, creature, Source.Stats, creature.Stats));
+            if (Knockback > 0)
+            {
+                var dir = GetKnockbackDirection(creature);
+                creature.Knockback(dir * Knockback);
+            }
         }
         if (DestroyOnHit) QueueFree();
     }
-    
+
+    protected virtual Vector2 GetKnockbackDirection(AbstractCreature creature)
+    {
+        return GlobalPosition.DirectionTo(creature.GlobalPosition);
+    }
+
     public virtual void OnAreaExited(Area2D area)
     {
     }
