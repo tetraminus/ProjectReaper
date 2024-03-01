@@ -166,9 +166,20 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
    
 
 
+    /// <summary>
+    ///  Called when the creature should die. Triggers death events
+    /// </summary>
     public virtual void OnDeath()
     {
         Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
+        Die();
+    }
+    
+    /// <summary>
+    ///  Kills the creature. does not trigger death event
+    /// </summary>
+    public void Die()
+    {
         Dead = true;
         QueueFree();
     }
@@ -252,4 +263,5 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     public virtual float AimDirection() {
         return GlobalRotation;
     }
+    
 }

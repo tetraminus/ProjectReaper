@@ -14,7 +14,9 @@ force_type = 0
 [node name="InteractableComponent" type="Node2D"]
 script = ExtResource("1_3s62e")
 
-[node name="Prompt" type="TextureRect" parent="."]
+[node name="PromptPivot" type="Node2D" parent="."]
+
+[node name="Prompt" type="TextureRect" parent="PromptPivot"]
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 7
 anchor_left = 0.5

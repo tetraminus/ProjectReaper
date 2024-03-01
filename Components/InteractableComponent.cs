@@ -6,7 +6,8 @@ namespace ProjectReaper.Interactables
     public partial class InteractableComponent : Node2D
     {
         private Area2D Area2D => GetNode<Area2D>("Area2D");
-        private TextureRect TextureRect => GetNode<TextureRect>("Prompt");
+        private TextureRect TextureRect => GetNode<TextureRect>("PromptPivot/Prompt");
+        private Node2D PromptPivot => GetNode<Node2D>("PromptPivot");
         private bool _playerInRadius;
         
         [Export] public Node2D Interactable { get; set; }
@@ -16,6 +17,7 @@ namespace ProjectReaper.Interactables
 
         public override void _Ready()
         {
+            PromptPivot.GlobalRotation = 0;
             if (Interactable is IInteractable interactable)
             {
                 _interactable = interactable;
@@ -69,6 +71,7 @@ namespace ProjectReaper.Interactables
 
         public override void _Process(double delta)
         {
+            
             if (_playerInRadius  && _interactable.CanInteract())
             {
                 if (_highlightComponent != null && !_highlightComponent.IsOn())

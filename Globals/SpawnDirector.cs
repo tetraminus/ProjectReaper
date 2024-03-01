@@ -133,6 +133,10 @@ public partial class SpawnDirector : Node
         foreach (var enemy in enemies) SpawnEnemy(enemy);
     }
 
+    /// <summary>
+    ///  Spawn an enemy
+    /// </summary>
+    /// <param name="enemy"></param>
     public void SpawnEnemy(EnemySpawnCard enemy)
     {
         if (GameManager.Player.Dead) return;
@@ -156,6 +160,8 @@ public partial class SpawnDirector : Node
             return;
         }
         
+        enemyInstance.AddToGroup("spawnedenemies");
+        
         enemyInstance.GlobalPosition = position;
     }
 
@@ -177,6 +183,13 @@ public partial class SpawnDirector : Node
         return collision.Count != 0;
     }
 
+    public void KillAllEnemies()
+    {
+        foreach (var enemy in GameManager.Level.GetTree().GetNodesInGroup("spawnedenemies"))
+        {
+            if (enemy is AbstractCreature creature) creature.Die();
+        }
+    }
   
 
     private int _currentNavGroup = 1;

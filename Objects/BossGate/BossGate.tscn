@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://dsr7b7kr5xrk3"]
+
+[ext_resource type="Texture2D" uid="uid://dc05wnuvbqenk" path="res://Assets/objects/BossDoor.png" id="1_jn2s5"]
+[ext_resource type="Script" path="res://Objects/BossGate/BossGate.cs" id="1_qpd8i"]
+[ext_resource type="PackedScene" uid="uid://djs4w12bsfxbc" path="res://Components/InteractableComponent.tscn" id="2_fgwn5"]
+[ext_resource type="PackedScene" uid="uid://d15m3s7c27m4g" path="res://Components/HighlightComponent.tscn" id="3_o64qs"]
+[ext_resource type="Shader" path="res://Shaders/Highlight.gdshader" id="4_cqtfi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qm6rv"]
+resource_local_to_scene = true
+shader = ExtResource("4_cqtfi")
+shader_parameter/on = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7huu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jn2s5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rapww"]
+size = Vector2(128, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxybn"]
+size = Vector2(128, 20)
+
+[node name="BossGate" type="StaticBody2D"]
+script = ExtResource("1_qpd8i")
+
+[node name="HighlightComponent" parent="." instance=ExtResource("3_o64qs")]
+material = SubResource("ShaderMaterial_qm6rv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HighlightComponent"]
+sprite_frames = SubResource("SpriteFrames_o7huu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 22)
+shape = SubResource("RectangleShape2D_rapww")
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("Interactable", "Highlight") instance=ExtResource("2_fgwn5")]
+Interactable = NodePath("..")
+Highlight = NodePath("../HighlightComponent")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+position = Vector2(0, 42)
+shape = SubResource("RectangleShape2D_fxybn")

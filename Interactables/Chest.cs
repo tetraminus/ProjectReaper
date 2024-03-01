@@ -29,7 +29,6 @@ public partial class Chest : Node2D, IInteractable
             _opened = true;
             _item.Drop(GlobalPosition);
             AnimatedSprite2D.Play("open");
-            
         }
     }
 
