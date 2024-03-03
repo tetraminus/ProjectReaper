@@ -7,6 +7,7 @@ namespace ProjectReaper.Items.Collectables;
 public partial class RevengeBomber : AbstractItem
 {
     public override string Id => "revenge_bomber";
+    public override ItemRarity Rarity => ItemRarity.Common;
     
     public override void OnInitalPickup()
     {

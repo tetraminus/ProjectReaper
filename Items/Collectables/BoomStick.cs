@@ -8,6 +8,7 @@ namespace ProjectReaper.Items.Collectables;
 public partial class BoomStick : AbstractItem
 {
     public override string Id => "boom_stick";
+    public override ItemRarity Rarity => ItemRarity.Rare;
     
 
     public override void OnInitalPickup()

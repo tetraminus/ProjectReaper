@@ -23,8 +23,11 @@ public abstract partial class AbstractDamageArea : Area2D
     public float Range { get; set; } = -1f;
     public float Knockback { get; set; } = 0f;
     public bool DestroyOnHit { get; set; } = true;
+    public bool DestroyOnWall { get; set; } = true;
     
     protected Vector2 startPosition;
+
+    [Export] public bool overrideLayer = false;
 
     public override void _Ready()
     {
@@ -37,7 +40,25 @@ public abstract partial class AbstractDamageArea : Area2D
         
         BodyEntered += OnBodyEntered;
         BodyExited += OnBodyExited;
+        if (!overrideLayer)
+        {
+            CollisionLayer = 0;
+            CollisionMask = 0;
+            SetCollisionLayerValue(2, true);
+            SetCollisionMaskValue(2, true);
+            SetCollisionMaskValue(1, true);
+        }
         
+    }
+    
+    public void Disable()
+    {
+        Monitoring = false;
+    }
+    
+    public void Enable()
+    {
+        Monitoring = true;
     }
     
     
@@ -48,10 +69,17 @@ public abstract partial class AbstractDamageArea : Area2D
     /// <param name="team">team of the source</param>
     /// <param name="position">global position</param>
     /// <param name="rotation"> rotation in radians</param>
-    public void Init(AbstractCreature source, AbstractCreature.Teams team, Vector2 position, float rotation)
+    public void Init(AbstractCreature source, AbstractCreature.Teams team, Vector2 position, float rotation = 0f)
     {
         GlobalPosition = position;
         startPosition = position;
+        GlobalRotation = rotation;
+        Source = source;
+        Team = team;
+    }
+    
+    public void Init(AbstractCreature source, AbstractCreature.Teams team, float rotation = 0f)
+    {
         GlobalRotation = rotation;
         Source = source;
         Team = team;
@@ -93,7 +121,8 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public virtual void OnBodyEntered(Node body)
     {
-        if (body is TileMap tileMap)
+        
+        if (body is TileMap tileMap && DestroyOnWall)
         {
             QueueFree();
             return;
@@ -103,6 +132,7 @@ public abstract partial class AbstractDamageArea : Area2D
         if (body is not PhysicsBody2D physBody ) return;
         // objects check
         if (!physBody.GetCollisionLayerValue(1)) return;
+        if (!DestroyOnWall) return;
         QueueFree();
 
 }

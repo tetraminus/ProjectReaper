@@ -7,6 +7,8 @@ namespace ProjectReaper.Enemies;
 /// </summary>
 public partial class HurtBox : Area2D
 {
+    
+    [Export] private bool overrideLayer = false;
     public IProjectileBlocker GetParentBlocker()
     {
         return GetParent() as IProjectileBlocker;
@@ -28,6 +30,14 @@ public partial class HurtBox : Area2D
         if (GetParentBlocker() == null)
         {
             GD.PrintErr("HurtBox parent must implement IProjectileBlocker");
+        }
+        
+        if (!overrideLayer)
+        {
+            CollisionLayer = 0;
+            CollisionMask = 0;
+            SetCollisionLayerValue(2, true);
+            SetCollisionMaskValue(2, true);
         }
     }
 }

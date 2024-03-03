@@ -16,6 +16,7 @@ public partial class GrapeShot : AbstractItem
     private const float MinSpreadDeg = 5;
     private const int BaseBullets = 2;
     public override string Id => "grapeshot";
+    public override ItemRarity Rarity => ItemRarity.Uncommon;
     
     private PackedScene _bulletScene = GD.Load<PackedScene>("res://Items/Prefabs/GrapeBullet.tscn");
     public override void OnInitalPickup()

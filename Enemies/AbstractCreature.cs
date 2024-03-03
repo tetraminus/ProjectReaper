@@ -172,17 +172,19 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     public virtual void OnDeath()
     {
         Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
-        Die();
+        QuietDie();
     }
     
     /// <summary>
     ///  Kills the creature. does not trigger death event
     /// </summary>
-    public void Die()
+    public void QuietDie()
     {
         Dead = true;
         QueueFree();
     }
+    
+    
     
     public CollisionShape2D GetCollisionShape()
     {

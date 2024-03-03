@@ -20,7 +20,7 @@ public partial class BossGate : StaticBody2D, IInteractable
 
     private void BossDiedEvent()
     {
-        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
     }
 
 

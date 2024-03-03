@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
+
 using ProjectReaper.Items;
 
 namespace ProjectReaper.Globals;
@@ -15,7 +16,8 @@ public partial class ItemLibrary : Node
 
     public LoadItemEventHandler LoadItemEvent;
     public static ItemLibrary Instance { get; private set; }
-    public Dictionary<string, AbstractItem> Items { get; set; } = new();
+    public Dictionary<string, AbstractItem> AllItems { get; set; } = new();
+    public Dictionary<ItemRarity, List<AbstractItem>> ItemsByRarity { get; set; } = new();
 
     public override void _Ready()
     {
@@ -42,12 +44,17 @@ public partial class ItemLibrary : Node
                     GD.PrintErr($"Item with type {type} has no id, skipping");
                     continue;
                 }
-                if (Items.ContainsKey(item.Id))
+                if (AllItems.ContainsKey(item.Id))
                 {
                     GD.PrintErr($"Item with id {item.Id} already exists, skipping");
                     continue;
                 }
-                Items.Add(item.Id, item);
+                AllItems.Add(item.Id, item);
+                if (!ItemsByRarity.ContainsKey(item.Rarity))
+                {
+                    ItemsByRarity.Add(item.Rarity, new List<AbstractItem>());
+                }
+                ItemsByRarity[item.Rarity].Add(item);
                 GD.Print($"Loaded item {item.Id}");
             }
         }
@@ -59,10 +66,36 @@ public partial class ItemLibrary : Node
     /// <returns>A random item from the library</returns>
     public AbstractItem RollItem()
     {
-        var random = new RandomNumberGenerator();
-        random.Randomize();
-        var index = random.RandiRange(0, Items.Count - 1);
-        return CreateItem(Items.Keys.ToArray()[index]);
+        
+        var rarity = RollRarity();
+        var items = ItemsByRarity[rarity];
+        
+        var roll = new Random().Next(0, items.Count);
+        return items[roll].MakeCopy();
+       
+    }
+    
+    public ItemRarity RollRarity()
+    {
+        var rarities = ItemsByRarity.Keys.ToList();
+        rarities.Sort((a, b) => a.Value.CompareTo(b.Value));
+        var total = 0f;
+        foreach (var rarity in rarities)
+        {
+            total +=  rarity.Weight;
+        }
+
+        var roll = new Random().NextDouble() * total;
+        float current = 0;
+        foreach (var rarity in rarities)
+        {
+            current += rarity.Weight;
+            if (roll <= current)
+            {
+                return rarity;
+            }
+        }
+        return ItemRarity.Common;
     }
 
     /// <summary>
@@ -72,9 +105,9 @@ public partial class ItemLibrary : Node
     /// <returns>A new item with the given id</returns>
     public AbstractItem CreateItem(string id)
     {
-        if (Items.ContainsKey(id))
+        if (AllItems.ContainsKey(id))
         {
-            return Items[id].MakeCopy();
+            return AllItems[id].MakeCopy();
         }
         return null;
     }
@@ -86,7 +119,7 @@ public partial class ItemLibrary : Node
     ///  <returns>The library copy of item with the given id, DON'T MESS WITH</returns>
     public AbstractItem GetItem(string id)
     {
-        if (Items.TryGetValue(id, out var item)) return item;
+        if (AllItems.TryGetValue(id, out var item)) return item;
         return null;
     }
     
@@ -98,7 +131,7 @@ public partial class ItemLibrary : Node
     /// <returns>The id of the item</returns>
     public string GetId<T>() where T : AbstractItem
     {
-        foreach (var item in Items)
+        foreach (var item in AllItems)
             if (item.Value is T)
                 return item.Key;
         

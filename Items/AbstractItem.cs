@@ -8,6 +8,9 @@ namespace ProjectReaper.Items;
 
 public abstract partial class AbstractItem : Node2D
 {
+    
+    
+    
     public static PackedScene ItemPickupScene = GD.Load<PackedScene>("res://Items/ItemPickup.tscn");
     public static PackedScene ItemDropEffectScene = GD.Load<PackedScene>("res://Vfx/ItemDropEffect.tscn");
     public delegate int StackChangeEventHandler(AbstractItem item, int stacks);
@@ -31,6 +34,7 @@ public abstract partial class AbstractItem : Node2D
     
     public abstract string Id { get; }
     public Texture2D Icon => GD.Load<Texture2D>($"res://Assets/Icons/{Id}.png");
+    public abstract ItemRarity Rarity { get; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

@@ -187,7 +187,7 @@ public partial class SpawnDirector : Node
     {
         foreach (var enemy in GameManager.Level.GetTree().GetNodesInGroup("spawnedenemies"))
         {
-            if (enemy is AbstractCreature creature) creature.Die();
+            if (enemy is AbstractCreature creature) creature.QuietDie();
         }
     }
   

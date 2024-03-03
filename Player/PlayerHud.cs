@@ -71,6 +71,7 @@ public partial class PlayerHud : Control
 
     public void ShowItemInfo(AbstractItem item)
     {
+        if (ItemHudPopup.IsQueuedForDeletion()) return;
         ItemHudPopup.SetItem(item);
         ItemHudPopup.Show();
         
@@ -78,6 +79,7 @@ public partial class PlayerHud : Control
     
     public void HideItemInfo()
     {
+        if (ItemHudPopup.IsQueuedForDeletion()) return;
         ItemHudPopup.Hide();
     }
 }

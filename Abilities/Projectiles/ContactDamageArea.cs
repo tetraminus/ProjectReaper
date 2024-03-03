@@ -27,6 +27,7 @@ public partial class ContactDamageArea : AbstractDamageArea
         
         base._Ready();
         DestroyOnHit = false;
+        DestroyOnWall = false;
         Source.Ready += () => { Damage = Source.Stats.Damage; };
     }
 
@@ -70,7 +71,7 @@ public partial class ContactDamageArea : AbstractDamageArea
             
         }
         
-        GetParentCreature().Knockback(knockback * -10000);
+        GetParentCreature().Knockback(knockback * -500);
         
     }
     

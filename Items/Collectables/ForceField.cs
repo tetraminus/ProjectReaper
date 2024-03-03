@@ -10,6 +10,7 @@ namespace ProjectReaper.Items.Collectables;
 
 public partial class ForceField : AbstractItem {
     public override string Id => "force_field";
+    public override ItemRarity Rarity => ItemRarity.Uncommon;
     private PackedScene _forceFieldOrbitalScn = GD.Load<PackedScene>("res://Items/Prefabs/Forcefield.tscn");
     private List<Prefabs.ForcefieldOrbital> _forceFieldOrbitals = new();
 

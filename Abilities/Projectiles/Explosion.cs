@@ -45,6 +45,9 @@ public partial class Explosion : AbstractDamageArea
         AddChild(Timer);
         Timer.Start(Duration);
         Timer.Timeout += () => { FindChild("CollisionShape2D").SetDeferred("disabled", true); };
+        
+        DestroyOnHit = false;
+        DestroyOnWall = false;
     }
 
     private void ScaleParticles()

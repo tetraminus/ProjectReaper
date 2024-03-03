@@ -10,6 +10,7 @@ namespace ProjectReaper.Items.Collectables;
 public partial class AlarmingTotem : AbstractItem
 {
     public override string Id => "alarming_totem";
+    public override ItemRarity Rarity => ItemRarity.Common;
     
     
     public override void OnInitalPickup()
