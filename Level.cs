@@ -44,6 +44,8 @@ public partial class Level : Node2D
         SpawnDirector.Instance.Init(spawnset);
         if (!DisableSpawning) SpawnDirector.Instance.StartSpawning();
 
+        if (SpawnRects == null) return;
+
         foreach (var spawnRect in SpawnRects.GetChildren()) {
             _totalSpawnArea += ((SpawnRect)spawnRect).GetArea();
         }

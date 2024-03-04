@@ -65,7 +65,7 @@ public partial class Goober : AbstractCreature
         base._Process(delta);
         MoveAndSlide();
         
-        if (Position.X > GameManager.Player.Position.X)
+        if (MoveDirection.X < 0)
             _sprite.FlipH = true;
         else
             _sprite.FlipH = false;
