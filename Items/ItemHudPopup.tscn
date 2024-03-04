@@ -7,7 +7,7 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.262745)
+bg_color = Color(0.643137, 0.643137, 0.643137, 0.537255)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pyhhw"]
 font_size = 46

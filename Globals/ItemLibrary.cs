@@ -18,12 +18,20 @@ public partial class ItemLibrary : Node
     public static ItemLibrary Instance { get; private set; }
     public Dictionary<string, AbstractItem> AllItems { get; set; } = new();
     public Dictionary<ItemRarity, List<AbstractItem>> ItemsByRarity { get; set; } = new();
+    public RandomNumberGenerator ItemRNG = new();
 
     public override void _Ready()
     {
         Instance = this;
         LoadBaseItems();
         LoadItemEvent?.Invoke(this);
+    }
+
+    public override void _Process(double delta)
+    {
+        // hue shift the legendary color for fun
+        ItemRarity.Legendary.Color.ToHsv(out var hue, out var s, out var v);
+        ItemRarity.Legendary.Color = Color.FromHsv((float)(hue + delta/4) , s, v);
     }
 
     /// <summary>
@@ -70,27 +78,44 @@ public partial class ItemLibrary : Node
         var rarity = RollRarity();
         var items = ItemsByRarity[rarity];
         
-        var roll = new Random().Next(0, items.Count);
+        var roll = ItemRNG.RandiRange(0, items.Count - 1);
+        return items[roll].MakeCopy();
+       
+    }
+    /// <summary>
+    ///  Roll an item from the library with a specific rarity
+    /// </summary>
+    /// <param name="rarity"></param>
+    /// <returns></returns>
+    public AbstractItem RollItem(ItemRarity rarity)
+    {
+        
+        var items = ItemsByRarity[rarity];
+        
+        var roll = ItemRNG.RandiRange(0, items.Count - 1);
         return items[roll].MakeCopy();
        
     }
     
-    public ItemRarity RollRarity()
+    
+    /// <summary>
+    ///  Roll a rarity from the library
+    /// </summary>
+    /// <returns></returns>
+    public ItemRarity RollRarity(bool usePlayerLuck = true)
     {
-        var rarities = ItemsByRarity.Keys.ToList();
-        rarities.Sort((a, b) => a.Value.CompareTo(b.Value));
-        var total = 0f;
-        foreach (var rarity in rarities)
-        {
-            total +=  rarity.Weight;
-        }
-
-        var roll = new Random().NextDouble() * total;
-        float current = 0;
+        var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
+        var rarities = ItemsByRarity.Keys
+            .Where(rarity => rarity.AvailableInChests && ItemsByRarity[rarity].Count > 0)
+            .OrderBy(rarity => rarity.Value)
+            .ToList();
+        var total = rarities.Sum(rarity => rarity.Weight);
+        var roll = ItemRNG.RandfRange(0, total);
+        var current = 0f;
         foreach (var rarity in rarities)
         {
             current += rarity.Weight;
-            if (roll <= current)
+            if (roll < current)
             {
                 return rarity;
             }

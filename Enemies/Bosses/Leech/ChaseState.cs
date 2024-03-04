@@ -1,21 +1,21 @@
 using Godot;
-using System;
 using ProjectReaper.Components;
-using ProjectReaper.Enemies.Bosses;
 using ProjectReaper.Globals;
-using ProjectReaper.Util;
+
+namespace ProjectReaper.Enemies.Bosses.Leech;
 
 public partial class ChaseState : AbstractState
 {
     
     private Timer _chargeTimer;
     private bool _canCharge = true;
+    [Export] public float ChargeCooldown = 3f;
 
     public override void _Ready()
     {
         base._Ready();
         _chargeTimer = new Timer();
-        _chargeTimer.WaitTime = 1;
+        _chargeTimer.WaitTime = ChargeCooldown;
         _chargeTimer.OneShot = true;
         _chargeTimer.Timeout += () =>
         {
@@ -26,6 +26,7 @@ public partial class ChaseState : AbstractState
 
     public override void Update(double delta)
     {
+        if (GameManager.Player.Dead) return;
         var distance = (StateMachine.Creature.GlobalPosition - GameManager.Player.GlobalPosition).Length();
         if (distance < 1000 && _canCharge)
         {

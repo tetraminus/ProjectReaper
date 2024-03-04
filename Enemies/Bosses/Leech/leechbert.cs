@@ -6,7 +6,6 @@ namespace ProjectReaper.Enemies.Bosses;
 public partial class leechbert : AbstractCreature
 {
     private AnimatedSprite2D _sprite;
-    private Vector2 _movementTargetPosition = Vector2.Zero;
     private StateMachineComponent _stateMachine;
 
     public const float Accelfac = 20.0f;
@@ -16,15 +15,16 @@ public partial class leechbert : AbstractCreature
     public override void OnDeath()
     {
         Callbacks.Instance.BossDiedEvent?.Invoke();
-        base.OnDeath();
+        Dead = true;
+        _stateMachine.ChangeState("DeadState", _sprite);
     }
 
     public override void _Ready()
     {
         base._Ready();
-        Stats.Speed = 100;
+        Stats.Speed = 80;
         
-        Stats.MaxHealth = 1000;
+        Stats.MaxHealth = 10;
         Stats.Health = Stats.MaxHealth;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");
@@ -46,6 +46,8 @@ public partial class leechbert : AbstractCreature
             _sprite.FlipH = MoveDirection.X > 0;
         }
     }
+    
+    
 
     public override void _PhysicsProcess(double delta)
     {

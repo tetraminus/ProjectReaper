@@ -94,7 +94,7 @@ interact={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Loc/Localization.en.translation")
+locale/translations=PackedStringArray("res://Loc/items.en.translation", "res://Loc/Ui.en.translation")
 
 [layer_names]
 

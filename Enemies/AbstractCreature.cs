@@ -244,6 +244,8 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public void Knockback(Vector2 knockback)
     {
+        if (Dead) return;
+        
         Velocity += knockback;
     }
 

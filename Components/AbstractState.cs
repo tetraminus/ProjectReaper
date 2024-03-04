@@ -6,7 +6,7 @@ public abstract partial class AbstractState : Node
 {
     public StateMachineComponent StateMachine { get; set; }
     
-    public virtual void OnEnter()
+    public virtual void OnEnter(object[] args)
     {
         
     }

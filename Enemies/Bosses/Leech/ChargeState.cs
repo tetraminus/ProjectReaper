@@ -31,17 +31,22 @@ public partial class ChargeState : AbstractState
         meleeArea.KBType = MeleeArea.KnockbackType.Charge;
     }
 
-    public override void OnEnter()
+    public override void OnEnter(params object[] args)
     {
         meleeArea.Enable();
-        base.OnEnter();
         var leechbert = StateMachine.Creature as leechbert;
         GetTree().CreateTimer(_chargeTime).Timeout += LeaveCharge;
         _chargeDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized();
         meleePivot.Rotation = _chargeDirection.Angle();
         _charging = true;
     }
-    
+
+    public override void OnExit()
+    {
+        meleeArea.Disable();
+        _charging = false;
+    }
+
 
     public override void PhysicsUpdate(double delta)
     {
@@ -65,8 +70,7 @@ public partial class ChargeState : AbstractState
 
     private void LeaveCharge()
     {
-        meleeArea.Disable();
-        _charging = false;
+        if (StateMachine.GetCurrentStateName() != Name) return; 
         StateMachine.ChangeState("ChaseState");
     }
 }

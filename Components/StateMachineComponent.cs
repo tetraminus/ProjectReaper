@@ -28,7 +28,7 @@ public partial class StateMachineComponent : Node
         }
     }
     
-    public void ChangeState(string stateName)
+    public void ChangeState(string stateName, params object[] stateArgs)
     {
         _previousState = _currentState;
         _currentState = GetNode<AbstractState>(stateName);
@@ -37,9 +37,15 @@ public partial class StateMachineComponent : Node
             _previousState.OnExit();
         }
         
-        _currentState.OnEnter();
+        _currentState.OnEnter(stateArgs);
         
     }
+    
+    public string GetCurrentStateName()
+    {
+        return _currentState.Name;
+    }
+    
     
     public void Process(double delta)
     {

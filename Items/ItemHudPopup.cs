@@ -7,7 +7,7 @@ public partial class ItemHudPopup : Control
 	public Label NameLabel => GetNode<Label>("%NameLabel");
 	public RichTextLabel DescriptionLabel => GetNode<RichTextLabel>("%DescriptionLabel");
 	private PanelContainer _panel => GetNode<PanelContainer>("HudPanel");
-
+	private ItemRarity _rarity;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -18,12 +18,19 @@ public partial class ItemHudPopup : Control
 	{
 		NameLabel.Text = item.GetNameKey();
 		DescriptionLabel.Text = item.GetDescriptionKey();
+		_rarity = item.Rarity;
 	}
 
 	public override void _Process(double delta)
 	{
+		if (!Visible) return;
+		if (_rarity != null)
+		{
+			_panel.SelfModulate = _rarity.Color;
+		}
 		// stay near the mouse, but not on it
 		// also stay within the screen bounds
+		
 		
 		var mousePos = GetGlobalMousePosition();
 		var screenSize = GetViewportRect().Size;
