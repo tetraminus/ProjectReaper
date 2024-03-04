@@ -1,0 +1,137 @@
+[gd_scene load_steps=21 format=3 uid="uid://by78vrfc67qa1"]
+
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/leechbert.cs" id="1_1ky8l"]
+[ext_resource type="Texture2D" uid="uid://ca5n3slsgbyu8" path="res://Assets/Enemies/Bosses/Leech.png" id="2_jjqqp"]
+[ext_resource type="PackedScene" uid="uid://djjvh3ihyae44" path="res://Components/StateMachineComponent.tscn" id="3_pst02"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/ChaseState.cs" id="4_gr6wk"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/ChargeState.cs" id="5_v73dl"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/DeadState.cs" id="6_q42id"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_uuc4l"]
+[ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="7_vxpn5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x260n"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt68o"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohbl2"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oysn"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5j7m"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ylve"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7fn6"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o7ki"]
+atlas = ExtResource("2_jjqqp")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_soo2s"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_x260n")
+}],
+"loop": false,
+"name": &"Dead",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt68o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohbl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oysn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5j7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ylve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7fn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3o7ki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x260n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jg3w"]
+radius = 15.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mugho"]
+radius = 15.0
+height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o40r"]
+size = Vector2(4, 28)
+
+[node name="Leechbert" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_1ky8l")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_soo2s")
+animation = &"Dead"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_5jg3w")
+
+[node name="StateMachineComponent" parent="." node_paths=PackedStringArray("InitialState") instance=ExtResource("3_pst02")]
+InitialState = NodePath("ChaseState")
+
+[node name="ChaseState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("4_gr6wk")
+
+[node name="ChargeState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("5_v73dl")
+_chargeTime = 2.0
+
+[node name="DeadState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("6_q42id")
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("6_uuc4l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_mugho")
+
+[node name="MeleePivot" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeleeArea" parent="MeleePivot" instance=ExtResource("7_vxpn5")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleePivot/MeleeArea"]
+position = Vector2(18, 0)
+shape = SubResource("RectangleShape2D_4o40r")

@@ -10,17 +10,17 @@ public partial class PlayerHud : Control
     public static PackedScene ItemHudPopupScn => GD.Load<PackedScene>("res://Items/ItemHudPopup.tscn");
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
     
-    public ItemHudPopup ItemHudPopup;
+    public ItemHudPopup InfoHudPopup;
     public Label FPS => GetNode<Label>("FPS");
     public override void _Ready()
     {
         GD.Print("PlayerHud ready");
         GameManager.PlayerHud = this;
 
-        ItemHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
-        AddChild(ItemHudPopup);
+        InfoHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
+        AddChild(InfoHudPopup);
         
-        ItemHudPopup.Visible = false;
+        InfoHudPopup.Visible = false;
         
         
 
@@ -29,7 +29,8 @@ public partial class PlayerHud : Control
 
     public void UpdateHealth(float oldHealth, float health)
     {
-        GetNode<Label>("Health/Value").Text = health.ToString();
+        GetNode<TextureProgressBar>("%HealthBar").Value = health;
+        GetNode<Label>("%HealthBar/Value").Text = health.ToString();
     }
 
     public override void _Process(double delta)
@@ -53,12 +54,12 @@ public partial class PlayerHud : Control
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();
         itemDisplay.SetItem(item);
-        GetNode<GridContainer>("ItemGrid").AddChild(itemDisplay);
+        GetNode<HFlowContainer>("%ItemGrid").AddChild(itemDisplay);
     }
     
     public void RemoveItem(AbstractItem item)
     {
-        foreach (var child in GetNode<GridContainer>("ItemGrid").GetChildren())
+        foreach (var child in GetNode<HFlowContainer>("%ItemGrid").GetChildren())
         {
             if (child is ItemDisplay itemDisplay && itemDisplay.Item == item)
             {
@@ -70,16 +71,22 @@ public partial class PlayerHud : Control
 
     public void ShowItemInfo(AbstractItem item)
     {
-        ItemHudPopup.SetItem(item);
-        ItemHudPopup.Visible = true;
-        ItemHudPopup.QueueRedraw();
+        if (InfoHudPopup.IsQueuedForDeletion()) return;
+        InfoHudPopup.SetItem(item);
+        InfoHudPopup.Show();
+        
     }
     
     public void HideItemInfo()
     {
-        ItemHudPopup.Visible = false;
-        ItemHudPopup.QueueRedraw();
-       
+        if (InfoHudPopup.IsQueuedForDeletion()) return;
+        InfoHudPopup.Hide();
+    }
+
+    public void ShowInfoHud(string infoTitle, string infoText) {
+        
+        InfoHudPopup.SetInfo(infoTitle, infoText);
+        InfoHudPopup.Show();
     }
 }
 

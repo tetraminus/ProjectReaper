@@ -25,11 +25,9 @@ public partial class Goober : AbstractCreature
     public override void _Ready()
     {
         base._Ready();
-        
         Stats.Speed = 70;
-        Stats.Health = 10;
-        Stats.MaxHealth = 10;
-        Stats.Damage = 0;
+        Stats.Health = 20;
+        Stats.MaxHealth = 20;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");
         _sprite.Play();

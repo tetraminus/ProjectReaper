@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
+using ProjectReaper.Objects;
 using ProjectReaper.Util;
 
 public partial class Explosion : AbstractDamageArea
 
 {
-    private Array<AbstractCreature> _creatures = new();
+    private List<IProjectileBlocker> _creatures = new();
 
     // Called when the node enters the scene tree for the first time.
     private GpuParticles2D _particles1;
@@ -43,6 +45,9 @@ public partial class Explosion : AbstractDamageArea
         AddChild(Timer);
         Timer.Start(Duration);
         Timer.Timeout += () => { FindChild("CollisionShape2D").SetDeferred("disabled", true); };
+        
+        DestroyOnHit = false;
+        DestroyOnWall = false;
     }
 
     private void ScaleParticles()
@@ -74,11 +79,15 @@ public partial class Explosion : AbstractDamageArea
 
     private void _areaEntered(Area2D area)
     {
-        if (area is HurtBox hurtBox && !_creatures.Contains(hurtBox.GetParentCreature()) && hurtBox.GetParentCreature().Team != Team)
+        if (area is HurtBox hurtBox && !_creatures.Contains(hurtBox.GetParentBlocker()))
         {
-            hurtBox.GetParentCreature().Damage(new DamageReport(10, Source, hurtBox.GetParentCreature(), Source.Stats,
-                hurtBox.GetParentCreature().Stats));
-            _creatures.Add(hurtBox.GetParentCreature());
+            var creature = hurtBox.GetParentBlocker();
+            if (creature == null) return;
+            if (creature.Team == Team) return;
+            _creatures.Add(creature);
+            
+            if (creature is AbstractCreature c) c.Damage(new DamageReport(Damage, Source, c, Source.Stats, c.Stats));
+            
         }
     }
 }

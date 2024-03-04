@@ -7,10 +7,15 @@ namespace ProjectReaper.Items.Collectables;
 public partial class RevengeBomber : AbstractItem
 {
     public override string Id => "revenge_bomber";
+    public override ItemRarity Rarity => ItemRarity.Common;
     
     public override void OnInitalPickup()
     {
         Callbacks.Instance.CreatureDamagedEvent += OnCreatureDamaged;
+    } 
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.CreatureDamagedEvent -= OnCreatureDamaged;
     }
     
     public void OnCreatureDamaged(AbstractCreature creature, float damage)

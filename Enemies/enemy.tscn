@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://c3madycyn822b"]
 
-[ext_resource type="Script" path="res://Enemy.cs" id="1_cq1dk"]
-[ext_resource type="Texture2D" uid="uid://cgaa8s5t8gkmr" path="res://Enemies/Assets/shadow-enemy (2).png" id="2_bm7bj"]
-[ext_resource type="Script" path="res://Enemies/HurtBox.cs" id="3_igvfp"]
+[ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_cq1dk"]
+[ext_resource type="Texture2D" uid="uid://cgaa8s5t8gkmr" path="res://Assets/Enemies/shadow-enemy (2).png" id="2_bm7bj"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_igvfp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vs3g"]
 atlas = ExtResource("2_bm7bj")

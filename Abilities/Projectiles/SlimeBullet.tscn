@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dnaptcdl5dudr"]
 
 [ext_resource type="Script" path="res://Abilities/Projectiles/BasicBullet.cs" id="1_ug6fj"]
-[ext_resource type="Texture2D" uid="uid://ckgpu0oj8qasi" path="res://Enemies/Assets/New Piskel (11).png" id="2_43735"]
+[ext_resource type="Texture2D" uid="uid://ckgpu0oj8qasi" path="res://Assets/Enemies/New Piskel (11).png" id="2_43735"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4xqpp"]
 atlas = ExtResource("2_43735")
