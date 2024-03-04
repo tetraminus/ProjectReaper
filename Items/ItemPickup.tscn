@@ -1,16 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqyvy8cx8r6xk"]
+[gd_scene load_steps=4 format=3 uid="uid://cqyvy8cx8r6xk"]
 
 [ext_resource type="Script" path="res://Items/ItemPickup.cs" id="1_cmxk8"]
+[ext_resource type="PackedScene" uid="uid://kvg8f34mloxd" path="res://Components/PickupComponent.tscn" id="2_ovvef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qkbol"]
 radius = 16.0
 
-[node name="ItemPickup" type="Area2D"]
-collision_layer = 8
-collision_mask = 8
+[node name="ItemPickup" type="Node2D"]
 script = ExtResource("1_cmxk8")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PickupComponent" parent="." node_paths=PackedStringArray("Pickup") instance=ExtResource("2_ovvef")]
+collision_layer = 8
+collision_mask = 8
+Pickup = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupComponent"]
 shape = SubResource("CircleShape2D_qkbol")

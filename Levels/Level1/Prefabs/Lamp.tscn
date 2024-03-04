@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://0sy7n2q74083"]
 
-[ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/Light.webp" id="1_s478n"]
+[ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="1_s478n"]
 [ext_resource type="Texture2D" uid="uid://by15rnp5pqjqk" path="res://Levels/Level1/Prefabs/Lamp.png" id="2_b3eod"]
 
 [node name="Lamp" type="Node2D"]

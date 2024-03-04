@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckqcoryvavs5i"]
+
+[ext_resource type="Script" path="res://Components/CreatureOwnerComponent.cs" id="1_0ftrm"]
+
+[node name="CreatureOwnerComponent" type="Node"]
+script = ExtResource("1_0ftrm")

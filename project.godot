@@ -19,10 +19,10 @@ config/icon="res://icon.svg"
 
 Callbacks="*res://Globals/Callbacks.cs"
 GameManager="*res://Globals/GameManager.cs"
-LevelGenerator="*res://Globals/LevelGenerator.cs"
 ItemLibrary="*res://Globals/ItemLibrary.cs"
 SpawnDirector="*res://Globals/SpawnDirector.cs"
 LootDirector="*res://Globals/LootDirector.cs"
+ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 
 [display]
 
@@ -38,7 +38,11 @@ project/assembly_name="ProjectReaper"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+
+[gui]
+
+theme/custom="res://Assets/General/MainTheme.tres"
 
 [input]
 
@@ -90,7 +94,7 @@ interact={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Loc/Localization.en.translation")
+locale/translations=PackedStringArray("res://Loc/items.en.translation", "res://Loc/Ui.en.translation")
 
 [layer_names]
 

@@ -2,6 +2,7 @@
 
 public partial class Speedboost : AbstractPower
 {
+    private const float Multiplier = 0.2f;
     public override string Id => "speed_boost";
     public override float Duration => 1;
     float _addedSpeed;
@@ -15,14 +16,14 @@ public partial class Speedboost : AbstractPower
         StartTimer();
         
         
-        _addedSpeed = Creature.Stats.Speed * 0.1f * Stacks;
+        _addedSpeed = Creature.Stats.Speed * Multiplier * Stacks;
         Creature.Stats.Speed += _addedSpeed;
     }
     
     public override void OnStack(int newStacks)
     {
         Creature.Stats.Speed -= _addedSpeed;
-        _addedSpeed = Creature.Stats.Speed * 0.1f * Stacks;
+        _addedSpeed = Creature.Stats.Speed * Multiplier * Stacks;
         Creature.Stats.Speed += _addedSpeed;
     }
     
