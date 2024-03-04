@@ -1,15 +1,17 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=22 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
 [ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="8_j42nk"]
 [ext_resource type="PackedScene" uid="uid://dsr7b7kr5xrk3" path="res://Objects/BossGate/BossGate.tscn" id="9_38dtt"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_uerm4"]
 
 [sub_resource type="Environment" id="Environment_r8h6l"]
 background_energy_multiplier = 0.0
@@ -54,7 +56,7 @@ size = Vector2(200, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
 size = Vector2(400, 100)
 
-[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects")]
+[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "PhantomCamera")]
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
 BoundsLeft = -1024
@@ -63,6 +65,7 @@ BoundsTop = -1024
 BoundsBottom = 1024
 NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
+PhantomCamera = NodePath("LevelPCam")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
 z_index = -1
@@ -250,14 +253,73 @@ position = Vector2(256, 317)
 RollItem = true
 OverrideItemId = "grapeshot"
 
-[node name="BossGate" parent="." node_paths=PackedStringArray("_spawnPoint", "_bossSpawnPoint") instance=ExtResource("9_38dtt")]
+[node name="BossGate" parent="." node_paths=PackedStringArray("_spawnPoint", "_bossSpawnPoint", "_phantomCamera") instance=ExtResource("9_38dtt")]
 position = Vector2(673, -308)
 _spawnPoint = NodePath("Node2D")
-_bossSpawnPoint = NodePath("BossSpaw")
+_bossSpawnPoint = NodePath("BossSpawn")
 _bossScene = ExtResource("10_4uqm6")
+_phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="Node2D" type="Node2D" parent="BossGate"]
 position = Vector2(-27, -185)
 
-[node name="BossSpaw" type="Node2D" parent="BossGate"]
+[node name="BossSpawn" type="Node2D" parent="BossGate"]
 position = Vector2(-45, -403)
+
+[node name="PhantomCamera2D" type="Node2D" parent="BossGate"]
+position = Vector2(-686, 518)
+script = ExtResource("11_18e0b")
+priority_override = false
+priority = 0
+zoom = Vector2(3, 3)
+follow_mode = 3
+follow_group = Array[NodePath]([NodePath("")])
+follow_parameters/auto_zoom = true
+follow_parameters/min_zoom = 2.0
+follow_parameters/max_zoom = 3.0
+follow_parameters/zoom_margin = Vector4(0, 0, 0, 0)
+follow_parameters/target_offset = Vector2(0, 0)
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="LevelPCam" type="Node2D" parent="."]
+position = Vector2(-13, 210)
+script = ExtResource("11_18e0b")
+priority_override = false
+priority = 5
+zoom = Vector2(3, 3)
+follow_mode = 1
+follow_target = NodePath("../Player")
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-13, 210)
+zoom = Vector2(3, 3)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("12_uerm4")

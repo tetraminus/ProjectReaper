@@ -28,6 +28,9 @@ public partial class ItemHudPopup : Control
 		{
 			_panel.SelfModulate = _rarity.Color;
 		}
+		else {
+			_panel.SelfModulate = new Color(1, 1, 1);
+		}
 		// stay near the mouse, but not on it
 		// also stay within the screen bounds
 		
@@ -51,5 +54,11 @@ public partial class ItemHudPopup : Control
 		
 		
 		base._Process(delta);
+	}
+
+	public void SetInfo(string infoTitle, string infoText) {
+		NameLabel.Text = infoTitle;
+		DescriptionLabel.Text = infoText;
+		_rarity = null;
 	}
 }

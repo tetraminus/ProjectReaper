@@ -53,12 +53,6 @@ script = ExtResource("4_2082f")
 [node name="SoldierRoll" type="Node" parent="AbilityManager"]
 script = ExtResource("6_aui5x")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2

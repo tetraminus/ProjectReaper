@@ -21,6 +21,7 @@ public partial class Level : Node2D
     [Export] public int BoundsBottom { get; set; }
     [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
     [Export] public Node SpawnRects { get; set; }
+    [Export] public Node2D PhantomCamera { get; set; }
 
     public override void _Ready()
     {
@@ -31,11 +32,11 @@ public partial class Level : Node2D
         spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
         //spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
         // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
-        
-        GameManager.Player.Camera.LimitLeft = BoundsLeft;
-        GameManager.Player.Camera.LimitRight = BoundsRight;
-        GameManager.Player.Camera.LimitTop = BoundsTop;
-        GameManager.Player.Camera.LimitBottom = BoundsBottom;
+
+        PhantomCamera.Set("limit/left", BoundsLeft);
+        PhantomCamera.Set("limit/right", BoundsRight);
+        PhantomCamera.Set("limit/top", BoundsTop);
+        PhantomCamera.Set("limit/bottom", BoundsBottom);
        
         
         LootDirector.Instance.PlaceInteractables(NumberOfChests, this);

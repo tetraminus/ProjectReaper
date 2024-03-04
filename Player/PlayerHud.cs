@@ -10,17 +10,17 @@ public partial class PlayerHud : Control
     public static PackedScene ItemHudPopupScn => GD.Load<PackedScene>("res://Items/ItemHudPopup.tscn");
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
     
-    public ItemHudPopup ItemHudPopup;
+    public ItemHudPopup InfoHudPopup;
     public Label FPS => GetNode<Label>("FPS");
     public override void _Ready()
     {
         GD.Print("PlayerHud ready");
         GameManager.PlayerHud = this;
 
-        ItemHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
-        AddChild(ItemHudPopup);
+        InfoHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
+        AddChild(InfoHudPopup);
         
-        ItemHudPopup.Visible = false;
+        InfoHudPopup.Visible = false;
         
         
 
@@ -71,16 +71,22 @@ public partial class PlayerHud : Control
 
     public void ShowItemInfo(AbstractItem item)
     {
-        if (ItemHudPopup.IsQueuedForDeletion()) return;
-        ItemHudPopup.SetItem(item);
-        ItemHudPopup.Show();
+        if (InfoHudPopup.IsQueuedForDeletion()) return;
+        InfoHudPopup.SetItem(item);
+        InfoHudPopup.Show();
         
     }
     
     public void HideItemInfo()
     {
-        if (ItemHudPopup.IsQueuedForDeletion()) return;
-        ItemHudPopup.Hide();
+        if (InfoHudPopup.IsQueuedForDeletion()) return;
+        InfoHudPopup.Hide();
+    }
+
+    public void ShowInfoHud(string infoTitle, string infoText) {
+        
+        InfoHudPopup.SetInfo(infoTitle, infoText);
+        InfoHudPopup.Show();
     }
 }
 

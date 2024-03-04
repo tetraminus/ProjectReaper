@@ -1,9 +1,10 @@
 ﻿using Godot;
+using ProjectReaper.Components;
 using ProjectReaper.Globals;
 
 namespace ProjectReaper.Items;
 
-public partial class ItemPickup : Area2D
+public partial class ItemPickup : Node2D, IPickup
 {
     public AbstractItem Item { get; set; }
     
@@ -22,17 +23,7 @@ public partial class ItemPickup : Area2D
     
     public override void _Ready()
     {
-        BodyEntered += OnBodyEntered;
         
-        MouseEntered += () =>
-        {
-            GameManager.PlayerHud.ShowItemInfo(Item);
-        };
-        
-        MouseExited += () =>
-        {
-            GameManager.PlayerHud.HideItemInfo();
-        };
         
         _sprite = GetNode<Sprite2D>("Sprite");
         
@@ -57,11 +48,7 @@ public partial class ItemPickup : Area2D
 
     public override void _ExitTree()
     {
-        
-        BodyEntered -= OnBodyEntered;
         GameManager.PlayerHud.HideItemInfo();
-        
-        
     }
 
     public void SetItem(AbstractItem item)
@@ -70,13 +57,20 @@ public partial class ItemPickup : Area2D
         _sprite.Texture = item.Icon;
     }
     
-    private void OnBodyEntered(Node body)
-    {
-        if (body is Player.Player player)
+
+    public void Pickup() {
+        if (Item != null)
         {
-            player.AddItem(Item);
+            GameManager.Player.AddItem(Item);
             QueueFree();
         }
     }
-    
+
+    public void Hover() {
+        GameManager.PlayerHud.ShowItemInfo(Item);
+    }
+
+    public void Unhover() {
+        GameManager.PlayerHud.HideItemInfo();
+    }
 }
