@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]

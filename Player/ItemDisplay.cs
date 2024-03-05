@@ -1,6 +1,7 @@
 ﻿using Godot;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
+using System;
 
 namespace ProjectReaper.Player;
 
@@ -11,17 +12,22 @@ public partial class ItemDisplay : Control
     private TextureRect Icon => GetNode<TextureRect>("Icon");
     private Label Stacks => GetNode<Label>("Icon/Stacks");
 
+    // Define events
+    public event Action<AbstractItem> MouseEnteredItem;
+    public event Action MouseExitedItem;
+
     public void SetItem(AbstractItem item)
     {
         MouseEntered += () =>
         {
-          
-            GameManager.PlayerHud.ShowItemInfo(Item);
+            // Raise the event instead of directly calling the method
+            MouseEnteredItem?.Invoke(Item);
         };
         
         MouseExited += () =>
         {
-            GameManager.PlayerHud.HideItemInfo();
+            // Raise the event instead of directly calling the method
+            MouseExitedItem?.Invoke();
         };
         
         Item = item;
@@ -36,6 +42,14 @@ public partial class ItemDisplay : Control
         
         return stacks;
     }
+
+    public void HideStacks()
+    {
+        Stacks.Hide();
+    }
     
-    
+    public void ShowStacks()
+    {
+        Stacks.Show();
+    }
 }

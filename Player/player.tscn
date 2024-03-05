@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=13 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Player/PlayerOutline.gdshader" id="2_s81kq"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Abilities/SoldierRoll.cs" id="6_aui5x"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_k1hhn"]
 [ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="8_cacyo"]
-[ext_resource type="PackedScene" uid="uid://tdgmuo3j5ltv" path="res://Player/PlayerHud.tscn" id="9_i8hed"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k72yq"]
 shader = ExtResource("2_s81kq")
@@ -68,8 +67,6 @@ shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = ExtResource("8_cacyo")
 texture_scale = 0.5
-
-[node name="CanvasLayer" parent="." instance=ExtResource("9_i8hed")]
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_qjn8v")

@@ -474,7 +474,10 @@ func _process(delta: float) -> void:
 	match Properties.follow_mode:
 		Constants.FollowMode.GLUED:
 			if Properties.follow_target_node:
-				_set_pcam_global_position(Properties.follow_target_node.get_global_position(), delta)
+				if not is_instance_valid(Properties.follow_target_node):
+					pass
+				else:
+					_set_pcam_global_position(Properties.follow_target_node.get_global_position(), delta)
 		Constants.FollowMode.SIMPLE:
 			if Properties.follow_target_node:
 				_set_pcam_global_position(_target_position_with_offset(), delta)

@@ -16,4 +16,13 @@ d_alarming_totem,Gain a temporary 30% speed boost when you kill an enemy.
 f_alarming_totem,"It's engravings showcase, specifically, a bird. Probably a hawk or eagle or something. Definitely NOT a snail. Frankly I'm not sure how one could confuse it as such."
 n_dream_car,Dream Car
 d_dream_car,Groovy! Oh yeah this lets you dash more frequently I think.
-f_dream_car,"Characterized by thin roof pillars, fastback styling and implied aerodynamics, it symbolized 1960s Jet Age design. The '60 and '61 Models shared their roof lines and chassis, with the 1961 Model featuring substantially revised front and rear styling."
+f_dream_car,"[fade start=40 length=240]Characterized by thin roof pillars, fastback styling and implied aerodynamics, it symbolized 1960s Jet Age design. The '60 and '61 Models shared their roof lines and chassis, with the 1961 Model featuring substantially revised front and rear styling.[/fade]"
+n_gravity_gauntlet,Gravity's Gauntlet 
+d_gravity_gauntlet,Pulls enemys towards you making them easier to hit.
+f_gravity_gauntlet ,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to bring your foes into striking distance."
+n_soul_harvester,Soul Harvester 
+d_soul_harvester,Temporary power boost after you kill an enemy.
+f_soul_harvester ,"You're not actually taking their souls, they dont have any! [size=14]Probably...[/size]"
+n_lean_aura ,Lean Aura 
+d_lean_aura,Gives you higher attack speed and damage but makes enemys hit harder and move faster 
+f_lean_aura,"The power of lean gives you much more power in the brawn department but not the brain department, enemys can feel your brainrot "

@@ -22,10 +22,24 @@ public partial class PlayerHud : Control
         
         InfoHudPopup.Visible = false;
         
-        
-
         GetTree().ProcessFrame += OnProcessFrame;
+        GetNode<Label>("DeathQuote").Hide();
     }
+    
+    public void ShowDeathQuote()
+    {
+        var label = GetNode<Label>("DeathQuote");
+        label.Show();
+        label.VisibleRatio = 0;
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(label, "visible_ratio", 1, 1);
+        GetTree().CreateTimer(2).Timeout += () =>
+        {
+            tween.Play();
+        };
+        
+    }
+    
 
     public void UpdateHealth(float oldHealth, float health)
     {
@@ -88,5 +102,6 @@ public partial class PlayerHud : Control
         InfoHudPopup.SetInfo(infoTitle, infoText);
         InfoHudPopup.Show();
     }
+    
 }
 

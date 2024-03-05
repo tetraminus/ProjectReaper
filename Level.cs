@@ -22,6 +22,7 @@ public partial class Level : Node2D
     [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
     [Export] public Node SpawnRects { get; set; }
     [Export] public Node2D PhantomCamera { get; set; }
+   
 
     public override void _Ready()
     {

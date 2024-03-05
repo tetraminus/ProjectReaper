@@ -6,13 +6,16 @@ namespace ProjectReaper.Globals;
 
 public partial class GameManager : Node
 {
-    public static PackedScene ExplosionScene =
-        ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
+    public static PackedScene ExplosionScene = ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
+    public static PackedScene PlayerHudScene = ResourceLoader.Load<PackedScene>("res://Player/PlayerHud.tscn");
+    
 
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
     public static PlayerHud PlayerHud { get; set; }
     public static Level Level { get; set; }
+    public static bool Paused { get; set; }
+    public static PauseMenu PauseMenu { get; set; }
 
     public static bool RandomBool(int luck)
     {
@@ -38,11 +41,30 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
+        var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
+        AddChild(playerhudScene);
+        
+        
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    
+
+    
+
+    public static void PauseGame()
     {
+        Paused = true;
+        Level.GetTree().Paused = true;
+        PauseMenu.Show();
+        
+    }
+    
+    public static void UnpauseGame()
+    {
+        Paused = false;
+        Level.GetTree().Paused = false;
+        PauseMenu.Hide();
     }
 
     public static void SpawnExplosion(Vector2 globalPosition, int damage, float scale = 1f,
@@ -58,6 +80,7 @@ public partial class GameManager : Node
 
     public static void GameOver()
     {
+        PlayerHud.ShowDeathQuote();
         
     }
     
