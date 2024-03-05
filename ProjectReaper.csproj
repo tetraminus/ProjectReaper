@@ -11,10 +11,4 @@
     <ItemGroup>
       <Folder Include="addons\" />
     </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="addons\godot_state_charts\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Remove="addons\godot_state_charts\**" />
-    </ItemGroup>
 </Project>

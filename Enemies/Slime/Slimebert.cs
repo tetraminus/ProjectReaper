@@ -1,24 +1,23 @@
-using System;
 using Godot;
+using GodotStateCharts;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Globals;
 
-namespace ProjectReaper.Enemies;
+namespace ProjectReaper.Enemies.Slime;
 
 public partial class Slimebert : AbstractCreature
 {
     private AnimatedSprite2D _sprite;
     private NavigationAgent2D _navigationAgent;
-    private PackedScene _bullet = GD.Load<PackedScene>("res://Abilities/Projectiles/SlimeBullet.tscn");
-    private Timer Timer => GetNode<Timer>("Timer");
-    
     private Vector2 _movementTargetPosition = Vector2.Zero;
     private bool _directSight = false;
-    private EnemyState _state;
-    private bool _justEnteredShooting = false;
+
+    private const float Accelfac = 20.0f;
+    private const float TargetChaseDistance = 125;
+    private PackedScene _bulletScn = GD.Load<PackedScene>("res://Enemies/Slime/SlimeBullet.tscn");
     
-    
-    
+    public Vector2 MoveDirection { get; set; }
+    private StateChart _stateChart;
     
     public Vector2 MovementTarget
     {
@@ -29,11 +28,9 @@ public partial class Slimebert : AbstractCreature
     public override void _Ready()
     {
         base._Ready();
-        
-        Stats.Speed = 100;
-        Stats.Health = 10;
-        Stats.MaxHealth = 10;
-        Stats.Damage = 0;
+        Stats.Speed = 60;
+        Stats.MaxHealth = 40;
+        Stats.Health = Stats.MaxHealth;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");
         _sprite.Play();
@@ -50,34 +47,8 @@ public partial class Slimebert : AbstractCreature
 
         Callbacks.Instance.EnemyShouldRenavEvent += Renav;
         
-        _state = EnemyState.Moving;
-        
-        Timer.Timeout += StateCheck;
-        Timer.Start();
-        
-    }
+        _stateChart = StateChart.Of(GetNode("StateChart"));
 
-    private void StateCheck()
-    {
-        if (_directSight)
-        {
-            if (_state == EnemyState.Shooting)
-            {
-                _state = EnemyState.Moving;
-                Timer.WaitTime = 5.0f;
-            }
-            else
-            {
-                _state = EnemyState.Shooting;
-                Timer.WaitTime = 1.0f;
-                _justEnteredShooting = true;
-            }
-        }
-        else
-        {
-            _state = EnemyState.Moving;
-            Timer.WaitTime = 5.0f;
-        }
     }
 
     public override void _ExitTree()
@@ -85,48 +56,24 @@ public partial class Slimebert : AbstractCreature
         Callbacks.Instance.EnemyShouldRenavEvent -= Renav;
         base._ExitTree();
     }
+    
+    public void Timeout()
+    {
+        _stateChart.SendEvent("Shoot");
+    }
 
     private void Renav(Vector2 position, int group)
     {
         if (group != navGroup) return;
         MovementTarget = position;
     }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-        MoveAndSlide();
-        
-        if (_justEnteredShooting)
-        {
-            _justEnteredShooting = false;
-            Shoot();
-        }
-        
-    }
-
-    private void Shoot()
-    {
-        var bullet = _bullet.Instantiate<AbstractDamageArea>();
-        Callbacks.Instance.BulletCreatedEvent?.Invoke(bullet);
-        bullet.Position = GlobalPosition;
-        bullet.LookAt(GameManager.Player.GlobalPosition);
-        GameManager.Level.AddChild(bullet);
-        bullet.Source = this;
-        bullet.Speed = 200;
-        bullet.Team = Teams.Enemy;
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        
-        if (_state != EnemyState.Moving) return;    
-        
+    
+    public override void _PhysicsProcess(double delta) {
         // raycast to player
         var player = GameManager.Player;
         if (player.Dead) return;
-        
-        if (player.GlobalPosition.DistanceTo(GlobalPosition) < 500){
+
+        if (player.GlobalPosition.DistanceTo(GlobalPosition) < 500) {
             var parameters = new PhysicsRayQueryParameters2D();
             parameters.From = GlobalPosition;
             parameters.To = player.GlobalPosition;
@@ -137,37 +84,80 @@ public partial class Slimebert : AbstractCreature
 
             _directSight = ray.Count == 0;
         }
-        else
-        {
+        else {
             _directSight = false;
         }
-
-        // follow nav path if no direct sight
-        if (!_directSight)
-        {
-            FollowPath(delta);
-        }
-        // else move towards player
-        else
-        {
-            Velocity = (player.GlobalPosition - GlobalPosition).Normalized() * Stats.Speed * (float)delta * 20f;
-        }
         
-
+        if (_directSight) {
+            _stateChart.SendEvent("PlayerSeen");
+        }
+        else {
+            _stateChart.SendEvent("PlayerLost");
+        }
     }
 
+    public override void _Process(double delta)
+    {
+       _sprite.FlipH = MoveDirection.X > 0;
+    }
+
+    public void EnterShoot()
+    {
+        if (GameManager.Player.Dead) return;
+        var bullet = _bulletScn.Instantiate<BasicBullet>();
+        bullet.Init(this, Team, GlobalPosition, GetAngleTo(GameManager.Player.GlobalPosition));
+        bullet.Speed = 200;
+        GameManager.Level.AddChild(bullet);
+    }
+    
+    public void ChasePlayer(double delta)
+    {
+        var player = GameManager.Player;
+        if (player.Dead) return;
+
+        float distanceToPlayer = player.GlobalPosition.DistanceTo(GlobalPosition);
+
+        if (distanceToPlayer > TargetChaseDistance + 50)
+        {
+            MoveDirection = (player.GlobalPosition - GlobalPosition).Normalized();
+        }
+        else if (distanceToPlayer < TargetChaseDistance)
+        {
+            MoveDirection = (GlobalPosition - player.GlobalPosition).Normalized();
+        }
+        else
+        {
+            MoveDirection = Vector2.Zero;
+        }
+
+        Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
+        
+        Move();
+    }
+    
     private void FollowPath(double delta)
     {
         var nextPos = _navigationAgent.GetNextPathPosition();
         if (nextPos != Vector2.Zero)
         {
-            var dir = (nextPos - GlobalPosition).Normalized();
-            Velocity = dir * Stats.Speed * (float)delta * 20f;
+            MoveDirection = (nextPos - GlobalPosition).Normalized();
+            Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
         }
         else
         {
-            Velocity = Vector2.Zero;
+            MoveDirection = Vector2.Zero;
         }
+        
+        Move();
+    }
+    private void Move() {
+        // simulate friction with delta
+        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        {
+            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+        }
+        
+        MoveAndSlide();
     }
 
     private async void ActorSetup()
@@ -177,12 +167,5 @@ public partial class Slimebert : AbstractCreature
 
         // Now that the navigation map is no longer empty, set the movement target.
         MovementTarget = GameManager.Player.GlobalPosition;
-    }
-
-
-    private enum EnemyState
-    {
-        Moving,
-        Shooting
     }
 }

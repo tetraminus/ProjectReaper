@@ -9,7 +9,7 @@ public partial class Level : Node2D
 {
     private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/Snowpeabert.tscn");
     private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
-    private PackedScene SlimeScn = GD.Load<PackedScene>("res://Enemies/Slimebert.tscn");
+    private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
     private float _totalSpawnArea;
     private const float _minSpawnDistance = 500;
     private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
@@ -30,8 +30,8 @@ public partial class Level : Node2D
 
         var spawnset = new Spawnset();
 
-        spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
-        //spawnset.AddEnemy(new EnemySpawnCard(SlimeScn, "Slimebert", 100));
+        //spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
+        spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
         // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
 
         PhantomCamera.Set("limit/left", BoundsLeft);

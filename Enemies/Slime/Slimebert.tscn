@@ -1,8 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6gqfew1uq5xq"]
+[gd_scene load_steps=23 format=3 uid="uid://c6gqfew1uq5xq"]
 
-[ext_resource type="Script" path="res://Enemies/Slimebert.cs" id="1_i1vqe"]
+[ext_resource type="Script" path="res://Enemies/Slime/Slimebert.cs" id="1_i1vqe"]
 [ext_resource type="Texture2D" uid="uid://dx51uvkh4s1pk" path="res://Assets/Enemies/slime.png" id="2_elcav"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_j6gfa"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_wl6if"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_hdxln"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_7t520"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_5qmab"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8sryk"]
 radius = 5.01128
@@ -124,7 +128,52 @@ shape = SubResource("RectangleShape2D_ttso5")
 sprite_frames = SubResource("SpriteFrames_b45rn")
 frame_progress = 0.37112
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("4_wl6if")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("5_hdxln")
+initial_state = NodePath("Move")
+
+[node name="Shoot" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_7t520")
+
+[node name="Movement" type="Node" parent="StateChart/Root/Shoot"]
+script = ExtResource("7_5qmab")
+to = NodePath("../../Move")
+delay_seconds = 1.0
+
+[node name="Move" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_hdxln")
+initial_state = NodePath("NavToPlayer")
+
+[node name="NavToPlayer" type="Node" parent="StateChart/Root/Move"]
+script = ExtResource("6_7t520")
+
+[node name="SeePlayer" type="Node" parent="StateChart/Root/Move/NavToPlayer"]
+script = ExtResource("7_5qmab")
+to = NodePath("../../Chase")
+event = &"PlayerSeen"
+
+[node name="Chase" type="Node" parent="StateChart/Root/Move"]
+script = ExtResource("6_7t520")
+
+[node name="LosePlayer" type="Node" parent="StateChart/Root/Move/Chase"]
+script = ExtResource("7_5qmab")
+to = NodePath("../../NavToPlayer")
+event = &"PlayerLost"
+
+[node name="Shoot" type="Node" parent="StateChart/Root/Move/Chase"]
+script = ExtResource("7_5qmab")
+to = NodePath("../../../Shoot")
+event = &"Shoot"
+
+[connection signal="timeout" from="ShootTimer" to="." method="Timeout"]
+[connection signal="state_entered" from="StateChart/Root/Shoot" to="." method="EnterShoot"]
+[connection signal="state_physics_processing" from="StateChart/Root/Move/NavToPlayer" to="." method="FollowPath"]
+[connection signal="state_physics_processing" from="StateChart/Root/Move/Chase" to="." method="ChasePlayer"]

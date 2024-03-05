@@ -33,7 +33,8 @@ public partial class PlayerHud : Control
         label.VisibleRatio = 0;
         var tween = GetTree().CreateTween();
         tween.TweenProperty(label, "visible_ratio", 1, 1);
-        GetTree().CreateTimer(2).Timeout += () =>
+        tween.Pause();
+        GetTree().CreateTimer(1.5).Timeout += () =>
         {
             tween.Play();
         };
