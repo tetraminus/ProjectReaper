@@ -488,15 +488,18 @@ func _process(delta: float) -> void:
 				else:
 					var rect: Rect2 = Rect2(Properties.follow_group_nodes_2D[0].get_global_position(), Vector2.ZERO)
 					for node in Properties.follow_group_nodes_2D:
-						rect = rect.expand(node.get_global_position())
-						if follow_group_zoom_auto:
-							rect = rect.grow_individual(
-								follow_group_zoom_margin.x,
-								follow_group_zoom_margin.y,
-								follow_group_zoom_margin.z,
-								follow_group_zoom_margin.w)
-#						else:
-#							rect = rect.grow_individual(-80, 0, 0, 0)
+						if is_instance_valid(node):
+							rect = rect.expand(node.get_global_position())
+							if follow_group_zoom_auto:
+								rect = rect.grow_individual(
+									follow_group_zoom_margin.x,
+									follow_group_zoom_margin.y,
+									follow_group_zoom_margin.z,
+									follow_group_zoom_margin.w)
+    #						else:
+    #							rect = rect.grow_individual(-80, 0, 0, 0)
+						else:
+							Properties.follow_group_nodes_2D.erase(node)
 					if follow_group_zoom_auto:
 						var screen_size: Vector2 = get_viewport_rect().size
 						if rect.size.x > rect.size.y * screen_size.aspect():

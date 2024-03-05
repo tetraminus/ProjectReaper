@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using ProjectReaper.Abilities;
@@ -15,6 +16,8 @@ public partial class Player : AbstractCreature
     public Vector2 MoveDirection { get; set; }
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
+    private List<string> _keys = new();
+        
     
 
 
@@ -123,5 +126,16 @@ public partial class Player : AbstractCreature
         }
         
     }
-    
+
+    public void AddKey(string KeyId) {
+        _keys.Add(KeyId);
+    }
+
+    public bool HasKey(string KeyId) {
+        return _keys.Contains(KeyId);
+    }
+
+    public bool UseKey(string KeyId) {
+        return _keys.Remove(KeyId);
+    }
 }

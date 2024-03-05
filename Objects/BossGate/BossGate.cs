@@ -50,6 +50,10 @@ public partial class BossGate : StaticBody2D, IInteractable
         _phantomCamera.Set("priority", 15);
         _phantomCamera.Call("append_follow_group_node", GameManager.Player);
         _phantomCamera.Call("append_follow_group_node", boss);
+        boss.TreeExiting += () =>
+        {
+            _phantomCamera.Set("priority", 0);
+        };
         
         
         // disable interaction
