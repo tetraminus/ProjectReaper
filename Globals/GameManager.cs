@@ -1,6 +1,7 @@
 using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Player;
+using ProjectReaper.Util;
 
 namespace ProjectReaper.Globals;
 
@@ -15,36 +16,21 @@ public partial class GameManager : Node
     public static PlayerHud PlayerHud { get; set; }
     public static Level Level { get; set; }
     public static bool Paused { get; set; }
+    public static bool InRun { get; set; }
     public static PauseMenu PauseMenu { get; set; }
-
-    public static bool RandomBool(int luck)
-    {
-        for (var i = 0; i < luck + 1; i++)
-            if (GD.RandRange(0, 1) == 1)
-                return true;
-        return false;
-    }
-
-    public static float Randf(float min, float max, int luck)
-    {
-        float result = 0;
-        for (var i = 0; i < luck + 1; i++)
-        {
-            var rand = GD.Randf();
-            rand = rand * (max - min) + min;
-
-            if (rand > result) result = rand;
-        }
-
-        return result;
-    }
+    public static RunInfo CurrentRun { get; set; }
+    
+    
+    public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
+    public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
+    public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
+    
 
     public override void _Ready()
     {
         var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
         AddChild(playerhudScene);
-        
-        
+        PlayerHud.Hide();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,5 +69,22 @@ public partial class GameManager : Node
         PlayerHud.ShowDeathQuote();
         
     }
+
+    public static void StartRun()
+    {
+        StartRun(GD.Randi());
+    }
     
+    public static void StartRun(uint seed)
+    {
+        InRun = true;
+        LootRng.Seed = seed;
+        LevelRng.Seed = seed;
+        BossRng.Seed = seed;
+        CurrentRun = new RunInfo();
+        CurrentRun.Seed = seed;
+        CurrentRun.CurrentLevel = 1;
+        
+        
+    }
 }

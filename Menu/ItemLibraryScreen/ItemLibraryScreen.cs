@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 using ProjectReaper.Globals;
@@ -12,10 +13,12 @@ public partial class ItemLibraryScreen : Control
 	private TabContainer _RarityTabContainer;
 	private PackedScene _rarityTabScene = GD.Load<PackedScene>("res://Menu/ItemLibraryScreen/RarityTab.tscn");
 	private PackedScene _itemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
+	public event Action CloseRequested; 
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_descriptionContainer = GetNode<ItemInfoContainer>("PanelContainer/HBoxContainer/ItemInfoContainer");
+		_descriptionContainer = GetNode<ItemInfoContainer>("%ItemInfoContainer");
 		_RarityTabContainer = GetNode<TabContainer>("%TabContainer");
 		
 		LoadItems();
@@ -37,9 +40,13 @@ public partial class ItemLibraryScreen : Control
 			foreach (var abstractItem in item)
 			{
 				var itemDisplay = _itemDisplayScene.Instantiate<ItemDisplay>();
+				
+				itemDisplay.FocusMode = FocusModeEnum.All;
+				
 				itemDisplay.SetItem(abstractItem);
 				itemDisplay.HideStacks();
 				itemDisplay.MouseEnteredItem += ItemHovered;
+				itemDisplay.FocusEnteredItem += ItemHovered;
 				
 				
 				tab.AddItem(itemDisplay);
@@ -50,6 +57,13 @@ public partial class ItemLibraryScreen : Control
 		_RarityTabContainer.TabChanged += TabChanged;
 	}
 	
+	public void JumpToItem(AbstractItem item)
+	{
+		var tab = _RarityTabContainer.GetNode<RarityTab>(item.Rarity.NameKey);
+		_RarityTabContainer.CurrentTab = tab.GetIndex();
+		tab.JumpToItem(item);
+	}
+	
 	public void ItemHovered(AbstractItem item)
 	{
 		_descriptionContainer.SetItem(item);
@@ -58,6 +72,11 @@ public partial class ItemLibraryScreen : Control
 	public void TabChanged(long index)
 	{
 		_descriptionContainer.Reset();
+	}
+	
+	public void OnBackButtonPressed()
+	{
+		CloseRequested?.Invoke();
 	}
 
 	

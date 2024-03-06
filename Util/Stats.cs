@@ -1,3 +1,4 @@
+using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 
@@ -111,7 +112,7 @@ public class Stats
 
         if (crit > 0f)
         {
-            var roll = GameManager.Randf(0f, 1f, sourceStats.Luck);
+            var roll = GD.Randf();
             if (roll <= crit) critMultiplier = critDamage;
         }
 

@@ -2,3 +2,5 @@ keys,en
 r_common,Common
 r_uncommon,Uncommon
 r_rare,Rare
+ui_start_run,Start Run
+ui_library,Item Library

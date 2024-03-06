@@ -18,7 +18,7 @@ n_dream_car,Dream Car
 d_dream_car,Groovy! Oh yeah this lets you dash more frequently I think.
 f_dream_car,"[fade start=40 length=240]Characterized by thin roof pillars, fastback styling and implied aerodynamics, it symbolized 1960s Jet Age design. The '60 and '61 Models shared their roof lines and chassis, with the 1961 Model featuring substantially revised front and rear styling.[/fade]"
 n_gravity_gauntlet,Gravity's Gauntlet 
-d_gravity_gauntlet,Pulls enemys towards you making them easier to hit.
+d_gravity_gauntlet,"Pulls enemys towards you, making them easier to hit."
 f_gravity_gauntlet ,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to bring your foes into striking distance."
 n_soul_harvester,Soul Harvester 
 d_soul_harvester,Temporary power boost after you kill an enemy.
