@@ -12,6 +12,8 @@ public partial class PlayerHud : Control
     
     public ItemHudPopup InfoHudPopup;
     public Label FPS => GetNode<Label>("FPS");
+    
+    private const int Numberofdeathquotes = 19;
     public override void _Ready()
     {
         GD.Print("PlayerHud ready");
@@ -28,6 +30,10 @@ public partial class PlayerHud : Control
     public void ShowDeathQuote()
     {
         var label = GetNode<Label>("DeathQuote");
+
+        label.Text = "death_" + GD.RandRange(1, Numberofdeathquotes);
+        
+        
         label.Show();
         label.VisibleRatio = 0;
         var tween = GetTree().CreateTween();
@@ -63,6 +69,9 @@ public partial class PlayerHud : Control
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();
         itemDisplay.SetItem(item);
+        itemDisplay.FocusEnteredItem += ShowItemInfo;
+        itemDisplay.FocusExitedItem += HideItemInfo;
+        
         GetNode<HFlowContainer>("%ItemGrid").AddChild(itemDisplay);
     }
     

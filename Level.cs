@@ -31,18 +31,14 @@ public partial class Level : Node2D
 
         var spawnset = new Spawnset();
 
-        //spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
+        spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
         spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
         // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
 
-        PhantomCamera.Set("limit/left", BoundsLeft);
-        PhantomCamera.Set("limit/right", BoundsRight);
-        PhantomCamera.Set("limit/top", BoundsTop);
-        PhantomCamera.Set("limit/bottom", BoundsBottom);
-       
-        
-        LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
-        
+        // PhantomCamera.Set("limit/left", BoundsLeft);
+        // PhantomCamera.Set("limit/right", BoundsRight);
+        // PhantomCamera.Set("limit/top", BoundsTop);
+        // PhantomCamera.Set("limit/bottom", BoundsBottom);
 
         SpawnDirector.Instance.Init(spawnset);
         if (!DisableSpawning) SpawnDirector.Instance.StartSpawning();
@@ -88,7 +84,21 @@ public partial class Level : Node2D
     {
         AddChild(player);
         player.GlobalPosition = GetSpawnPosition(true);
-        PhantomCamera.Set("follow_target", player.GetPath());
         
+        var pcamProperties = PhantomCamera.Get("Properties").AsGodotObject();
+        
+        pcamProperties.Set("viewport_position", player.GlobalPosition);
+        
+        PhantomCamera.Set("follow_target", player.GetPath());
+        PhantomCamera.SetDeferred("follow_parameters/damping", true);
+       
+        
+        player.Show();
+        
+    }
+
+    public void Generate()
+    {
+        LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
     }
 }

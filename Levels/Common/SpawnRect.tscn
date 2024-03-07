@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://qsqme4udwsnc"]
+
+[ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="1_q7dmd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
+resource_local_to_scene = true
+size = Vector2(105.785, 100)
+
+[node name="SpawnRect" type="Node2D"]
+script = ExtResource("1_q7dmd")
+RectShape = SubResource("RectangleShape2D_tjagf")

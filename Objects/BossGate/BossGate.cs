@@ -11,8 +11,12 @@ namespace ProjectReaper.Objects.BossGate;
 
 public partial class BossGate : StaticBody2D, IInteractable
 {
+    
+    private PackedScene _portalScene = GD.Load<PackedScene>("res://Objects/Portal/Portal.tscn");
+    
     [Export] private Node2D _spawnPoint;
     [Export] private Node2D _bossSpawnPoint;
+    [Export] private Node2D _portalSpawnPoint;
     [Export] private PackedScene _bossScene;
     [Export] private Node2D _phantomCamera;
     
@@ -28,6 +32,10 @@ public partial class BossGate : StaticBody2D, IInteractable
     {
         GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
         _phantomCamera.Set("priority", 0);
+        var portal = _portalScene.Instantiate<Portal>();
+        portal.GlobalPosition = _portalSpawnPoint.GlobalPosition;
+        GameManager.Level.AddChild(portal);
+
     }
 
 

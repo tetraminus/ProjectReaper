@@ -193,7 +193,7 @@ public partial class SpawnDirector : Node
   
 
     private int _currentNavGroup = 1;
-    public const int MaxNavGroups = 32;
+    public const int MaxNavGroups = 16;
 
     public int GetNavGroup()
     {

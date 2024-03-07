@@ -12,6 +12,7 @@ public partial class GameManager : Node
     public static PackedScene PauseMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/PauseMenu.tscn");
     public static PackedScene PlayerScene = ResourceLoader.Load<PackedScene>("res://Player/player.tscn");
     public static PackedScene MainMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/MainMenu/MainMenu.tscn");
+    public static PackedScene ScreenFaderScene = ResourceLoader.Load<PackedScene>("res://Util/ScreenFader.tscn");
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
     public static PlayerHud PlayerHud { get; set; }
@@ -22,6 +23,7 @@ public partial class GameManager : Node
     public static RunInfo CurrentRun { get; set; }
     public static Node2D MainNode { get; set; }
     public static MainMenu MainMenu { get; set; }
+    public static ScreenFader ScreenFader { get; set; }
 
 
     public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
@@ -39,9 +41,15 @@ public partial class GameManager : Node
         PauseMenu.Hide();
         
         SetupMenu();
+        
+        var screenFaderlayer = ScreenFaderScene.Instantiate();
+        AddChild(screenFaderlayer);
+        
+        ScreenFader = screenFaderlayer.GetNode("ScreenFader") as ScreenFader;
+        
     }
 
-    private async void SetupMenu()
+    private void SetupMenu()
     {
         ItemLibrary.Instance.LoadItems();
         
@@ -97,8 +105,12 @@ public partial class GameManager : Node
         StartRun(GD.Randi());
     }
     
-    public static void StartRun(uint seed)
+    public async static void StartRun(uint seed)
     {
+        
+        ScreenFader.FadeOut(1);
+        await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+        
         InRun = true;
         LootRng.Seed = seed;
         LevelRng.Seed = seed;
@@ -113,9 +125,14 @@ public partial class GameManager : Node
         CurrentRun.Player = Player;
         Level.AddPlayer(Player);
         
+        Level.Generate();
+        
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
         MainMenu.Hide();
+        
+        ScreenFader.FadeIn(1);
+        
         
     }
 
@@ -130,15 +147,46 @@ public partial class GameManager : Node
         
         SpawnDirector.Instance.Clear();
         InRun = false;
-        CurrentRun = null;
         PlayerHud.Hide();
         PauseMenu.Hide();
         Level?.QueueFree();
         Player?.QueueFree();
-        Level = null;
-        Player = null;
+        Callable.From(ClearVariables).CallDeferred();
         
         MainMenu.Show();
         
     }
+    
+    public static void ClearVariables()
+    {
+        Player = null;
+        Level = null;
+        CurrentRun = null;
+    }
+
+    public static async void GoToNextLevel(bool playAnimation = true)
+    {
+        if (playAnimation)
+        {
+
+            ScreenFader.FadeOut(1);
+            await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+        }
+
+        Player.Reparent(MainNode);
+        Level.QueueFree();
+        await Level.ToSignal(Level, "tree_exited");
+
+        CurrentRun.CurrentLevel++;
+        Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
+        MainNode.AddChild(Level);
+        Level.AddPlayer(Player);
+        Level.Generate();
+
+        if (playAnimation)
+        {
+          ScreenFader.FadeIn(1);
+        }
+    }   
+    
 }
