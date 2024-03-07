@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=7 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 [ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
 [ext_resource type="Texture2D" uid="uid://dpe7avvjlki6f" path="res://Assets/UI/HPBar_Over.png" id="3_tdvmn"]
 [ext_resource type="Texture2D" uid="uid://bcn6vkak5ayn" path="res://Assets/UI/HPBar_Bar.png" id="4_8vlgm"]
-[ext_resource type="PackedScene" uid="uid://df8p4mw66oy1y" path="res://Menu/PauseMenu.tscn" id="5_eg7ok"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ybkti"]
 font_size = 131
@@ -99,6 +98,3 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Sucks to suck"
 label_settings = SubResource("LabelSettings_phbwh")
-
-[node name="PauseMenu" parent="." instance=ExtResource("5_eg7ok")]
-visible = false

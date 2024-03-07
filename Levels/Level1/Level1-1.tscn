@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=21 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
-[ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
@@ -56,7 +55,7 @@ size = Vector2(200, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
 size = Vector2(400, 100)
 
-[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "PhantomCamera")]
+[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "PhantomCamera")]
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
 BoundsLeft = -1024
@@ -65,6 +64,7 @@ BoundsTop = -1024
 BoundsBottom = 1024
 NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
+LootPoints = NodePath("loot")
 PhantomCamera = NodePath("LevelPCam")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
@@ -86,9 +86,6 @@ environment = SubResource("Environment_r8h6l")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.65098, 0.65098, 0.65098, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_8ebve")]
-position = Vector2(-13, 210)
 
 [node name="loot" type="Node" parent="."]
 
@@ -301,7 +298,7 @@ priority_override = false
 priority = 5
 zoom = Vector2(3, 3)
 follow_mode = 1
-follow_target = NodePath("../Player")
+follow_target = NodePath("")
 follow_parameters/damping = true
 follow_parameters/damping_value = 10.0
 frame_preview = true

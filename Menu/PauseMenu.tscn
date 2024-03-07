@@ -5,7 +5,10 @@
 [sub_resource type="LabelSettings" id="LabelSettings_o68d2"]
 font_size = 100
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenuLayer" type="CanvasLayer"]
+layer = 4
+
+[node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mgx64")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.34902)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +35,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer"]
 layout_mode = 2
-text = "paused"
+
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "ui_paused"
 label_settings = SubResource("LabelSettings_o68d2")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 71
+text = "ui_quit_to_menu"
+
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/Button" to="PauseMenu" method="OnQuitButtonPressed"]

@@ -20,11 +20,9 @@ public partial class ItemLibrary : Node
     public Dictionary<ItemRarity, List<AbstractItem>> ItemsByRarity { get; set; } = new();
     public RandomNumberGenerator ItemRNG = new();
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
         Instance = this;
-        LoadBaseItems();
-        LoadItemEvent?.Invoke(this);
     }
 
     public override void _Process(double delta)
@@ -37,7 +35,7 @@ public partial class ItemLibrary : Node
     /// <summary>
     ///     Reflected load of all items in the assembly
     /// </summary>
-    public void LoadBaseItems()
+    public void LoadItems()
     {
         
         var types = GetType().Assembly.GetTypes();
@@ -104,7 +102,7 @@ public partial class ItemLibrary : Node
     /// <returns></returns>
     public ItemRarity RollRarity(bool usePlayerLuck = true)
     {
-        var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
+        //var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
         var rarities = ItemsByRarity.Keys
             .Where(rarity => rarity.AvailableInChests && ItemsByRarity[rarity].Count > 0)
             .OrderBy(rarity => rarity.Value)

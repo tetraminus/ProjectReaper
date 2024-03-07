@@ -9,8 +9,9 @@ public partial class GameManager : Node
 {
     public static PackedScene ExplosionScene = ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
     public static PackedScene PlayerHudScene = ResourceLoader.Load<PackedScene>("res://Player/PlayerHud.tscn");
-    
-
+    public static PackedScene PauseMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/PauseMenu.tscn");
+    public static PackedScene PlayerScene = ResourceLoader.Load<PackedScene>("res://Player/player.tscn");
+    public static PackedScene MainMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/MainMenu/MainMenu.tscn");
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
     public static PlayerHud PlayerHud { get; set; }
@@ -19,8 +20,10 @@ public partial class GameManager : Node
     public static bool InRun { get; set; }
     public static PauseMenu PauseMenu { get; set; }
     public static RunInfo CurrentRun { get; set; }
-    
-    
+    public static Node2D MainNode { get; set; }
+    public static MainMenu MainMenu { get; set; }
+
+
     public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
     public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
     public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
@@ -29,8 +32,22 @@ public partial class GameManager : Node
     public override void _Ready()
     {
         var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
+        var pauseMenuScene = PauseMenuScene.Instantiate<CanvasLayer>();
         AddChild(playerhudScene);
+        AddChild(pauseMenuScene);
         PlayerHud.Hide();
+        PauseMenu.Hide();
+        
+        SetupMenu();
+    }
+
+    private async void SetupMenu()
+    {
+        ItemLibrary.Instance.LoadItems();
+        
+        var menu = MainMenuScene.Instantiate<CanvasLayer>();
+        AddChild(menu);
+        MainMenu = menu.GetNode("%MainMenu") as MainMenu;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,6 +57,8 @@ public partial class GameManager : Node
 
     public static void PauseGame()
     {
+        if (!InRun) return;
+        
         Paused = true;
         Level.GetTree().Paused = true;
         PauseMenu.Show();
@@ -48,6 +67,8 @@ public partial class GameManager : Node
     
     public static void UnpauseGame()
     {
+        if (!InRun) return;
+        
         Paused = false;
         Level.GetTree().Paused = false;
         PauseMenu.Hide();
@@ -67,6 +88,7 @@ public partial class GameManager : Node
     public static void GameOver()
     {
         PlayerHud.ShowDeathQuote();
+        CurrentRun = null;
         
     }
 
@@ -84,7 +106,39 @@ public partial class GameManager : Node
         CurrentRun = new RunInfo();
         CurrentRun.Seed = seed;
         CurrentRun.CurrentLevel = 1;
+        Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
+        MainNode.AddChild(Level);
         
+        Player = PlayerScene.Instantiate<Player.Player>();
+        CurrentRun.Player = Player;
+        Level.AddPlayer(Player);
+        
+        PlayerHud.Show();
+        PlayerHud.SetPlayer(Player);
+        MainMenu.Hide();
+        
+    }
+
+    public static void GoToMainMenu()
+    {
+        if (MainMenu.GetParent() == null)
+        {
+            MainNode.AddChild(MainMenu);
+            
+        }
+        UnpauseGame();
+        
+        SpawnDirector.Instance.Clear();
+        InRun = false;
+        CurrentRun = null;
+        PlayerHud.Hide();
+        PauseMenu.Hide();
+        Level?.QueueFree();
+        Player?.QueueFree();
+        Level = null;
+        Player = null;
+        
+        MainMenu.Show();
         
     }
 }

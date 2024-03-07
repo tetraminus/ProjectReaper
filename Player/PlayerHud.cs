@@ -22,7 +22,6 @@ public partial class PlayerHud : Control
         
         InfoHudPopup.Visible = false;
         
-        GetTree().ProcessFrame += OnProcessFrame;
         GetNode<Label>("DeathQuote").Hide();
     }
     
@@ -54,15 +53,10 @@ public partial class PlayerHud : Control
         base._Process(delta);
     }
 
-    public void OnProcessFrame()
+    public void SetPlayer(Player player)
     {
-        if (GameManager.Player != null)
-        {
-            GameManager.Player.Stats.HealthChanged += UpdateHealth;
-            UpdateHealth(0, GameManager.Player.Stats.Health);
-        }
-
-        GetTree().ProcessFrame -= OnProcessFrame;
+        player.Stats.HealthChanged += UpdateHealth;
+        UpdateHealth(0, player.Stats.Health);
     }
     
     public void AddItem(AbstractItem item)

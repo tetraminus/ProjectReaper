@@ -29,4 +29,9 @@ public partial class PauseMenu : Control
 		}
         
 	}
+	
+	public void OnQuitButtonPressed()
+	{
+		GameManager.GoToMainMenu();
+	}
 }

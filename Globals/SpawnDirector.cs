@@ -201,4 +201,12 @@ public partial class SpawnDirector : Node
         _currentNavGroup %= MaxNavGroups;
         return _currentNavGroup;
     }
+
+    public void Clear()
+    {
+        _credits = 0;
+        _isSpawning = false;
+        _waiting = false;
+        
+    }
 }

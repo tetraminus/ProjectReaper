@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="ProjectReaper"
-run/main_scene="res://Menu/MainMenu/MainMenu.tscn"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Callbacks="*res://Globals/Callbacks.cs"
 GameManager="*res://Globals/GameManager.cs"
+LevelLoader="*res://Globals/LevelLoader.cs"
+Callbacks="*res://Globals/Callbacks.cs"
 ItemLibrary="*res://Globals/ItemLibrary.cs"
 SpawnDirector="*res://Globals/SpawnDirector.cs"
 LootDirector="*res://Globals/LootDirector.cs"

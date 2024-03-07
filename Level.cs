@@ -21,6 +21,7 @@ public partial class Level : Node2D
     [Export] public int BoundsBottom { get; set; }
     [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
     [Export] public Node SpawnRects { get; set; }
+    [Export] public Node LootPoints { get; set; }
     [Export] public Node2D PhantomCamera { get; set; }
    
 
@@ -61,16 +62,17 @@ public partial class Level : Node2D
     /// Returns a random spawn position based on the spawnRects
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetSpawnPosition()
+    public Vector2 GetSpawnPosition(bool isplayer = false)
     {
         
         var random = GD.Randf();
         foreach (var spawnRect in _spawnRectWeights)
         {
-            if (spawnRect.Key.PlayerTooClose(_minSpawnDistance))
+            if (spawnRect.Key.PlayerTooClose(_minSpawnDistance) && !isplayer)
             {
                 continue;
             }
+            
 
             random -= spawnRect.Value;
             if (random <= 0)
@@ -79,6 +81,14 @@ public partial class Level : Node2D
             }
         }
         return Vector2.Zero;
+        
+    }
+
+    public void AddPlayer(Player.Player player)
+    {
+        AddChild(player);
+        player.GlobalPosition = GetSpawnPosition(true);
+        PhantomCamera.Set("follow_target", player.GetPath());
         
     }
 }
