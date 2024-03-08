@@ -231,4 +231,4 @@ zoom = Vector2(3, 3)
 script = ExtResource("7_1amfb")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.65098, 0.65098, 0.65098, 1)
+color = Color(0.419608, 0.419608, 0.419608, 1)

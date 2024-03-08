@@ -87,14 +87,23 @@ public partial class Level : Node2D
         
         var pcamProperties = PhantomCamera.Get("Properties").AsGodotObject();
         
-        pcamProperties.Set("viewport_position", player.GlobalPosition);
-        
         PhantomCamera.Set("follow_target", player.GetPath());
-        PhantomCamera.SetDeferred("follow_parameters/damping", true);
+        
+        
+        pcamProperties.Set("has_tweened", true);
+        PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 0);
+        PhantomCamera.GlobalPosition = player.GlobalPosition;
+        FixCameraTween();
        
         
         player.Show();
         
+    }
+    
+    public async void FixCameraTween()
+    {
+       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+       PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 1);
     }
 
     public void Generate()

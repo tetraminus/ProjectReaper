@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=24 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dsr7b7kr5xrk3" path="res://Objects/BossGate/BossGate.tscn" id="9_38dtt"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_3gm4v"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_uerm4"]
 
 [sub_resource type="Curve2D" id="Curve2D_c2lws"]
@@ -48,13 +49,19 @@ size = Vector2(105.785, 100)
 size = Vector2(97.905, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
-size = Vector2(105.785, 100)
+size = Vector2(103.156, 101.446)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1s6f"]
 size = Vector2(200, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
 size = Vector2(400, 100)
+
+[sub_resource type="Resource" id="Resource_y174w"]
+script = ExtResource("12_3gm4v")
+duration = 1.0
+transition = 0
+ease = 2
 
 [node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "PhantomCamera")]
 y_sort_enabled = true
@@ -309,8 +316,8 @@ limit/draw_limits = true
 limit/limit_node_target = NodePath("../TileMap")
 limit/margin = Vector4i(0, 0, 0, 0)
 limit/smoothed = true
-tween_parameters = null
-tween_on_load = true
+tween_parameters = SubResource("Resource_y174w")
+tween_on_load = false
 inactive_update_mode = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
