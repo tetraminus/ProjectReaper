@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Level.cs" id="1_5rvjs"]
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_jljdq"]
-[ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/leechbert.tscn" id="5_62en6"]
+[ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="5_62en6"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="5_jnt7y"]
 [ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="5_qfjfo"]
 

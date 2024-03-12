@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlclfvqh50pdh"
-path="res://.godot/imported/Leech.png-a253c66a7f13be4619b81e12c53c8440.ctex"
+path="res://.godot/imported/Leech.png-639f192143837dd1e5a3f16d20f29bf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/Assets/Leech.png"
-dest_files=["res://.godot/imported/Leech.png-a253c66a7f13be4619b81e12c53c8440.ctex"]
+source_file="res://Assets/Enemies/Leech.png"
+dest_files=["res://.godot/imported/Leech.png-639f192143837dd1e5a3f16d20f29bf3.ctex"]
 
 [params]
 
