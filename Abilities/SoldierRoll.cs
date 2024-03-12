@@ -8,7 +8,7 @@ public partial class SoldierRoll : AbstractAbility
     
     public override void Use()
     {
-        if (Owner is Player.Player player)
+        if (Creature is Player.Player player)
         {
             var direction = player.MoveDirection;
             

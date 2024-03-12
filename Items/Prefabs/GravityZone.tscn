@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4rbh6ssua3cd"]
+
+[ext_resource type="Script" path="res://Items/Prefabs/GravityZone.cs" id="1_0wwbu"]
+[ext_resource type="Texture2D" uid="uid://sq18wv876sst" path="res://Assets/objects/GravZone.png" id="1_6yg22"]
+[ext_resource type="PackedScene" uid="uid://qr4a4gpxavgg" path="res://Components/CreatureTrackerComponent.tscn" id="2_fae2y"]
+[ext_resource type="PackedScene" uid="uid://ctparkvagq0c1" path="res://Components/TimedDeleteComponent.tscn" id="2_sn2o8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_opi13"]
+radius = 32.0
+
+[node name="GravityZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_0wwbu")
+
+[node name="TimedDeleteComponent" parent="." node_paths=PackedStringArray("NodeToDelete") instance=ExtResource("2_sn2o8")]
+NodeToDelete = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_opi13")
+
+[node name="GravZone" type="Sprite2D" parent="."]
+texture = ExtResource("1_6yg22")
+
+[node name="CreatureTrackerComponent" parent="." node_paths=PackedStringArray("Areas") instance=ExtResource("2_fae2y")]
+Areas = [NodePath("..")]

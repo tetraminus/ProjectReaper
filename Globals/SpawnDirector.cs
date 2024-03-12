@@ -24,10 +24,10 @@ public partial class SpawnDirector : Node
     {
         Instance = this;
         AddChild(_creditsTimer);
-        _creditsTimer.Timeout += () => { AddCredits((10 + (int)GD.Randi() % 10) * (_waiting ? 1 : 2)); };
+        _creditsTimer.Timeout += OnCreditsTimerOnTimeout;
         _creditsTimer.WaitTime = CreditRate;
         _creditsTimer.OneShot = false;
-        _creditsTimer.Start();
+        
 
         AddChild(_spawnTimer);
         _spawnTimer.WaitTime = SpawnRate;
@@ -36,7 +36,17 @@ public partial class SpawnDirector : Node
             if (_isSpawning) SpawnWave();
             _spawnTimer.Start(SpawnRate + GD.Randf());
         };
-        _spawnTimer.Start();
+        
+    }
+
+    private void OnCreditsTimerOnTimeout()
+    {
+        var credits = 10 ;
+        credits += + (int) GD.Randi() % (int)(10 * GameManager.GetRunDifficulty());
+        credits *= _waiting ? 2 : 1;
+        
+        
+        AddCredits(credits);
     }
 
     public void Init(Spawnset spawnset)
@@ -49,14 +59,18 @@ public partial class SpawnDirector : Node
     public void StartSpawning()
     {
         _isSpawning = true;
+        _creditsTimer.Start();
+        _spawnTimer.Start();
     }
 
     public void StopSpawning()
     {
         _isSpawning = false;
+        _creditsTimer.Stop();
+        _spawnTimer.Stop();
     }
 
-    private void AddCredits(int amount)
+    internal void AddCredits(int amount)
     {
         _credits += amount;
     }
@@ -73,16 +87,11 @@ public partial class SpawnDirector : Node
 
     public Array<EnemySpawnCard> GetEnemiesToSpawn()
     {
-        // get a list of enemies that can be spawned with the current credits
-        // prioritize groups of the same enemy
-
         var availableEnemies = GetAvailableEnemies(_credits);
-        // pick a few enemies to spawn
         var creditsLeft = _credits;
         var enemiesToSpawn = new Array<EnemySpawnCard>();
         while (creditsLeft > 0 && availableEnemies.Count > 0)
         {
-            // pick the most expensive enemy that can be spawned
             availableEnemies = GetAvailableEnemies(creditsLeft);
 
             if (availableEnemies.Count == 0) break;
@@ -90,11 +99,15 @@ public partial class SpawnDirector : Node
             availableEnemies = new Array<EnemySpawnCard>(availableEnemies.OrderBy(enemy => enemy.Cost));
             var enemy = availableEnemies[availableEnemies.Count - 1];
 
-
+            // Check if the cost of the enemy is less than or equal to the remaining credits
             if (enemy.Cost <= creditsLeft)
             {
                 enemiesToSpawn.Add(enemy);
                 creditsLeft -= enemy.Cost;
+            }
+            else
+            {
+                break;
             }
         }
 
@@ -193,12 +206,22 @@ public partial class SpawnDirector : Node
   
 
     private int _currentNavGroup = 1;
-    public const int MaxNavGroups = 32;
+    public const int MaxNavGroups = 16;
 
     public int GetNavGroup()
     {
         _currentNavGroup++;
         _currentNavGroup %= MaxNavGroups;
         return _currentNavGroup;
+    }
+
+    public void Clear()
+    {
+        _credits = 0;
+        _isSpawning = false;
+        _waiting = false;
+        _creditsTimer.Stop();
+        _spawnTimer.Stop();
+        
     }
 }

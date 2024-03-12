@@ -8,10 +8,6 @@ public partial class SpawnRect : Node2D {
 
 
 	[Export] public RectangleShape2D RectShape;
-	
-	
-
-
 
 	public override void _Process(double delta)
 	{
@@ -20,6 +16,18 @@ public partial class SpawnRect : Node2D {
 			if (RectShape != null)
 			{
 				QueueRedraw();
+				
+				// Gizmos for scaling
+				
+				if (Input.IsMouseButtonPressed(MouseButton.Left) && GetGlobalMousePosition().DistanceTo(GlobalPosition + RectShape.Size) < 10)
+				{
+					
+					RectShape.Size = GetGlobalMousePosition() - GlobalPosition;
+					
+				}
+				
+				
+				
 			}
 		}
 		
@@ -37,9 +45,12 @@ public partial class SpawnRect : Node2D {
 			if (RectShape != null)
 			{
 				DrawRect(new Rect2(Vector2.Zero, RectShape.Size), Colors.Purple, false, 4);
+				DrawCircle(RectShape.Size,  10, Colors.Red);
 			}
 		}
 	}
+
+
 	
 	public bool PlayerTooClose(float distance)
 	{

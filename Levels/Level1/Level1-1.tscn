@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=23 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
-[ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="2_8ebve"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
-[ext_resource type="PackedScene" path="res://Items/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="6_6w5hx"]
+[ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_klwim"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
@@ -12,10 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_uerm4"]
-
-[sub_resource type="Environment" id="Environment_r8h6l"]
-background_energy_multiplier = 0.0
-adjustment_brightness = 0.01
+[ext_resource type="PackedScene" uid="uid://c4rbh6ssua3cd" path="res://Items/Prefabs/GravityZone.tscn" id="13_5yuns"]
 
 [sub_resource type="Curve2D" id="Curve2D_c2lws"]
 _data = {
@@ -44,11 +41,15 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(897, -31, 767.938, -31.
 source_geometry_mode = 1
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kqx5"]
+resource_local_to_scene = true
 size = Vector2(105.785, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suw0w"]
 size = Vector2(97.905, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
+size = Vector2(22.2393, 35.0894)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1s6f"]
 size = Vector2(200, 100)
@@ -56,7 +57,7 @@ size = Vector2(200, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
 size = Vector2(400, 100)
 
-[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "PhantomCamera")]
+[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
 BoundsLeft = -1024
@@ -65,7 +66,8 @@ BoundsTop = -1024
 BoundsBottom = 1024
 NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
-PhantomCamera = NodePath("LevelPCam")
+LootPoints = NodePath("loot")
+CameraBounds = NodePath("TileMap")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
 z_index = -1
@@ -81,14 +83,8 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-1024, -1024)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_r8h6l")
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.65098, 0.65098, 0.65098, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_8ebve")]
-position = Vector2(-13, 210)
 
 [node name="loot" type="Node" parent="."]
 
@@ -159,19 +155,20 @@ navigation_polygon = SubResource("NavigationPolygon_7g7gs")
 [node name="nav" type="Node" parent="."]
 
 [node name="Main" type="NavigationRegion2D" parent="nav"]
+visible = false
 position = Vector2(7, 7)
 navigation_polygon = SubResource("NavigationPolygon_dqg1l")
 
 [node name="littleroom" type="NavigationRegion2D" parent="nav"]
+visible = false
 position = Vector2(6, -3)
 navigation_polygon = SubResource("NavigationPolygon_f0yvs")
 
 [node name="SpawnAreas" type="Node" parent="."]
 
-[node name="SpawnRect" type="Node2D" parent="SpawnAreas"]
-position = Vector2(-296, 147)
-script = ExtResource("7_vjclb")
-RectShape = SubResource("RectangleShape2D_tjagf")
+[node name="SpawnRect" parent="SpawnAreas" instance=ExtResource("6_klwim")]
+position = Vector2(-294, 170)
+RectShape = SubResource("RectangleShape2D_7kqx5")
 
 [node name="SpawnRect2" type="Node2D" parent="SpawnAreas"]
 position = Vector2(192, 99)
@@ -251,17 +248,18 @@ OverrideItemId = "dream_car"
 [node name="ItemPickup3" parent="." instance=ExtResource("8_j42nk")]
 position = Vector2(256, 317)
 RollItem = true
-OverrideItemId = "grapeshot"
+OverrideItemId = "gravity_gauntlet"
 
-[node name="BossGate" parent="." node_paths=PackedStringArray("_spawnPoint", "_bossSpawnPoint", "_phantomCamera") instance=ExtResource("9_38dtt")]
+[node name="BossGate" parent="." node_paths=PackedStringArray("_spawnPoint", "_bossSpawnPoint", "_portalSpawnPoint", "_phantomCamera") instance=ExtResource("9_38dtt")]
 position = Vector2(673, -308)
-_spawnPoint = NodePath("Node2D")
+_spawnPoint = NodePath("PlayerSpawn")
 _bossSpawnPoint = NodePath("BossSpawn")
+_portalSpawnPoint = NodePath("PortalSpawn")
 _bossScene = ExtResource("10_4uqm6")
 _phantomCamera = NodePath("PhantomCamera2D")
 
-[node name="Node2D" type="Node2D" parent="BossGate"]
-position = Vector2(-27, -185)
+[node name="PlayerSpawn" type="Node2D" parent="BossGate"]
+position = Vector2(-44, -286)
 
 [node name="BossSpawn" type="Node2D" parent="BossGate"]
 position = Vector2(-45, -403)
@@ -277,49 +275,33 @@ follow_group = Array[NodePath]([NodePath("")])
 follow_parameters/auto_zoom = true
 follow_parameters/min_zoom = 2.0
 follow_parameters/max_zoom = 3.0
-follow_parameters/zoom_margin = Vector4(0, 0, 0, 0)
+follow_parameters/zoom_margin = Vector4(100, 100, 100, 100)
 follow_parameters/target_offset = Vector2(0, 0)
 follow_parameters/damping = true
 follow_parameters/damping_value = 10.0
 frame_preview = true
 pixel_perfect = false
-limit/draw_limits = false
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-limit/limit_node_target = NodePath("")
+limit/draw_limits = true
+limit/limit_node_target = NodePath("../../TileMap")
+limit/margin = Vector4i(0, 0, 0, 0)
 limit/smoothed = false
 tween_parameters = null
-tween_on_load = true
+tween_on_load = false
 inactive_update_mode = 0
 
-[node name="LevelPCam" type="Node2D" parent="."]
-position = Vector2(-13, 210)
-script = ExtResource("11_18e0b")
-priority_override = false
-priority = 5
-zoom = Vector2(3, 3)
-follow_mode = 1
-follow_target = NodePath("../Player")
-follow_parameters/damping = true
-follow_parameters/damping_value = 10.0
-frame_preview = true
-pixel_perfect = false
-limit/draw_limits = false
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-limit/limit_node_target = NodePath("")
-limit/smoothed = false
-tween_parameters = null
-tween_on_load = true
-inactive_update_mode = 0
+[node name="PortalSpawn" type="Node2D" parent="BossGate"]
+position = Vector2(-45, -348)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-13, 210)
 zoom = Vector2(3, 3)
+limit_left = -1024
+limit_top = -1024
+limit_right = 1024
+limit_bottom = 1024
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("12_uerm4")
+
+[node name="GravityZone" parent="." instance=ExtResource("13_5yuns")]
+position = Vector2(356, 37)

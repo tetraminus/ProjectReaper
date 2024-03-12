@@ -11,7 +11,12 @@ public partial class PlayerHud : Control
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
     
     public ItemHudPopup InfoHudPopup;
-    public Label FPS => GetNode<Label>("FPS");
+    public Label FPS ;
+    public Label Difficulty ;
+    
+    private const int Numberofdeathquotes = 19;
+    [Signal]
+    public delegate void FightAnimFinishedEventHandler();
     public override void _Ready()
     {
         GD.Print("PlayerHud ready");
@@ -23,9 +28,44 @@ public partial class PlayerHud : Control
         InfoHudPopup.Visible = false;
         
         
-
-        GetTree().ProcessFrame += OnProcessFrame;
+        GetNode<AnimationPlayer>("FightAnimPlayer").Connect(AnimationMixer.SignalName.AnimationFinished, new Callable(this, MethodName.OnFightAnimFinished));
+        FPS = GetNode<Label>("FPS");
+        Difficulty = GetNode<Label>("Difficulty");
+        GetNode<RichTextLabel>("DeathQuote").Hide();
     }
+    
+    public void ShowDeathQuote()
+    {
+        var label = GetNode<RichTextLabel>("DeathQuote");
+
+        label.Text = "death_" + GD.RandRange(1, Numberofdeathquotes);
+        
+        
+        label.Show();
+        label.VisibleRatio = 0;
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(label, "visible_ratio", 1, 1);
+        tween.Pause();
+        GetTree().CreateTimer(1.5).Timeout += () =>
+        {
+            tween.Play();
+        };
+        
+    }
+    
+    public void PlayFightAnim()
+    {
+        var anim = GetNode<AnimationPlayer>("FightAnimPlayer");
+        anim.Play("fight");
+        
+    }
+    
+    public void OnFightAnimFinished(string animName)
+    {
+        
+        EmitSignal(SignalName.FightAnimFinished);
+    }
+    
 
     public void UpdateHealth(float oldHealth, float health)
     {
@@ -35,25 +75,27 @@ public partial class PlayerHud : Control
 
     public override void _Process(double delta)
     {
-        FPS.Text = Engine.GetFramesPerSecond().ToString();
+        if (!GameManager.InRun) return;
+        if (GameManager.CurrentRun == null) return;
+        FPS.Text = $"{GameManager.CurrentRun.Time:0.00}";
+        Difficulty.Text = GameManager.GetRunDifficulty().ToString(CultureInfo.InvariantCulture);
         base._Process(delta);
     }
 
-    public void OnProcessFrame()
+    public void SetPlayer(Player player)
     {
-        if (GameManager.Player != null)
-        {
-            GameManager.Player.Stats.HealthChanged += UpdateHealth;
-            UpdateHealth(0, GameManager.Player.Stats.Health);
-        }
-
-        GetTree().ProcessFrame -= OnProcessFrame;
+        player.Stats.HealthChanged += UpdateHealth;
+        UpdateHealth(0, player.Stats.Health);
     }
     
     public void AddItem(AbstractItem item)
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();
+        itemDisplay.FocusMode = FocusModeEnum.None;
         itemDisplay.SetItem(item);
+        itemDisplay.MouseEnteredItem += ShowItemInfo;
+        itemDisplay.MouseExitedItem += HideItemInfo;
+        
         GetNode<HFlowContainer>("%ItemGrid").AddChild(itemDisplay);
     }
     
@@ -87,6 +129,18 @@ public partial class PlayerHud : Control
         
         InfoHudPopup.SetInfo(infoTitle, infoText);
         InfoHudPopup.Show();
+    }
+
+    public void Reset()
+    {
+        foreach (var child in GetNode<HFlowContainer>("%ItemGrid").GetChildren())
+        {
+            if (child is ItemDisplay itemDisplay)
+            {
+                itemDisplay.QueueFree();
+            }
+        }
+        GetNode<RichTextLabel>("DeathQuote").Hide();
     }
 }
 

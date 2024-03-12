@@ -1,5 +1,6 @@
 using Godot;
 using ProjectReaper.Abilities;
+using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 
 namespace ProjectReaper.Player;
@@ -10,6 +11,17 @@ public partial class AbilityManager : Node
     [Export(PropertyHint.NodeType)] public AbstractAbility Ability2 { get; set; }
     [Export(PropertyHint.NodeType)] public AbstractAbility Ability3 { get; set; }
     [Export(PropertyHint.NodeType)] public AbstractAbility Ability4 { get; set; }
+    [Export] public Node2D Creature { get; set; }
+
+    public override void _Ready()
+    {
+        
+        Ability1?.SetCreature(Creature as AbstractCreature);
+        Ability2?.SetCreature(Creature as AbstractCreature);
+        Ability3?.SetCreature(Creature as AbstractCreature);
+        Ability4?.SetCreature(Creature as AbstractCreature);
+        
+    }
 
     public void UseAbility1()
     {

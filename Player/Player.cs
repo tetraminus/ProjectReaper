@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using ProjectReaper.Abilities;
@@ -15,6 +16,8 @@ public partial class Player : AbstractCreature
     public Vector2 MoveDirection { get; set; }
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
+    private List<string> _keys = new();
+        
     
 
 
@@ -26,6 +29,15 @@ public partial class Player : AbstractCreature
         InitStats();
         Team = Teams.Player;
         LastNavPos = GlobalPosition;
+        Dead = false;
+    }
+
+    public override void _ExitTree()
+    {
+        if (IsQueuedForDeletion())
+        {
+            
+        }
     }
 
 
@@ -36,7 +48,8 @@ public partial class Player : AbstractCreature
 
     public override void OnDeath()
     {
-        base.OnDeath();
+        Dead = true;
+        Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
         Callbacks.Instance.PlayerDeathEvent?.Invoke();
         GameManager.GameOver();
     }
@@ -48,6 +61,12 @@ public partial class Player : AbstractCreature
 
     public void GetInput(float delta )
     {
+        if (Dead)
+        {
+            MoveDirection = Vector2.Zero;
+            return;
+        }
+        
         var inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
         // add less speed when moving fast
         
@@ -61,13 +80,17 @@ public partial class Player : AbstractCreature
 
     public override void _Process(double delta)
     {
+        
+        if (Dead) return;
+        
+        
         if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
         // if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility2();
         if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility3();
         // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
         
         
-        if ( (LastNavPos - GlobalPosition).Length() > 10)
+        if ( (LastNavPos - GlobalPosition).Length() > 5)
         {
             LastNavPos = GlobalPosition;
             Callbacks.Instance.EnemyShouldRenavEvent?.Invoke(GlobalPosition, NavGroup);
@@ -79,12 +102,16 @@ public partial class Player : AbstractCreature
 
     public override void _PhysicsProcess(double delta)
     {
-        GetInput( (float)delta);
-        // simulate friction whith delta
-        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        if (!Dead)
         {
-            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+            GetInput((float)delta);
+            // simulate friction whith delta
+            if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+            {
+                Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+            }
         }
+
         MoveAndSlide();
         
     }
@@ -123,5 +150,16 @@ public partial class Player : AbstractCreature
         }
         
     }
-    
+
+    public void AddKey(string KeyId) {
+        _keys.Add(KeyId);
+    }
+
+    public bool HasKey(string KeyId) {
+        return _keys.Contains(KeyId);
+    }
+
+    public bool UseKey(string KeyId) {
+        return _keys.Remove(KeyId);
+    }
 }

@@ -6,7 +6,7 @@ public partial class ItemRarity
 {
     public int Value;
     public float Weight;
-    public string Name;
+    public string NameKey;
     public Color Color;
     public bool AvailableInChests;
     public const float BaseCommonWeight = .6f;
@@ -14,11 +14,11 @@ public partial class ItemRarity
     public const float BaseRareWeight = .1f;
     public const float BaseLegendaryWeight = 11.01f;
         
-    public ItemRarity(int value, float weight, string name, Color color, bool availableInChests = true)
+    public ItemRarity(int value, float weight, string nameKey, Color color, bool availableInChests = true)
     {
         Value = value;
         Weight = weight;
-        Name = name;
+        NameKey = nameKey;
         Color = color;
         AvailableInChests = availableInChests;
     }

@@ -12,8 +12,8 @@ public partial class GrapeShot : AbstractItem
 {
     
     private int _count = 0; 
-    private float _spreaddeg = 20;
-    private const float MinSpreadDeg = 5;
+    private float _spreaddeg = 15;
+    private const float MinSpreadDeg = 3;
     private const int BaseBullets = 2;
     public override string Id => "grapeshot";
     public override ItemRarity Rarity => ItemRarity.Uncommon;
@@ -25,7 +25,10 @@ public partial class GrapeShot : AbstractItem
     }
     public override void _ExitTree()
     {
-        Callbacks.Instance.AbilityUsedEvent -= OnAbilityUsed;
+        if (IsQueuedForDeletion())
+        {
+            Callbacks.Instance.AbilityUsedEvent -= OnAbilityUsed;
+        }
     }
 
     public override void OnStack(int newstacks)

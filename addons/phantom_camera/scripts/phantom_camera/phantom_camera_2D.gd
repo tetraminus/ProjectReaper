@@ -474,7 +474,10 @@ func _process(delta: float) -> void:
 	match Properties.follow_mode:
 		Constants.FollowMode.GLUED:
 			if Properties.follow_target_node:
-				_set_pcam_global_position(Properties.follow_target_node.get_global_position(), delta)
+				if not is_instance_valid(Properties.follow_target_node):
+					pass
+				else:
+					_set_pcam_global_position(Properties.follow_target_node.get_global_position(), delta)
 		Constants.FollowMode.SIMPLE:
 			if Properties.follow_target_node:
 				_set_pcam_global_position(_target_position_with_offset(), delta)
@@ -484,16 +487,25 @@ func _process(delta: float) -> void:
 					_set_pcam_global_position(Properties.follow_group_nodes_2D[0].get_global_position(), delta)
 				else:
 					var rect: Rect2 = Rect2(Properties.follow_group_nodes_2D[0].get_global_position(), Vector2.ZERO)
+					var foundInvalid: bool = false
 					for node in Properties.follow_group_nodes_2D:
-						rect = rect.expand(node.get_global_position())
-						if follow_group_zoom_auto:
-							rect = rect.grow_individual(
-								follow_group_zoom_margin.x,
-								follow_group_zoom_margin.y,
-								follow_group_zoom_margin.z,
-								follow_group_zoom_margin.w)
-#						else:
-#							rect = rect.grow_individual(-80, 0, 0, 0)
+						if is_instance_valid(node):
+							rect = rect.expand(node.get_global_position())
+							if follow_group_zoom_auto:
+								rect = rect.grow_individual(
+									follow_group_zoom_margin.x,
+									follow_group_zoom_margin.y,
+									follow_group_zoom_margin.z,
+									follow_group_zoom_margin.w)
+						else:
+							foundInvalid = true
+
+					if foundInvalid:
+						for i in range(Properties.follow_group_nodes_2D.size()):
+							if not is_instance_valid(Properties.follow_group_nodes_2D[i]):
+								Properties.follow_group_nodes_2D.remove_at(i)
+
+						
 					if follow_group_zoom_auto:
 						var screen_size: Vector2 = get_viewport_rect().size
 						if rect.size.x > rect.size.y * screen_size.aspect():
