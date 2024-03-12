@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=17 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 [ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
@@ -17,36 +17,6 @@ font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_ybkti"]
 font_size = 131
-
-[sub_resource type="LabelSettings" id="LabelSettings_phbwh"]
-font_size = 64
-
-[sub_resource type="Animation" id="Animation_ujn38"]
-resource_name = "fight"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FightHud:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.9, 1),
-"transitions": PackedFloat32Array(2, -0.5, 1, 1),
-"update": 0,
-"values": [Vector2(-768, 412), Vector2(450, 412), Vector2(630, 412), Vector2(1920, 412)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FightHud:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_vxma0"]
 length = 0.001
@@ -73,6 +43,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ujn38"]
+resource_name = "fight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FightHud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.9, 1),
+"transitions": PackedFloat32Array(2, -0.5, 1, 1),
+"update": 0,
+"values": [Vector2(-768, 412), Vector2(450, 412), Vector2(630, 412), Vector2(1920, 412)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FightHud:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5xgud"]
@@ -170,8 +167,7 @@ unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="DeathQuote" type="Label" parent="PlayerHud"]
-visible = false
+[node name="DeathQuote" type="RichTextLabel" parent="PlayerHud"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -184,8 +180,11 @@ offset_right = 20.0
 offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Sucks to suck"
-label_settings = SubResource("LabelSettings_phbwh")
+bbcode_enabled = true
+text = "[color=red]YOU DIED[/color]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="FightHud" type="Control" parent="PlayerHud"]
 visible = false

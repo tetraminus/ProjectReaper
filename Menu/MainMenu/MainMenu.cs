@@ -2,6 +2,7 @@ using Godot;
 using System;
 using ProjectReaper.Globals;
 using ProjectReaper.Menu.ItemLibraryScreen;
+using Control = Godot.Control;
 
 public partial class MainMenu : Control
 {
@@ -48,6 +49,7 @@ public partial class MainMenu : Control
 	public void ShowItemLibrary()
 	{
 		_itemLibraryScreen.Show();
+		_itemLibraryScreen.Focus();
 		_menuScreen.Hide();
 	}
 	
@@ -55,6 +57,11 @@ public partial class MainMenu : Control
 	{
 		_itemLibraryScreen.Hide();
 		_menuScreen.Show();
+		Focus();
 	}
-	
+
+	public void Focus()
+	{
+		GetNode<Control>("%StartButton").GrabFocus();
+	}
 }

@@ -22,7 +22,9 @@ public partial class Level : Node2D
     [Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
     [Export] public Node SpawnRects { get; set; }
     [Export] public Node LootPoints { get; set; }
-    [Export] public Node2D PhantomCamera { get; set; }
+    
+    [Export] public Node2D CameraBounds { get; set; }
+
    
 
     public override void _Ready()
@@ -80,46 +82,24 @@ public partial class Level : Node2D
         
     }
 
-    public void AddPlayer(Player.Player player)
+    public void AddPlayer(Node playerroot)
     {
-        AddChild(player);
+        var player = playerroot.GetNode<Player.Player>("%Player");
+        AddChild(playerroot);
         player.GlobalPosition = GetSpawnPosition(true);
-        
-        var pcamProperties = PhantomCamera.Get("Properties").AsGodotObject();
-        
-        PhantomCamera.Set("follow_target", player.GetPath());
-        
-        
-        pcamProperties.Set("has_tweened", true);
-        
-        if (PhantomCamera.Get("tween_parameters").Obj != null)
+        if (CameraBounds != null)
         {
-            PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 0);
+            playerroot.GetNode("%PlayerPCam").Call("set_limit_node", CameraBounds);
+            
         }
-        
-        
-        
-        PhantomCamera.Set("follow_parameters/damping", false);
-        PhantomCamera.GlobalPosition = player.GlobalPosition;
-        FixCameraTween();
-       
-        
+        playerroot.GetNode<Node2D>("%PlayerPCam").GlobalPosition = player.GlobalPosition;
+
+
         player.Show();
         
     }
     
-    public async void FixCameraTween()
-    {
-        // Going to hell for this
-       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-       if (PhantomCamera.Get("tween_parameters").Obj != null)
-       {
-           PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 1);
-       }
-       
-       PhantomCamera.Set("follow_parameters/damping", true);
-    }
+    
 
     public void Generate()
     {

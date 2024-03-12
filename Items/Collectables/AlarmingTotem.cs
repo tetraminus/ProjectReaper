@@ -1,4 +1,5 @@
-﻿using ProjectReaper.Enemies;
+﻿using Godot;
+using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Powers;
 
@@ -18,9 +19,13 @@ public partial class AlarmingTotem : AbstractItem
         Callbacks.Instance.CreatureDiedEvent += OnCreatureDied;
     }
 
+
     public override void _ExitTree()
     {
-        Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+        if (IsQueuedForDeletion())
+        {
+            Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+        }
     }
 
 

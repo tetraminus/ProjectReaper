@@ -1,4 +1,5 @@
-﻿using ProjectReaper.Abilities.Projectiles;
+﻿using Godot;
+using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 
@@ -6,24 +7,35 @@ namespace ProjectReaper.Items.Collectables;
 
 public partial class GravityGauntlet : AbstractItem
 {
+    private static PackedScene _gravZoneScene = ResourceLoader.Load<PackedScene>("res://Items/Prefabs/GravityZone.tscn");
     public override string Id => "gravity_gauntlet";
     public override ItemRarity Rarity => ItemRarity.Rare;
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.BulletHitEvent += OnBulletHit;
+        Callbacks.Instance.ProjectileHitEvent += OnBulletHit;
+        Callbacks.Instance.ProjectileHitWallEvent += OnBulletHit;
     }
 
     public override void Cleanup()
     {
-        Callbacks.Instance.BulletHitEvent -= OnBulletHit;
+        Callbacks.Instance.ProjectileHitEvent -= OnBulletHit;
+        Callbacks.Instance.ProjectileHitWallEvent -= OnBulletHit;
     }
     
+    private void OnBulletHit(AbstractDamageArea bullet)
+    {
+        if (bullet.Source == GetHolder() && GameManager.RollBool(0.10f))
+        {
+
+            var gravZone = _gravZoneScene.Instantiate<Node2D>();
+            GameManager.Level.CallDeferred(Node.MethodName.AddChild, gravZone);
+            gravZone.GlobalPosition = bullet.GlobalPosition;
+        }
+
+    }
     private void OnBulletHit(AbstractDamageArea bullet, AbstractCreature creature)
     {
-        if (bullet.Source is Player.Player)
-        {
-            creature.Knockback(GetHolder().GlobalPosition.DirectionTo(creature.GlobalPosition) * -1000);
-        }
+        OnBulletHit(bullet);
     }
     
     

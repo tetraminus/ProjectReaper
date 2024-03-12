@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=16 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Player/PlayerOutline.gdshader" id="2_s81kq"]
@@ -8,6 +8,14 @@
 [ext_resource type="Script" path="res://Abilities/SoldierRoll.cs" id="6_aui5x"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_k1hhn"]
 [ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="8_cacyo"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="9_dd3oj"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_prqtj"]
+
+[sub_resource type="Resource" id="Resource_e2on7"]
+script = ExtResource("10_prqtj")
+duration = 1.0
+transition = 0
+ease = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k72yq"]
 shader = ExtResource("2_s81kq")
@@ -24,43 +32,70 @@ radius = 6.0
 radius = 7.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qjn8v"]
-polygon = PackedVector2Array(7, -6, 6, 0.5, 5, 6, 3, 9, -3, 9, -5, 6, -5, 2, -6, -4, -6, -6, -4, -7, -2, -8, 6, -7)
+polygon = PackedVector2Array(3, -6, 4, -5, 2, 0, 4, 2, 4, 6, 3, 8, -3, 8, -4, 6, -4, 2, -2, 1, -2, 0, -4, -4, -3, -5, -2, -7, 3, -7)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_abilityManager")]
+[node name="PlayerSceneRoot" type="Node"]
+
+[node name="PlayerPCam" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_dd3oj")
+priority_override = false
+priority = 5
+zoom = Vector2(3, 3)
+follow_mode = 1
+follow_target = NodePath("../Player")
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = true
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = true
+tween_parameters = SubResource("Resource_e2on7")
+tween_on_load = false
+inactive_update_mode = 0
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_abilityManager")]
+unique_name_in_owner = true
 collision_layer = 12
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_vrt2t")
 _abilityManager = NodePath("AbilityManager")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_k72yq")
 texture = ExtResource("3_vje4l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_xbyij")
 
-[node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("Ability1", "Ability3")]
+[node name="AbilityManager" type="Node" parent="Player" node_paths=PackedStringArray("Ability1", "Ability3", "Creature")]
 script = ExtResource("3_u00fe")
 Ability1 = NodePath("SoldierShoot")
 Ability3 = NodePath("SoldierRoll")
+Creature = NodePath("..")
 
-[node name="SoldierShoot" type="Node" parent="AbilityManager"]
+[node name="SoldierShoot" type="Node" parent="Player/AbilityManager"]
 script = ExtResource("4_2082f")
 
-[node name="SoldierRoll" type="Node" parent="AbilityManager"]
+[node name="SoldierRoll" type="Node" parent="Player/AbilityManager"]
 script = ExtResource("6_aui5x")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="Player"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("6_k1hhn")
 
-[node name="HurtBoxshape" type="CollisionShape2D" parent="Hurtbox"]
+[node name="HurtBoxshape" type="CollisionShape2D" parent="Player/Hurtbox"]
 shape = SubResource("CircleShape2D_qdpoa")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
 position = Vector2(1, 1)
 energy = 0.5
 shadow_enabled = true
@@ -68,6 +103,7 @@ shadow_item_cull_mask = 2
 texture = ExtResource("8_cacyo")
 texture_scale = 0.5
 
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Player"]
+position = Vector2(1, 0)
 occluder = SubResource("OccluderPolygon2D_qjn8v")
 sdf_collision = false

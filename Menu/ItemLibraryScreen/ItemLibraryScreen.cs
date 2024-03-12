@@ -79,7 +79,12 @@ public partial class ItemLibraryScreen : Control
 		CloseRequested?.Invoke();
 	}
 
-	
+
+	public void Focus()
+	{
+		// Focus the first item in the first tab
+		_RarityTabContainer.GetChild<RarityTab>(0).FocusFirst();
+	}
 }
 
 

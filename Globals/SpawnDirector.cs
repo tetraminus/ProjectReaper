@@ -220,6 +220,8 @@ public partial class SpawnDirector : Node
         _credits = 0;
         _isSpawning = false;
         _waiting = false;
+        _creditsTimer.Stop();
+        _spawnTimer.Stop();
         
     }
 }

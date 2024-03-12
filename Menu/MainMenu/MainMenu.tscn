@@ -42,6 +42,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="StartButton" type="Button" parent="MainMenu/MenuScreen/MenuButtons"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "ui_start_run"

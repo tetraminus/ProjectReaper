@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Enemies;
 
 namespace ProjectReaper.Abilities;
 
@@ -10,12 +11,19 @@ public abstract partial class AbstractAbility : Node
     public abstract float Cooldown { get; set; }
 
     public int Charges { get; set; } = 1;
+    public AbstractCreature Creature { get; set; }
 
     public override void _Ready()
     {
         _timer = new Timer();
         AddChild(_timer);
         _timer.Timeout += () => _isOnCooldown = false;
+        
+    }
+    
+    public void SetCreature(AbstractCreature creature)
+    {
+        Creature = creature;
     }
 
     public virtual void Use()

@@ -27,15 +27,16 @@ public partial class PlayerHud : Control
         
         InfoHudPopup.Visible = false;
         
-        GetNode<Label>("DeathQuote").Hide();
+        
         GetNode<AnimationPlayer>("FightAnimPlayer").Connect(AnimationMixer.SignalName.AnimationFinished, new Callable(this, MethodName.OnFightAnimFinished));
         FPS = GetNode<Label>("FPS");
         Difficulty = GetNode<Label>("Difficulty");
+        GetNode<RichTextLabel>("DeathQuote").Hide();
     }
     
     public void ShowDeathQuote()
     {
-        var label = GetNode<Label>("DeathQuote");
+        var label = GetNode<RichTextLabel>("DeathQuote");
 
         label.Text = "death_" + GD.RandRange(1, Numberofdeathquotes);
         
@@ -90,9 +91,10 @@ public partial class PlayerHud : Control
     public void AddItem(AbstractItem item)
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();
+        itemDisplay.FocusMode = FocusModeEnum.None;
         itemDisplay.SetItem(item);
-        itemDisplay.FocusEnteredItem += ShowItemInfo;
-        itemDisplay.FocusExitedItem += HideItemInfo;
+        itemDisplay.MouseEnteredItem += ShowItemInfo;
+        itemDisplay.MouseExitedItem += HideItemInfo;
         
         GetNode<HFlowContainer>("%ItemGrid").AddChild(itemDisplay);
     }
@@ -128,6 +130,17 @@ public partial class PlayerHud : Control
         InfoHudPopup.SetInfo(infoTitle, infoText);
         InfoHudPopup.Show();
     }
-    
+
+    public void Reset()
+    {
+        foreach (var child in GetNode<HFlowContainer>("%ItemGrid").GetChildren())
+        {
+            if (child is ItemDisplay itemDisplay)
+            {
+                itemDisplay.QueueFree();
+            }
+        }
+        GetNode<RichTextLabel>("DeathQuote").Hide();
+    }
 }
 

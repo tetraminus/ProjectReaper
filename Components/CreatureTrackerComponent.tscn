@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://qr4a4gpxavgg"]
+[gd_scene load_steps=2 format=3 uid="uid://qr4a4gpxavgg"]
 
-[node name="CreatureTrackerComponent" type="Node2D"]
+[ext_resource type="Script" path="res://Components/CreatureTrackerComponent.cs" id="1_jaalu"]
+
+[node name="CreatureTrackerComponent" type="Node2D" node_paths=PackedStringArray("Areas")]
+script = ExtResource("1_jaalu")
+Areas = []

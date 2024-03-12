@@ -32,6 +32,14 @@ public partial class Player : AbstractCreature
         Dead = false;
     }
 
+    public override void _ExitTree()
+    {
+        if (IsQueuedForDeletion())
+        {
+            
+        }
+    }
+
 
     public override void OnHit()
     {

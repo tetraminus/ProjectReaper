@@ -70,17 +70,15 @@ public abstract partial class AbstractItem : Node2D
         }
     }
 
+    
+
 
     public int GetStacks()
     {
         return Stacks;
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-    }
-
+  
 
     /// <summary>
     ///     Make a copy of the item, used for creating items from the library

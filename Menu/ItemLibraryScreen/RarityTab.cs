@@ -24,4 +24,11 @@ public partial class RarityTab : ScrollContainer
 			break;
 		}
 	}
+	
+	public void FocusFirst()
+	{
+		var itemDisplay = ItemContainer.GetChildren().OfType<ItemDisplay>().FirstOrDefault();
+		itemDisplay?.GrabFocus();
+	}
+	
 }

@@ -244,15 +244,15 @@ shape = SubResource("CircleShape2D_o72rj")
 texture = ExtResource("1_ie1rb")
 
 [node name="Mid" type="Sprite2D" parent="Visuals"]
-rotation = -2.84273
+rotation = -2.34283
 texture = ExtResource("2_3yn6e")
 
 [node name="Mid2" type="Sprite2D" parent="Visuals"]
-rotation = 2.84273
+rotation = 2.34283
 texture = ExtResource("3_0e2xq")
 
 [node name="Mid3" type="Sprite2D" parent="Visuals"]
-rotation = -2.84273
+rotation = -2.34283
 texture = ExtResource("4_l4y1r")
 
 [node name="Front" type="Sprite2D" parent="Visuals"]

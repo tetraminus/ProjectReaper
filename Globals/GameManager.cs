@@ -15,6 +15,7 @@ public partial class GameManager : Node
     public static PackedScene ScreenFaderScene = ResourceLoader.Load<PackedScene>("res://Util/ScreenFader.tscn");
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
+    public static Node PlayerRoot { get; set; }
     public static PlayerHud PlayerHud { get; set; }
     public static Level Level { get; set; }
     public static bool Paused { get; set; }
@@ -30,7 +31,54 @@ public partial class GameManager : Node
     public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
     public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
     
-
+    public static bool RollBool(float chance, int luck = 1, RandomNumberGenerator rng = null)
+    {
+        if (rng == null)
+        {
+            
+            var roll = RollFloat(luck) > 1 - chance;
+            return roll;
+        }
+        else
+        {
+            return RollFloat(luck, rng) > 1 - chance;
+        }
+    }
+    
+    
+    public static float RollFloat( int luck = 1,  RandomNumberGenerator rng = null)
+    {
+        float highest = 0;
+        if (rng == null)
+        {
+            
+            for (int i = 0; i < luck; i++)
+            {
+                var roll = GD.Randf();
+                if (roll > highest)
+                {
+                    highest = roll;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < luck; i++)
+            {
+                var roll = rng.Randf();
+                if (roll > highest)
+                {
+                    highest = roll;
+                }
+            }
+        }
+        
+        return highest;
+    }
+    
+    
+    
+    
     public override void _Ready()
     {
         var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
@@ -92,7 +140,7 @@ public partial class GameManager : Node
         PauseMenu.Hide();
     }
 
-    public static void SpawnExplosion(Vector2 globalPosition, int damage, float scale = 1f,
+    public static void SpawnExplosion(Vector2 globalPosition, float damage, float scale = 1f,
         AbstractCreature creature = null)
     {
         var explosion = (Explosion)ExplosionScene.Instantiate();
@@ -107,6 +155,7 @@ public partial class GameManager : Node
     {
         PlayerHud.ShowDeathQuote();
         CurrentRun = null;
+        SpawnDirector.Instance.Clear();
         
     }
 
@@ -132,9 +181,11 @@ public partial class GameManager : Node
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
         MainNode.AddChild(Level);
         
-        Player = PlayerScene.Instantiate<Player.Player>();
+        PlayerRoot = PlayerScene.Instantiate<Node>();
+        Player = PlayerRoot.GetNode<Player.Player>("%Player");
+        
         CurrentRun.Player = Player;
-        Level.AddPlayer(Player);
+        Level.AddPlayer(PlayerRoot);
         
         Level.Generate();
         
@@ -160,16 +211,20 @@ public partial class GameManager : Node
         InRun = false;
         PlayerHud.Hide();
         PauseMenu.Hide();
+        PlayerHud.Reset();
         Level?.QueueFree();
         Player?.QueueFree();
+        
         Callable.From(ClearVariables).CallDeferred();
         
         MainMenu.Show();
-        
+        MainMenu.Focus();
+
     }
     
     public static float GetRunDifficulty()
     {
+        if (CurrentRun == null) return -1;
         return (float)(1 + (CurrentRun.Time) / 60f);
     }
     
@@ -189,14 +244,14 @@ public partial class GameManager : Node
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         }
 
-        Level.RemoveChild(Player);
+        Level.RemoveChild(PlayerRoot);
         Level.QueueFree();
         await Level.ToSignal(Level, Node.SignalName.TreeExited);
 
         CurrentRun.CurrentLevel++;
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
         MainNode.AddChild(Level);
-        Level.AddPlayer(Player);
+        Level.AddPlayer(PlayerRoot);
         Level.Generate();
 
         if (playAnimation)
