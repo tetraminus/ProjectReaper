@@ -16,6 +16,11 @@ public partial class EnemySpawnCard : GodotObject
         Cost = cost;
     }
 
+    public EnemySpawnCard()
+    {
+        
+    }
+
     public int GetCost()
     {
         return Cost;

@@ -9,7 +9,7 @@ public partial class Callbacks : Node
 {
     public delegate void AbilityUsedEventHandler(AbstractAbility ability, int slot);
     public delegate void BulletCreatedEventHandler(AbstractDamageArea bullet);
-    public delegate void BulletHitEventHandler(AbstractDamageArea bullet);
+    public delegate void BulletHitEventHandler(AbstractDamageArea bullet, AbstractCreature creature);
     public delegate void CreatureDamagedEventHandler(AbstractCreature creature, float damage);
     public delegate void CreatureDiedEventHandler(AbstractCreature creature);
     public delegate void CreatureSpawnedEventHandler(AbstractCreature creature);

@@ -94,6 +94,7 @@ public partial class Slimebert : AbstractCreature
         else {
             _stateChart.SendEvent("PlayerLost");
         }
+        Move(); 
     }
 
     public override void _Process(double delta)
@@ -108,6 +109,8 @@ public partial class Slimebert : AbstractCreature
         bullet.Init(this, Team, GlobalPosition, GetAngleTo(GameManager.Player.GlobalPosition));
         bullet.Speed = 200;
         GameManager.Level.AddChild(bullet);
+        MoveDirection = Vector2.Zero;
+        Velocity = Vector2.Zero;
     }
     
     public void ChasePlayer(double delta)
@@ -131,8 +134,6 @@ public partial class Slimebert : AbstractCreature
         }
 
         Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
-        
-        Move();
     }
     
     private void FollowPath(double delta)
@@ -148,7 +149,6 @@ public partial class Slimebert : AbstractCreature
             MoveDirection = Vector2.Zero;
         }
         
-        Move();
     }
     private void Move() {
         // simulate friction with delta

@@ -3,7 +3,7 @@ using ProjectReaper.Globals;
 
 namespace ProjectReaper.Enemies.Bosses;
 
-public partial class leechbert : AbstractCreature
+public partial class Leechbert : AbstractCreature
 {
     private AnimatedSprite2D _sprite;
     private StateMachineComponent _stateMachine;
@@ -24,7 +24,7 @@ public partial class leechbert : AbstractCreature
         base._Ready();
         Stats.Speed = 80;
         
-        Stats.MaxHealth = 10;
+        Stats.MaxHealth = 1000;
         Stats.Health = Stats.MaxHealth;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");

@@ -1,15 +1,85 @@
-[gd_scene load_steps=7 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=18 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 [ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
 [ext_resource type="Texture2D" uid="uid://dpe7avvjlki6f" path="res://Assets/UI/HPBar_Over.png" id="3_tdvmn"]
 [ext_resource type="Texture2D" uid="uid://bcn6vkak5ayn" path="res://Assets/UI/HPBar_Bar.png" id="4_8vlgm"]
+[ext_resource type="Texture2D" uid="uid://dxqv46apn3b28" path="res://Assets/UI/Fight/BG.png" id="5_ablqc"]
+[ext_resource type="Texture2D" uid="uid://b7rjyelujpwy1" path="res://Assets/UI/Fight/f.png" id="6_18gie"]
+[ext_resource type="Texture2D" uid="uid://so440772sunt" path="res://Assets/UI/Fight/i.png" id="7_dtcmi"]
+[ext_resource type="Texture2D" uid="uid://c0yqlgi7ba27b" path="res://Assets/UI/Fight/g.png" id="8_4swsf"]
+[ext_resource type="Texture2D" uid="uid://ksmrq1ho1vtv" path="res://Assets/UI/Fight/h.png" id="9_6ehji"]
+[ext_resource type="Texture2D" uid="uid://cc7n8s3gmqd8g" path="res://Assets/UI/Fight/t.png" id="10_ik2hg"]
+[ext_resource type="Texture2D" uid="uid://dl3qowx6rnadb" path="res://Assets/UI/Fight/!.png" id="11_1u6df"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v4jcw"]
+font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_ybkti"]
 font_size = 131
 
 [sub_resource type="LabelSettings" id="LabelSettings_phbwh"]
 font_size = 64
+
+[sub_resource type="Animation" id="Animation_ujn38"]
+resource_name = "fight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FightHud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.9, 1),
+"transitions": PackedFloat32Array(2, -0.5, 1, 1),
+"update": 0,
+"values": [Vector2(-768, 412), Vector2(450, 412), Vector2(630, 412), Vector2(1920, 412)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FightHud:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_vxma0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FightHud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(576, 412)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FightHud:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5xgud"]
+_data = {
+"RESET": SubResource("Animation_vxma0"),
+"fight": SubResource("Animation_ujn38")
+}
 
 [node name="PlayerHudLayer" type="CanvasLayer"]
 layer = 2
@@ -25,10 +95,27 @@ mouse_filter = 1
 script = ExtResource("1_map4d")
 
 [node name="FPS" type="Label" parent="PlayerHud"]
-layout_mode = 2
-offset_top = 527.0
-offset_right = 1920.0
-offset_bottom = 553.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -187.0
+offset_top = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "atime
+"
+label_settings = SubResource("LabelSettings_v4jcw")
+
+[node name="Difficulty" type="Label" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -199.0
+offset_bottom = 77.0
 grow_horizontal = 0
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PlayerHud"]
@@ -84,6 +171,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="DeathQuote" type="Label" parent="PlayerHud"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -98,3 +186,107 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Sucks to suck"
 label_settings = SubResource("LabelSettings_phbwh")
+
+[node name="FightHud" type="Control" parent="PlayerHud"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 576.0
+offset_top = 412.0
+offset_right = 1344.0
+offset_bottom = 668.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ablqc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="F" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_18gie")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="I" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_dtcmi")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="G" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_4swsf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="H" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6ehji")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="T" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_ik2hg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="!" type="TextureRect" parent="PlayerHud/FightHud"]
+custom_minimum_size = Vector2(384, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_1u6df")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="FightAnimPlayer" type="AnimationPlayer" parent="PlayerHud"]
+libraries = {
+"": SubResource("AnimationLibrary_5xgud")
+}

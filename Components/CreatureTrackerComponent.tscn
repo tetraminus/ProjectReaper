@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://qr4a4gpxavgg"]
+
+[node name="CreatureTrackerComponent" type="Node2D"]

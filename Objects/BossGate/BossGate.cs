@@ -34,7 +34,7 @@ public partial class BossGate : StaticBody2D, IInteractable
         _phantomCamera.Set("priority", 0);
         var portal = _portalScene.Instantiate<Portal>();
         portal.GlobalPosition = _portalSpawnPoint.GlobalPosition;
-        GameManager.Level.AddChild(portal);
+        GameManager.Level.CallDeferred(Node.MethodName.AddChild, portal);
 
     }
 
@@ -62,6 +62,7 @@ public partial class BossGate : StaticBody2D, IInteractable
         {
             _phantomCamera.Set("priority", 0);
         };
+        GameManager.PlayerHud.PlayFightAnim();
         
         
         // disable interaction

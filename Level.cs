@@ -91,7 +91,15 @@ public partial class Level : Node2D
         
         
         pcamProperties.Set("has_tweened", true);
-        PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 0);
+        
+        if (PhantomCamera.Get("tween_parameters").Obj != null)
+        {
+            PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 0);
+        }
+        
+        
+        
+        PhantomCamera.Set("follow_parameters/damping", false);
         PhantomCamera.GlobalPosition = player.GlobalPosition;
         FixCameraTween();
        
@@ -102,8 +110,15 @@ public partial class Level : Node2D
     
     public async void FixCameraTween()
     {
+        // Going to hell for this
        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-       PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 1);
+       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+       if (PhantomCamera.Get("tween_parameters").Obj != null)
+       {
+           PhantomCamera.Get("tween_parameters").AsGodotObject().Set("duration", 1);
+       }
+       
+       PhantomCamera.Set("follow_parameters/damping", true);
     }
 
     public void Generate()

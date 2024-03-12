@@ -11,9 +11,12 @@ public partial class PlayerHud : Control
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
     
     public ItemHudPopup InfoHudPopup;
-    public Label FPS => GetNode<Label>("FPS");
+    public Label FPS ;
+    public Label Difficulty ;
     
     private const int Numberofdeathquotes = 19;
+    [Signal]
+    public delegate void FightAnimFinishedEventHandler();
     public override void _Ready()
     {
         GD.Print("PlayerHud ready");
@@ -25,6 +28,9 @@ public partial class PlayerHud : Control
         InfoHudPopup.Visible = false;
         
         GetNode<Label>("DeathQuote").Hide();
+        GetNode<AnimationPlayer>("FightAnimPlayer").Connect(AnimationMixer.SignalName.AnimationFinished, new Callable(this, MethodName.OnFightAnimFinished));
+        FPS = GetNode<Label>("FPS");
+        Difficulty = GetNode<Label>("Difficulty");
     }
     
     public void ShowDeathQuote()
@@ -46,6 +52,19 @@ public partial class PlayerHud : Control
         
     }
     
+    public void PlayFightAnim()
+    {
+        var anim = GetNode<AnimationPlayer>("FightAnimPlayer");
+        anim.Play("fight");
+        
+    }
+    
+    public void OnFightAnimFinished(string animName)
+    {
+        
+        EmitSignal(SignalName.FightAnimFinished);
+    }
+    
 
     public void UpdateHealth(float oldHealth, float health)
     {
@@ -55,7 +74,10 @@ public partial class PlayerHud : Control
 
     public override void _Process(double delta)
     {
-        FPS.Text = Engine.GetFramesPerSecond().ToString();
+        if (!GameManager.InRun) return;
+        if (GameManager.CurrentRun == null) return;
+        FPS.Text = $"{GameManager.CurrentRun.Time:0.00}";
+        Difficulty.Text = GameManager.GetRunDifficulty().ToString(CultureInfo.InvariantCulture);
         base._Process(delta);
     }
 

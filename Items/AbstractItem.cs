@@ -60,6 +60,15 @@ public abstract partial class AbstractItem : Node2D
     }
 
     public virtual void OnInitalPickup() { }
+    public virtual void Cleanup() { }
+
+    public override void _ExitTree()
+    {
+        if (IsQueuedForDeletion())
+        {
+            Cleanup();
+        }
+    }
 
 
     public int GetStacks()

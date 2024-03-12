@@ -101,6 +101,7 @@ public abstract partial class AbstractDamageArea : Area2D
         {
            
             creature.Damage(new DamageReport(Damage, Source, creature, Source.Stats, creature.Stats));
+            OnHit(creature);
             if (Knockback > 0)
             {
                 var dir = GetKnockbackDirection(creature);
@@ -146,9 +147,9 @@ public abstract partial class AbstractDamageArea : Area2D
     }
 
 
-    public void OnHit()
+    public virtual void OnHit(AbstractCreature creature)
     {
-        Callbacks.Instance.BulletHitEvent?.Invoke(this);
+        Callbacks.Instance.BulletHitEvent?.Invoke(this, creature);
     }
 
     public override void _Process(double delta) {

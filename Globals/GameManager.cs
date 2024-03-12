@@ -49,6 +49,16 @@ public partial class GameManager : Node
         
     }
 
+    public override void _Process(double delta)
+    {
+        if (InRun && !Paused && CurrentRun != null)
+        {
+            CurrentRun.Time += delta;
+        }
+        
+        
+    }
+
     private void SetupMenu()
     {
         ItemLibrary.Instance.LoadItems();
@@ -118,6 +128,7 @@ public partial class GameManager : Node
         CurrentRun = new RunInfo();
         CurrentRun.Seed = seed;
         CurrentRun.CurrentLevel = 1;
+        CurrentRun.Time = 0;
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
         MainNode.AddChild(Level);
         
@@ -157,6 +168,11 @@ public partial class GameManager : Node
         
     }
     
+    public static float GetRunDifficulty()
+    {
+        return (float)(1 + (CurrentRun.Time) / 60f);
+    }
+    
     public static void ClearVariables()
     {
         Player = null;
@@ -173,9 +189,9 @@ public partial class GameManager : Node
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         }
 
-        Player.Reparent(MainNode);
+        Level.RemoveChild(Player);
         Level.QueueFree();
-        await Level.ToSignal(Level, "tree_exited");
+        await Level.ToSignal(Level, Node.SignalName.TreeExited);
 
         CurrentRun.CurrentLevel++;
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
