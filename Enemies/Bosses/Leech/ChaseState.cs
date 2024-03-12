@@ -38,14 +38,14 @@ public partial class ChaseState : AbstractState
 
     public override void PhysicsUpdate(double delta)
     {
-        var leechbert = StateMachine.Creature as leechbert;
+        var leechbert = StateMachine.Creature as Leechbert;
         // raycast to player
         var player = GameManager.Player;
         if (player.Dead) return;
 
         // move towards player
         leechbert.MoveDirection = (player.GlobalPosition - leechbert.GlobalPosition).Normalized();
-        leechbert.Velocity += leechbert.MoveDirection * leechbert.Stats.Speed * (float)delta * leechbert.Accelfac;
+        leechbert.Velocity += leechbert.MoveDirection * leechbert.Stats.Speed * (float)delta * Leechbert.Accelfac;
 
         // simulate friction with delta
         if (leechbert.Velocity.Length() > leechbert.Stats.Speed || leechbert.MoveDirection == Vector2.Zero)

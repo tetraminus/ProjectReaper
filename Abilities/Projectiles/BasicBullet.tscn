@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ddtj4448wax1g" path="res://Abilities/Projectiles/BasicBullet.png" id="2_5ui4d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ntxce"]
-radius = 5.0
-height = 16.0
+radius = 2.0
+height = 8.0
 
 [node name="BasicBullet" type="Area2D"]
 collision_layer = 2
@@ -16,6 +16,5 @@ script = ExtResource("1_1sj1m")
 texture = ExtResource("2_5ui4d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ntxce")

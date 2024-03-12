@@ -8,7 +8,7 @@ public partial class DeadState : AbstractState
     public override void OnEnter(object[] args)
     {
         var sprite = args[0] as AnimatedSprite2D;
-        var leechbert = StateMachine.Creature as leechbert;
+        var leechbert = StateMachine.Creature as Leechbert;
         leechbert.Velocity = Vector2.Zero;
         leechbert.MoveDirection = Vector2.Zero;
         
@@ -21,7 +21,7 @@ public partial class DeadState : AbstractState
 
     public override void Update(double delta)
     {
-        var leechbert = StateMachine.Creature as leechbert;
+        var leechbert = StateMachine.Creature as Leechbert;
         leechbert.Velocity = Vector2.Zero;
         
     }

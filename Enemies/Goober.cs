@@ -25,7 +25,7 @@ public partial class Goober : AbstractCreature
     public override void _Ready()
     {
         base._Ready();
-        Stats.Speed = 70;
+        Stats.Speed = 80;
         Stats.Health = 20;
         Stats.MaxHealth = 20;
 

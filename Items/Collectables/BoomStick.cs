@@ -17,7 +17,10 @@ public partial class BoomStick : AbstractItem
     }
     public override void _ExitTree()
     {
-        Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+        if (IsQueuedForDeletion())
+        {
+            Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
+        }
     }
 
 

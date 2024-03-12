@@ -34,7 +34,7 @@ public partial class ChargeState : AbstractState
     public override void OnEnter(params object[] args)
     {
         meleeArea.Enable();
-        var leechbert = StateMachine.Creature as leechbert;
+        var leechbert = StateMachine.Creature as Leechbert;
         GetTree().CreateTimer(_chargeTime).Timeout += LeaveCharge;
         _chargeDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized();
         meleePivot.Rotation = _chargeDirection.Angle();
@@ -50,7 +50,7 @@ public partial class ChargeState : AbstractState
 
     public override void PhysicsUpdate(double delta)
     {
-        var leechbert = StateMachine.Creature as leechbert;
+        var leechbert = StateMachine.Creature as Leechbert;
         if (_charging )
         {
             for (var i = 0; i < leechbert.GetSlideCollisionCount() ; i++)

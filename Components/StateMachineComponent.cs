@@ -16,7 +16,7 @@ public partial class StateMachineComponent : Node
     {
         if (InitialState != null)
         {
-            ChangeState(InitialState.Name);
+            NextFrameChangeState(InitialState.Name);
         }
         foreach (var child in GetChildren())
         {
@@ -27,7 +27,13 @@ public partial class StateMachineComponent : Node
             
         }
     }
-    
+
+    private async void NextFrameChangeState(StringName initialStateName)
+    {
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        ChangeState(initialStateName);
+    }
+
     public void ChangeState(string stateName, params object[] stateArgs)
     {
         _previousState = _currentState;

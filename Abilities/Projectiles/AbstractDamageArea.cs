@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
@@ -28,6 +30,9 @@ public abstract partial class AbstractDamageArea : Area2D
     protected Vector2 startPosition;
 
     [Export] public bool overrideLayer = false;
+    
+    public List<ProjectileFlags> Flags = new();
+    
 
     public override void _Ready()
     {
@@ -101,6 +106,7 @@ public abstract partial class AbstractDamageArea : Area2D
         {
            
             creature.Damage(new DamageReport(Damage, Source, creature, Source.Stats, creature.Stats));
+            OnHitCreature(creature);
             if (Knockback > 0)
             {
                 var dir = GetKnockbackDirection(creature);
@@ -122,8 +128,10 @@ public abstract partial class AbstractDamageArea : Area2D
     public virtual void OnBodyEntered(Node body)
     {
         
-        if (body is TileMap tileMap && DestroyOnWall)
+        if (body is TileMap tileMap)
         {
+            OnHitWall();
+            if (!DestroyOnWall) return;
             QueueFree();
             return;
         }
@@ -132,6 +140,7 @@ public abstract partial class AbstractDamageArea : Area2D
         if (body is not PhysicsBody2D physBody ) return;
         // objects check
         if (!physBody.GetCollisionLayerValue(1)) return;
+        OnHitWall();
         if (!DestroyOnWall) return;
         QueueFree();
 
@@ -146,9 +155,14 @@ public abstract partial class AbstractDamageArea : Area2D
     }
 
 
-    public void OnHit()
+    public virtual void OnHitCreature(AbstractCreature creature)
     {
-        Callbacks.Instance.BulletHitEvent?.Invoke(this);
+        Callbacks.Instance.ProjectileHitEvent?.Invoke(this, creature);
+    }
+    
+    public virtual void OnHitWall()
+    {
+        Callbacks.Instance.ProjectileHitWallEvent?.Invoke(this);
     }
 
     public override void _Process(double delta) {
@@ -157,5 +171,11 @@ public abstract partial class AbstractDamageArea : Area2D
         {
             QueueFree();
         }
+    }
+
+    public enum ProjectileFlags    
+    {
+        Proccable
+        
     }
 }
