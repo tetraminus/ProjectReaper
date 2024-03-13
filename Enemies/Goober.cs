@@ -42,13 +42,13 @@ public partial class Goober : AbstractCreature
         // Make sure to not await during _Ready.
         Callable.From(ActorSetup).CallDeferred();
 
-        Callbacks.Instance.EnemyShouldRenavEvent += Renav;
+        Callbacks.Instance.EnemyRenav += Renav;
 
     }
 
     public override void _ExitTree()
     {
-        Callbacks.Instance.EnemyShouldRenavEvent -= Renav;
+        Callbacks.Instance.EnemyRenav -= Renav;
         base._ExitTree();
     }
 

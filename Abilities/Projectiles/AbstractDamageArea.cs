@@ -157,12 +157,12 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public virtual void OnHitCreature(AbstractCreature creature)
     {
-        Callbacks.Instance.ProjectileHitEvent?.Invoke(this, creature);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this);
     }
     
     public virtual void OnHitWall()
     {
-        Callbacks.Instance.ProjectileHitWallEvent?.Invoke(this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHitWall, this);
     }
 
     public override void _Process(double delta) {
