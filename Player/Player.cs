@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 using ProjectReaper.Abilities;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
@@ -16,7 +15,7 @@ public partial class Player : AbstractCreature
     public Vector2 MoveDirection { get; set; }
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
-    private List<string> _keys = new();
+    private Dictionary<string, int> _inventory = new();
         
     
 
@@ -151,15 +150,46 @@ public partial class Player : AbstractCreature
         
     }
 
-    public void AddKey(string KeyId) {
-        _keys.Add(KeyId);
+    public void AddKey(string KeyId, int num = 1) {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            _inventory[KeyId] += num;
+        }
+        else
+        {
+            _inventory.Add(KeyId, num);
+        }
+        
+        
+    }
+    
+    public bool HasKey(string KeyId)
+    {
+        return _inventory.ContainsKey(KeyId);
+    }
+    
+    public bool UseKey(string KeyId, int num = 1)
+    {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            if (_inventory[KeyId] >= num)
+            {
+                _inventory[KeyId] -= num;
+                if (_inventory[KeyId] <= 0)
+                {
+                    _inventory.Remove(KeyId);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int GetKeyCount(string KeyId)
+    {
+        return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
     }
 
-    public bool HasKey(string KeyId) {
-        return _keys.Contains(KeyId);
-    }
-
-    public bool UseKey(string KeyId) {
-        return _keys.Remove(KeyId);
-    }
+   
+    
 }
