@@ -186,3 +186,6 @@ event = &"PlayerLost"
 script = ExtResource("8_wc7wd")
 to = NodePath("../../Shooting")
 event = &"Shoot"
+
+[connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="OnShootingStateEntered"]
+[connection signal="state_processing" from="StateChart/Root/Shooting" to="." method="ShootingStateProcess"]

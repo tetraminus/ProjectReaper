@@ -7,7 +7,7 @@ namespace ProjectReaper;
 
 public partial class Level : Node2D
 {
-    private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/Snowpeabert.tscn");
+    private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/SnowPlant/Snowpeabert.tscn");
     private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
     private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
     private float _totalSpawnArea;
@@ -33,9 +33,9 @@ public partial class Level : Node2D
 
         var spawnset = new Spawnset();
 
-        spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
-        spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
-        // spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 200));
+        //spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
+        //spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
+        spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 10));
 
         // PhantomCamera.Set("limit/left", BoundsLeft);
         // PhantomCamera.Set("limit/right", BoundsRight);
