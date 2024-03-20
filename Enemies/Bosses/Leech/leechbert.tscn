@@ -121,9 +121,10 @@ _chargeTime = 2.0
 [node name="DeadState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("6_q42id")
 
-[node name="WaitState" type="Node" parent="StateMachineComponent" node_paths=PackedStringArray("NextState")]
+[node name="WaitState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("7_ucfww")
-NextState = NodePath("../ChaseState")
+NextState = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("4_gr6wk"),"ChargeCooldown":3.0)
+
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("6_uuc4l")
