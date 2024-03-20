@@ -13,14 +13,11 @@ public partial class BoomStick : AbstractItem
 
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.CreatureDiedEvent += OnCreatureDied;
+        Callbacks.Instance.CreatureDied += OnCreatureDied;
     }
-    public override void _ExitTree()
+    public override void Cleanup()
     {
-        if (IsQueuedForDeletion())
-        {
-            Callbacks.Instance.CreatureDiedEvent -= OnCreatureDied;
-        }
+        Callbacks.Instance.CreatureDied -= OnCreatureDied;
     }
 
 

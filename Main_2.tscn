@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://sha3oq7c7tjd"]
 
 [ext_resource type="PackedScene" uid="uid://chdn5sa1ckg2s" path="res://Player/player.tscn" id="1_2gs8l"]
-[ext_resource type="PackedScene" uid="uid://so8wjykmd2e6" path="res://Enemies/Snowpeabert.tscn" id="4_hq2f5"]
+[ext_resource type="PackedScene" uid="uid://so8wjykmd2e6" path="res://Enemies/SnowPlant/Snowpeabert.tscn" id="4_hq2f5"]
 
 [node name="Main 2" type="Node2D"]
 

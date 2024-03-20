@@ -6,7 +6,7 @@ using ProjectReaper.Globals;
 [GlobalClass]
 public partial class SpawnRect : Node2D {
 
-
+	private bool scaling = false;
 	[Export] public RectangleShape2D RectShape;
 
 	public override void _Process(double delta)
@@ -22,9 +22,19 @@ public partial class SpawnRect : Node2D {
 				if (Input.IsMouseButtonPressed(MouseButton.Left) && GetGlobalMousePosition().DistanceTo(GlobalPosition + RectShape.Size) < 10)
 				{
 					
-					RectShape.Size = GetGlobalMousePosition() - GlobalPosition;
-					
+					scaling = true;
 				}
+
+				if (!Input.IsMouseButtonPressed(MouseButton.Left) && scaling)
+                {
+                    scaling = false;
+                }
+				
+				if (scaling)
+                {
+                    RectShape.Size = GetGlobalMousePosition() - GlobalPosition;
+                }
+                
 				
 				
 				

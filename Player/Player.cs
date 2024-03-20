@@ -49,8 +49,8 @@ public partial class Player : AbstractCreature
     public override void OnDeath()
     {
         Dead = true;
-        Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
-        Callbacks.Instance.PlayerDeathEvent?.Invoke();
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.PlayerDeath);
         GameManager.GameOver();
     }
     
@@ -93,7 +93,7 @@ public partial class Player : AbstractCreature
         if ( (LastNavPos - GlobalPosition).Length() > 5)
         {
             LastNavPos = GlobalPosition;
-            Callbacks.Instance.EnemyShouldRenavEvent?.Invoke(GlobalPosition, NavGroup);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav, this);
             NavGroup++;
             NavGroup %= SpawnDirector.MaxNavGroups;
         }

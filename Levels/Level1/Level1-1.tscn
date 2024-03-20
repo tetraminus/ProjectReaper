@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=21 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
@@ -7,12 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://c2vmwyncwtew0" path="res://Objects/BigDoor/BigDoor.tscn" id="8_67fyu"]
-[ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="8_j42nk"]
 [ext_resource type="PackedScene" uid="uid://dsr7b7kr5xrk3" path="res://Objects/BossGate/BossGate.tscn" id="9_38dtt"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_uerm4"]
-[ext_resource type="PackedScene" uid="uid://c4rbh6ssua3cd" path="res://Items/Prefabs/GravityZone.tscn" id="13_5yuns"]
 
 [sub_resource type="Curve2D" id="Curve2D_c2lws"]
 _data = {
@@ -46,10 +44,10 @@ resource_local_to_scene = true
 size = Vector2(105.785, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suw0w"]
-size = Vector2(97.905, 100)
+size = Vector2(98.1515, 103.377)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
-size = Vector2(22.2393, 35.0894)
+size = Vector2(109.944, 147.833)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1s6f"]
 size = Vector2(200, 100)
@@ -235,21 +233,6 @@ position = Vector2(-985, 495)
 script = ExtResource("7_vjclb")
 RectShape = SubResource("RectangleShape2D_tjagf")
 
-[node name="ItemPickup" parent="." instance=ExtResource("8_j42nk")]
-position = Vector2(210, 347)
-RollItem = true
-OverrideItemId = "dream_car"
-
-[node name="ItemPickup2" parent="." instance=ExtResource("8_j42nk")]
-position = Vector2(260, 383)
-RollItem = true
-OverrideItemId = "dream_car"
-
-[node name="ItemPickup3" parent="." instance=ExtResource("8_j42nk")]
-position = Vector2(256, 317)
-RollItem = true
-OverrideItemId = "gravity_gauntlet"
-
 [node name="BossGate" parent="." node_paths=PackedStringArray("_spawnPoint", "_bossSpawnPoint", "_portalSpawnPoint", "_phantomCamera") instance=ExtResource("9_38dtt")]
 position = Vector2(673, -308)
 _spawnPoint = NodePath("PlayerSpawn")
@@ -259,10 +242,10 @@ _bossScene = ExtResource("10_4uqm6")
 _phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="PlayerSpawn" type="Node2D" parent="BossGate"]
-position = Vector2(-44, -286)
+position = Vector2(-40, -239)
 
 [node name="BossSpawn" type="Node2D" parent="BossGate"]
-position = Vector2(-45, -403)
+position = Vector2(-46, -461)
 
 [node name="PhantomCamera2D" type="Node2D" parent="BossGate"]
 position = Vector2(-686, 518)
@@ -302,6 +285,3 @@ limit_bottom = 1024
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("12_uerm4")
-
-[node name="GravityZone" parent="." instance=ExtResource("13_5yuns")]
-position = Vector2(356, 37)

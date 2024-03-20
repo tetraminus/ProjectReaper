@@ -7,31 +7,34 @@ namespace ProjectReaper.Globals;
 
 public partial class Callbacks : Node
 {
+    [Signal]
     public delegate void AbilityUsedEventHandler(AbstractAbility ability, int slot);
+    [Signal]
     public delegate void BulletCreatedEventHandler(AbstractDamageArea bullet);
+    [Signal]
     public delegate void BulletHitEventHandler(AbstractDamageArea bullet, AbstractCreature creature);
+    [Signal]
     public delegate void CreatureDamagedEventHandler(AbstractCreature creature, float damage);
+    [Signal]
     public delegate void CreatureDiedEventHandler(AbstractCreature creature);
+    [Signal]
     public delegate void CreatureSpawnedEventHandler(AbstractCreature creature);
+    
     public delegate float FinalDamageEventHandler(AbstractCreature creature, float damage);
+    [Signal]
     public delegate void PlayerDeathEventHandler();
+    [Signal]
     public delegate void EnemyRenavEventHandler(Vector2 position, int group);
+    [Signal]
     public delegate void ProjectileHitEventHandler(AbstractDamageArea projectile, AbstractCreature creature);
+    [Signal]
     public delegate void BossDiedEventHandler();
+    [Signal]
     public delegate void ProjectileHitWallEventHandler(AbstractDamageArea bullet);
 
-    public AbilityUsedEventHandler AbilityUsedEvent;
-    public BulletCreatedEventHandler BulletCreatedEvent;
-    public CreatureDamagedEventHandler CreatureDamagedEvent;
-    public CreatureDiedEventHandler CreatureDiedEvent;
-    public CreatureSpawnedEventHandler CreatureSpawnedEvent;
+    
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
-    public PlayerDeathEventHandler PlayerDeathEvent;
-    public EnemyRenavEventHandler EnemyShouldRenavEvent;
-    public ProjectileHitEventHandler ProjectileHitEvent;
-    public ProjectileHitWallEventHandler ProjectileHitWallEvent;
-    public BossDiedEventHandler BossDiedEvent;
-
+    
     public static Callbacks Instance { get; private set; }
     
 

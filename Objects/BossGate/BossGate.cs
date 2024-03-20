@@ -25,7 +25,12 @@ public partial class BossGate : StaticBody2D, IInteractable
     public override void _Ready()
     {
         
-        Callbacks.Instance.BossDiedEvent += BossDiedEvent;
+        Callbacks.Instance.BossDied += BossDiedEvent;
+    }
+    
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.BossDied -= BossDiedEvent;
     }
 
     private void BossDiedEvent()
