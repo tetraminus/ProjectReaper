@@ -16,7 +16,7 @@ public partial class SoldierShoot : AbstractAbility
     public override void Use()
     {
         var bullet = (AbstractDamageArea)BulletScene.Instantiate();
-        Callbacks.Instance.BulletCreatedEvent?.Invoke(bullet);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
         bullet.Position = GameManager.Player.GlobalPosition;
         bullet.LookAt(GameManager.Player.GetGlobalMousePosition());
         GetTree().Root.AddChild(bullet);

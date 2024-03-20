@@ -97,7 +97,7 @@ public partial class SpawnDirector : Node
             if (availableEnemies.Count == 0) break;
 
             availableEnemies = new Array<EnemySpawnCard>(availableEnemies.OrderBy(enemy => enemy.Cost));
-            var enemy = availableEnemies[availableEnemies.Count - 1];
+            var enemy = availableEnemies[^1];
 
             // Check if the cost of the enemy is less than or equal to the remaining credits
             if (enemy.Cost <= creditsLeft)

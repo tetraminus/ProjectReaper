@@ -11,11 +11,11 @@ public partial class RevengeBomber : AbstractItem
     
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.CreatureDamagedEvent += OnCreatureDamaged;
+        Callbacks.Instance.CreatureDamaged += OnCreatureDamaged;
     } 
-    public override void _ExitTree()
+    public override void Cleanup()
     {
-        Callbacks.Instance.CreatureDamagedEvent -= OnCreatureDamaged;
+        Callbacks.Instance.CreatureDamaged -= OnCreatureDamaged;
     }
     
     public void OnCreatureDamaged(AbstractCreature creature, float damage)

@@ -171,7 +171,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     /// </summary>
     public virtual void OnDeath()
     {
-        Callbacks.Instance.CreatureDiedEvent?.Invoke(this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
         QuietDie();
     }
     
@@ -225,7 +225,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
         var finalDamage = Stats.CalculateDamage(damage, source, target, sourceStats, targetStats);
         
-        Callbacks.Instance.CreatureDamagedEvent?.Invoke(this, finalDamage);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDamaged, this, finalDamage);
 
         finalDamage = Callbacks.Instance.FinalDamageEvent?.Invoke(this, finalDamage) ?? finalDamage;
 
@@ -261,7 +261,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public virtual void OnProjectileBlocked(AbstractDamageArea projectile)
     {
-        Callbacks.Instance.ProjectileHitEvent?.Invoke(projectile, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, projectile);
     }
 
     public virtual float AimDirection() {

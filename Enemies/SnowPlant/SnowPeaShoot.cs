@@ -16,7 +16,7 @@ public partial class SnowPeaShoot : AbstractAbility
     {
         var bullet = (AbstractDamageArea)BulletScene.Instantiate();
         bullet.Duration = 0.2f;
-        Callbacks.Instance.BulletCreatedEvent?.Invoke(bullet);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
         bullet.Position = GetParent<Node2D>().GlobalPosition;
         bullet.Rotation = angle;
 
