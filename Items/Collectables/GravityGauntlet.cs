@@ -12,14 +12,14 @@ public partial class GravityGauntlet : AbstractItem
     public override ItemRarity Rarity => ItemRarity.Rare;
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.ProjectileHitEvent += OnBulletHit;
-        Callbacks.Instance.ProjectileHitWallEvent += OnBulletHit;
+        Callbacks.Instance.ProjectileHit += OnBulletHit;
+        Callbacks.Instance.ProjectileHitWall += OnBulletHit;
     }
 
     public override void Cleanup()
     {
-        Callbacks.Instance.ProjectileHitEvent -= OnBulletHit;
-        Callbacks.Instance.ProjectileHitWallEvent -= OnBulletHit;
+        Callbacks.Instance.ProjectileHit -= OnBulletHit;
+        Callbacks.Instance.ProjectileHitWall -= OnBulletHit;
     }
     
     private void OnBulletHit(AbstractDamageArea bullet)

@@ -27,7 +27,7 @@ public partial class AbilityManager : Node
     {
         if (!Ability1.CheckCooldown())
         {
-            Callbacks.Instance.AbilityUsedEvent?.Invoke(Ability1, 1);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability1, 1);
             Ability1.Use();
             Ability1.StartCooldown();
         }
@@ -37,7 +37,7 @@ public partial class AbilityManager : Node
     {
         if (!Ability2.CheckCooldown())
         {
-            Callbacks.Instance.AbilityUsedEvent?.Invoke(Ability2, 2);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability2, 2);
             Ability2.Use();
             Ability2.StartCooldown();
         }
@@ -47,7 +47,7 @@ public partial class AbilityManager : Node
     {
         if (!Ability3.CheckCooldown())
         {
-            Callbacks.Instance.AbilityUsedEvent?.Invoke(Ability3, 3);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability3, 3);
             Ability3.Use();
             Ability3.StartCooldown();
         }
@@ -57,7 +57,7 @@ public partial class AbilityManager : Node
     {
         if (!Ability4.CheckCooldown())
         {
-            Callbacks.Instance.AbilityUsedEvent?.Invoke(Ability4, 4);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability4, 4);
             Ability4.Use();
             Ability4.StartCooldown();
         }

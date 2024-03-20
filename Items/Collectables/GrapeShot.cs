@@ -21,14 +21,12 @@ public partial class GrapeShot : AbstractItem
     private PackedScene _bulletScene = GD.Load<PackedScene>("res://Items/Prefabs/GrapeBullet.tscn");
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.AbilityUsedEvent += OnAbilityUsed;
+        Callbacks.Instance.AbilityUsed += OnAbilityUsed;
     }
-    public override void _ExitTree()
+    public override void Cleanup()
     {
-        if (IsQueuedForDeletion())
-        {
-            Callbacks.Instance.AbilityUsedEvent -= OnAbilityUsed;
-        }
+        GD.Print("Cleanup GrapeShot");
+        Callbacks.Instance.AbilityUsed -= OnAbilityUsed;
     }
 
     public override void OnStack(int newstacks)

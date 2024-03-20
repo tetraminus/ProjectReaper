@@ -22,5 +22,4 @@ shape = SubResource("CircleShape2D_opi13")
 [node name="GravZone" type="Sprite2D" parent="."]
 texture = ExtResource("1_6yg22")
 
-[node name="CreatureTrackerComponent" parent="." node_paths=PackedStringArray("Areas") instance=ExtResource("2_fae2y")]
-Areas = [NodePath("..")]
+[node name="CreatureTrackerComponent" parent="." instance=ExtResource("2_fae2y")]

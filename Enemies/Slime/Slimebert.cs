@@ -45,7 +45,7 @@ public partial class Slimebert : AbstractCreature
         // Make sure to not await during _Ready.
         Callable.From(ActorSetup).CallDeferred();
 
-        Callbacks.Instance.EnemyShouldRenavEvent += Renav;
+        Callbacks.Instance.EnemyRenav += Renav;
         
         _stateChart = StateChart.Of(GetNode("StateChart"));
 
@@ -53,7 +53,7 @@ public partial class Slimebert : AbstractCreature
 
     public override void _ExitTree()
     {
-        Callbacks.Instance.EnemyShouldRenavEvent -= Renav;
+        Callbacks.Instance.EnemyRenav -= Renav;
         base._ExitTree();
     }
     
