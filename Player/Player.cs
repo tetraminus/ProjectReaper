@@ -16,8 +16,27 @@ public partial class Player : AbstractCreature
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
     private Dictionary<string, int> _inventory = new();
-        
     
+    private bool _controllerMode = false;
+    private float _lastAim = 0;
+
+    public override void _Input(InputEvent @event)
+    {
+        if ((@event is InputEventJoypadMotion  || @event is InputEventJoypadButton) && !_controllerMode )
+        {
+            _controllerMode = true;
+            GD.Print("Controller mode");
+        }
+        else if ((@event is InputEventMouseButton || @event is InputEventMouseMotion) && _controllerMode)
+        {
+            _controllerMode = false;
+            GD.Print("Mouse mode");
+        }
+        
+        
+        
+        base._Input(@event);
+    }
 
 
     public override void _Ready()
@@ -54,7 +73,15 @@ public partial class Player : AbstractCreature
     }
     
     public override float AimDirection() {
-        return (GetGlobalMousePosition() - GlobalPosition).Angle();
+        if (_controllerMode)
+        {
+            return _lastAim;
+        }
+        else
+        {
+            return GlobalPosition.DirectionTo(GetGlobalMousePosition()).Angle();
+        }
+        
     }
 
 
@@ -81,6 +108,16 @@ public partial class Player : AbstractCreature
     {
         
         if (Dead) return;
+        
+        if (_controllerMode)
+        {
+            var inputDir = Input.GetVector("Aim_Left", "Aim_Right", "Aim_Up", "Aim_Down");
+            if (inputDir.Length() > 0.1)
+            {
+                _lastAim = inputDir.Angle();
+            }
+        }
+        
         
         
         if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
