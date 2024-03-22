@@ -17,10 +17,10 @@ public partial class SoldierShoot : AbstractAbility
     {
         var bullet = (AbstractDamageArea)BulletScene.Instantiate();
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
-        bullet.Position = GameManager.Player.GlobalPosition;
-        bullet.LookAt(GameManager.Player.GetGlobalMousePosition());
+        var src = GameManager.Player;
+        bullet.Init(src, src.Team, src.GlobalPosition,src.AimDirection());
+        
         GetTree().Root.AddChild(bullet);
-        bullet.Source = GameManager.Player;
-        bullet.Team = AbstractCreature.Teams.Player;
+        
     }
 }

@@ -256,6 +256,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public virtual bool CanBlockProjectile(AbstractDamageArea projectile)
     {
+        if (HitState == HitBoxState.Spectral) return false;
         return true;
     }
 

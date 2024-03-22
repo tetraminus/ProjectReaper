@@ -1,5 +1,6 @@
 using Godot;
 using ProjectReaper.Enemies;
+using ProjectReaper.Menu.ItemLibraryScreen;
 using ProjectReaper.Player;
 using ProjectReaper.Util;
 
@@ -13,6 +14,7 @@ public partial class GameManager : Node
     public static PackedScene PlayerScene = ResourceLoader.Load<PackedScene>("res://Player/player.tscn");
     public static PackedScene MainMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/MainMenu/MainMenu.tscn");
     public static PackedScene ScreenFaderScene = ResourceLoader.Load<PackedScene>("res://Util/ScreenFader.tscn");
+    public static PackedScene ItemLibraryScene = ResourceLoader.Load<PackedScene>("res://Menu/ItemLibraryScreen/ItemLibraryScreen.tscn");
     // Called when the node enters the scene tree for the first time.
     public static Player.Player Player { get; set; }
     public static Node PlayerRoot { get; set; }
@@ -25,6 +27,11 @@ public partial class GameManager : Node
     public static Node2D MainNode { get; set; }
     public static MainMenu MainMenu { get; set; }
     public static ScreenFader ScreenFader { get; set; }
+    public static ItemLibraryScreen ItemLibraryScreen { get; set; }
+    
+    public static Control CurrentScreen { get; set; }
+    public static Control LastScreen { get; set; }
+    
 
 
     public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
@@ -44,7 +51,6 @@ public partial class GameManager : Node
             return RollFloat(luck, rng) > 1 - chance;
         }
     }
-    
     
     public static float RollFloat( int luck = 1,  RandomNumberGenerator rng = null)
     {
@@ -76,15 +82,16 @@ public partial class GameManager : Node
         return highest;
     }
     
-    
-    
-    
     public override void _Ready()
     {
         var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
         var pauseMenuScene = PauseMenuScene.Instantiate<CanvasLayer>();
+        var library = ItemLibraryScene.Instantiate<Control>();
         AddChild(playerhudScene);
         AddChild(pauseMenuScene);
+        pauseMenuScene.AddChild(library);
+        ItemLibraryScreen.CloseRequested += ItemLibraryScreenOnCloseRequested;
+        ItemLibraryScreen.Hide();
         PlayerHud.Hide();
         PauseMenu.Hide();
         
@@ -94,6 +101,7 @@ public partial class GameManager : Node
         AddChild(screenFaderlayer);
         
         ScreenFader = screenFaderlayer.GetNode("ScreenFader") as ScreenFader;
+        
         
     }
 
@@ -128,6 +136,8 @@ public partial class GameManager : Node
         Paused = true;
         Level.GetTree().Paused = true;
         PauseMenu.Show();
+        PauseMenu.GrabFocus();
+        CurrentScreen = PauseMenu;
         
     }
     
@@ -138,6 +148,7 @@ public partial class GameManager : Node
         Paused = false;
         Level.GetTree().Paused = false;
         PauseMenu.Hide();
+        CurrentScreen = null;
     }
 
     public static void SpawnExplosion(Vector2 globalPosition, float damage, float scale = 1f,
@@ -192,6 +203,7 @@ public partial class GameManager : Node
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
         MainMenu.Hide();
+        CurrentScreen = null;
         
         ScreenFader.FadeIn(1);
         
@@ -218,7 +230,9 @@ public partial class GameManager : Node
         Callable.From(ClearVariables).CallDeferred();
         
         MainMenu.Show();
-        MainMenu.Focus();
+        MainMenu.GrabFocus();
+        
+        CurrentScreen = MainMenu;
 
     }
     
@@ -258,6 +272,30 @@ public partial class GameManager : Node
         {
           ScreenFader.FadeIn(1);
         }
-    }   
-    
+    }
+
+    public static void GoToLibrary()
+    {
+        GD.Print("Going to library");
+        
+        
+        CurrentScreen?.Hide();
+        LastScreen = CurrentScreen;
+        CurrentScreen = ItemLibraryScreen;
+        
+        ItemLibraryScreen.LoadItems();
+        ItemLibraryScreen.Focus();
+        ItemLibraryScreen.Show();
+        
+    }
+
+    private static void ItemLibraryScreenOnCloseRequested()
+    {
+        GD.Print("Closing library");
+        ItemLibraryScreen.Hide();
+        LastScreen.Show();
+        CurrentScreen = LastScreen;
+        
+        
+    }
 }

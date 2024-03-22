@@ -15,6 +15,7 @@ public partial class Leechbert : AbstractCreature
     public override void OnDeath()
     {
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BossDied);
         Dead = true;
         _stateMachine.ChangeState("DeadState", _sprite);
     }
