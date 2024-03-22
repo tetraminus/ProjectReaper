@@ -44,6 +44,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FightHud:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_ujn38"]
 resource_name = "fight"
@@ -70,6 +82,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FightHud:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.251327, -0.251327, 0.628319]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5xgud"]
@@ -202,6 +226,7 @@ offset_right = 1344.0
 offset_bottom = 668.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(384, 128)
 
 [node name="Bg" type="TextureRect" parent="PlayerHud/FightHud"]
 custom_minimum_size = Vector2(384, 128)

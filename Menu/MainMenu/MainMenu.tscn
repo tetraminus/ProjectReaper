@@ -19,6 +19,7 @@ focus_mode = 2
 script = ExtResource("1_syj20")
 
 [node name="ColorRect" type="ColorRect" parent="MainMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
