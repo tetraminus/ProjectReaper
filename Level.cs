@@ -28,6 +28,7 @@ public partial class Level : Node2D
     
     [Export] public Node2D CameraBounds { get; set; }
 
+    private Timer _renavTimer;
    
 
     public override void _Ready()
@@ -60,6 +61,23 @@ public partial class Level : Node2D
         
         Callbacks.Instance.CreatureDied += OnEnemyDeath;
         
+        _renavTimer = new Timer();
+        _renavTimer.WaitTime = 2;
+        _renavTimer.Timeout += OnRenavTimerTimeout;
+        AddChild(_renavTimer);
+        _renavTimer.Start();
+        
+    }
+    
+    private async void OnRenavTimerTimeout()
+    {
+
+        for (int i = 0; i < SpawnDirector.MaxNavGroups; i++)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav, i);
+
+        }
     }
 
     public override void _ExitTree()
@@ -105,6 +123,8 @@ public partial class Level : Node2D
         return Vector2.Zero;
         
     }
+
+    
 
     public void AddPlayer(Node playerroot)
     {

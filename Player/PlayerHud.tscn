@@ -196,10 +196,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -128.0
-offset_right = 384.0
-offset_bottom = 128.0
+offset_left = 576.0
+offset_top = 412.0
+offset_right = 1344.0
+offset_bottom = 668.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -292,7 +292,8 @@ libraries = {
 "": SubResource("AnimationLibrary_5xgud")
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerHud"]
+[node name="KeyInventory" type="VBoxContainer" parent="PlayerHud"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.034
@@ -303,4 +304,5 @@ offset_left = -1.28
 offset_top = -38.52
 offset_right = 395.72
 offset_bottom = 1.47996
+theme_override_constants/separation = 40
 alignment = 2
