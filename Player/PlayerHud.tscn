@@ -291,3 +291,16 @@ stretch_mode = 5
 libraries = {
 "": SubResource("AnimationLibrary_5xgud")
 }
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.034
+anchor_top = 0.719
+anchor_right = 0.034
+anchor_bottom = 0.719
+offset_left = -1.28
+offset_top = -38.52
+offset_right = 395.72
+offset_bottom = 1.47996
+alignment = 2
