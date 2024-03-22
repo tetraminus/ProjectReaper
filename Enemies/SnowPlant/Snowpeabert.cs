@@ -48,10 +48,10 @@ public partial class Snowpeabert : AbstractCreature
 
     }
 
-    private void UnBurrow()
+    private void Unburrow()
     {
         _stateChart = StateChart.Of(GetNode("StateChart"));
-        _stateChart.SendEvent("UnBurrow");
+        _stateChart.SendEvent("Unburrow");
         Sprite.Visible = true; // Make the KinematicBody2D visible again
         HitState = HitBoxState.Normal;
         _particles.Emitting = false;

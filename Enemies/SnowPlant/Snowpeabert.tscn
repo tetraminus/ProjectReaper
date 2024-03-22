@@ -147,7 +147,7 @@ frame_progress = 0.107942
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="burrowTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 6.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_gx4l1")
@@ -161,8 +161,8 @@ script = ExtResource("7_thue7")
 
 [node name="BackToMoving" type="Node" parent="StateChart/Root/Shooting"]
 script = ExtResource("8_wc7wd")
-to = NodePath("../../Burrowing/BurrowRandomly")
-event = &"DoneFiring"
+to = NodePath("../../Burrowing")
+delay_seconds = 1.0
 
 [node name="Burrowing" type="Node" parent="StateChart/Root"]
 script = ExtResource("6_aimvb")
@@ -173,8 +173,9 @@ script = ExtResource("7_thue7")
 
 [node name="CloseEnough" type="Node" parent="StateChart/Root/Burrowing/MoveTowardsPlayer"]
 script = ExtResource("8_wc7wd")
-to = NodePath("../../BurrowRandomly")
+to = NodePath("../../../Shooting")
 event = &"PlayerSeen"
+delay_seconds = 1.0
 
 [node name="BurrowRandomly" type="Node" parent="StateChart/Root/Burrowing"]
 script = ExtResource("7_thue7")
@@ -183,14 +184,23 @@ script = ExtResource("7_thue7")
 script = ExtResource("8_wc7wd")
 to = NodePath("../../MoveTowardsPlayer")
 event = &"PlayerLost"
+delay_seconds = 1.0
 
 [node name="Shoot" type="Node" parent="StateChart/Root/Burrowing"]
 script = ExtResource("8_wc7wd")
 to = NodePath("../../Shooting")
 event = &"Shoot"
+delay_seconds = 1.0
+
+[node name="Unburrow" type="Node" parent="StateChart/Root/Burrowing"]
+script = ExtResource("8_wc7wd")
+to = NodePath("../../Shooting")
+event = &"Shoot"
+delay_seconds = 1.0
 
 [connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="OnShootingStateEntered"]
 [connection signal="state_entered" from="StateChart/Root/Burrowing" to="." method="Burrow"]
 [connection signal="state_exited" from="StateChart/Root/Burrowing" to="." method="Unburrow"]
+[connection signal="state_entered" from="StateChart/Root/Burrowing/MoveTowardsPlayer" to="." method="Burrow"]
 [connection signal="state_physics_processing" from="StateChart/Root/Burrowing/MoveTowardsPlayer" to="." method="FollowPath"]
 [connection signal="state_physics_processing" from="StateChart/Root/Burrowing/BurrowRandomly" to="." method="ChasePlayer"]

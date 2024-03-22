@@ -243,3 +243,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("Initial state must be a direct child of this compound state.")
 	
 	return warnings
+
+
+func Onunburrowtree_exited():
+	pass # Replace with function body.
