@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 using ProjectReaper.Abilities;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
@@ -16,9 +15,28 @@ public partial class Player : AbstractCreature
     public Vector2 MoveDirection { get; set; }
     public Vector2 LastNavPos { get; private set; }
     public int NavGroup { get; set; } = 1;
-    private List<string> _keys = new();
-        
+    private Dictionary<string, int> _inventory = new();
     
+    private bool _controllerMode = false;
+    private float _lastAim = 0;
+
+    public override void _Input(InputEvent @event)
+    {
+        if ((@event is InputEventJoypadMotion  || @event is InputEventJoypadButton) && !_controllerMode )
+        {
+            _controllerMode = true;
+            GD.Print("Controller mode");
+        }
+        else if ((@event is InputEventMouseButton || @event is InputEventMouseMotion) && _controllerMode)
+        {
+            _controllerMode = false;
+            GD.Print("Mouse mode");
+        }
+        
+        
+        
+        base._Input(@event);
+    }
 
 
     public override void _Ready()
@@ -55,7 +73,15 @@ public partial class Player : AbstractCreature
     }
     
     public override float AimDirection() {
-        return (GetGlobalMousePosition() - GlobalPosition).Angle();
+        if (_controllerMode)
+        {
+            return _lastAim;
+        }
+        else
+        {
+            return GlobalPosition.DirectionTo(GetGlobalMousePosition()).Angle();
+        }
+        
     }
 
 
@@ -82,6 +108,16 @@ public partial class Player : AbstractCreature
     {
         
         if (Dead) return;
+        
+        if (_controllerMode)
+        {
+            var inputDir = Input.GetVector("Aim_Left", "Aim_Right", "Aim_Up", "Aim_Down");
+            if (inputDir.Length() > 0.1)
+            {
+                _lastAim = inputDir.Angle();
+            }
+        }
+        
         
         
         if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
@@ -151,15 +187,46 @@ public partial class Player : AbstractCreature
         
     }
 
-    public void AddKey(string KeyId) {
-        _keys.Add(KeyId);
+    public void AddKey(string KeyId, int num = 1) {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            _inventory[KeyId] += num;
+        }
+        else
+        {
+            _inventory.Add(KeyId, num);
+        }
+        
+        
+    }
+    
+    public bool HasKey(string KeyId)
+    {
+        return _inventory.ContainsKey(KeyId);
+    }
+    
+    public bool UseKey(string KeyId, int num = 1)
+    {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            if (_inventory[KeyId] >= num)
+            {
+                _inventory[KeyId] -= num;
+                if (_inventory[KeyId] <= 0)
+                {
+                    _inventory.Remove(KeyId);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int GetKeyCount(string KeyId)
+    {
+        return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
     }
 
-    public bool HasKey(string KeyId) {
-        return _keys.Contains(KeyId);
-    }
-
-    public bool UseKey(string KeyId) {
-        return _keys.Remove(KeyId);
-    }
+   
+    
 }

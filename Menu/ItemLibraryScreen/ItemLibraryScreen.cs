@@ -18,17 +18,36 @@ public partial class ItemLibraryScreen : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GameManager.ItemLibraryScreen = this;
 		_descriptionContainer = GetNode<ItemInfoContainer>("%ItemInfoContainer");
 		_RarityTabContainer = GetNode<TabContainer>("%TabContainer");
 		
 		LoadItems();
+		FocusEntered += Focus;
+		_RarityTabContainer.TabChanged += TabChanged;
 	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("pause") && GameManager.CurrentScreen == this)
+		{
+			CloseRequested?.Invoke();
+		}
+		
 	
+	}
+
 	public void LoadItems()
 	{
 		var items = ItemLibrary.Instance.ItemsByRarity.ToDictionary(x => x.Key, x => x.Value);
 		
 		items = items.OrderBy(x => x.Key.Value).ToDictionary( x => x.Key, x => x.Value);
+		
+		foreach (var tab in _RarityTabContainer.GetChildren())
+		{
+			tab.QueueFree();
+			tab.Name += "old";
+		}
 		
 		foreach (var Rarity in items.Keys)
 		{
@@ -54,7 +73,7 @@ public partial class ItemLibraryScreen : Control
 			}
 		}
 		
-		_RarityTabContainer.TabChanged += TabChanged;
+		
 	}
 	
 	public void JumpToItem(AbstractItem item)
@@ -79,6 +98,7 @@ public partial class ItemLibraryScreen : Control
 		CloseRequested?.Invoke();
 	}
 
+	
 
 	public void Focus()
 	{

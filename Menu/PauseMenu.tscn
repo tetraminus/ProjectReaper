@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 script = ExtResource("1_mgx64")
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu"]
@@ -27,26 +28,47 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.34902)
 
-[node name="CenterContainer" type="CenterContainer" parent="PauseMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "ui_paused"
 label_settings = SubResource("LabelSettings_o68d2")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 71
+theme_override_font_sizes/font_size = 76
+text = "ui_resume"
+
+[node name="LibraryButton" type="Button" parent="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
+text = "ui_library"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
 text = "ui_quit_to_menu"
 
-[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/Button" to="PauseMenu" method="OnQuitButtonPressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/ResumeButton" to="PauseMenu" method="OnResumeButtonPressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/LibraryButton" to="PauseMenu" method="OnLibraryButtonPressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/QuitButton" to="PauseMenu" method="OnQuitButtonPressed"]

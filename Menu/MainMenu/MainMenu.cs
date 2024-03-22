@@ -14,14 +14,9 @@ public partial class MainMenu : Control
 	
 	public override void _Ready()
 	{
-		var library = libScene.Instantiate<ItemLibraryScreen>();
-		AddChild(library);
-		_itemLibraryScreen = library;
-		_itemLibraryScreen.Hide();
-		_itemLibraryScreen.CloseRequested += HideItemLibrary;
-		
 		_menuScreen = GetNode<Control>("MenuScreen");
 		
+		FocusEntered += Focus;
 		
 		
 	}
@@ -38,7 +33,7 @@ public partial class MainMenu : Control
 	
 	public void OnLibraryButtonPressed()
 	{
-		ShowItemLibrary();
+		GameManager.GoToLibrary();
 	}
 	
 	public void OnQuitButtonPressed()
@@ -46,19 +41,6 @@ public partial class MainMenu : Control
 		GetTree().Quit();
 	}
 	
-	public void ShowItemLibrary()
-	{
-		_itemLibraryScreen.Show();
-		_itemLibraryScreen.Focus();
-		_menuScreen.Hide();
-	}
-	
-	public void HideItemLibrary()
-	{
-		_itemLibraryScreen.Hide();
-		_menuScreen.Show();
-		Focus();
-	}
 
 	public void Focus()
 	{
