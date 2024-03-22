@@ -2,11 +2,12 @@ using Godot;
 using Godot.Collections;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
+using Key = ProjectReaper.Objects.Key.Key;
 
 namespace ProjectReaper;
-
 public partial class Level : Node2D
 {
+    private PackedScene KeyScn = GD.Load<PackedScene>("res://Objects/Key/Key.tscn");
     private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/SnowPlant/Snowpeabert.tscn");
     private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
     private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
@@ -14,6 +15,8 @@ public partial class Level : Node2D
     private const float _minSpawnDistance = 500;
     private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
     [Export] public bool DisableSpawning { get; set; }
+    [Export] public bool DropKeys;
+    [Export] public float KeyDropChance = 1f;
 
     [Export] public int BoundsLeft { get; set; }
     [Export] public int BoundsRight { get; set; }
@@ -33,9 +36,9 @@ public partial class Level : Node2D
 
         var spawnset = new Spawnset();
 
-        //spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
-        //spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
-        spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 10));
+        spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
+        spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
+        //spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 10));
 
         // PhantomCamera.Set("limit/left", BoundsLeft);
         // PhantomCamera.Set("limit/right", BoundsRight);
@@ -53,6 +56,25 @@ public partial class Level : Node2D
         
         foreach (var spawnRect in SpawnRects.GetChildren()) {
             _spawnRectWeights.Add((SpawnRect)spawnRect, ((SpawnRect)spawnRect).GetArea() / _totalSpawnArea);
+        }
+        
+        Callbacks.Instance.CreatureDied += OnEnemyDeath;
+        
+    }
+
+    public override void _ExitTree()
+    {
+        Callbacks.Instance.CreatureDied -= OnEnemyDeath;
+        base._ExitTree();
+    }
+
+    public void OnEnemyDeath(AbstractCreature creature)
+    {
+        if (GameManager.RollBool(KeyDropChance,1, GameManager.LootRng) && DropKeys)
+        {
+            var key = KeyScn.Instantiate<Key>();
+            key.GlobalPosition = creature.GlobalPosition;
+            CallDeferred(Node.MethodName.AddChild, key);
         }
         
     }
