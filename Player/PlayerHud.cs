@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Globalization;
 using Godot;
 using ProjectReaper.Globals;
@@ -11,8 +12,9 @@ public partial class PlayerHud : Control
     public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
     
     public ItemHudPopup InfoHudPopup;
-    public Label FPS ;
+    public Label FPS;
     public Label Difficulty ;
+    public VBoxContainer KeyInventory;
     
     private const int Numberofdeathquotes = 19;
     [Signal]
@@ -32,6 +34,8 @@ public partial class PlayerHud : Control
         FPS = GetNode<Label>("FPS");
         Difficulty = GetNode<Label>("Difficulty");
         GetNode<RichTextLabel>("DeathQuote").Hide();
+        
+        KeyInventory = GetNode<VBoxContainer>("%KeyInventory");
     }
     
     public void ShowDeathQuote()
@@ -50,6 +54,25 @@ public partial class PlayerHud : Control
         {
             tween.Play();
         };
+        
+    }
+    
+    public void UpdateKeyInventory(Dictionary<string,int> inventory)
+    {
+       
+        foreach (var child in KeyInventory.GetChildren())
+        {
+            child.QueueFree();
+        }
+        
+        foreach (var key in inventory)
+        {
+            var keyDisplay = new Label();
+            keyDisplay.AutoTranslate = false;
+            keyDisplay.Text = $"{Tr(key.Key)}: {key.Value}";
+            
+            KeyInventory.AddChild(keyDisplay);
+        }
         
     }
     
