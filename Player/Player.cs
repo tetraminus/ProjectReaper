@@ -67,6 +67,8 @@ public partial class Player : AbstractCreature
     public override void OnDeath()
     {
         Dead = true;
+        Velocity = Vector2.Zero;
+        MoveDirection = Vector2.Zero;
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.PlayerDeath);
         GameManager.GameOver();
@@ -196,6 +198,7 @@ public partial class Player : AbstractCreature
         {
             _inventory.Add(KeyId, num);
         }
+        GameManager.PlayerHud.UpdateKeyInventory(_inventory);
         
         
     }
@@ -216,9 +219,11 @@ public partial class Player : AbstractCreature
                 {
                     _inventory.Remove(KeyId);
                 }
+                GameManager.PlayerHud.UpdateKeyInventory(_inventory);
                 return true;
             }
         }
+        
         return false;
     }
     
