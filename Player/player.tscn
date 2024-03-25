@@ -75,10 +75,9 @@ texture = ExtResource("3_vje4l")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_xbyij")
 
-[node name="AbilityManager" type="Node" parent="Player" node_paths=PackedStringArray("Ability1", "Ability3", "Creature")]
+[node name="AbilityManager" type="Node" parent="Player" node_paths=PackedStringArray("Abilities", "Creature")]
 script = ExtResource("3_u00fe")
-Ability1 = NodePath("SoldierShoot")
-Ability3 = NodePath("SoldierRoll")
+Abilities = [NodePath("SoldierShoot"), null, NodePath("SoldierRoll"), null]
 Creature = NodePath("..")
 
 [node name="SoldierShoot" type="Node" parent="Player/AbilityManager"]

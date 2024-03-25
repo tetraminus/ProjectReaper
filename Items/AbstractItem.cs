@@ -8,9 +8,6 @@ namespace ProjectReaper.Items;
 
 public abstract partial class AbstractItem : Node2D
 {
-    
-    
-    
     public static PackedScene ItemPickupScene = GD.Load<PackedScene>("res://Items/ItemPickup.tscn");
     public static PackedScene ItemDropEffectScene = GD.Load<PackedScene>("res://Vfx/ItemDropEffect.tscn");
     public delegate int StackChangeEventHandler(AbstractItem item, int stacks);

@@ -29,10 +29,9 @@ public partial class BasicBullet : AbstractDamageArea
         return Transform.X.Normalized();
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        //move towards local x
-        base._Process(delta);
+        base._PhysicsProcess(delta);
         Translate(Transform.X * Speed * (float)delta);
     }
 }

@@ -13,7 +13,7 @@ public partial class ScreenFader : ColorRect
 	public void FadeOut(float duration)
 	{
 		var tween = GetTree().CreateTween();
-		tween.TweenProperty(this, "color", new Color(0, 0, 0, 1), duration);
+		tween.TweenProperty(this, CanvasItem.PropertyName.Modulate.ToString(), new Color(1, 1, 1, 1), duration);
 		tween.SetPauseMode(Tween.TweenPauseMode.Process);
 		tween.Finished += () => { EmitSignal(SignalName.FadeOutComplete); };
 	}
@@ -21,7 +21,7 @@ public partial class ScreenFader : ColorRect
 	public void FadeIn(float duration)
 	{
 		var tween = GetTree().CreateTween();
-		tween.TweenProperty(this, "color", new Color(0, 0, 0, 0), duration);
+		tween.TweenProperty(this, CanvasItem.PropertyName.Modulate.ToString(), new Color(1, 1, 1, 0), duration);
 		tween.SetPauseMode(Tween.TweenPauseMode.Process);
 		tween.Finished += () => { EmitSignal(SignalName.FadeInComplete); };
 	}

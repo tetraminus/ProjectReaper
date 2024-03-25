@@ -43,6 +43,8 @@ public partial class Goober : AbstractCreature
         Callable.From(ActorSetup).CallDeferred();
 
         Callbacks.Instance.EnemyRenav += Renav;
+        
+        
 
     }
 
@@ -54,7 +56,8 @@ public partial class Goober : AbstractCreature
 
     private void Renav(Vector2 position, int group)
     {
-        if (group != navGroup) return;
+        if (group != NavGroup) return;
+        
         MovementTarget = position;
     }
 

@@ -9,9 +9,7 @@ namespace ProjectReaper.Globals;
 public partial class LootDirector : Node
 {
     public static LootDirector Instance { get; private set; }
-    private static PackedScene _chest = GD.Load<PackedScene>("res://Interactables/Chest.tscn");
-    
-    
+    private static PackedScene _chest = GD.Load<PackedScene>("res://Objects/Interactables/Chest.tscn");
 
     public override void _Ready()
     {
