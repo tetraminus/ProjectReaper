@@ -61,8 +61,11 @@ public partial class Snowpeabert : AbstractCreature
     {
         _stateChart = StateChart.Of(GetNode("StateChart"));
         _stateChart.SendEvent("Burrow");
-        Stats.Init();
-        Stats.Health = 20;
+
+        base._Ready();
+        Stats.MaxHealth = 20;
+        Stats.Health = Stats.MaxHealth;
+        Stats.Speed = 80;
         _particles = GetNode<GpuParticles2D>("BurrowParticles");
 
         Sprite = FindChild("Snowboy") as AnimatedSprite2D;
@@ -99,7 +102,28 @@ public partial class Snowpeabert : AbstractCreature
         _shootstartangle += (GD.Randf() > 0.5f ? ShootSweepAngle : -ShootSweepAngle) / 2;
         _shootangle = _shootstartangle;
     }
+    public void ChasePlayer(double delta)
+    {
+        var player = GameManager.Player;
+        if (player.Dead) return;
 
+        float distanceToPlayer = player.GlobalPosition.DistanceTo(GlobalPosition);
+
+        if (distanceToPlayer > TargetChaseDistance + 50)
+        {
+            MoveDirection = (player.GlobalPosition - GlobalPosition).Normalized();
+        }
+        else if (distanceToPlayer < TargetChaseDistance)
+        {
+            MoveDirection = (GlobalPosition - player.GlobalPosition).Normalized();
+        }
+        else
+        {
+            MoveDirection = Vector2.Zero;
+        }
+
+        Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
+    }
     public void ShootingStateProcess(float delta)
     {
         // shoot bullets from one side to the other every 0.2 seconds
@@ -182,6 +206,8 @@ public partial class Snowpeabert : AbstractCreature
         Sprite.FlipH = MoveDirection.X > 0;
     }
 
+
+
     public void EnterShoot()
     {
         if (GameManager.Player.Dead) return;
@@ -196,26 +222,5 @@ public partial class Snowpeabert : AbstractCreature
     
     
     
-    public void ChasePlayer(double delta)
-    {
-        var player = GameManager.Player;
-        if (player.Dead) return;
 
-        float distanceToPlayer = player.GlobalPosition.DistanceTo(GlobalPosition);
-
-        if (distanceToPlayer > TargetChaseDistance + 50)
-        {
-            MoveDirection = (player.GlobalPosition - GlobalPosition).Normalized();
-        }
-        else if (distanceToPlayer < TargetChaseDistance)
-        {
-            MoveDirection = (GlobalPosition - player.GlobalPosition).Normalized();
-        }
-        else
-        {
-            MoveDirection = Vector2.Zero;
-        }
-
-        Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
-    }
 }

@@ -247,3 +247,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func Onunburrowtree_exited():
 	pass # Replace with function body.
+
+
+func Onmove_towards_playerstate_exited():
+	pass # Replace with function body.

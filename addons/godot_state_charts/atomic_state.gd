@@ -26,3 +26,11 @@ func _get_configuration_warnings() -> PackedStringArray :
 
 
 	
+
+
+func Onfar_enoughchild_entered_tree(node):
+	pass # Replace with function body.
+
+
+func Onback_to_movingchild_entered_tree(node):
+	pass # Replace with function body.
