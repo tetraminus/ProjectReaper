@@ -103,7 +103,7 @@ _data = {
 }
 
 [node name="PlayerHudLayer" type="CanvasLayer"]
-layer = 2
+layer = 4
 
 [node name="PlayerHud" type="Control" parent="."]
 layout_mode = 3
@@ -206,6 +206,11 @@ offset_right = 20.0
 offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
+theme_override_font_sizes/italics_font_size = 80
+theme_override_font_sizes/bold_italics_font_size = 80
+theme_override_font_sizes/mono_font_size = 80
 bbcode_enabled = true
 text = "[color=red]YOU DIED[/color]"
 fit_content = true

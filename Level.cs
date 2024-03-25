@@ -72,8 +72,9 @@ public partial class Level : Node2D
 
         for (int i = 0; i < SpawnDirector.MaxNavGroups; i++)
         {
+           // GD.Print("Renaving " + i);
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav, i);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GameManager.Player.GlobalPosition, i);
 
         }
     }

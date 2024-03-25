@@ -6,7 +6,7 @@
 font_size = 100
 
 [node name="PauseMenuLayer" type="CanvasLayer"]
-layer = 4
+layer = 7
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
@@ -67,7 +67,7 @@ text = "ui_library"
 [node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 76
-text = "ui_quit_to_menu"
+text = "ui_quit"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/ResumeButton" to="PauseMenu" method="OnResumeButtonPressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/LibraryButton" to="PauseMenu" method="OnLibraryButtonPressed"]

@@ -14,7 +14,7 @@ public partial class Player : AbstractCreature
     [Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
     public Vector2 MoveDirection { get; set; }
     public Vector2 LastNavPos { get; private set; }
-    public int NavGroup { get; set; } = 1;
+    public int CurrentNavGroup { get; set; } = 1;
     private Dictionary<string, int> _inventory = new();
     
     private bool _controllerMode = false;
@@ -131,9 +131,10 @@ public partial class Player : AbstractCreature
         if ( (LastNavPos - GlobalPosition).Length() > 5)
         {
             LastNavPos = GlobalPosition;
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav, this);
-            NavGroup++;
-            NavGroup %= SpawnDirector.MaxNavGroups;
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GlobalPosition, CurrentNavGroup);
+            //GD.Print("Renaving " + NavGroup);
+            CurrentNavGroup++;
+            CurrentNavGroup %= SpawnDirector.MaxNavGroups;
         }
     }
 

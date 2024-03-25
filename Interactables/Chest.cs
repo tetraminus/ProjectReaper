@@ -1,6 +1,7 @@
 ﻿using Godot;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
+using Key = ProjectReaper.Objects.Key.Key;
 
 namespace ProjectReaper.Interactables;
 
@@ -29,10 +30,11 @@ public partial class Chest : Node2D, IInteractable
             _opened = true;
             _item.Drop(GlobalPosition);
             AnimatedSprite2D.Play("open");
+            GameManager.Player.UseKey(Key.BasicKeyId);
         }
     }
 
     public bool CanInteract() {
-        return !_opened;
+        return !_opened && GameManager.Player.HasKey(Key.BasicKeyId);
     }
 }

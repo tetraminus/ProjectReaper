@@ -64,12 +64,16 @@ public partial class PlayerHud : Control
         {
             child.QueueFree();
         }
-        
+
+        var KeyDisplaySettings = new LabelSettings();
+        KeyDisplaySettings.FontSize = 20;
         foreach (var key in inventory)
         {
             var keyDisplay = new Label();
             keyDisplay.AutoTranslate = false;
             keyDisplay.Text = $"{Tr(key.Key)}: {key.Value}";
+            keyDisplay.LabelSettings = KeyDisplaySettings;
+            
             
             KeyInventory.AddChild(keyDisplay);
         }
