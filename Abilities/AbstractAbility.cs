@@ -12,6 +12,7 @@ public abstract partial class AbstractAbility : Node
 
     public int Charges { get; set; } = 1;
     public AbstractCreature Creature { get; set; }
+    public bool AttackSpeedEffectsCooldown = false;
 
     public override void _Ready()
     {
@@ -40,8 +41,14 @@ public abstract partial class AbstractAbility : Node
 
     public void StartCooldown()
     {
-        _timer.Start(Cooldown);
+        var cd = Cooldown;
+        if (AttackSpeedEffectsCooldown)
+        {
+            cd /= Creature.Stats.AttackSpeed;
+        }
+        _timer.Start(cd);
         _isOnCooldown = true;
+        
     }
 
     public bool CheckCooldown()

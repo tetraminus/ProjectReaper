@@ -9,8 +9,8 @@ public partial class ItemDisplay : Control
 {
     public AbstractItem Item { get; set; }
     
-    private TextureRect Icon => GetNode<TextureRect>("Icon");
-    private Label Stacks => GetNode<Label>("Icon/Stacks");
+    private TextureRect Icon => GetNode<TextureRect>("%Icon");
+    private Label Stacks => GetNode<Label>("%Icon/Stacks");
     private bool focusable = false;
     
     [Export] public StyleBox FocusStyle { get; set; }

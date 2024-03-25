@@ -30,7 +30,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public HitBoxState HitState { get; set; } = HitBoxState.Normal;
     
-    protected int navGroup;
+    public int NavGroup;
 
 
     public override void _Ready()
@@ -42,7 +42,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
             Name = "Items"
         };
         AddChild(Items);
-        navGroup = SpawnDirector.Instance.GetNavGroup();
+        
     }
 
     public virtual void OnHit()

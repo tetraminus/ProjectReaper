@@ -11,7 +11,7 @@ public partial class DreamCar : AbstractItem
     public override void OnInitalPickup()
     {
         base.OnInitalPickup();
-        var originalCooldown = GameManager.Player.GetAbility(3).Cooldown;
+        var originalCooldown = GameManager.Player.GetAbility(2).Cooldown;
         currentReduction = originalCooldown * CooldownReduction * Stacks;
         GameManager.Player.GetAbility(3).Cooldown -= currentReduction;
     }

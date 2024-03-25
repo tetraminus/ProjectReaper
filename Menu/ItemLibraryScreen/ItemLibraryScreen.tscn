@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Menu/ItemLibraryScreen/ItemInfoContainer.cs" id="3_un7lj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80ls6"]
-bg_color = Color(0, 0, 0, 0.447059)
+bg_color = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2mlqg"]
 font_size = 64

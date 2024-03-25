@@ -25,7 +25,7 @@ public partial class Leechbert : AbstractCreature
         base._Ready();
         Stats.Speed = 80;
         
-        Stats.MaxHealth = 10;
+        Stats.MaxHealth = 500;
         Stats.Health = Stats.MaxHealth;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");
