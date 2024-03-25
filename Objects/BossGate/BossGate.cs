@@ -13,7 +13,7 @@ public partial class BossGate : StaticBody2D, IInteractable
 {
     
     private PackedScene _portalScene = GD.Load<PackedScene>("res://Objects/Portal/Portal.tscn");
-    
+    private PackedScene _bossChestScene = GD.Load<PackedScene>("res://Objects/Interactables/BossChest/BossChest.tscn");
     [Export] private Node2D _spawnPoint;
     [Export] private Node2D _bossSpawnPoint;
     [Export] private Node2D _portalSpawnPoint;
@@ -39,7 +39,12 @@ public partial class BossGate : StaticBody2D, IInteractable
         _phantomCamera.Set("priority", 0);
         var portal = _portalScene.Instantiate<Portal>();
         portal.GlobalPosition = _portalSpawnPoint.GlobalPosition;
+        
+        var bossChest = _bossChestScene.Instantiate<BossChest>();
+        bossChest.GlobalPosition = _bossSpawnPoint.GlobalPosition;
+        
         GameManager.Level.CallDeferred(Node.MethodName.AddChild, portal);
+        GameManager.Level.CallDeferred(Node.MethodName.AddChild, bossChest);
 
     }
 
@@ -77,5 +82,10 @@ public partial class BossGate : StaticBody2D, IInteractable
     public bool CanInteract()
     {
         return _canInteract;
+    }
+    
+    public string GetPrompt(bool Interactable = false)
+    {
+        return "ui_boss_gate";
     }
 }

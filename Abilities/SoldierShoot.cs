@@ -7,6 +7,12 @@ namespace ProjectReaper.Abilities;
 
 public partial class SoldierShoot : AbstractAbility
 {
+    public override void _Ready()
+    {
+        base._Ready();
+        AttackSpeedEffectsCooldown = true;
+    }
+
     private static PackedScene BulletScene { get; } =
         GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
 
@@ -19,7 +25,6 @@ public partial class SoldierShoot : AbstractAbility
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
         var src = GameManager.Player;
         bullet.Init(src, src.Team, src.GlobalPosition,src.AimDirection());
-        
         GetTree().Root.AddChild(bullet);
         
     }

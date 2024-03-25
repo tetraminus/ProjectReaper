@@ -122,10 +122,10 @@ public partial class Player : AbstractCreature
         
         
         
-        if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
-        // if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility2();
-        if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility3();
-        // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
+        if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility(0);
+        // if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility(1);
+        if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility(2);
+        // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
         
         
         if ( (LastNavPos - GlobalPosition).Length() > 5)
@@ -174,19 +174,7 @@ public partial class Player : AbstractCreature
 
     public AbstractAbility GetAbility(int slot)
     {
-        switch (slot)
-        {
-            case 1:
-                return _abilityManager.Ability1;
-            case 2:
-                return _abilityManager.Ability2;
-            case 3:
-                return _abilityManager.Ability3;
-            case 4:
-                return _abilityManager.Ability4;
-            default:
-                return null;
-        }
+        return _abilityManager.GetAbility(slot);
         
     }
 

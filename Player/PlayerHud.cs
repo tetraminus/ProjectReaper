@@ -25,7 +25,7 @@ public partial class PlayerHud : Control
         GameManager.PlayerHud = this;
 
         InfoHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
-        AddChild(InfoHudPopup);
+        GetNode<CanvasLayer>("%OverFilterLayer").AddChild(InfoHudPopup);
         
         InfoHudPopup.Visible = false;
         
@@ -66,7 +66,7 @@ public partial class PlayerHud : Control
         }
 
         var KeyDisplaySettings = new LabelSettings();
-        KeyDisplaySettings.FontSize = 20;
+        KeyDisplaySettings.FontSize = 70;
         foreach (var key in inventory)
         {
             var keyDisplay = new Label();

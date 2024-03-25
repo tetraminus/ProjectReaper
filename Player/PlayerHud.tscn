@@ -336,3 +336,7 @@ offset_right = 395.72
 offset_bottom = 1.47996
 theme_override_constants/separation = 40
 alignment = 2
+
+[node name="OverFilterLayer" type="CanvasLayer" parent="PlayerHud"]
+unique_name_in_owner = true
+layer = 5

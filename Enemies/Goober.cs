@@ -56,7 +56,6 @@ public partial class Goober : AbstractCreature
 
     private void Renav(Vector2 position, int group)
     {
-        GD.Print("Renav: " +  group);
         if (group != NavGroup) return;
         
         MovementTarget = position;

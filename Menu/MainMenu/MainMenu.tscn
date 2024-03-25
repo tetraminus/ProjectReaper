@@ -25,6 +25,7 @@ layer = 0
 
 [node name="VortexEffect" type="Node2D" parent="MainMenu/items"]
 unique_name_in_owner = true
+visible = false
 show_behind_parent = true
 script = ExtResource("2_uuh4p")
 

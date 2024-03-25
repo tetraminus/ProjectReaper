@@ -15,8 +15,8 @@ public partial class Level : Node2D
     private const float _minSpawnDistance = 500;
     private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
     [Export] public bool DisableSpawning { get; set; }
-    [Export] public bool DropKeys;
-    [Export] public float KeyDropChance = 1f;
+    [Export] public bool DropKeys = true;
+    [Export] public float KeyDropChance = 0.1f;
 
     [Export] public int BoundsLeft { get; set; }
     [Export] public int BoundsRight { get; set; }

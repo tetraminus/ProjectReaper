@@ -1,4 +1,5 @@
 ﻿using Godot;
+using Godot.Collections;
 using ProjectReaper.Globals;
 using ProjectReaper.Items;
 using Key = ProjectReaper.Objects.Key.Key;
@@ -10,15 +11,19 @@ public partial class Chest : Node2D, IInteractable
     
     private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("HighlightComponent/Sprite");
     private bool _opened;
-    private AbstractItem _item;
+    private Array<AbstractItem> _items = new Array<AbstractItem>();
     private ShaderMaterial _shaderMaterial;
+    private const int Items = 1;
     
     
     
     public override void _Ready()
     {
      
-        _item = ItemLibrary.Instance.RollItem();
+        for (var i = 0; i < Items; i++)
+        {
+            _items.Add(ItemLibrary.Instance.RollItem());
+        }
         _opened = false;
         _shaderMaterial = AnimatedSprite2D.Material as ShaderMaterial;
     }
@@ -28,13 +33,23 @@ public partial class Chest : Node2D, IInteractable
         if (!_opened)
         {
             _opened = true;
-            _item.Drop(GlobalPosition);
+            foreach (var item in _items)
+            {
+                item.Drop(GlobalPosition);
+            }
             AnimatedSprite2D.Play("open");
             GameManager.Player.UseKey(Key.BasicKeyId);
         }
     }
+    
+    
 
     public bool CanInteract() {
         return !_opened && GameManager.Player.HasKey(Key.BasicKeyId);
+    }
+
+    public string GetPrompt(bool Interactable = false)
+    {
+        return Interactable ? "ui_open_chest" : "ui_locked_chest" + 1;
     }
 }

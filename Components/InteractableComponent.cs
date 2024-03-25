@@ -6,7 +6,8 @@ namespace ProjectReaper.Interactables
     public partial class InteractableComponent : Node2D
     {
         private Area2D Area2D => GetNode<Area2D>("Area2D");
-        private TextureRect TextureRect => GetNode<TextureRect>("PromptPivot/Prompt");
+        private TextureRect TextureRect => GetNode<TextureRect>("%ButtonPrompt");
+        private Label Prompt => GetNode<Label>("%PromptText");
         private Node2D PromptPivot => GetNode<Node2D>("PromptPivot");
         private bool _playerInRadius;
         
@@ -71,13 +72,24 @@ namespace ProjectReaper.Interactables
 
         public override void _Process(double delta)
         {
-            
+            if (_playerInRadius)
+            {
+                Prompt.Text = _interactable.GetPrompt(_interactable.CanInteract());
+                Prompt.Show();
+            }
+            else
+            {
+                Prompt.Hide();
+            }
+                
             if (_playerInRadius  && _interactable.CanInteract())
             {
                 if (_highlightComponent != null && !_highlightComponent.IsOn())
                 {
                     _highlightComponent.Enable();
                     TextureRect.Show();
+                    
+                    
                 }
                 
                 if (Input.IsActionJustPressed("interact"))
@@ -104,4 +116,5 @@ public interface IInteractable
 {
     void Interact();
     bool CanInteract();
+    string GetPrompt(bool Interactable = false);
 }

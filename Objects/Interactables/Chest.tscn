@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b61rpybhhqd0g"]
 
 [ext_resource type="Texture2D" uid="uid://d0b8mgtq8ymru" path="res://Assets/objects/chest.png" id="1_jc56y"]
-[ext_resource type="Script" path="res://Interactables/Chest.cs" id="1_muj4k"]
+[ext_resource type="Script" path="res://Objects/Interactables/Chest.cs" id="1_muj4k"]
 [ext_resource type="PackedScene" uid="uid://d15m3s7c27m4g" path="res://Components/HighlightComponent.tscn" id="3_2max1"]
 [ext_resource type="Shader" path="res://Shaders/Highlight.gdshader" id="4_wxg13"]
 [ext_resource type="PackedScene" uid="uid://djs4w12bsfxbc" path="res://Components/InteractableComponent.tscn" id="5_t7h25"]
