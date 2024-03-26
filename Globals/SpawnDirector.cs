@@ -174,6 +174,8 @@ public partial class SpawnDirector : Node
         }
         
         enemyInstance.AddToGroup("spawnedenemies");
+        enemyInstance.NavGroup = GetNavGroup();
+        GD.Print("Spawning enemy with navgroup " + enemyInstance.NavGroup);
         
         enemyInstance.GlobalPosition = position;
     }

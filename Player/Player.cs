@@ -9,16 +9,16 @@ namespace ProjectReaper.Player;
 
 public partial class Player : AbstractCreature
 {
-	
-	private const float Accelfac = 20.0f;
-	[Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
-	public Vector2 MoveDirection { get; set; }
-	public Vector2 LastNavPos { get; private set; }
-	public int NavGroup { get; set; } = 1;
-	private Dictionary<string, int> _inventory = new();
-	
-	private bool _controllerMode = false;
-	private float _lastAim = 0;
+    
+    private const float Accelfac = 20.0f;
+    [Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
+    public Vector2 MoveDirection { get; set; }
+    public Vector2 LastNavPos { get; private set; }
+    public int CurrentNavGroup { get; set; } = 1;
+    private Dictionary<string, int> _inventory = new();
+    
+    private bool _controllerMode = false;
+    private float _lastAim = 0;
 
 	public override void _Input(InputEvent @event)
 	{
@@ -106,36 +106,37 @@ public partial class Player : AbstractCreature
 	
 
 
-	public override void _Process(double delta)
-	{
-		
-		if (Dead) return;
-		
-		if (_controllerMode)
-		{
-			var inputDir = Input.GetVector("Aim_Left", "Aim_Right", "Aim_Up", "Aim_Down");
-			if (inputDir.Length() > 0.1)
-			{
-				_lastAim = inputDir.Angle();
-			}
-		}
-		
-		
-		
-		if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility1();
-		// if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility2();
-		if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility3();
-		// if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility4();
-		
-		
-		if ( (LastNavPos - GlobalPosition).Length() > 5)
-		{
-			LastNavPos = GlobalPosition;
-			Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav, this);
-			NavGroup++;
-			NavGroup %= SpawnDirector.MaxNavGroups;
-		}
-	}
+    public override void _Process(double delta)
+    {
+        
+        if (Dead) return;
+        
+        if (_controllerMode)
+        {
+            var inputDir = Input.GetVector("Aim_Left", "Aim_Right", "Aim_Up", "Aim_Down");
+            if (inputDir.Length() > 0.1)
+            {
+                _lastAim = inputDir.Angle();
+            }
+        }
+        
+        
+        
+        if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility(0);
+        // if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility(1);
+        if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility(2);
+        // if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
+        
+        
+        if ( (LastNavPos - GlobalPosition).Length() > 5)
+        {
+            LastNavPos = GlobalPosition;
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GlobalPosition, CurrentNavGroup);
+            //GD.Print("Renaving " + NavGroup);
+            CurrentNavGroup++;
+            CurrentNavGroup %= SpawnDirector.MaxNavGroups;
+        }
+    }
 
 
 	public override void _PhysicsProcess(double delta)
@@ -171,66 +172,54 @@ public partial class Player : AbstractCreature
 	}
 
 
-	public AbstractAbility GetAbility(int slot)
-	{
-		switch (slot)
-		{
-			case 1:
-				return _abilityManager.Ability1;
-			case 2:
-				return _abilityManager.Ability2;
-			case 3:
-				return _abilityManager.Ability3;
-			case 4:
-				return _abilityManager.Ability4;
-			default:
-				return null;
-		}
-		
-	}
+   
+    public AbstractAbility GetAbility(AbilityManager.AbilitySlot slot)
+    {
+        return _abilityManager.GetAbility(slot);
+    }
 
-	public void AddKey(string KeyId, int num = 1) {
-		if (_inventory.ContainsKey(KeyId))
-		{
-			_inventory[KeyId] += num;
-		}
-		else
-		{
-			_inventory.Add(KeyId, num);
-		}
-		GameManager.PlayerHud.UpdateKeyInventory(_inventory);
-		
-		
-	}
-	
-	public bool HasKey(string KeyId)
-	{
-		return _inventory.ContainsKey(KeyId);
-	}
-	
-	public bool UseKey(string KeyId, int num = 1)
-	{
-		if (_inventory.ContainsKey(KeyId))
-		{
-			if (_inventory[KeyId] >= num)
-			{
-				_inventory[KeyId] -= num;
-				if (_inventory[KeyId] <= 0)
-				{
-					_inventory.Remove(KeyId);
-				}
-				GameManager.PlayerHud.UpdateKeyInventory(_inventory);
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public int GetKeyCount(string KeyId)
-	{
-		return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
-	}
+    public void AddKey(string KeyId, int num = 1) {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            _inventory[KeyId] += num;
+        }
+        else
+        {
+            _inventory.Add(KeyId, num);
+        }
+        GameManager.PlayerHud.UpdateKeyInventory(_inventory);
+        
+        
+    }
+    
+    public bool HasKey(string KeyId, int num = 1)
+    {
+        return _inventory.ContainsKey(KeyId) && _inventory[KeyId] >= num;
+    }
+    
+    public bool UseKey(string KeyId, int num = 1)
+    {
+        if (_inventory.ContainsKey(KeyId))
+        {
+            if (_inventory[KeyId] >= num)
+            {
+                _inventory[KeyId] -= num;
+                if (_inventory[KeyId] <= 0)
+                {
+                    _inventory.Remove(KeyId);
+                }
+                GameManager.PlayerHud.UpdateKeyInventory(_inventory);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public int GetKeyCount(string KeyId)
+    {
+        return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
+    }
 
    
 	

@@ -1,39 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=9 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
 [ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
+[ext_resource type="Script" path="res://Menu/MainMenu/Bg.cs" id="3_8d6ga"]
+[ext_resource type="Shader" path="res://Vfx/Vortex.gdshader" id="3_tb2og"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
+frequency = 0.0056
+domain_warp_amplitude = 13.285
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tpl5i"]
+seamless = true
+noise = SubResource("FastNoiseLite_0muwn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xm03u"]
+shader = ExtResource("3_tb2og")
+shader_parameter/resolution = Vector2(1920, 1080)
+shader_parameter/color_steps = 6.0
+shader_parameter/spiral_color = Color(1, 0, 0, 1)
+shader_parameter/frequency = 6.0
+shader_parameter/speed = 1.0
+shader_parameter/brightness = 1.0
+shader_parameter/balance = 0.0
+shader_parameter/octaves = 10.0
+shader_parameter/noise_scale = -0.15
+shader_parameter/noise = SubResource("NoiseTexture2D_tpl5i")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nwobf"]
 shader = ExtResource("2_f4j4b")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.4
-shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.3
-shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/scanlines_opacity = 0.303
+shader_parameter/scanlines_width = 0.13
+shader_parameter/grille_opacity = 0.058
+shader_parameter/resolution = Vector2(320, 240)
 shader_parameter/pixelate = false
 shader_parameter/roll = true
 shader_parameter/roll_speed = 4.0
 shader_parameter/roll_size = 8.548
 shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.005
-shader_parameter/noise_opacity = 0.012
+shader_parameter/distort_intensity = 0.001
+shader_parameter/noise_opacity = 0.018
 shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.00500005
-shader_parameter/brightness = 1.4
+shader_parameter/static_noise_intensity = 0.052
+shader_parameter/aberration = 4.75e-08
+shader_parameter/brightness = 1.0
 shader_parameter/discolor = false
-shader_parameter/warp_amount = 0.04
+shader_parameter/warp_amount = 0.0
 shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.1
-shader_parameter/vignette_opacity = 0.43
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.395
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1eygr")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 100
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -32
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect2" type="ColorRect" parent="BG"]
+process_mode = 3
+material = SubResource("ShaderMaterial_xm03u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_8d6ga")
+ColorSpeed = 0.02
+
+[node name="FGShader" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="ColorRect" type="ColorRect" parent="FGShader"]
 material = SubResource("ShaderMaterial_nwobf")
 anchors_preset = 15
 anchor_right = 1.0

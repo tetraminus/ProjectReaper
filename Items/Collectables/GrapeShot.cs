@@ -58,7 +58,9 @@ public partial class GrapeShot : AbstractItem
             bullet.Range = 200;
             var angle = GetHolder().AimDirection() + Mathf.DegToRad(_spreaddeg * i - _spreaddeg * (bullets - 1) / 2);
             bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
+            bullet.ProcCoef = 0.5f;
             GameManager.Level.AddChild(bullet);
+            
         }
     }
 }

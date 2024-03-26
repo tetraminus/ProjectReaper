@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Mono.Collections.Generic;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Util;
@@ -26,13 +27,13 @@ public abstract partial class AbstractDamageArea : Area2D
     public float Knockback { get; set; } = 0f;
     public bool DestroyOnHit { get; set; } = true;
     public bool DestroyOnWall { get; set; } = true;
+    public float ProcCoef { get; set; } = 1f;
     
     protected Vector2 startPosition;
 
     [Export] public bool overrideLayer = false;
-    
-    public List<ProjectileFlags> Flags = new();
-    
+   
+    Vector2 _lastPosition;
 
     public override void _Ready()
     {
@@ -54,8 +55,40 @@ public abstract partial class AbstractDamageArea : Area2D
             SetCollisionMaskValue(1, true);
         }
         
+        _lastPosition = GlobalPosition;
     }
-    
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        // continous collision check
+        if (Monitoring)
+        {
+            
+            var spaceState = GetWorld2D().DirectSpaceState;
+            var query = PhysicsRayQueryParameters2D.Create(_lastPosition, GlobalPosition, CollisionMask);
+            //GD.Print( GlobalPosition - _lastPosition + " " );
+            var result = spaceState.IntersectRay(query);
+            if (result.Count > 0) // if we hit something
+            {
+                GD.Print(result["collider"].As<Node>().GetType());
+                if (result["collider"].Obj is Area2D area)
+                {
+                    GD.Print("hit area");
+                    OnAreaEntered(area);
+                }
+                else if (result["collider"].Obj is PhysicsBody2D body)
+                {
+                    GD.Print("hit body");
+                    OnBodyEntered(body);
+                }
+                
+            }
+        }
+        _lastPosition = GlobalPosition;
+        
+    }
+
     public void Disable()
     {
         Monitoring = false;
@@ -81,6 +114,7 @@ public abstract partial class AbstractDamageArea : Area2D
         GlobalRotation = rotation;
         Source = source;
         Team = team;
+        _lastPosition = GlobalPosition;
     }
     
     public void Init(AbstractCreature source, AbstractCreature.Teams team, float rotation = 0f)
@@ -88,6 +122,7 @@ public abstract partial class AbstractDamageArea : Area2D
         GlobalRotation = rotation;
         Source = source;
         Team = team;
+        _lastPosition = GlobalPosition;
     }
     
     
@@ -157,7 +192,7 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public virtual void OnHitCreature(AbstractCreature creature)
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this, creature);
     }
     
     public virtual void OnHitWall()
@@ -173,9 +208,6 @@ public abstract partial class AbstractDamageArea : Area2D
         }
     }
 
-    public enum ProjectileFlags    
-    {
-        Proccable
-        
-    }
+    
+    
 }

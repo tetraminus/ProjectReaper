@@ -64,7 +64,7 @@ public partial class Slimebert : AbstractCreature
 
     private void Renav(Vector2 position, int group)
     {
-        if (group != navGroup) return;
+        if (group != NavGroup) return;
         MovementTarget = position;
     }
     

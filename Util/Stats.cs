@@ -77,7 +77,7 @@ public class Stats
         Defense = 0;
         Armor = 0;
         CritChance = 0.01f;
-        CritDamage = 2f;
+        CritDamage = 1.2f;
         AttackSpeed = 1f;
         AttackDamage = 10f;
         AttackKnockback = 0f;
@@ -94,8 +94,15 @@ public class Stats
         return stats;
     }
 
+    public static DamageReport CalculatedDamageReport(DamageReport report)
+    {
+        report.calculated = true;
+        report.Damage = CalculateDamage(report.Damage, report.Source, report.Target, report.SourceStats, report.TargetStats, report);
+        return report;
+    }
+
     public static float CalculateDamage(float damage, AbstractCreature source, AbstractCreature target,
-        Stats sourceStats, Stats targetStats)
+        Stats sourceStats, Stats targetStats, DamageReport report = null)
     {
         sourceStats ??= new Stats().Initalized();
         targetStats ??= new Stats().Initalized();
@@ -105,22 +112,34 @@ public class Stats
         var defense = targetStats.Defense;
         var armor = targetStats.Armor;
         var damageMultiplier = 1f;
-        var critMultiplier = 1f;
-        var defenseMultiplier = 1f;
-        var armorMultiplier = 1f;
+       
         var finalDamage = 0f;
 
-        if (crit > 0f)
+        var critMultiplier = 1f;
+        int critLevel = 0;
+        while (crit > 0f)
         {
             var roll = GD.Randf();
-            if (roll <= crit) critMultiplier = critDamage;
+            if (roll <= crit)
+            {
+                critMultiplier *= critDamage;
+                crit -= 1f;
+                critLevel++;
+            }
+            else
+            {
+                break;
+            }
         }
 
-        if (defense > 0f) defenseMultiplier = 1f - defense;
+        if (report != null)
+        {
+            report.critlv = critLevel;
+        }
+        
 
-        if (armor > 0f) armorMultiplier = 1f - armor;
-
-        damageMultiplier = critMultiplier * defenseMultiplier * armorMultiplier;
+     
+        damageMultiplier = critMultiplier;
         finalDamage = damage * damageMultiplier;
 
         return finalDamage;

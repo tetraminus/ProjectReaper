@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://djfmg6aam0o6u"]
+
+[ext_resource type="Script" path="res://Objects/Interactables/BossChest/BossChest.cs" id="1_6qd3y"]
+[ext_resource type="PackedScene" uid="uid://d15m3s7c27m4g" path="res://Components/HighlightComponent.tscn" id="3_2max1"]
+[ext_resource type="Texture2D" uid="uid://b0qaua0a4tp7y" path="res://Assets/objects/bossChest.png" id="4_1w3im"]
+[ext_resource type="Shader" path="res://Shaders/Highlight.gdshader" id="4_wxg13"]
+[ext_resource type="PackedScene" uid="uid://djs4w12bsfxbc" path="res://Components/InteractableComponent.tscn" id="5_t7h25"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ambn"]
+resource_local_to_scene = true
+shader = ExtResource("4_wxg13")
+shader_parameter/on = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwmtv"]
+atlas = ExtResource("4_1w3im")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2fcn"]
+atlas = ExtResource("4_1w3im")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8iv7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwmtv")
+}],
+"loop": true,
+"name": &"Closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2fcn")
+}],
+"loop": true,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi7l1"]
+radius = 41.0122
+
+[node name="Chest" type="Node2D"]
+script = ExtResource("1_6qd3y")
+
+[node name="HighlightComponent" parent="." instance=ExtResource("3_2max1")]
+material = SubResource("ShaderMaterial_7ambn")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="HighlightComponent"]
+texture_repeat = 2
+sprite_frames = SubResource("SpriteFrames_r8iv7")
+animation = &"Closed"
+autoplay = "Closed"
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("Interactable", "Highlight") instance=ExtResource("5_t7h25")]
+Interactable = NodePath("..")
+Highlight = NodePath("../HighlightComponent")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+shape = SubResource("CircleShape2D_hi7l1")

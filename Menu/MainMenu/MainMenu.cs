@@ -19,21 +19,28 @@ public partial class MainMenu : Control
 		FocusEntered += Focus;
 		
 		
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		
 	}
 	
 	public void OnStartButtonPressed()
 	{
-		GameManager.StartRun();
+		if (!GameManager.fadingOut)
+		{
+			GameManager.StartRun();
+		}
 	}
-	
+
 	public void OnLibraryButtonPressed()
 	{
-		GameManager.GoToLibrary();
+		if (!GameManager.fadingOut){
+			GameManager.GoToLibrary();
+		}
 	}
 	
 	public void OnQuitButtonPressed()

@@ -7,59 +7,47 @@ namespace ProjectReaper.Player;
 
 public partial class AbilityManager : Node
 {
-    [Export(PropertyHint.NodeType)] public AbstractAbility Ability1 { get; set; }
-    [Export(PropertyHint.NodeType)] public AbstractAbility Ability2 { get; set; }
-    [Export(PropertyHint.NodeType)] public AbstractAbility Ability3 { get; set; }
-    [Export(PropertyHint.NodeType)] public AbstractAbility Ability4 { get; set; }
+    [Export(PropertyHint.NodeType)] public AbstractAbility[] Abilities { get; set; } = new AbstractAbility[4];
     [Export] public Node2D Creature { get; set; }
 
     public override void _Ready()
     {
-        
-        Ability1?.SetCreature(Creature as AbstractCreature);
-        Ability2?.SetCreature(Creature as AbstractCreature);
-        Ability3?.SetCreature(Creature as AbstractCreature);
-        Ability4?.SetCreature(Creature as AbstractCreature);
-        
-    }
-
-    public void UseAbility1()
-    {
-        if (!Ability1.CheckCooldown())
+        foreach (var ability in Abilities)
         {
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability1, 1);
-            Ability1.Use();
-            Ability1.StartCooldown();
+            ability?.SetCreature(Creature as AbstractCreature);
         }
     }
 
-    public void UseAbility2()
+    public void UseAbility(int abilityIndex)
     {
-        if (!Ability2.CheckCooldown())
-        {
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability2, 2);
-            Ability2.Use();
-            Ability2.StartCooldown();
-        }
-    }
+        if (abilityIndex < 0 || abilityIndex >= Abilities.Length) return;
 
-    public void UseAbility3()
-    {
-        if (!Ability3.CheckCooldown())
+        var ability = Abilities[abilityIndex];
+        if (!ability.CheckCooldown())
         {
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability3, 3);
-            Ability3.Use();
-            Ability3.StartCooldown();
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, ability, abilityIndex + 1);
+            ability.Use();
+            ability.StartCooldown();
         }
     }
+    
+    
 
-    public void UseAbility4()
+    
+    
+    public AbstractAbility GetAbility(AbilitySlot slot)
     {
-        if (!Ability4.CheckCooldown())
-        {
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, Ability4, 4);
-            Ability4.Use();
-            Ability4.StartCooldown();
-        }
+        return Abilities[(int) slot];
     }
+    
+    
+    
+    public enum AbilitySlot
+    {
+        Main = 0,
+        Secondary = 1,
+        Utility = 2,
+        Special = 3
+    }
+   
 }

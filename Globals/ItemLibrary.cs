@@ -165,4 +165,15 @@ public partial class ItemLibrary : Node
     {
         
     }
+
+    /// <summary>
+    /// create a truly random item, currently only used for the vortex effect
+    /// </summary>
+    /// <returns></returns>
+    public AbstractItem RollTrulyRandomItem()
+    {
+        var items = AllItems.Values.ToList();
+        var roll = (int)(GD.Randi() % items.Count);
+        return items[roll];
+    }
 }

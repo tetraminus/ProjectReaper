@@ -16,18 +16,28 @@ script = ExtResource("1_3s62e")
 
 [node name="PromptPivot" type="Node2D" parent="."]
 
-[node name="Prompt" type="TextureRect" parent="PromptPivot"]
-custom_minimum_size = Vector2(32, 32)
+[node name="promptRoot" type="VBoxContainer" parent="PromptPivot"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -51.0
-offset_right = 16.0
-offset_bottom = -19.0
+offset_left = -31.0
+offset_top = -90.0
+offset_right = 31.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="PromptText" type="Label" parent="PromptPivot/promptRoot"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "prompt"
+
+[node name="ButtonPrompt" type="TextureRect" parent="PromptPivot/promptRoot"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 texture = SubResource("Texture2D_4ogh4")
 expand_mode = 1
+stretch_mode = 5

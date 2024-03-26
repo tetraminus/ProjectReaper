@@ -25,7 +25,7 @@ public partial class PlayerHud : Control
         GameManager.PlayerHud = this;
 
         InfoHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();
-        AddChild(InfoHudPopup);
+        GetNode<CanvasLayer>("%OverFilterLayer").AddChild(InfoHudPopup);
         
         InfoHudPopup.Visible = false;
         
@@ -64,12 +64,16 @@ public partial class PlayerHud : Control
         {
             child.QueueFree();
         }
-        
+
+        var KeyDisplaySettings = new LabelSettings();
+        KeyDisplaySettings.FontSize = 70;
         foreach (var key in inventory)
         {
             var keyDisplay = new Label();
             keyDisplay.AutoTranslate = false;
             keyDisplay.Text = $"{Tr(key.Key)}: {key.Value}";
+            keyDisplay.LabelSettings = KeyDisplaySettings;
+            
             
             KeyInventory.AddChild(keyDisplay);
         }

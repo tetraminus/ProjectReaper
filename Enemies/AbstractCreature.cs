@@ -30,7 +30,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public HitBoxState HitState { get; set; } = HitBoxState.Normal;
     
-    protected int navGroup;
+    public int NavGroup;
 
 
     public override void _Ready()
@@ -42,7 +42,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
             Name = "Items"
         };
         AddChild(Items);
-        navGroup = SpawnDirector.Instance.GetNavGroup();
+        
     }
 
     public virtual void OnHit()
@@ -223,12 +223,16 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
         var sourceStats = damageReport.SourceStats;
         var targetStats = damageReport.TargetStats;
 
-        var finalDamage = Stats.CalculateDamage(damage, source, target, sourceStats, targetStats);
+        var calculatedReport = Stats.CalculatedDamageReport(damageReport);
+        var finalDamage = calculatedReport.Damage;
+        
         
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDamaged, this, finalDamage);
 
         finalDamage = Callbacks.Instance.FinalDamageEvent?.Invoke(this, finalDamage) ?? finalDamage;
 
+        GameManager.SpawnDamageNumber(GlobalPosition, finalDamage);
+        
         Stats.Health -= finalDamage;
         if (Stats.Health <= 0)
             OnDeath();
