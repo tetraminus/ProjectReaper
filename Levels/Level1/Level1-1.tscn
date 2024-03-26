@@ -249,4 +249,4 @@ script = ExtResource("12_uerm4")
 [node name="ItemPickup" parent="." instance=ExtResource("11_v04i2")]
 position = Vector2(101, 95)
 RollItem = true
-OverrideItemId = "gravity_gauntlet"
+OverrideItemId = "microwave"

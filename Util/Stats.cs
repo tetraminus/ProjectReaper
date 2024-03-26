@@ -76,7 +76,7 @@ public class Stats
         Range = 100;
         Defense = 0;
         Armor = 0;
-        CritChance = 16.01f;
+        CritChance = 0.01f;
         CritDamage = 1.2f;
         AttackSpeed = 1f;
         AttackDamage = 10f;

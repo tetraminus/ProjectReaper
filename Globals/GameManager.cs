@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
 using ProjectReaper.Player;
@@ -53,6 +54,11 @@ public partial class GameManager : Node
         {
             return RollFloat(luck, rng) > 1 - chance;
         }
+    }
+    
+    public static bool RollProc(float chance, AbstractDamageArea damageArea , int luck = 1)
+    {
+        return RollBool(chance * damageArea.ProcCoef, luck);
     }
     
     public static float RollFloat( int luck = 1,  RandomNumberGenerator rng = null)
