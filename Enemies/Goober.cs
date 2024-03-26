@@ -42,9 +42,9 @@ public partial class Goober : AbstractCreature
 		// Make sure to not await during _Ready.
 		Callable.From(ActorSetup).CallDeferred();
 
-        Callbacks.Instance.EnemyRenav += Renav;
-        
-        
+		Callbacks.Instance.EnemyRenav += Renav;
+		
+		
 
 	}
 
@@ -54,12 +54,12 @@ public partial class Goober : AbstractCreature
 		base._ExitTree();
 	}
 
-    private void Renav(Vector2 position, int group)
-    {
-        if (group != NavGroup) return;
-        
-        MovementTarget = position;
-    }
+	private void Renav(Vector2 position, int group)
+	{
+		if (group != NavGroup) return;
+		
+		MovementTarget = position;
+	}
 
 	public override void _Process(double delta)
 	{

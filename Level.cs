@@ -7,16 +7,16 @@ using Key = ProjectReaper.Objects.Key.Key;
 namespace ProjectReaper;
 public partial class Level : Node2D
 {
-    private PackedScene KeyScn = GD.Load<PackedScene>("res://Objects/Key/Key.tscn");
-    private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/SnowPlant/Snowpeabert.tscn");
-    private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
-    private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
-    private float _totalSpawnArea;
-    private const float _minSpawnDistance = 500;
-    private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
-    [Export] public bool DisableSpawning { get; set; }
-    [Export] public bool DropKeys = true;
-    [Export] public float KeyDropChance = 0.1f;
+	private PackedScene KeyScn = GD.Load<PackedScene>("res://Objects/Key/Key.tscn");
+	private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/SnowPlant/Snowpeabert.tscn");
+	private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
+	private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
+	private float _totalSpawnArea;
+	private const float _minSpawnDistance = 500;
+	private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
+	[Export] public bool DisableSpawning { get; set; }
+	[Export] public bool DropKeys = true;
+	[Export] public float KeyDropChance = 0.1f;
 
 	[Export] public int BoundsLeft { get; set; }
 	[Export] public int BoundsRight { get; set; }
@@ -70,11 +70,11 @@ public partial class Level : Node2D
 	private async void OnRenavTimerTimeout()
 	{
 
-        for (int i = 0; i < SpawnDirector.MaxNavGroups; i++)
-        {
-           // GD.Print("Renaving " + i);
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GameManager.Player.GlobalPosition, i);
+		for (int i = 0; i < SpawnDirector.MaxNavGroups; i++)
+		{
+		   // GD.Print("Renaving " + i);
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GameManager.Player.GlobalPosition, i);
 
 		}
 	}
