@@ -167,6 +167,8 @@ public partial class PlayerHud : Control
                 itemDisplay.QueueFree();
             }
         }
+        UpdateKeyInventory(new Dictionary<string, int>());
+        
         GetNode<RichTextLabel>("DeathQuote").Hide();
     }
 }

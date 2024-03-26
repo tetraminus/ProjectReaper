@@ -222,6 +222,7 @@ public partial class GameManager : Node
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
         MainMenu.Hide();
+        MainMenu.HideBg();
         CurrentScreen = null;
         
         ScreenFader.FadeIn(1);
@@ -251,6 +252,7 @@ public partial class GameManager : Node
         
         MainMenu.Show();
         MainMenu.GrabFocus();
+        MainMenu.ShowBg();
         
         CurrentScreen = MainMenu;
 
