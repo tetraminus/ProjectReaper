@@ -24,6 +24,7 @@ public partial class GravityGauntlet : AbstractItem
     
     private void OnBulletHit(AbstractDamageArea bullet)
     {
+        GD.Print("Bullet hit");
         if (bullet.Source == GetHolder() && GameManager.RollBool(0.10f))
         {
 

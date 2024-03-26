@@ -9,6 +9,8 @@ namespace ProjectReaper.Globals;
 public partial class GameManager : Node
 {
     public static PackedScene ExplosionScene = ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
+    public static PackedScene DamageNumberScene = ResourceLoader.Load<PackedScene>("res://Util/DamageNumber.tscn");
+    
     public static PackedScene PlayerHudScene = ResourceLoader.Load<PackedScene>("res://Player/PlayerHud.tscn");
     public static PackedScene PauseMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/PauseMenu.tscn");
     public static PackedScene PlayerScene = ResourceLoader.Load<PackedScene>("res://Player/player.tscn");
@@ -161,6 +163,15 @@ public partial class GameManager : Node
         explosion.setDamage(damage);
         explosion.Source = creature ?? Player;
         Level.CallDeferred("add_child", explosion);
+    }
+    
+    public static void SpawnDamageNumber(Vector2 globalPosition, float damage)
+    {
+        var damageNumber = DamageNumberScene.Instantiate<DamageNumber>();
+        damageNumber.GlobalPosition = globalPosition;
+        Level.AddChild(damageNumber);
+        damageNumber.SetNumber(damage);
+        
     }
 
     public static void GameOver()

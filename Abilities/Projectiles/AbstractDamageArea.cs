@@ -192,7 +192,7 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public virtual void OnHitCreature(AbstractCreature creature)
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this, creature);
     }
     
     public virtual void OnHitWall()

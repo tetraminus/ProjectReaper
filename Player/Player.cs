@@ -192,9 +192,9 @@ public partial class Player : AbstractCreature
         
     }
     
-    public bool HasKey(string KeyId)
+    public bool HasKey(string KeyId, int num = 1)
     {
-        return _inventory.ContainsKey(KeyId);
+        return _inventory.ContainsKey(KeyId) && _inventory[KeyId] >= num;
     }
     
     public bool UseKey(string KeyId, int num = 1)

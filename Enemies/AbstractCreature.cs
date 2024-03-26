@@ -223,12 +223,16 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
         var sourceStats = damageReport.SourceStats;
         var targetStats = damageReport.TargetStats;
 
-        var finalDamage = Stats.CalculateDamage(damage, source, target, sourceStats, targetStats);
+        var calculatedReport = Stats.CalculatedDamageReport(damageReport);
+        var finalDamage = calculatedReport.Damage;
+        
         
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDamaged, this, finalDamage);
 
         finalDamage = Callbacks.Instance.FinalDamageEvent?.Invoke(this, finalDamage) ?? finalDamage;
 
+        GameManager.SpawnDamageNumber(GlobalPosition, finalDamage);
+        
         Stats.Health -= finalDamage;
         if (Stats.Health <= 0)
             OnDeath();
