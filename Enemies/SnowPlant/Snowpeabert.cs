@@ -31,8 +31,8 @@ public partial class Snowpeabert : AbstractCreature
     private bool _directSight = false;
     public Vector2 MovementTarget
     {
-        get { return _movementTargetPosition; }
-        set { _movementTargetPosition = value; }
+        get { return _navigationAgent.TargetPosition; }
+        set { _navigationAgent.TargetPosition = value; }
     }
 
     private void Burrow()
@@ -153,8 +153,6 @@ public partial class Snowpeabert : AbstractCreature
         {
             MoveDirection = Vector2.Zero;
             Velocity = Vector2.Zero;
-            
- 
 
         }
 
