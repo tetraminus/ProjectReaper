@@ -129,7 +129,7 @@ sprite_frames = SubResource("SpriteFrames_mcism")
 
 [node name="burrowTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 6.0
+wait_time = 3.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_gx4l1")
@@ -165,11 +165,12 @@ script = ExtResource("7_thue7")
 [node name="Unburrow" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
 script = ExtResource("8_wc7wd")
 to = NodePath("../../../Shooting")
+event = &"PlayerSeen"
 delay_seconds = 1.0
 
 [node name="FarEnough" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
 script = ExtResource("8_wc7wd")
-to = NodePath("../../MoveTowardsPlayer")
+to = NodePath("..")
 event = &"PlayerLost"
 
 [connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="OnShootingStateEntered"]

@@ -46,6 +46,7 @@ public partial class Snowpeabert : AbstractCreature
         // Debug line to check if HitState is being updated correctly
         GD.Print($"HitState after burrowing: {HitState}");
 
+
     }
 
     private void Unburrow()
@@ -93,6 +94,7 @@ public partial class Snowpeabert : AbstractCreature
     {
         if (group != NavGroup) return;
         MovementTarget = position;
+        GD.Print("working");
     }
 
     public void OnShootingStateEntered()
@@ -151,6 +153,9 @@ public partial class Snowpeabert : AbstractCreature
         {
             MoveDirection = Vector2.Zero;
             Velocity = Vector2.Zero;
+            
+ 
+
         }
 
     }

@@ -34,3 +34,7 @@ func Onfar_enoughchild_entered_tree(node):
 
 func Onback_to_movingchild_entered_tree(node):
 	pass # Replace with function body.
+
+
+func Burrow():
+	pass # Replace with function body.
