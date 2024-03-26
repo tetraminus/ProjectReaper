@@ -24,7 +24,8 @@ public partial class GravityGauntlet : AbstractItem
     
     private void OnBulletHit(AbstractDamageArea bullet)
     {
-        if (bullet.Source == GetHolder() && GameManager.RollBool(0.10f))
+        
+        if (bullet.Source == GetHolder() && GameManager.RollProc(0.10f, bullet))
         {
 
             var gravZone = _gravZoneScene.Instantiate<Node2D>();

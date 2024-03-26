@@ -43,7 +43,7 @@ public partial class BossChest : Node2D, IInteractable
     
 
 	public bool CanInteract() {
-		return !_opened && GameManager.Player.HasKey(Key.BasicKeyId);
+		return !_opened && GameManager.Player.HasKey(Key.BasicKeyId, 5);
 	}
 
 	public string GetPrompt(bool Interactable = false)

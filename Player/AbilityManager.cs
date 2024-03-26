@@ -30,9 +30,24 @@ public partial class AbilityManager : Node
             ability.StartCooldown();
         }
     }
+    
+    
 
-    public AbstractAbility GetAbility(int slot)
+    
+    
+    public AbstractAbility GetAbility(AbilitySlot slot)
     {
-        return Abilities[slot];
+        return Abilities[(int) slot];
     }
+    
+    
+    
+    public enum AbilitySlot
+    {
+        Main = 0,
+        Secondary = 1,
+        Utility = 2,
+        Special = 3
+    }
+   
 }

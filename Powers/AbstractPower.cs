@@ -6,22 +6,22 @@ using ProjectReaper.Globals;
 
 namespace ProjectReaper.Powers;
 
-public abstract partial class AbstractPower : Node
+public abstract partial class AbstractPower : Node2D
 {
     
     private static Dictionary<Type, string> _idCache = new();
     
     public abstract string Id { get; }
     public AbstractCreature Creature { get; set; }
-    public abstract float Duration { get; }
+    public abstract float DefaultDuration { get; }
     public int Stacks { get; private set; }
-    protected Timer Timer;
+    public Timer Timer;
     
 
     public override void _Ready()
     {
         // setup the timer if the duration is greater than 0
-        if (Duration > 0)
+        if (DefaultDuration > 0)
         {
             Timer = new Timer
             {
@@ -32,8 +32,18 @@ public abstract partial class AbstractPower : Node
             Timer.Timeout += OnTimerTimeout;
         }
         
-        
-        
+        var imagePath = GetImagePath();
+        if (imagePath != null)
+        {
+            var sprite = new Sprite2D
+            {
+                Texture = GD.Load<Texture2D>(imagePath),
+                Scale = new Vector2(1f, 1f),
+                Position = new Vector2(0, -30)
+            };
+            AddChild(sprite);
+            
+        }
     }
     
     public void SetStacks(int stacks)
@@ -43,6 +53,7 @@ public abstract partial class AbstractPower : Node
 
     private void OnTimerTimeout()
     {
+        GD.Print("Timer Timeout");
         Creature.RemovePower(this);
     }
 
@@ -57,9 +68,15 @@ public abstract partial class AbstractPower : Node
         OnStack(stacks);
     }
     
+    public void SetDuration(float duration)
+    {
+        Timer.Stop();
+        Timer.Start(duration);
+    }
+    
     protected void StartTimer()
     {
-        Timer.Start(Duration);
+        Timer.Start(DefaultDuration);
     }
     
     public double GetTimeRemaining()
@@ -94,6 +111,11 @@ public abstract partial class AbstractPower : Node
             _idCache[type] = id;
             return id;
         }
+    }
+    
+    protected virtual string GetImagePath()
+    {
+        return null;
     }
     
     

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=18 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
 [ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="4_g1xfc"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dsr7b7kr5xrk3" path="res://Objects/BossGate/BossGate.tscn" id="9_38dtt"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
+[ext_resource type="PackedScene" uid="uid://cqyvy8cx8r6xk" path="res://Items/ItemPickup.tscn" id="11_v04i2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_uerm4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dqg1l"]
@@ -244,3 +245,8 @@ limit_bottom = 1024
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("12_uerm4")
+
+[node name="ItemPickup" parent="." instance=ExtResource("11_v04i2")]
+position = Vector2(101, 95)
+RollItem = true
+OverrideItemId = "microwave"
