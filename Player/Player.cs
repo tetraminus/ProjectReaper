@@ -172,10 +172,10 @@ public partial class Player : AbstractCreature
     }
 
 
-    public AbstractAbility GetAbility(int slot)
+   
+    public AbstractAbility GetAbility(AbilityManager.AbilitySlot slot)
     {
         return _abilityManager.GetAbility(slot);
-        
     }
 
     public void AddKey(string KeyId, int num = 1) {

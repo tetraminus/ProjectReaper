@@ -31,6 +31,7 @@ public partial class GameManager : Node
     
     public static Control CurrentScreen { get; set; }
     public static Control LastScreen { get; set; }
+    public static bool fadingOut = false;
     
 
 
@@ -178,6 +179,7 @@ public partial class GameManager : Node
     public async static void StartRun(uint seed)
     {
         
+        fadingOut = true;
         ScreenFader.FadeOut(1);
         await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
@@ -206,6 +208,7 @@ public partial class GameManager : Node
         CurrentScreen = null;
         
         ScreenFader.FadeIn(1);
+        fadingOut = false;
         
         
     }
