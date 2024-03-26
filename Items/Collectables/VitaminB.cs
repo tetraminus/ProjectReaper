@@ -7,7 +7,7 @@ public partial class VitaminB : AbstractItem
     public override string Id => "vitamin_b";
     public override ItemRarity Rarity => ItemRarity.Common;
     
-    public const float AttackSpeed = 0.761f;
+    public const float AttackSpeed = 0.0761f; // it NEED to be this, i promise
 
     public override void OnInitalPickup()
     {

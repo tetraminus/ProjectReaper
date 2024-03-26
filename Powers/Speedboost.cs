@@ -4,7 +4,7 @@ public partial class Speedboost : AbstractPower
 {
     private const float Multiplier = 0.2f;
     public override string Id => "speed_boost";
-    public override float Duration => 1;
+    public override float DefaultDuration => 1;
     float _addedSpeed;
     
     

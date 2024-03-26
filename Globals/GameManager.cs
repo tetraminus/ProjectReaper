@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
 using ProjectReaper.Player;
@@ -9,6 +10,8 @@ namespace ProjectReaper.Globals;
 public partial class GameManager : Node
 {
     public static PackedScene ExplosionScene = ResourceLoader.Load<PackedScene>("res://Abilities/Projectiles/Explosion.tscn");
+    public static PackedScene DamageNumberScene = ResourceLoader.Load<PackedScene>("res://Util/DamageNumber.tscn");
+    
     public static PackedScene PlayerHudScene = ResourceLoader.Load<PackedScene>("res://Player/PlayerHud.tscn");
     public static PackedScene PauseMenuScene = ResourceLoader.Load<PackedScene>("res://Menu/PauseMenu.tscn");
     public static PackedScene PlayerScene = ResourceLoader.Load<PackedScene>("res://Player/player.tscn");
@@ -31,6 +34,7 @@ public partial class GameManager : Node
     
     public static Control CurrentScreen { get; set; }
     public static Control LastScreen { get; set; }
+    public static bool fadingOut = false;
     
 
 
@@ -50,6 +54,11 @@ public partial class GameManager : Node
         {
             return RollFloat(luck, rng) > 1 - chance;
         }
+    }
+    
+    public static bool RollProc(float chance, AbstractDamageArea damageArea , int luck = 1)
+    {
+        return RollBool(chance * damageArea.ProcCoef, luck);
     }
     
     public static float RollFloat( int luck = 1,  RandomNumberGenerator rng = null)
@@ -161,6 +170,15 @@ public partial class GameManager : Node
         explosion.Source = creature ?? Player;
         Level.CallDeferred("add_child", explosion);
     }
+    
+    public static void SpawnDamageNumber(Vector2 globalPosition, float damage)
+    {
+        var damageNumber = DamageNumberScene.Instantiate<DamageNumber>();
+        damageNumber.GlobalPosition = globalPosition;
+        Level.AddChild(damageNumber);
+        damageNumber.SetNumber(damage);
+        
+    }
 
     public static void GameOver()
     {
@@ -178,6 +196,7 @@ public partial class GameManager : Node
     public async static void StartRun(uint seed)
     {
         
+        fadingOut = true;
         ScreenFader.FadeOut(1);
         await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
@@ -206,6 +225,7 @@ public partial class GameManager : Node
         CurrentScreen = null;
         
         ScreenFader.FadeIn(1);
+        fadingOut = false;
         
         
     }

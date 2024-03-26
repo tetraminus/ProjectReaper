@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Mono.Collections.Generic;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Util;
@@ -26,14 +27,13 @@ public abstract partial class AbstractDamageArea : Area2D
     public float Knockback { get; set; } = 0f;
     public bool DestroyOnHit { get; set; } = true;
     public bool DestroyOnWall { get; set; } = true;
+    public float ProcCoef { get; set; } = 1f;
     
     protected Vector2 startPosition;
 
     [Export] public bool overrideLayer = false;
-    
-    public List<ProjectileFlags> Flags = new();
+   
     Vector2 _lastPosition;
-    
 
     public override void _Ready()
     {
@@ -192,7 +192,7 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public virtual void OnHitCreature(AbstractCreature creature)
     {
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.ProjectileHit, this, creature);
     }
     
     public virtual void OnHitWall()
@@ -208,9 +208,6 @@ public abstract partial class AbstractDamageArea : Area2D
         }
     }
 
-    public enum ProjectileFlags    
-    {
-        Proccable
-        
-    }
+    
+    
 }
