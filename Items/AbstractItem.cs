@@ -72,10 +72,10 @@ public abstract partial class AbstractItem : Node2D
 
     public override void _ExitTree()
     {
-        GD.Print("Item exited tree");
+        
         if (GetHolder().IsQueuedForDeletion())
         {
-            GD.Print("Item is queued for deletion");
+            
             Cleanup();
         }
     }
