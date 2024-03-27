@@ -17,7 +17,7 @@ public partial class BurnPower : AbstractPower
         {
             Autostart = false,
             OneShot = false,
-            WaitTime = 0.1f
+            WaitTime = 0.33f
         };
         AddChild(_damageTimer);
         _damageTimer.Timeout += OnDamageTimerTimeout;

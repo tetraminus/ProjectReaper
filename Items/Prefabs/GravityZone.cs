@@ -1,11 +1,13 @@
 using Godot;
 using System;
 using ProjectReaper.Components;
+using ProjectReaper.Enemies;
 
 public partial class GravityZone : Area2D
 {
 	
 	private CreatureTrackerComponent _creatureTracker;
+	public AbstractCreature.Teams Team { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -17,10 +19,12 @@ public partial class GravityZone : Area2D
 	{
 		if (_creatureTracker.GetCreatures().Count > 0)
 		{
-			foreach (var creature in _creatureTracker.GetCreatures())
+			foreach (var creature in _creatureTracker.GetCreatures() )
 			{
+				if (creature.Team == Team) continue;
+				GD.Print(creature.GlobalPosition);
 				var direction = (creature.GlobalPosition - GlobalPosition).Normalized();
-				creature.Knockback(direction * (float)( -1000 * delta));
+				creature.Knockback(direction * (float)( -5000 * delta));
 			}
 		}
 	}

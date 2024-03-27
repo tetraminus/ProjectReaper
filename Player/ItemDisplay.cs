@@ -80,7 +80,17 @@ public partial class ItemDisplay : Control
         Stacks.Text = item.Stacks.ToString();
         Item.StacksChanged += UpdateStacks;
     }
-    
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        if (HasFocus() && Input.IsActionJustPressed("ui_accept"))
+        {
+            ClickedItem?.Invoke(Item);
+        }
+        
+    }
+
     public void Highlight()
     {
         var panel = GetNode<Panel>("Panel");
@@ -112,4 +122,17 @@ public partial class ItemDisplay : Control
     {
         Stacks.Show();
     }
+
+    public override void _GuiInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton eventMouseButton)
+        {
+            if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed)
+            {
+                ClickedItem?.Invoke(Item);
+            }
+        }
+    }
+
+    public event Action<AbstractItem> ClickedItem;
 }

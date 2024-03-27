@@ -50,6 +50,10 @@ public partial class Chest : Node2D, IInteractable
 
     public string GetPrompt(bool Interactable = false)
     {
-        return Interactable ? "ui_open_chest" : "ui_locked_chest" + 1;
+        if (_opened)
+        {
+            return "";
+        }
+        return Interactable ? Tr("ui_open_chest") : Tr("ui_locked_chest") + 1;
     }
 }

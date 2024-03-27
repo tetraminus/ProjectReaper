@@ -13,8 +13,9 @@ public partial class ItemLibraryScreen : Control
 	private TabContainer _RarityTabContainer;
 	private PackedScene _rarityTabScene = GD.Load<PackedScene>("res://Menu/ItemLibraryScreen/RarityTab.tscn");
 	private PackedScene _itemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
-	public event Action CloseRequested; 
-	
+	public event Action CloseRequested;
+	public bool Cheats = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -67,6 +68,8 @@ public partial class ItemLibraryScreen : Control
 				itemDisplay.MouseEnteredItem += ItemHovered;
 				itemDisplay.FocusEnteredItem += ItemHovered;
 				
+				itemDisplay.ClickedItem += ItemClicked;
+				
 				
 				tab.AddItem(itemDisplay);
 				
@@ -86,6 +89,15 @@ public partial class ItemLibraryScreen : Control
 	public void ItemHovered(AbstractItem item)
 	{
 		_descriptionContainer.SetItem(item);
+	}
+	
+	public void ItemClicked(AbstractItem item)
+	{
+		if (Cheats)
+		{
+			GameManager.Player.AddItem(item.MakeCopy());
+		}
+		
 	}
 	
 	public void TabChanged(long index)

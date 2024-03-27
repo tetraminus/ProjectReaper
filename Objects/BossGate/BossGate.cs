@@ -86,6 +86,6 @@ public partial class BossGate : StaticBody2D, IInteractable
     
     public string GetPrompt(bool Interactable = false)
     {
-        return "ui_boss_gate";
+        return Tr("ui_boss_gate");
     }
 }

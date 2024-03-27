@@ -30,7 +30,18 @@ public abstract partial class AbstractItem : Node2D
     
     
     public abstract string Id { get; }
-    public Texture2D Icon => GD.Load<Texture2D>($"res://Assets/Icons/{Id}.png");
+    public Texture2D Icon
+    {
+        get
+        {
+            if (!ResourceLoader.Exists($"res://Assets/Icons/{Id}.png"))
+            {
+                return GD.Load<Texture2D>("res://Assets/Icons/missing.png");
+            }
+            return GD.Load<Texture2D>($"res://Assets/Icons/{Id}.png");
+        }
+    }
+
     public abstract ItemRarity Rarity { get; }
 
     // Called when the node enters the scene tree for the first time.
