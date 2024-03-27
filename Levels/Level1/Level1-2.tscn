@@ -62,7 +62,7 @@ size = Vector2(133.177, 213.799)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im72x"]
 resource_local_to_scene = true
-size = Vector2(251.083, 122.851)
+size = Vector2(64.6199, 1330.06)
 
 [node name="Level1-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 script = ExtResource("1_138kq")
@@ -226,43 +226,37 @@ color = Color(0.913725, 0.913725, 0.913725, 1)
 [node name="Node" type="Node" parent="."]
 
 [node name="Lamp" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(360, 62)
+position = Vector2(354, 43)
 
 [node name="Lamp2" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(-10, -318)
+position = Vector2(-856, -360)
 
 [node name="Lamp3" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(-319, -108)
+position = Vector2(-911, -585)
 
 [node name="Lamp4" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(-344, 369)
+position = Vector2(-877, -869)
 
 [node name="Lamp5" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(-795, 531)
+position = Vector2(-415, -894)
 
 [node name="Lamp6" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(-317, 808)
+position = Vector2(-411, -557)
 
 [node name="Lamp7" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(286, 536)
+position = Vector2(-47, -254)
 
 [node name="Lamp8" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(887, 270)
+position = Vector2(623, -489)
 
 [node name="Lamp9" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(600, -69)
+position = Vector2(541, 430)
 
 [node name="Lamp10" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(360, -829)
+position = Vector2(-513, 432)
 
 [node name="Lamp11" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(362, -620)
+position = Vector2(676, 877)
 
 [node name="Lamp12" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(831, -828)
-
-[node name="Lamp13" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(875, -643)
-
-[node name="Lamp14" parent="Node" instance=ExtResource("8_vixlw")]
-position = Vector2(837, -425)
+position = Vector2(-706, 858)
