@@ -127,8 +127,12 @@ public partial class Player : AbstractCreature
 		if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility(2);
 		// if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
 		
+		if (Input.IsActionJustPressed("cheat"))
+		{
+			GameManager.GoToLibrary(true);
+		}
 		
-		if ( (LastNavPos - GlobalPosition).Length() > 5)
+		if ((LastNavPos - GlobalPosition).Length() > 20)
 		{
 			LastNavPos = GlobalPosition;
 			Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GlobalPosition, CurrentNavGroup);

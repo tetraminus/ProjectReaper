@@ -21,6 +21,7 @@ public partial class VitaminB : AbstractItem
 
     public override void Cleanup()
     {
-        GameManager.Player.Stats.AttackSpeed -= AttackSpeed * Stacks;
+        
+        
     }
 }

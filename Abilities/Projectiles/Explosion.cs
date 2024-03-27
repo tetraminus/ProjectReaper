@@ -34,6 +34,7 @@ public partial class Explosion : AbstractDamageArea
         ScaleParticles();
         _particles1.Finished += () => { _particles1Done = true; };
 
+        AudioManager.Instance.PlaySound("explosion", "boom");
 
         _particles1.Restart();
         _ringParticle.Restart();

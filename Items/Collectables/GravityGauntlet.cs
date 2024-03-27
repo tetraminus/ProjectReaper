@@ -10,6 +10,8 @@ public partial class GravityGauntlet : AbstractItem
     private static PackedScene _gravZoneScene = ResourceLoader.Load<PackedScene>("res://Items/Prefabs/GravityZone.tscn");
     public override string Id => "gravity_gauntlet";
     public override ItemRarity Rarity => ItemRarity.Rare;
+    
+    private const float Sizeperstack = 0.3f;
     public override void OnInitalPickup()
     {
         Callbacks.Instance.ProjectileHit += OnBulletHit;
@@ -28,7 +30,9 @@ public partial class GravityGauntlet : AbstractItem
         if (bullet.Source == GetHolder() && GameManager.RollProc(0.10f, bullet))
         {
 
-            var gravZone = _gravZoneScene.Instantiate<Node2D>();
+            var gravZone = _gravZoneScene.Instantiate<GravityZone>();
+            gravZone.Scale *= new Vector2(1 + (Sizeperstack * Stacks),1 + (Sizeperstack * Stacks));
+            gravZone.Team = GetHolder().Team;
             GameManager.Level.CallDeferred(Node.MethodName.AddChild, gravZone);
             gravZone.GlobalPosition = bullet.GlobalPosition;
         }

@@ -1,7 +1,7 @@
 keys,en
 n_boom_stick,The Boomstick
 d_boom_stick,Creates an explosion when an enemy dies.
-f_boom_stick,Frankly a misuse of the tool but if they didn't want it to be a bomb they shouldn't have given it that name.
+f_boom_stick,"Frankly a misuse of the tool, but if they didn't want it to be a bomb they shouldn't have given it that name."
 n_grapeshot,Grapeshot
 d_grapeshot,Fires a spread of low damaging fruity bullets every third attack.
 f_grapeshot,"A good soldier can turn anything into a weapon, and makes a nasty adversary at a cafeteria food fight."
@@ -22,7 +22,7 @@ d_gravity_gauntlet,Creates gravity wells that trap enemies temporarily.
 f_gravity_gauntlet,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to capture foes."
 n_soul_harvester,Soul Harvester 
 d_soul_harvester,Temporary power boost after you kill an enemy.
-f_soul_harvester ,"You're not actually taking their souls, they dont have any! [size=14]Probably...[/size]"
+f_soul_harvester ,"Don't worry! You're not actually taking their souls, they dont have any! [size=14]Probably...[/size]"
 n_glasses_with_disguise,Glasses (With Disguise)
 d_glasses_with_disguise,Crit chance up
 f_glasses_with_disguise,The lens doesn't work but I still feel more accurate!
