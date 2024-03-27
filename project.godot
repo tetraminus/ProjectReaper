@@ -16,6 +16,15 @@ config/features=PackedStringArray("4.2", "C#", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
+[audio]
+
+manager/sound/bus="Sound"
+manager/sound/pool_1D_size=16
+manager/sound/pool_2D_size=16
+manager/sound/pool_3D_size=16
+manager/sound/max_polyphony=32
+manager/music/bus="Music"
+
 [autoload]
 
 GameManager="*res://Globals/GameManager.cs"
@@ -25,6 +34,9 @@ ItemLibrary="*res://Globals/ItemLibrary.cs"
 SpawnDirector="*res://Globals/SpawnDirector.cs"
 LootDirector="*res://Globals/LootDirector.cs"
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
+SoundManager="*res://addons/resonate/sound_manager/sound_manager.gd"
+MusicManager="*res://addons/resonate/music_manager/music_manager.gd"
+AudioManager="*res://Globals/AudioManager.cs"
 
 [display]
 
@@ -44,7 +56,7 @@ naming/scene_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/resonate/plugin.cfg")
 
 [gui]
 
