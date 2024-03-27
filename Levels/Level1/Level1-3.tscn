@@ -55,8 +55,10 @@ size = Vector2(130.894, 430.527)
 resource_local_to_scene = true
 size = Vector2(241.703, 217.342)
 
-[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("LootPoints", "CameraBounds")]
+[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 script = ExtResource("1_ogrgk")
+NumberOfChests = 8
+SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
 CameraBounds = NodePath("TileMap")
 
