@@ -54,6 +54,6 @@ public partial class Chest : Node2D, IInteractable
         {
             return "";
         }
-        return Interactable ? "ui_open_chest" : "ui_locked_chest" + 1;
+        return Interactable ? Tr("ui_open_chest") : Tr("ui_locked_chest") + 1;
     }
 }

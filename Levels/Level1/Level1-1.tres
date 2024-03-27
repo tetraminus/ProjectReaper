@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://bhqd573kwswfk"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://bhqd573kwswfk"]
 
 [ext_resource type="Texture2D" uid="uid://doasfd3y0gdot" path="res://Tilesets/layer1tileset.png" id="1_npwq3"]
+[ext_resource type="Texture2D" uid="uid://cdnu0ysjitqqa" path="res://Tilesets/layer1tilesetFloor.png" id="2_lv0s8"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_cpcj4"]
 polygon = PackedVector2Array(-2.5, -8, 8, -8, 8, 8, -8, 8, -8, -5.8125)
@@ -476,6 +477,36 @@ texture = ExtResource("1_npwq3")
 6:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:5/0/terrains_peering_bit/left_side = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fx32"]
+texture = ExtResource("2_lv0s8")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 occlusion_layer_0/light_mask = 3
 physics_layer_0/collision_layer = 1
@@ -483,3 +514,4 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "wall"
 terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
 sources/0 = SubResource("TileSetAtlasSource_38jak")
+sources/1 = SubResource("TileSetAtlasSource_0fx32")

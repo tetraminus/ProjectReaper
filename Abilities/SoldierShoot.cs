@@ -21,7 +21,7 @@ public partial class SoldierShoot : AbstractAbility
 
 	public override void Use()
 	{
-		AudioManager.Instance.PlaySound("player", "shoot");
+		AudioManager.Instance.PlaySoundVaried("player", "shoot", GD.RandRange(0.8,1.2));
 		
 		var bullet = (AbstractDamageArea)BulletScene.Instantiate();
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);

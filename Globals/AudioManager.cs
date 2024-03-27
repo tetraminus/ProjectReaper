@@ -23,6 +23,12 @@ public partial class AudioManager : Node
 	{
 		_soundManager.Call("play", bank, sound);
 	}
+	public void PlaySoundVaried(string bank, string sound, double pitch = 1.0, double volume = 1.0)
+	{
+		_soundManager.Call("play_varied", bank, sound, pitch, volume);
+	}
+	
+	
 	
 	
 
