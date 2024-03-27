@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Enemies/SnowPlant/Snowpeabert.cs" id="1_7qjy0"]
 [ext_resource type="Texture2D" uid="uid://ogljek4y77l4" path="res://Assets/kenney_particle-pack/PNG (Transparent)/dirt_03.png" id="2_kd3k0"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_6r0sw"]
-[ext_resource type="Texture2D" uid="uid://doagwcpta83p3" path="res://mole.png" id="4_bt1fa"]
+[ext_resource type="Texture2D" uid="uid://doagwcpta83p3" path="res://Assets/Enemies/mole.png" id="4_bt1fa"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_gx4l1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_aimvb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="7_thue7"]

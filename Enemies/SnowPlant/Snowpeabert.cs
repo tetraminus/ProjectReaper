@@ -218,8 +218,8 @@ public partial class Snowpeabert : AbstractCreature
     {
         if (GameManager.Player.Dead) return;
         ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition));
-        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)+0.5f);
-        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)-0.5f);
+        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)+0.4f);
+        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)-0.4f);
         
         MoveDirection = Vector2.Zero;
         Velocity = Vector2.Zero;
