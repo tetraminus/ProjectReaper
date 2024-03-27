@@ -56,6 +56,8 @@ public partial class Snowpeabert : AbstractCreature
         Sprite.Visible = true; // Make the KinematicBody2D visible again
         HitState = HitBoxState.Normal;
         _particles.Emitting = false;
+        EnterShoot();
+        
     }
 
     public override void _Ready()
@@ -64,9 +66,9 @@ public partial class Snowpeabert : AbstractCreature
         _stateChart.SendEvent("Burrow");
 
         base._Ready();
-        Stats.MaxHealth = 20;
+        Stats.MaxHealth = 60;
         Stats.Health = Stats.MaxHealth;
-        Stats.Speed = 80;
+        Stats.Speed = 100;
         _particles = GetNode<GpuParticles2D>("BurrowParticles");
 
         Sprite = FindChild("Snowboy") as AnimatedSprite2D;
@@ -197,6 +199,7 @@ public partial class Snowpeabert : AbstractCreature
         
         if (_directSight) {
             _stateChart.SendEvent("PlayerSeen");
+            
         }
         else {
             _stateChart.SendEvent("PlayerLost");
@@ -214,16 +217,22 @@ public partial class Snowpeabert : AbstractCreature
     public void EnterShoot()
     {
         if (GameManager.Player.Dead) return;
-        var bullet = BulletScene.Instantiate<BasicBullet>();
-        bullet.Init(this, Team, GlobalPosition, GetAngleTo(GameManager.Player.GlobalPosition));
-        bullet.Speed = 200;
-        GameManager.Level.AddChild(bullet);
+        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition));
+        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)+0.5f);
+        ShootBasicBullet(GetAngleTo(GameManager.Player.GlobalPosition)-0.5f);
+        
         MoveDirection = Vector2.Zero;
         Velocity = Vector2.Zero;
+        
+        
     }
-    
-    
-    
-    
+
+    private void ShootBasicBullet(float rotation = 0)
+    {
+        var bullet = BulletScene.Instantiate<BasicBullet>();
+        bullet.Init(this, Team, GlobalPosition, rotation);
+        bullet.Speed = 200;
+        GameManager.Level.AddChild(bullet);
+    }
 
 }

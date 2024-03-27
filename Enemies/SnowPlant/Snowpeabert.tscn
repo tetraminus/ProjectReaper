@@ -127,9 +127,8 @@ sprite_frames = SubResource("SpriteFrames_mcism")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="burrowTimer" type="Timer" parent="."]
+[node name="ShootTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 3.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_gx4l1")
@@ -170,12 +169,15 @@ delay_seconds = 1.0
 
 [node name="FarEnough" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
 script = ExtResource("8_wc7wd")
-to = NodePath("..")
+to = NodePath("../../../Shooting")
 event = &"PlayerLost"
 
-[connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="OnShootingStateEntered"]
+[connection signal="timeout" from="ShootTimer" to="." method="Onshoot_timertimeout"]
+[connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="Onshootingstate_entered"]
+[connection signal="state_exited" from="StateChart/Root/Shooting" to="StateChart/Root/Burrowing" method="Onshootingstate_exited"]
 [connection signal="state_entered" from="StateChart/Root/Burrowing" to="." method="Burrow"]
 [connection signal="state_exited" from="StateChart/Root/Burrowing" to="." method="Unburrow"]
 [connection signal="state_physics_processing" from="StateChart/Root/Burrowing/MoveTowardsPlayer" to="." method="FollowPath"]
 [connection signal="state_physics_processing" from="StateChart/Root/Burrowing/BurrowTowardsPlayer" to="." method="ChasePlayer"]
 [connection signal="child_entered_tree" from="StateChart/Root/Burrowing/BurrowTowardsPlayer/FarEnough" to="StateChart/Root/Burrowing/MoveTowardsPlayer" method="Onfar_enoughchild_entered_tree"]
+[connection signal="child_exiting_tree" from="StateChart/Root/Burrowing/BurrowTowardsPlayer/FarEnough" to="StateChart/Root/Burrowing/MoveTowardsPlayer/CloseEnough" method="Onfar_enoughchild_exiting_tree"]

@@ -38,3 +38,11 @@ func Onback_to_movingchild_entered_tree(node):
 
 func Burrow():
 	pass # Replace with function body.
+
+
+func Onshoot_timertimeout():
+	pass # Replace with function body.
+
+
+func Onfar_enoughchild_exiting_tree(node):
+	pass # Replace with function body.
