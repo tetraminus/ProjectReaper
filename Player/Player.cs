@@ -128,7 +128,7 @@ public partial class Player : AbstractCreature
 		// if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
 		
 		
-		if ( (LastNavPos - GlobalPosition).Length() > 5)
+		if ((LastNavPos - GlobalPosition).Length() > 20)
 		{
 			LastNavPos = GlobalPosition;
 			Callbacks.Instance.EmitSignal(Callbacks.SignalName.EnemyRenav,GlobalPosition, CurrentNavGroup);
