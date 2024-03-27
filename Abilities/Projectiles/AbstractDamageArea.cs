@@ -62,7 +62,7 @@ public abstract partial class AbstractDamageArea : Area2D
     {
         base._PhysicsProcess(delta);
         // continous collision check
-        if (Monitoring)
+        if (Monitoring && GlobalPosition.DistanceTo(_lastPosition) > 2f)
         {
             
             var spaceState = GetWorld2D().DirectSpaceState;
@@ -71,15 +71,15 @@ public abstract partial class AbstractDamageArea : Area2D
             var result = spaceState.IntersectRay(query);
             if (result.Count > 0) // if we hit something
             {
-                GD.Print(result["collider"].As<Node>().GetType());
+                
                 if (result["collider"].Obj is Area2D area)
                 {
-                    GD.Print("hit area");
+                    
                     OnAreaEntered(area);
                 }
                 else if (result["collider"].Obj is PhysicsBody2D body)
                 {
-                    GD.Print("hit body");
+                    
                     OnBodyEntered(body);
                 }
                 

@@ -25,7 +25,7 @@ public partial class GrapeShot : AbstractItem
     }
     public override void Cleanup()
     {
-        GD.Print("Cleanup GrapeShot");
+        
         Callbacks.Instance.AbilityUsed -= OnAbilityUsed;
     }
 

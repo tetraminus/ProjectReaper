@@ -9,13 +9,13 @@ public partial class PauseMenu : Control
 	public override void _Ready()
 	{
 		_resumeButton = GetNode<Button>("%ResumeButton");
-		
-		
 		GameManager.PauseMenu = this;
 		FocusEntered += Focus;
 		Hide();
 		
 	}
+	
+	
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
