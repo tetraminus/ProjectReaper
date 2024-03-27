@@ -78,6 +78,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     {
         power.OnRemove();
         Powers.Remove(power);
+        power.QueueFree();
     }
     
 

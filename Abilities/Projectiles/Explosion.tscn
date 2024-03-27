@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://yfothlx0by8s"]
+[gd_scene load_steps=17 format=3 uid="uid://yfothlx0by8s"]
 
 [ext_resource type="Texture2D" uid="uid://wsop8whq1fts" path="res://Assets/kenney_particle-pack/PNG (Transparent)/flame_01.png" id="1_8s3kl"]
 [ext_resource type="Script" path="res://Abilities/Projectiles/Explosion.cs" id="1_da37i"]
 [ext_resource type="Texture2D" uid="uid://dfy0r10jx0mbs" path="res://Assets/kenney_particle-pack/PNG (Transparent)/circle_03.png" id="3_tmlax"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="4_rbhit"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="5_g4au8"]
+[ext_resource type="AudioStream" uid="uid://c80i4d21cnx8g" path="res://Assets/Audio/Explosion/explosion.wav" id="6_qxrj1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5qy5"]
 radius = 32.0
@@ -53,6 +56,14 @@ scale_min = 0.15
 scale_max = 0.15
 color = Color(1, 0.282353, 0, 1)
 
+[sub_resource type="Resource" id="Resource_nw86a"]
+script = ExtResource("5_g4au8")
+name = "boom"
+bus = ""
+volume = -4.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("6_qxrj1")])
+
 [node name="Explosion" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
@@ -82,3 +93,8 @@ texture = ExtResource("3_tmlax")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+
+[node name="SoundBank" type="Node" parent="."]
+script = ExtResource("4_rbhit")
+label = "explosion"
+events = Array[ExtResource("5_g4au8")]([SubResource("Resource_nw86a")])

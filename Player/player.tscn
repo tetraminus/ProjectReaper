@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=20 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Player/PlayerOutline.gdshader" id="2_s81kq"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="8_cacyo"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="9_dd3oj"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_prqtj"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="11_x6bjh"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="12_6jalh"]
+[ext_resource type="AudioStream" uid="uid://7nxpejc7qakk" path="res://Assets/Audio/Player/shoot.wav" id="13_41vha"]
 
 [sub_resource type="Resource" id="Resource_e2on7"]
 script = ExtResource("10_prqtj")
@@ -33,6 +36,14 @@ radius = 7.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qjn8v"]
 polygon = PackedVector2Array(3, -6, 4, -5, 2, 0, 4, 2, 4, 6, 3, 8, -3, 8, -4, 6, -4, 2, -2, 1, -2, 0, -4, -4, -3, -5, -2, -7, 3, -7)
+
+[sub_resource type="Resource" id="Resource_ownk1"]
+script = ExtResource("12_6jalh")
+name = "shoot"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("13_41vha")])
 
 [node name="PlayerSceneRoot" type="Node"]
 
@@ -106,3 +117,8 @@ texture_scale = 0.5
 position = Vector2(1, 0)
 occluder = SubResource("OccluderPolygon2D_qjn8v")
 sdf_collision = false
+
+[node name="SoundBank" type="Node" parent="Player"]
+script = ExtResource("11_x6bjh")
+label = "player"
+events = Array[ExtResource("12_6jalh")]([SubResource("Resource_ownk1")])

@@ -222,6 +222,7 @@ public partial class GameManager : Node
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
         MainMenu.Hide();
+        MainMenu.HideBg();
         CurrentScreen = null;
         
         ScreenFader.FadeIn(1);
@@ -251,6 +252,7 @@ public partial class GameManager : Node
         
         MainMenu.Show();
         MainMenu.GrabFocus();
+        MainMenu.ShowBg();
         
         CurrentScreen = MainMenu;
 
@@ -294,10 +296,14 @@ public partial class GameManager : Node
         }
     }
 
-    public static void GoToLibrary()
+    public static void GoToLibrary(bool cheat = false)
     {
         GD.Print("Going to library");
         
+        if (CurrentScreen == ItemLibraryScreen)
+        {
+            return;
+        }
         
         CurrentScreen?.Hide();
         LastScreen = CurrentScreen;
@@ -306,6 +312,7 @@ public partial class GameManager : Node
         ItemLibraryScreen.LoadItems();
         ItemLibraryScreen.Focus();
         ItemLibraryScreen.Show();
+        ItemLibraryScreen.Cheats = cheat;
         
     }
 
@@ -313,7 +320,10 @@ public partial class GameManager : Node
     {
         GD.Print("Closing library");
         ItemLibraryScreen.Hide();
-        LastScreen.Show();
+        if (LastScreen != null)
+        {
+            LastScreen.Show();
+        }
         CurrentScreen = LastScreen;
         
         

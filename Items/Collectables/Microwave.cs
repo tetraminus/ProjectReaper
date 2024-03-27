@@ -24,7 +24,7 @@ public partial class Microwave : AbstractItem
     
     private void OnBulletHit(AbstractDamageArea bullet, AbstractCreature target)
     {
-        if (bullet.Source == GetHolder() && GameManager.RollProc(1.10f, bullet) && target.Team != GetHolder().Team)
+        if (bullet.Source == GetHolder() && GameManager.RollProc(.10f, bullet) && target.Team != GetHolder().Team)
         {
             var power = new BurnPower();
             target.AddPower(power);

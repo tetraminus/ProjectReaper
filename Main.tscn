@@ -56,7 +56,8 @@ script = ExtResource("1_1eygr")
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -32
 
-[node name="ColorRect2" type="ColorRect" parent="BG"]
+[node name="Bg" type="ColorRect" parent="BG"]
+unique_name_in_owner = true
 process_mode = 3
 material = SubResource("ShaderMaterial_xm03u")
 anchors_preset = 15
