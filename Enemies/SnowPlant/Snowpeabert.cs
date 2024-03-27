@@ -66,9 +66,9 @@ public partial class Snowpeabert : AbstractCreature
         _stateChart.SendEvent("Burrow");
 
         base._Ready();
-        Stats.MaxHealth = 60;
+        Stats.MaxHealth = 50;
         Stats.Health = Stats.MaxHealth;
-        Stats.Speed = 100;
+        Stats.Speed = 80;
         _particles = GetNode<GpuParticles2D>("BurrowParticles");
 
         Sprite = FindChild("Snowboy") as AnimatedSprite2D;
@@ -155,9 +155,9 @@ public partial class Snowpeabert : AbstractCreature
         {
             MoveDirection = Vector2.Zero;
             Velocity = Vector2.Zero;
-
         }
 
+        MoveAndSlide();
     }
     private void Move() {
         // simulate friction with delta

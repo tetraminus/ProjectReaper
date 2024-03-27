@@ -169,7 +169,7 @@ delay_seconds = 1.0
 
 [node name="FarEnough" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
 script = ExtResource("8_wc7wd")
-to = NodePath("../../../Shooting")
+to = NodePath("../../MoveTowardsPlayer")
 event = &"PlayerLost"
 
 [connection signal="timeout" from="ShootTimer" to="." method="Onshoot_timertimeout"]
