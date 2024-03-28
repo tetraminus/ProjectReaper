@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://d3q2khqamjam3"]
+[gd_scene load_steps=24 format=3 uid="uid://d3q2khqamjam3"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_138kq"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_sp7nx"]
 [ext_resource type="Texture2D" uid="uid://dhchalxifdt3d" path="res://Levels/Level1/floor1levellayouts.png" id="3_a4tpl"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="4_kqr7n"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_8t50y"]
@@ -76,6 +77,9 @@ CameraBounds = NodePath("TileMap")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1012, 232)
 zoom = Vector2(3, 3)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("2_sp7nx")
 
 [node name="Floor1Levellayouts" type="Sprite2D" parent="."]
 visible = false
