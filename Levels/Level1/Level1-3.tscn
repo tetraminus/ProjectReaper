@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://bud5hmfj4nrat"]
+[gd_scene load_steps=20 format=3 uid="uid://7vemouu4iylc"]
 
 [ext_resource type="Texture2D" uid="uid://qqebpf7668u2" path="res://Tilesets/BG.png" id="1_isdbe"]
 [ext_resource type="Script" path="res://Level.cs" id="1_ogrgk"]
 [ext_resource type="Texture2D" uid="uid://dhchalxifdt3d" path="res://Levels/Level1/floor1levellayouts.png" id="2_o02bt"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_anhff"]
-[ext_resource type="TileSet" uid="uid://bpwjcb0o5rqda" path="res://Levels/Level1/Level1-1.tres" id="4_gaifl"]
+[ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="4_gaifl"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_mr5hu"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_wtqpr"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_5rnjb"]
