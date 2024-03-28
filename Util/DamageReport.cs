@@ -30,6 +30,7 @@ public partial class DamageReport : GodotObject
     public float BaseDamage { get; set; }
     public bool calculated = false;
     public int critlv = 0;
+    public float finalDamage = -1;
 
 
     public AbstractCreature Source { get; set; }
