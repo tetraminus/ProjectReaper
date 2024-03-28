@@ -22,7 +22,7 @@ public partial class Player : AbstractCreature
 
 	public override void _Input(InputEvent @event)
 	{
-		if ((@event is InputEventJoypadMotion  || @event is InputEventJoypadButton) && !_controllerMode )
+		if ((EventIsAim(@event)) && !_controllerMode )
 		{
 			_controllerMode = true;
 			GD.Print("Controller mode");
@@ -33,10 +33,15 @@ public partial class Player : AbstractCreature
 			GD.Print("Mouse mode");
 		}
 		
-		
-		
 		base._Input(@event);
 	}
+	
+	public bool EventIsAim(InputEvent @event)
+	{
+		return @event.IsActionPressed("Aim_Left") || @event.IsActionPressed("Aim_Right") || @event.IsActionPressed("Aim_Up") || @event.IsActionPressed("Aim_Down");
+	}
+	
+	
 
 
 	public override void _Ready()
