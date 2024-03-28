@@ -46,6 +46,7 @@ public partial class BossGate : StaticBody2D, IInteractable
         GameManager.Level.CallDeferred(Node.MethodName.AddChild, portal);
         GameManager.Level.CallDeferred(Node.MethodName.AddChild, bossChest);
 
+        GameManager.Level.FadeOutFightMusic();
     }
 
 
@@ -77,6 +78,8 @@ public partial class BossGate : StaticBody2D, IInteractable
         
         // disable interaction
         _canInteract = false;
+        
+        GameManager.Level.FadeInFightMusic();
     }
 
     public bool CanInteract()

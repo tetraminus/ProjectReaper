@@ -12,8 +12,9 @@ public partial class MainMenu : Control
 	private Bg _bg;
 	private ItemLibraryScreen _itemLibraryScreen;
 	private Control _menuScreen;
-	private PackedScene libScene = ResourceLoader.Load<PackedScene>("res://Menu/ItemLibraryScreen/ItemLibraryScreen.tscn");
 	
+	
+
 	public override void _Ready()
 	{
 		_menuScreen = GetNode<Control>("MenuScreen");
@@ -34,6 +35,8 @@ public partial class MainMenu : Control
 			
 		};
 		GetBgNode();
+		
+		
 
 	}
 	

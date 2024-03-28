@@ -21,7 +21,7 @@ public partial class PlayerHud : Control
     public delegate void FightAnimFinishedEventHandler();
     public override void _Ready()
     {
-        GD.Print("PlayerHud ready");
+        
         GameManager.PlayerHud = this;
 
         InfoHudPopup = ItemHudPopupScn.Instantiate<ItemHudPopup>();

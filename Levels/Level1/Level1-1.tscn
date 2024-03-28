@@ -40,6 +40,7 @@ size = Vector2(400, 100)
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
 KeyDropChance = 0.2
+FightStems = ["Amen", "Violin"]
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024
