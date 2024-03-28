@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://c2lcrviacqnts"]
+[gd_scene load_steps=18 format=3 uid="uid://c2lcrviacqnts"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
-[ext_resource type="Texture2D" uid="uid://qqebpf7668u2" path="res://Tilesets/BG.png" id="2_sdb04"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="2_xch6s"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_klwim"]
@@ -50,12 +49,6 @@ NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
 LootPoints = NodePath("loot")
 CameraBounds = NodePath("TileMap")
-
-[node name="Bg" type="Sprite2D" parent="."]
-visible = false
-z_index = -7
-scale = Vector2(3, 3)
-texture = ExtResource("2_sdb04")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
 tile_set = ExtResource("2_xch6s")
