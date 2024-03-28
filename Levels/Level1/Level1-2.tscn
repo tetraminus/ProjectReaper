@@ -68,10 +68,7 @@ size = Vector2(281.702, 120.976)
 
 [node name="Level1-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 script = ExtResource("1_138kq")
-BoundsLeft = -1024
-BoundsRight = 1024
-BoundsTop = -1024
-BoundsBottom = 1024
+FightStems = ["Violin", "Amen"]
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")

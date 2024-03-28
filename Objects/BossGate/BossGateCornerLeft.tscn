@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxsq25gihcjll"]
+
+[ext_resource type="Script" path="res://Objects/BossGate/BossGate.cs" id="1_aangn"]
+[ext_resource type="PackedScene" uid="uid://d15m3s7c27m4g" path="res://Components/HighlightComponent.tscn" id="2_amd0k"]
+[ext_resource type="Shader" path="res://Shaders/Highlight.gdshader" id="3_cgydt"]
+[ext_resource type="Texture2D" uid="uid://bn8tx55qpo2xx" path="res://Assets/objects/BossDoorCorner.png" id="4_brwb3"]
+[ext_resource type="PackedScene" uid="uid://djs4w12bsfxbc" path="res://Components/InteractableComponent.tscn" id="5_5jxy5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qm6rv"]
+resource_local_to_scene = true
+shader = ExtResource("3_cgydt")
+shader_parameter/on = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7huu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_brwb3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rapww"]
+size = Vector2(182.434, 14.2426)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxybn"]
+size = Vector2(183.848, 66)
+
+[node name="BossGate" type="StaticBody2D"]
+script = ExtResource("1_aangn")
+
+[node name="HighlightComponent" parent="." instance=ExtResource("2_amd0k")]
+material = SubResource("ShaderMaterial_qm6rv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HighlightComponent"]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_o7huu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 22)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_rapww")
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("Interactable", "Highlight") instance=ExtResource("5_5jxy5")]
+Interactable = NodePath("..")
+Highlight = NodePath("../HighlightComponent")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+position = Vector2(6, 23)
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_fxybn")

@@ -29,7 +29,8 @@ public partial class Portal : Node2D
 		{
 			_animationPlayer.Play("Vanish");
 			(body as Player).Hide();
-			GameManager.GoToNextLevel();
+			GameManager.GoToMainMenu(true);
+			//GameManager.GoToNextLevel();
 		}
 		
 	}
