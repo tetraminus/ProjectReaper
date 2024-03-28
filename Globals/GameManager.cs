@@ -186,7 +186,7 @@ public partial class GameManager : Node
         Level.CallDeferred("add_child", explosion);
     }
     
-    public static void SpawnDamageNumber(Vector2 globalPosition, float damage)
+    public static void SpawnDamageNumber(Vector2 globalPosition, DamageReport damage)
     {
         var damageNumber = DamageNumberScene.Instantiate<DamageNumber>();
         damageNumber.GlobalPosition = globalPosition;
@@ -248,8 +248,20 @@ public partial class GameManager : Node
         
     }
 
-    public static void GoToMainMenu()
+    public async static void GoToMainMenu(bool fadein = false)
     {
+        
+        if (fadingOut) return;
+        if (fadein)
+        {
+            fadingOut = true;
+            ScreenFader.FadeOut(1);
+            await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+            fadingOut = false;
+        }
+
+
+
         if (MainMenu.GetParent() == null)
         {
             MainNode.AddChild(MainMenu);
@@ -274,7 +286,8 @@ public partial class GameManager : Node
         PlayMenuMusic();
         
         CurrentScreen = MainMenu;
-
+        
+        if (fadein) ScreenFader.FadeIn(1);
     }
 
     private async static void PlayMenuMusic()
@@ -330,6 +343,10 @@ public partial class GameManager : Node
         
         if (CurrentScreen == ItemLibraryScreen)
         {
+            if (cheat)
+            {
+                ItemLibraryScreenOnCloseRequested();
+            }
             return;
         }
         

@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Util;
 
 
 public partial class DamageNumber : Node2D
@@ -13,10 +14,16 @@ public partial class DamageNumber : Node2D
 		GetNode<AnimationPlayer>("AnimationPlayer").Play("main");
 	}
 	
-	public void SetNumber(float number)
+	public void SetNumber(DamageReport report)
 	{
+		var number = report.Damage;
 		// number with 1 decimal
 		_label.Text = number.ToString("0.0");
+		for (int i = 0; i < report.critlv; i++)
+		{
+			_label.Text += "!";
+			
+		}
 
 		if (number > 200)
 		{

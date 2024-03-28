@@ -18,11 +18,7 @@ public partial class Level : Node2D
 	[Export] public bool DropKeys = true;
 	[Export] public float KeyDropChance = 0.1f;
 	[Export] public Array<string> FightStems = new Array<string>();
-
-	[Export] public int BoundsLeft { get; set; }
-	[Export] public int BoundsRight { get; set; }
-	[Export] public int BoundsTop { get; set; }
-	[Export] public int BoundsBottom { get; set; }
+	
 	[Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
 	[Export] public Node SpawnRects { get; set; }
 	[Export] public Node LootPoints { get; set; }
