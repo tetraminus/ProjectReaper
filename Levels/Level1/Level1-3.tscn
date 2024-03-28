@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://7vemouu4iylc"]
+[gd_scene load_steps=20 format=3 uid="uid://bud5hmfj4nrat"]
 
 [ext_resource type="Texture2D" uid="uid://qqebpf7668u2" path="res://Tilesets/BG.png" id="1_isdbe"]
 [ext_resource type="Script" path="res://Level.cs" id="1_ogrgk"]
@@ -56,8 +56,10 @@ size = Vector2(130.894, 430.527)
 resource_local_to_scene = true
 size = Vector2(241.703, 217.342)
 
-[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("CameraBounds")]
+[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 script = ExtResource("1_ogrgk")
+SpawnRects = NodePath("spawnRects")
+LootPoints = NodePath("loot")
 CameraBounds = NodePath("TileMap")
 
 [node name="Bg" type="Sprite2D" parent="."]

@@ -9,7 +9,7 @@ public partial class GravityGauntlet : AbstractItem
 {
 	private static PackedScene _gravZoneScene = ResourceLoader.Load<PackedScene>("res://Items/Prefabs/GravityZone.tscn");
 	public override string Id => "gravity_gauntlet";
-	public override ItemRarity Rarity => ItemRarity.Rare;
+	public override ItemRarity Rarity => ItemRarity.Uncommon;
 	
 	private const float Sizeperstack = 0.3f;
 	public override void OnInitalPickup()
