@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Godot;
 using ProjectReaper.Abilities;
 using ProjectReaper.Abilities.Projectiles;
@@ -25,7 +25,7 @@ public partial class GrapeShot : AbstractItem
     }
     public override void Cleanup()
     {
-        GD.Print("Cleanup GrapeShot");
+        
         Callbacks.Instance.AbilityUsed -= OnAbilityUsed;
     }
 
@@ -45,22 +45,22 @@ public partial class GrapeShot : AbstractItem
         }
     }
 
-    private void FireGrapeshot()
-    {
-        var bullets = BaseBullets + Stacks - 1;
-        
-        // fire bullets in a spread
-        for (var i = 0; i < bullets; i++)
-        {
-            var bullet = _bulletScene.Instantiate<BasicBullet>();
-            bullet.Damage = 4;
-            bullet.Speed = 500;
-            bullet.Range = 200;
-            var angle = GetHolder().AimDirection() + Mathf.DegToRad(_spreaddeg * i - _spreaddeg * (bullets - 1) / 2);
-            bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
-            bullet.ProcCoef = 0.5f;
-            GameManager.Level.AddChild(bullet);
-            
-        }
-    }
+	private void FireGrapeshot()
+	{
+		var bullets = BaseBullets + Stacks - 1;
+		
+		// fire bullets in a spread
+		for (var i = 0; i < bullets; i++)
+		{
+			var bullet = _bulletScene.Instantiate<BasicBullet>();
+			bullet.Damage = 3.5f + Stacks/2f;
+			bullet.Speed = 500;
+			bullet.Range = 200;
+			var angle = GetHolder().AimDirection() + Mathf.DegToRad(_spreaddeg * i - _spreaddeg * (bullets - 1) / 2);
+			bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
+			bullet.ProcCoef = 0.5f;
+			GameManager.Level.AddChild(bullet);
+			
+		}
+	}
 }

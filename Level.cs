@@ -17,6 +17,7 @@ public partial class Level : Node2D
 	[Export] public bool DisableSpawning { get; set; }
 	[Export] public bool DropKeys = true;
 	[Export] public float KeyDropChance = 0.1f;
+	[Export] public Array<string> FightStems = new Array<string>();
 
 	[Export] public int BoundsLeft { get; set; }
 	[Export] public int BoundsRight { get; set; }
@@ -64,6 +65,34 @@ public partial class Level : Node2D
 		_renavTimer.Timeout += OnRenavTimerTimeout;
 		AddChild(_renavTimer);
 		_renavTimer.Start();
+		
+	}
+	
+	public void FadeInFightMusic(float time = 1)
+	{
+		if (FightStems.Count == 0)
+		{
+			return;
+		}
+
+		foreach (var stem in FightStems)
+		{
+			AudioManager.Instance.PlayStem(stem, time);
+		}
+		
+	}
+	
+	public void FadeOutFightMusic(float time = 1)
+	{
+		if (FightStems.Count == 0)
+		{
+			return;
+		}
+
+		foreach (var stem in FightStems)
+		{
+			AudioManager.Instance.StopStem(stem, time);
+		}
 		
 	}
 	

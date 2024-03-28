@@ -22,7 +22,6 @@ public partial class GravityZone : Area2D
 			foreach (var creature in _creatureTracker.GetCreatures() )
 			{
 				if (creature.Team == Team) continue;
-				GD.Print(creature.GlobalPosition);
 				var direction = (creature.GlobalPosition - GlobalPosition).Normalized();
 				creature.Knockback(direction * (float)( -5000 * delta));
 			}
