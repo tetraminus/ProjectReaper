@@ -126,7 +126,7 @@ public partial class SpawnDirector : Node
 
     private void SpawnWave()
     {
-        GD.Print(_credits);
+        
 
         if (GD.Randf() < SaveChance && _waiting == false && GetAvailableEnemies(_credits).Count < _spawnset.GetAllEnemies().Count)
         {
@@ -175,7 +175,7 @@ public partial class SpawnDirector : Node
         
         enemyInstance.AddToGroup("spawnedenemies");
         enemyInstance.NavGroup = GetNavGroup();
-        GD.Print("Spawning enemy with navgroup " + enemyInstance.NavGroup);
+        
         
         enemyInstance.GlobalPosition = position;
     }

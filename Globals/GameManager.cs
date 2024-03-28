@@ -93,6 +93,18 @@ public partial class GameManager : Node
     
     public override void _Ready()
     {
+        GetTree().NodeAdded += node =>
+        {
+            if (node is Button button)
+            {
+                
+                button.Pressed += () =>
+                {
+                    AudioManager.Instance.PlaySound("UI", "blip");
+                };
+            }
+        };
+        
         var playerhudScene = PlayerHudScene.Instantiate<CanvasLayer>();
         var pauseMenuScene = PauseMenuScene.Instantiate<CanvasLayer>();
         var library = ItemLibraryScene.Instantiate<Control>();
@@ -147,6 +159,7 @@ public partial class GameManager : Node
         PauseMenu.Show();
         PauseMenu.GrabFocus();
         CurrentScreen = PauseMenu;
+         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
         
     }
     
@@ -158,6 +171,8 @@ public partial class GameManager : Node
         Level.GetTree().Paused = false;
         PauseMenu.Hide();
         CurrentScreen = null;
+        AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
+       
     }
 
     public static void SpawnExplosion(Vector2 globalPosition, float damage, float scale = 1f,
@@ -198,6 +213,7 @@ public partial class GameManager : Node
         
         fadingOut = true;
         ScreenFader.FadeOut(1);
+        
         await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
         InRun = true;
@@ -227,6 +243,7 @@ public partial class GameManager : Node
         
         ScreenFader.FadeIn(1);
         fadingOut = false;
+        AudioManager.Instance.PlayMusic("Music", "Level1", 1);
         
         
     }
@@ -254,10 +271,21 @@ public partial class GameManager : Node
         MainMenu.GrabFocus();
         MainMenu.ShowBg();
         
+        PlayMenuMusic();
+        
         CurrentScreen = MainMenu;
 
     }
-    
+
+    private async static void PlayMenuMusic()
+    {
+        if (!AudioManager.Instance.IsMusicManagerLoaded)
+        {
+            await MainNode.ToSignal(AudioManager.Instance, AudioManager.SignalName.MusicManagerLoaded);
+        }
+        AudioManager.Instance.PlayMusic("Music", "Menu");
+    }
+
     public static float GetRunDifficulty()
     {
         if (CurrentRun == null) return -1;

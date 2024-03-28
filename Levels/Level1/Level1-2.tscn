@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_8t50y"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_o0hb6"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="8_vixlw"]
-[ext_resource type="PackedScene" uid="uid://cxxfh848gubsf" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
+[ext_resource type="PackedScene" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4v4sx"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_meqad"]
 
@@ -68,6 +68,7 @@ size = Vector2(281.702, 120.976)
 
 [node name="Level1-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 script = ExtResource("1_138kq")
+FightStems = ["Violin", "Amen"]
 BoundsLeft = -1024
 BoundsRight = 1024
 BoundsTop = -1024
