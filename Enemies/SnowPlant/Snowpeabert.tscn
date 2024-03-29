@@ -1,13 +1,20 @@
-[gd_scene load_steps=26 format=3 uid="uid://so8wjykmd2e6"]
+[gd_scene load_steps=23 format=3 uid="uid://so8wjykmd2e6"]
 
 [ext_resource type="Script" path="res://Enemies/SnowPlant/Snowpeabert.cs" id="1_7qjy0"]
-[ext_resource type="Texture2D" uid="uid://i04mvvq846is" path="res://Assets/Enemies/snow-pea (1).png" id="1_7x7i4"]
 [ext_resource type="Texture2D" uid="uid://ogljek4y77l4" path="res://Assets/kenney_particle-pack/PNG (Transparent)/dirt_03.png" id="2_kd3k0"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="3_6r0sw"]
+[ext_resource type="Texture2D" uid="uid://doagwcpta83p3" path="res://Assets/Enemies/mole.png" id="4_bt1fa"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_gx4l1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_aimvb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="7_thue7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="8_wc7wd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxxjo"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l681i"]
+size = Vector2(17, 19)
 
 [sub_resource type="Curve" id="Curve_8oa6k"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.664756, 0.477084), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -29,108 +36,75 @@ scale_max = 0.05
 scale_curve = SubResource("CurveTexture_0luxl")
 color = Color(0.901961, 0.768627, 0.568627, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_130je"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(0, 0, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pycwi"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r7geo"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(18, 0, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3rym"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4pvcn"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(36, 0, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_32t5t"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ejki6"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(0, 18, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn6fm"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yolcn"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(18, 18, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryk0b"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1dgv"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(36, 18, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8jqd"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(32, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dghji"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(0, 36, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_116ul"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u2lx2"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(18, 36, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmpn6"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(36, 36, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2peps"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(0, 54, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a3txk"]
-atlas = ExtResource("1_7x7i4")
-region = Rect2(18, 54, 18, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuh44"]
+atlas = ExtResource("4_bt1fa")
+region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mcism"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_130je")
+"texture": SubResource("AtlasTexture_pycwi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r7geo")
+"texture": SubResource("AtlasTexture_t3rym")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4pvcn")
+"texture": SubResource("AtlasTexture_32t5t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ejki6")
+"texture": SubResource("AtlasTexture_vn6fm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yolcn")
+"texture": SubResource("AtlasTexture_ryk0b")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g1dgv")
+"texture": SubResource("AtlasTexture_d8jqd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dghji")
+"texture": SubResource("AtlasTexture_116ul")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u2lx2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jmpn6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2peps")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a3txk")
+"texture": SubResource("AtlasTexture_uuh44")
 }],
 "loop": true,
 "name": &"default",
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxxjo"]
-radius = 5.0
-height = 20.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l681i"]
-size = Vector2(17, 19)
-
 [node name="Snowpeabert" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_7qjy0")
-
-[node name="BurrowParticles" type="GPUParticles2D" parent="."]
-process_material = SubResource("ParticleProcessMaterial_vcgmy")
-texture = ExtResource("2_kd3k0")
-
-[node name="Snowboy" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_mcism")
-frame_progress = 0.107942
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -141,11 +115,20 @@ script = ExtResource("3_6r0sw")
 shape = SubResource("CapsuleShape2D_dxxjo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_l681i")
 
-[node name="burrowTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="BurrowParticles" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_vcgmy")
+texture = ExtResource("2_kd3k0")
+
+[node name="Snowboy" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mcism")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+process_callback = 0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_gx4l1")
@@ -160,7 +143,8 @@ script = ExtResource("7_thue7")
 [node name="BackToMoving" type="Node" parent="StateChart/Root/Shooting"]
 script = ExtResource("8_wc7wd")
 to = NodePath("../../Burrowing")
-event = &"DoneFiring"
+event = &"PlayerSeen"
+delay_seconds = 1.0
 
 [node name="Burrowing" type="Node" parent="StateChart/Root"]
 script = ExtResource("6_aimvb")
@@ -171,21 +155,29 @@ script = ExtResource("7_thue7")
 
 [node name="CloseEnough" type="Node" parent="StateChart/Root/Burrowing/MoveTowardsPlayer"]
 script = ExtResource("8_wc7wd")
-to = NodePath("../../BurrowRandomly")
+to = NodePath("../../BurrowTowardsPlayer")
 event = &"PlayerSeen"
 
-[node name="BurrowRandomly" type="Node" parent="StateChart/Root/Burrowing"]
+[node name="BurrowTowardsPlayer" type="Node" parent="StateChart/Root/Burrowing"]
 script = ExtResource("7_thue7")
 
-[node name="FarEnough" type="Node" parent="StateChart/Root/Burrowing/BurrowRandomly"]
+[node name="Unburrow" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
+script = ExtResource("8_wc7wd")
+to = NodePath("../../../Shooting")
+event = &"PlayerSeen"
+delay_seconds = 1.0
+
+[node name="FarEnough" type="Node" parent="StateChart/Root/Burrowing/BurrowTowardsPlayer"]
 script = ExtResource("8_wc7wd")
 to = NodePath("../../MoveTowardsPlayer")
 event = &"PlayerLost"
 
-[node name="Shoot" type="Node" parent="StateChart/Root/Burrowing"]
-script = ExtResource("8_wc7wd")
-to = NodePath("../../Shooting")
-event = &"Shoot"
-
-[connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="OnShootingStateEntered"]
-[connection signal="state_processing" from="StateChart/Root/Shooting" to="." method="ShootingStateProcess"]
+[connection signal="timeout" from="ShootTimer" to="." method="Onshoot_timertimeout"]
+[connection signal="state_entered" from="StateChart/Root/Shooting" to="." method="Onshootingstate_entered"]
+[connection signal="state_exited" from="StateChart/Root/Shooting" to="StateChart/Root/Burrowing" method="Onshootingstate_exited"]
+[connection signal="state_entered" from="StateChart/Root/Burrowing" to="." method="Burrow"]
+[connection signal="state_exited" from="StateChart/Root/Burrowing" to="." method="Unburrow"]
+[connection signal="state_physics_processing" from="StateChart/Root/Burrowing/MoveTowardsPlayer" to="." method="FollowPath"]
+[connection signal="state_physics_processing" from="StateChart/Root/Burrowing/BurrowTowardsPlayer" to="." method="ChasePlayer"]
+[connection signal="child_entered_tree" from="StateChart/Root/Burrowing/BurrowTowardsPlayer/FarEnough" to="StateChart/Root/Burrowing/MoveTowardsPlayer" method="Onfar_enoughchild_entered_tree"]
+[connection signal="child_exiting_tree" from="StateChart/Root/Burrowing/BurrowTowardsPlayer/FarEnough" to="StateChart/Root/Burrowing/MoveTowardsPlayer/CloseEnough" method="Onfar_enoughchild_exiting_tree"]

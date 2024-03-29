@@ -111,6 +111,8 @@ public partial class Slimebert : AbstractCreature
         GameManager.Level.AddChild(bullet);
         MoveDirection = Vector2.Zero;
         Velocity = Vector2.Zero;
+        
+        
     }
     
     public void ChasePlayer(double delta)
@@ -147,8 +149,10 @@ public partial class Slimebert : AbstractCreature
         else
         {
             MoveDirection = Vector2.Zero;
+            Velocity = Vector2.Zero;
         }
-        
+
+        MoveAndSlide();
     }
     private void Move() {
         // simulate friction with delta

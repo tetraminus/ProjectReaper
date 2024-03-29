@@ -23,3 +23,26 @@ func _get_configuration_warnings() -> PackedStringArray :
 			warnings.append("Atomic states cannot have child states. These will be ignored.")
 			break
 	return warnings
+
+
+	
+
+
+func Onfar_enoughchild_entered_tree(node):
+	pass # Replace with function body.
+
+
+func Onback_to_movingchild_entered_tree(node):
+	pass # Replace with function body.
+
+
+func Burrow():
+	pass # Replace with function body.
+
+
+func Onshoot_timertimeout():
+	pass # Replace with function body.
+
+
+func Onfar_enoughchild_exiting_tree(node):
+	pass # Replace with function body.
