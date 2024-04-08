@@ -10,6 +10,10 @@ public partial class ChaseState : AbstractState
     private Timer _chargeTimer;
     private bool _canCharge = true;
     [Export] public float ChargeCooldown = 3f;
+    private Timer _shootTimer;
+    private bool _canShoot = true;
+    [Export] public float ShootCooldown = 0.5f;
+    
 
     public override void _Ready()
     {
@@ -18,6 +22,16 @@ public partial class ChaseState : AbstractState
         _chargeTimer.WaitTime = ChargeCooldown;
         _chargeTimer.OneShot = true;
         _chargeTimer.Timeout += () =>
+        
+        _shootTimer = new Timer();
+        _shootTimer.WaitTime = ShootCooldown;
+        _shootTimer.OneShot = true;
+        _shootTimer.Timeout += () =>
+        {
+            _canShoot = true;
+        };
+        AddChild(_shootTimer);
+        
         {
             _canCharge = true;
         };
@@ -33,6 +47,10 @@ public partial class ChaseState : AbstractState
             StateMachine.ChangeState("ChargeState");
             _chargeTimer.Start();
             _canCharge = false;
+            
+            StateMachine.ChangeState("ShootState");
+            _shootTimer.Start();
+            _canShoot = false;
         }
     }
 

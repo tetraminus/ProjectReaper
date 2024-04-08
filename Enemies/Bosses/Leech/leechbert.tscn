@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://by78vrfc67qa1"]
+[gd_scene load_steps=24 format=3 uid="uid://by78vrfc67qa1"]
 
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/Leechbert.cs" id="1_crr6j"]
 [ext_resource type="Texture2D" uid="uid://ca5n3slsgbyu8" path="res://Assets/Enemies/Bosses/Leech.png" id="2_jjqqp"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_uuc4l"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/WaitState.cs" id="7_ucfww"]
 [ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="7_vxpn5"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/ShootState.cs" id="8_cxtnl"]
+[ext_resource type="PackedScene" uid="uid://2litb28ag64h" path="res://Enemies/Bosses/Leech/LeechBullet.tscn" id="11_jaa8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x260n"]
 atlas = ExtResource("2_jjqqp")
@@ -125,6 +127,9 @@ script = ExtResource("6_q42id")
 script = ExtResource("7_ucfww")
 NextState = NodePath("../ChaseState")
 
+[node name="ShootState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("8_cxtnl")
+
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("6_uuc4l")
 
@@ -135,8 +140,13 @@ shape = SubResource("CapsuleShape2D_mugho")
 unique_name_in_owner = true
 
 [node name="MeleeArea" parent="MeleePivot" instance=ExtResource("7_vxpn5")]
-unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleePivot/MeleeArea"]
 position = Vector2(18, 0)
 shape = SubResource("RectangleShape2D_4o40r")
+
+[node name="ShootPivot" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LeechBullet" parent="ShootPivot" instance=ExtResource("11_jaa8s")]
+unique_name_in_owner = true
