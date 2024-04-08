@@ -23,9 +23,6 @@ f_gravity_gauntlet,"This gauntlet, created by Sir Gravity himself, harnesses the
 n_soul_harvester,Soul Harvester 
 d_soul_harvester,Temporary power boost after you kill an enemy.
 f_soul_harvester ,"Don't worry! You're not actually taking their souls, they dont have any! [size=14]Probably...[/size]"
-n_glasses_with_disguise,Glasses (With Disguise)
-d_glasses_with_disguise,Crit chance up
-f_glasses_with_disguise,The lens doesn't work but I still feel more accurate!
 n_vitamin_b,Vitamin B
 d_vitamin_b,Increases attack speed by 7.61%
 f_vitamin_b,I'm glad I'm not a vegan
@@ -35,3 +32,6 @@ f_microwave,In 7th grade I accidentally created a fire in the microwave. I don't
 n_dual_gun,Watch Your Six
 d_dual_gun,Mimics your forward attacks backwards
 f_dual_gun,Pay attention on the road. Pay attention on the road. Pay attention on the road. Pay attention on the road.
+n_critglasses,Disguise
+d_critglasses,Increases [color=red]crit[/color] chance by 15%
+f_critglasses,Try not to look too suspicious
