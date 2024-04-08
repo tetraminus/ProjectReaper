@@ -31,6 +31,7 @@ public partial class Slimebert : AbstractCreature
 		Stats.Speed = 60;
 		Stats.MaxHealth = 35 * (GameManager.GetRunDifficulty() + 2)/3; //divide by 3 for tier 1 enemies
 		Stats.Health = Stats.MaxHealth;
+		
 
 		_sprite = GetNode<AnimatedSprite2D>("Sprite");
 		_sprite.Play();

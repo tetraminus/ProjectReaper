@@ -69,6 +69,7 @@ public partial class Snowpeabert : AbstractCreature
 		Stats.MaxHealth = 35;
 		Stats.Health = Stats.MaxHealth * (GameManager.GetRunDifficulty() + 3)/4; //divide by 4 for tier 2 enemies
 		Stats.Speed = 80;
+		Stats.Damage = 8;
 		_particles = GetNode<GpuParticles2D>("BurrowParticles");
 
 		Sprite = FindChild("Snowboy") as AnimatedSprite2D;
