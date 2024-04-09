@@ -44,16 +44,17 @@ public partial class LootDirector : Node
             
             
             
-            
+            var chests = new Node{Name = "Chests"};
             for (var i = 0; i < numberOfChests; i++)
             {
                 var lootPoint = _lootPoints[GameManager.LootRng.RandiRange(0, _lootPoints.Count - 1)];
                 var chest = _chest.Instantiate<Chest>();
-                level.AddChild(chest);
+                chests.AddChild(chest);
                 chest.GlobalPosition = lootPoint.GlobalPosition;
                 GD.Print("Chest placed at: " + lootPoint.GlobalPosition);
                 _lootPoints.Remove(lootPoint);
             }
+            level.AddChild(chests);
             
         }
     }

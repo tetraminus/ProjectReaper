@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using ProjectReaper.Abilities;
 using ProjectReaper.Abilities.Projectiles;
@@ -31,6 +32,8 @@ public partial class Callbacks : Node
     [Signal]
     public delegate void BossDiedEventHandler();
     [Signal]
+    public delegate void LevelLoadedEventHandler();
+    [Signal]
     public delegate void ProjectileHitWallEventHandler(AbstractDamageArea bullet);
 
     
@@ -39,6 +42,7 @@ public partial class Callbacks : Node
     public HealEventHandler HealEvent = (creature, heal) => heal;
     public static Callbacks Instance { get; private set; }
     
+
 
     public override void _Ready()
     {

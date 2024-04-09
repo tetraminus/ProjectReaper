@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using ProjectReaper.Enemies;
@@ -13,7 +15,7 @@ public partial class Level : Node2D
 	private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
 	private float _totalSpawnArea;
 	private const float _minSpawnDistance = 500;
-	private Dictionary<SpawnRect, float> _spawnRectWeights = new Dictionary<SpawnRect, float>();
+	private Godot.Collections.Dictionary<SpawnRect, float> _spawnRectWeights = new Godot.Collections.Dictionary<SpawnRect, float>();
 	[Export] public bool DisableSpawning { get; set; }
 	[Export] public bool DropKeys = true;
 	[Export] public float KeyDropChance = 0.1f;
@@ -167,10 +169,23 @@ public partial class Level : Node2D
 		
 	}
 	
+	public List<Node2D> GetInteractables()
+	{
+		var interactables = GetNode("chests");
+		if (interactables == null)
+		{
+			return new List<Node2D>();
+		}
+		
+		return interactables.GetChildren().Cast<Node2D>().ToList();
+	}
+	
 	
 
 	public void Generate()
 	{
 		LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
+		
+		Callbacks.Instance.EmitSignal(Callbacks.SignalName.LevelLoaded);
 	}
 }

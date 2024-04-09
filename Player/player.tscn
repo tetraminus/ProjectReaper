@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=21 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
 [ext_resource type="Shader" path="res://Player/PlayerOutline.gdshader" id="2_s81kq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Abilities/SoldierRoll.cs" id="6_aui5x"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_k1hhn"]
 [ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="8_cacyo"]
+[ext_resource type="Script" path="res://Abilities/SoldierWhack.cs" id="9_37wai"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="9_dd3oj"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_prqtj"]
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="11_x6bjh"]
@@ -35,7 +36,7 @@ radius = 6.0
 radius = 7.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qjn8v"]
-polygon = PackedVector2Array(3, -6, 4, -5, 2, 0, 4, 2, 4, 6, 3, 8, -3, 8, -4, 6, -4, 2, -2, 1, -2, 0, -4, -4, -3, -5, -2, -7, 3, -7)
+polygon = PackedVector2Array(3, -6, 4, -5, 1, 0, 3, 2, 3, 6, 2, 8, -4, 8, -5, 6, -5, 2, -3, 1, -3, 0, -5, -4, -4, -5, -2, -7, 2, -7)
 
 [sub_resource type="Resource" id="Resource_ownk1"]
 script = ExtResource("12_6jalh")
@@ -88,7 +89,7 @@ shape = SubResource("CircleShape2D_xbyij")
 
 [node name="AbilityManager" type="Node" parent="Player" node_paths=PackedStringArray("Abilities", "Creature")]
 script = ExtResource("3_u00fe")
-Abilities = [NodePath("SoldierShoot"), null, NodePath("SoldierRoll"), null]
+Abilities = [NodePath("SoldierShoot"), NodePath("SoldierWhack"), NodePath("SoldierRoll"), null]
 Creature = NodePath("..")
 
 [node name="SoldierShoot" type="Node" parent="Player/AbilityManager"]
@@ -96,6 +97,9 @@ script = ExtResource("4_2082f")
 
 [node name="SoldierRoll" type="Node" parent="Player/AbilityManager"]
 script = ExtResource("6_aui5x")
+
+[node name="SoldierWhack" type="Node" parent="Player/AbilityManager"]
+script = ExtResource("9_37wai")
 
 [node name="Hurtbox" type="Area2D" parent="Player"]
 collision_layer = 2
@@ -106,7 +110,7 @@ script = ExtResource("6_k1hhn")
 shape = SubResource("CircleShape2D_qdpoa")
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
-position = Vector2(1, 1)
+position = Vector2(0, 1)
 energy = 0.5
 shadow_enabled = true
 shadow_item_cull_mask = 2
