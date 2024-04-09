@@ -12,9 +12,10 @@ public abstract partial class AbstractItem : Node2D
     public static PackedScene ItemDropEffectScene = GD.Load<PackedScene>("res://Vfx/ItemDropEffect.tscn");
     public delegate int StackChangeEventHandler(AbstractItem item, int stacks);
     private int _stacks { get; set; }
+    public int MimicStacks = 0;
     public int Stacks
     {
-        get => _stacks;
+        get => _stacks + MimicStacks;
         set
         {
             _stacks = value;
@@ -66,6 +67,8 @@ public abstract partial class AbstractItem : Node2D
     {
         
     }
+    
+    
 
     public virtual void OnInitalPickup() { }
     public virtual void Cleanup() { }

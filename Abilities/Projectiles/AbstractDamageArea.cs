@@ -24,7 +24,7 @@ public abstract partial class AbstractDamageArea : Area2D
 
     public abstract float Duration { get; set; }
     public float Range { get; set; } = -1f;
-    public float Knockback { get; set; } = 0f;
+    public virtual float Knockback { get; set; } = 0f;
     public bool DestroyOnHit { get; set; } = true;
     public bool DestroyOnWall { get; set; } = true;
     public float ProcCoef { get; set; } = 1f;
@@ -122,7 +122,8 @@ public abstract partial class AbstractDamageArea : Area2D
         GlobalRotation = rotation;
         Source = source;
         Team = team;
-        _lastPosition = GlobalPosition;
+        startPosition = Position;
+        _lastPosition = Position;
     }
     
     

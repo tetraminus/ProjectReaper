@@ -4,6 +4,7 @@ using ProjectReaper.Abilities;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
+using ProjectReaper.Player;
 using ProjectReaper.Vfx;
 
 namespace ProjectReaper.Items;
@@ -35,10 +36,11 @@ public partial class GrapeShot : AbstractItem
 		_spreaddeg = Mathf.Max(MinSpreadDeg, _spreaddeg - newstacks );
 	}
 
-	public void OnAbilityUsed(AbstractAbility ability, int slot)
+	public void OnAbilityUsed(AbstractAbility ability, int slotidx)
 	{
 		_count++;
-		if (slot == 1 && _count >= 3)
+		var slot = (AbilityManager.AbilitySlot) slotidx;
+		if (slot == AbilityManager.AbilitySlot.Main && _count >= 3)
 		{
 			FireGrapeshot();
 			_count = 0;

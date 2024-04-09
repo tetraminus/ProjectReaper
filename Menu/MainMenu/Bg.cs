@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Globals;
 
 namespace ProjectReaper.Menu.MainMenu;
 
@@ -20,16 +21,36 @@ public partial class Bg : ColorRect
 		_shaderMaterial.SetShaderParameter("spiral_color", newcolor);
 
 		_shaderMaterial.SetShaderParameter("color_steps", 0);
-		
+	}
+	
+	public void SwirlIn(float dur = 3)
+	{
 		var tween = GetTree().CreateTween();
-		//tween.TweenInterval(1);
 		tween.TweenMethod(Callable.From<float>(f =>
 		{
 			_shaderMaterial.SetShaderParameter("color_steps", f);
-		}), 0.0, 6.0, 4);
+		}), 0.0, 6.0, dur);
 	
 		tween.Play();
+		
 	}
+	
+	public void SwirlOut(float dur = 2)
+	{
+		var tween = GetTree().CreateTween();
+		tween.TweenMethod(Callable.From<float>(f =>
+		{
+			_shaderMaterial.SetShaderParameter("color_steps", f);
+		}), 6.0, 0.0, dur);
+	
+		tween.Play();
+		tween.Finished += () =>
+		{
+			GameManager.MainNode.EmitSignal(Main.SignalName.TransitionComplete);
+		};
+	}
+	
+	
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

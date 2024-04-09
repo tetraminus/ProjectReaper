@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl5htiytrwsqk"]
+
+[ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="1_uw282"]
+[ext_resource type="Texture2D" uid="uid://b5nwvmw816e75" path="res://Assets/Abilities/Whack/WhackTrail.png" id="2_ggg1l"]
+[ext_resource type="PackedScene" uid="uid://ctparkvagq0c1" path="res://Components/TimedDeleteComponent.tscn" id="3_a06ms"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k0s8"]
+size = Vector2(16, 32)
+
+[node name="WhackScene" type="Node2D"]
+
+[node name="MeleeArea" parent="." instance=ExtResource("1_uw282")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("RectangleShape2D_8k0s8")
+
+[node name="WhackTrail" type="Sprite2D" parent="."]
+texture = ExtResource("2_ggg1l")
+
+[node name="TimedDeleteComponent" parent="." node_paths=PackedStringArray("NodeToDelete") instance=ExtResource("3_a06ms")]
+TimeToDelete = 0.38
+NodeToDelete = NodePath("..")
+DefferedDelete = true

@@ -21,24 +21,45 @@ public partial class MainMenu : Control
 		
 		FocusEntered += Focus;
 		
-		var tween = GetTree().CreateTween();
+		
 		_menuScreen.Modulate = new Color(1, 1, 1, 0);
 		_menuScreen.SetProcessInput(false);
 		_menuScreen.SetProcessUnhandledInput(false);
-		//fade in
-		tween.TweenInterval(3);
-		tween.TweenProperty(_menuScreen, "modulate", new Color(1, 1, 1, 1), 1.5f);
-		tween.Finished += () =>
-		{
-			_menuScreen.SetProcessInput(true);
-			_menuScreen.SetProcessUnhandledInput(true);
-			
-		};
+		
+		FadeIn();
+		
 		GetBgNode();
 		
 		
 
 	}
+	
+	public void FadeIn(float interval = 1f, float fadetime = 1.5f)
+	{
+		var tween = GetTree().CreateTween();
+		tween.TweenInterval(interval);
+		tween.TweenProperty(_menuScreen, "modulate", new Color(1, 1, 1, 1), fadetime);
+		tween.Finished += () =>
+		{
+			_menuScreen.SetProcessInput(true);
+			_menuScreen.SetProcessUnhandledInput(true);
+		};
+		tween.Play();
+	}
+	
+	public void FadeOut(float interval = 1f, float fadetime = 1.5f)
+	{
+		var tween = GetTree().CreateTween();
+		tween.TweenInterval(interval);
+		tween.TweenProperty(_menuScreen, "modulate", new Color(1, 1, 1, 0), fadetime);
+		tween.Finished += () =>
+		{
+			_menuScreen.SetProcessInput(false);
+			_menuScreen.SetProcessUnhandledInput(false);
+		};
+		tween.Play();
+	}
+	
 	
 	public async void GetBgNode()
 	{
