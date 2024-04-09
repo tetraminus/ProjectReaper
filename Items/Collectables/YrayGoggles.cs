@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 using ProjectReaper.Globals;
 using ProjectReaper.Interactables;
 
@@ -9,23 +10,42 @@ public partial class YrayGoggles : AbstractItem
     public override string Id => "xray_goggles";
     public override ItemRarity Rarity => ItemRarity.Rare;
     private PackedScene _rarityIndicator = GD.Load<PackedScene>("res://Items/Prefabs/RarityIndicator.tscn");
-
+    private Dictionary<Chest, RarityIndicator> _indicators = new Dictionary<Chest, RarityIndicator>();
     public override void OnInitalPickup()
     {
         Callbacks.Instance.LevelLoaded += OnLevelLoaded;
+        OnLevelLoaded();
     }
     
     private void OnLevelLoaded()
     {
+        _indicators.Clear();
         foreach (var chest in GameManager.Level.GetInteractables())
         {
             if (chest is Chest c)
             {
-                c.AddChild(_rarityIndicator.Instantiate<RarityIndicator>());
+                var rarityIndicator = _rarityIndicator.Instantiate<RarityIndicator>();
+                c.AddChild(rarityIndicator);
+                _indicators.Add(c, rarityIndicator);
             }
         }
+        SetIndicators();
        
     }
+
+    public override void OnStack(int newstacks)
+    {
+        SetIndicators();
+    }
+
+    public void SetIndicators()
+    {
+        foreach (var indicator in _indicators)
+        {
+            indicator.Value.SetRarity(indicator.Key.GetRarity());
+        }
+    }
+    
 
     public override void Cleanup()
     {

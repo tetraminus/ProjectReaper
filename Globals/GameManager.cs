@@ -2,6 +2,7 @@ using Godot;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
+using ProjectReaper.Menu.MainMenu;
 using ProjectReaper.Player;
 using ProjectReaper.Util;
 
@@ -41,6 +42,9 @@ public partial class GameManager : Node
     public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
     public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
     public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
+    
+    
+    
     
     public static bool RollBool(float chance, int luck = 1, RandomNumberGenerator rng = null)
     {
@@ -230,9 +234,12 @@ public partial class GameManager : Node
     {
         
         fadingOut = true;
-        ScreenFader.FadeOut(1);
-        
-        await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+        AudioManager.Instance.PlaySound("UI", "Zwomp");
+        MainNode.GetNode<Bg>("%Bg").SwirlOut();
+        MainMenu.FadeOut(0, 0.5f);
+        await MainNode.ToSignal(MainNode, Main.SignalName.TransitionComplete);
+        ScreenFader.FadeOut(0.1f);
+        await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
         InRun = true;
         LootRng.Seed = seed;
@@ -270,8 +277,10 @@ public partial class GameManager : Node
     {
         
         if (fadingOut) return;
+        MainNode.GetNode<Bg>("%Bg").SwirlIn();
         if (fadein)
         {
+            MainMenu.FadeIn();
             fadingOut = true;
             ScreenFader.FadeOut(1);
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);

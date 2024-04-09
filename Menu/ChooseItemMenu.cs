@@ -27,7 +27,7 @@ public partial class ChooseItemMenu : Control
 			itemButton.SetItem(item);
 			itemButton.ClickedItem += OnItemClicked;
 			itemButton.HideStacks();
-			itemButton.SetSize(itemButton.Size * 2);
+			itemButton.CustomMinimumSize *= 2;
 		}
 	}
 	

@@ -68,4 +68,9 @@ public partial class Chest : Node2D, IInteractable
         }
         return Interactable ? Tr("ui_open_chest") : Tr("ui_locked_chest") + 1;
     }
+
+    public ItemRarity GetRarity()
+    {
+        return _items[0].Rarity;
+    }
 }

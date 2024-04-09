@@ -8,6 +8,8 @@ using ProjectReaper.Globals;
 public partial class Main : Node2D
 {
 	
+	[Signal]
+	public delegate void TransitionCompleteEventHandler();
 	
 	
 	
@@ -16,9 +18,6 @@ public partial class Main : Node2D
 	{
 		GameManager.MainNode = this;
 		GameManager.GoToMainMenu();
-		
-		
-		
 		
 	}
 	

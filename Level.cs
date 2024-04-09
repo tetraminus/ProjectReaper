@@ -171,7 +171,7 @@ public partial class Level : Node2D
 	
 	public List<Node2D> GetInteractables()
 	{
-		var interactables = GetNode("chests");
+		var interactables = GetNode("Chests");
 		if (interactables == null)
 		{
 			return new List<Node2D>();
