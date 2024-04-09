@@ -128,9 +128,9 @@ public partial class Player : AbstractCreature
 		
 		
 		if (Input.IsActionPressed("ability1")) _abilityManager.UseAbility(0);
-		// if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility(1);
+		if (Input.IsActionPressed("ability2")) _abilityManager.UseAbility(1);
 		if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility(2);
-		// if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
+		if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
 		
 		if (Input.IsActionJustPressed("cheat"))
 		{
@@ -230,6 +230,6 @@ public partial class Player : AbstractCreature
 		return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
 	}
 
-   
+
 	
 }

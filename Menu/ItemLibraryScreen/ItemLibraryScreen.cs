@@ -12,7 +12,7 @@ public partial class ItemLibraryScreen : Control
 	private ItemInfoContainer _descriptionContainer;
 	private TabContainer _RarityTabContainer;
 	private PackedScene _rarityTabScene = GD.Load<PackedScene>("res://Menu/ItemLibraryScreen/RarityTab.tscn");
-	private PackedScene _itemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
+	
 	public event Action CloseRequested;
 	public bool Cheats = false;
 
@@ -52,6 +52,7 @@ public partial class ItemLibraryScreen : Control
 		
 		foreach (var Rarity in items.Keys)
 		{
+			if (Rarity.Hidden && !Cheats) continue;
 			var tab = _rarityTabScene.Instantiate<RarityTab>();
 			_RarityTabContainer.AddChild(tab);
 			tab.Name = Rarity.NameKey;
@@ -59,7 +60,7 @@ public partial class ItemLibraryScreen : Control
 			var item = items[Rarity];
 			foreach (var abstractItem in item)
 			{
-				var itemDisplay = _itemDisplayScene.Instantiate<ItemDisplay>();
+				var itemDisplay = ItemLibrary.ItemDisplayScene.Instantiate<ItemDisplay>();
 				
 				itemDisplay.FocusMode = FocusModeEnum.All;
 				

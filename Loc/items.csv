@@ -20,11 +20,11 @@ f_dream_car,"[fade start=40 length=200]Characterized by thin roof pillars, fastb
 n_gravity_gauntlet,Gravity's Gauntlet 
 d_gravity_gauntlet,Creates gravity wells that trap enemies temporarily.
 f_gravity_gauntlet,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to capture foes."
-n_soul_harvester,Soul Harvester 
-d_soul_harvester,Temporary power boost after you kill an enemy.
-f_soul_harvester ,"Don't worry! You're not actually taking their souls, they dont have any! [size=14]Probably...[/size]"
+n_soul_harvester,Soul Totem
+d_soul_harvester,Grants a temporary damage boost after you kill an enemy.
+f_soul_harvester ,"Don't worry! You're not actually taking their souls, they [size=14]Probably...[/size] dont have any!"
 n_vitamin_b,Vitamin B
-d_vitamin_b,Increases attack speed by 7.61%
+d_vitamin_b,Increases attack speed by exactly 8.72%
 f_vitamin_b,I'm glad I'm not a vegan
 n_microwave,Microwave
 d_microwave,Applies burn damage to the target
@@ -33,5 +33,68 @@ n_dual_gun,Watch Your Six
 d_dual_gun,Mimics your forward attacks backwards
 f_dual_gun,Pay attention on the road. Pay attention on the road. Pay attention on the road. Pay attention on the road.
 n_critglasses,Disguise
-d_critglasses,Increases [color=red]crit[/color] chance by 15%
-f_critglasses,Try not to look too suspicious
+d_critglasses,Increases [color=orange]crit[/color] chance by 15%
+f_critglasses,The lens doesn't work but I still feel more accurate!
+n_lightning_rod,Lightning Rod
+d_lightning_rod,Arcs half-damage bolts between enemies.
+f_lightning_rod,"Thunderstorms have always felt calming. A little risk of rain can be quite thrilling, and knowing I'm safe in my house is oh so satisfying."
+n_heavy_shot,Heavy Bullet
+d_heavy_shot,[color=red]Halves your firerate[/color] and triples your damage.
+f_heavy_shot,description tbd
+n_bug_spray,Bug Spray
+d_bug_spray,Bullets knock enemies away.
+f_bug_spray,description tbd
+n_confidence_boost,Confidence Booster
+d_confidence_boost,Increases your damage by your speed.
+f_confidence_boost,description tbd
+n_googly_glasses,Googly Glasses
+d_googly_glasses,Increases [color=orange]crit[/color] damage by 20%
+f_googly_glasses,description tbd
+n_everything_bagel,Everything Bagel
+d_everything_bagel,"Increases your damage, firerate, [color=orange]crit[/color] chance, [color=orange]crit[/color] damage, and dash cooldown."
+f_everything_bagel,Nice comfort. Always available in my house. Really easy to buy a bunch and to just have in a bag.
+n_life_leechbert,Life Leechbert
+d_life_leechbert,Sometimes drains health from slain enemies. Activates more often in close proximity with targets.
+f_life_leechbert,Still has the terrible smell of Leechbert. Alluring.
+n_treasure_map,Treasure Map
+d_treasure_map,Grants an additional option when opening a chest.
+f_treasure_map,I'M A PIRATE MANNNNNNNN!! I'M LIKE THE FREAKING PIRATES OF THE CARIBEAN WOOOOOO
+n_xray_goggles,Y-Ray Goggles
+d_xray_goggles,Shows the rarity of the items in chests. [color=red]WARNING: inaccurate[/color]
+d_xray_goggles,Just 10¢!
+n_new_years_glasses,New Year's Glasses
+d_new_years_glasses,Grants the player luck in the new year!
+f_new_years_glasses,"This year, my resolutions will definitely succeed."
+n_pizza,Pizza
+d_pizza,WEEEEEEEEEE
+f_pizza,Pizza is by far hands down the best food ever created by far.
+n_rogue_nanotech,Rogue Nano-Tech
+d_rogue_nanotech,"Boosts random Items, shifts over time."
+f_rogue_nanotech,[shake rate=20.0 level=2 connected=1]<ERR>[/shake].
+n_lightsaber,Glow Stick Sword
+d_lightsaber,Leaves a lingering fire in the area of your [color=green]secondary[/color] ability.
+f_lightsaber,"The non-copyrightable weapon of the characters in my favorite movie, Space Battle: The Organization Fights Again."
+n_cool_beans,Cool Beans
+d_cool_beans,Bullets slow down non-boss enemies.
+f_cool_beans,"Okay, they're not that cold, but I probably want to put them in the microwave first."
+n_bullet_biter,Bullet Biter
+d_bullet_biter,Decreases damage taken by 2.
+f_bullet_biter,"As far as stupid things you can do on the way to the military, this has gotta be a lot stupider than what I did."
+n_gold_armor,Gold Armor
+d_gold_armor,Gives a 10% chance to gain a key when you are hit. Gain 1% [color=cyan]defense[/color].
+f_gold_armor,"Honestly probably hurts more than it helps, but at least it looks nice?"
+n_feather_pen,Feather Pen
+d_feather_pen,Doubles your movement speed [color=red]and dash cooldown[/color].
+f_feather_pen,description tbd
+n_rocket_science,Rocket Science
+d_rocket_science,Replaces your primary attack with a [color=red]lower damage[/color] homing attack.
+f_rocket_science,Give up trying to understand it.
+n_rocket_launcher,Rocket Launcher
+d_rocket_launcher,[color=red]Replaces your secondary attack with a great ability ;)[/color]
+f_rocket_launcher,ok
+n_han_solo,Garrison Fjord
+d_han_solo,[color=red]Blanches your almond ;)[/color]
+f_han_solo,bruh
+n_healthy_breakfast,Healthy Breakfast
+d_healthy_breakfast,
+f_healthy_breakfast,"Are burgers healthy? Well, I hope they are, since that's the only leftovers in the fridge."
