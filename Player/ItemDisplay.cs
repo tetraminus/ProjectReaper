@@ -81,6 +81,12 @@ public partial class ItemDisplay : Control
         Item.StacksChanged += UpdateStacks;
     }
 
+    public override void _ExitTree()
+    {
+        Item.StacksChanged -= UpdateStacks;
+        base._ExitTree();
+    }
+
     public override void _Process(double delta)
     {
         base._Process(delta);

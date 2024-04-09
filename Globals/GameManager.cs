@@ -125,6 +125,16 @@ public partial class GameManager : Node
         
         
     }
+    
+    public static Control GetScreenByName(string screenName)
+    {
+        var scr = MainNode.GetTree().Root.FindChild(screenName, true, false);
+        if (scr == null)
+        {
+            GD.PrintErr("Screen not found");
+        }
+        return scr as Control;
+    }
 
     public override void _Process(double delta)
     {
@@ -150,29 +160,37 @@ public partial class GameManager : Node
 
     
 
-    public static void PauseGame()
+    public static void ShowScreen(Control screen)
     {
         if (!InRun) return;
-        
+
         Paused = true;
         Level.GetTree().Paused = true;
-        PauseMenu.Show();
-        PauseMenu.GrabFocus();
-        CurrentScreen = PauseMenu;
-         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
-        
+        screen.Show();
+        screen.GrabFocus();
+        CurrentScreen = screen;
+        AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
+    }
+
+    public static void PauseGame()
+    {
+        ShowScreen(PauseMenu);
     }
     
-    public static void UnpauseGame()
+    public static void HideScreen(Control screen)
     {
         if (!InRun) return;
-        
+
         Paused = false;
         Level.GetTree().Paused = false;
-        PauseMenu.Hide();
+        screen.Hide();
         CurrentScreen = null;
         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
-       
+    }
+
+    public static void UnpauseGame()
+    {
+        HideScreen(PauseMenu);
     }
 
     public static void SpawnExplosion(Vector2 globalPosition, float damage, float scale = 1f,
@@ -353,11 +371,11 @@ public partial class GameManager : Node
         CurrentScreen?.Hide();
         LastScreen = CurrentScreen;
         CurrentScreen = ItemLibraryScreen;
-        
+        ItemLibraryScreen.Cheats = cheat;
         ItemLibraryScreen.LoadItems();
         ItemLibraryScreen.Focus();
         ItemLibraryScreen.Show();
-        ItemLibraryScreen.Cheats = cheat;
+        
         
     }
 

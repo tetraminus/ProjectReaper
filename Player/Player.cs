@@ -230,6 +230,6 @@ public partial class Player : AbstractCreature
 		return _inventory.ContainsKey(KeyId) ? _inventory[KeyId] : 0;
 	}
 
-   
+
 	
 }

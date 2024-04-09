@@ -25,7 +25,7 @@ public partial class AbilityManager : Node
         var ability = Abilities[abilityIndex];
         if (!ability.CheckCooldown())
         {
-            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, ability, abilityIndex + 1);
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.AbilityUsed, ability, abilityIndex);
             ability.Use();
             ability.StartCooldown();
         }
@@ -39,8 +39,6 @@ public partial class AbilityManager : Node
     {
         return Abilities[(int) slot];
     }
-    
-    
     
     public enum AbilitySlot
     {
