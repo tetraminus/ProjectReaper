@@ -2,6 +2,7 @@ using Godot;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
+using ProjectReaper.Menu.MainMenu;
 using ProjectReaper.Player;
 using ProjectReaper.Util;
 
@@ -41,6 +42,9 @@ public partial class GameManager : Node
     public static RandomNumberGenerator LootRng = new RandomNumberGenerator();
     public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
     public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
+    
+    
+    
     
     public static bool RollBool(float chance, int luck = 1, RandomNumberGenerator rng = null)
     {
@@ -125,6 +129,16 @@ public partial class GameManager : Node
         
         
     }
+    
+    public static Control GetScreenByName(string screenName)
+    {
+        var scr = MainNode.GetTree().Root.FindChild(screenName, true, false);
+        if (scr == null)
+        {
+            GD.PrintErr("Screen not found");
+        }
+        return scr as Control;
+    }
 
     public override void _Process(double delta)
     {
@@ -150,29 +164,37 @@ public partial class GameManager : Node
 
     
 
-    public static void PauseGame()
+    public static void ShowScreen(Control screen)
     {
         if (!InRun) return;
-        
+
         Paused = true;
         Level.GetTree().Paused = true;
-        PauseMenu.Show();
-        PauseMenu.GrabFocus();
-        CurrentScreen = PauseMenu;
-         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
-        
+        screen.Show();
+        screen.GrabFocus();
+        CurrentScreen = screen;
+        AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
+    }
+
+    public static void PauseGame()
+    {
+        ShowScreen(PauseMenu);
     }
     
-    public static void UnpauseGame()
+    public static void HideScreen(Control screen)
     {
         if (!InRun) return;
-        
+
         Paused = false;
         Level.GetTree().Paused = false;
-        PauseMenu.Hide();
+        screen.Hide();
         CurrentScreen = null;
         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
-       
+    }
+
+    public static void UnpauseGame()
+    {
+        HideScreen(PauseMenu);
     }
 
     public static void SpawnExplosion(Vector2 globalPosition, float damage, float scale = 1f,
@@ -212,9 +234,12 @@ public partial class GameManager : Node
     {
         
         fadingOut = true;
-        ScreenFader.FadeOut(1);
-        
-        await MainNode.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+        AudioManager.Instance.PlaySound("UI", "Zwomp");
+        MainNode.GetNode<Bg>("%Bg").SwirlOut();
+        MainMenu.FadeOut(0, 0.5f);
+        await MainNode.ToSignal(MainNode, Main.SignalName.TransitionComplete);
+        ScreenFader.FadeOut(0.1f);
+        await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
         InRun = true;
         LootRng.Seed = seed;
@@ -252,8 +277,10 @@ public partial class GameManager : Node
     {
         
         if (fadingOut) return;
+        MainNode.GetNode<Bg>("%Bg").SwirlIn();
         if (fadein)
         {
+            MainMenu.FadeIn();
             fadingOut = true;
             ScreenFader.FadeOut(1);
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
@@ -353,11 +380,11 @@ public partial class GameManager : Node
         CurrentScreen?.Hide();
         LastScreen = CurrentScreen;
         CurrentScreen = ItemLibraryScreen;
-        
+        ItemLibraryScreen.Cheats = cheat;
         ItemLibraryScreen.LoadItems();
         ItemLibraryScreen.Focus();
         ItemLibraryScreen.Show();
-        ItemLibraryScreen.Cheats = cheat;
+        
         
     }
 

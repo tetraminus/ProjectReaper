@@ -274,4 +274,16 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
         return GlobalRotation;
     }
     
+    public void Heal(float amount)
+    {
+        var newAmount = Callbacks.Instance.HealEvent?.Invoke(this, amount) ?? amount;
+        
+        Stats.Health += amount;
+        if (Stats.Health > Stats.MaxHealth)
+        {
+            Stats.Health = Stats.MaxHealth;
+        }
+    }
+    
+    
 }

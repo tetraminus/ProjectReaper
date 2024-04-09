@@ -9,6 +9,7 @@ namespace ProjectReaper.Globals;
 
 public partial class ItemLibrary : Node
 {
+    
     /// <summary>
     ///     Event for when the item library is loaded
     /// </summary>
@@ -19,6 +20,7 @@ public partial class ItemLibrary : Node
     public Dictionary<string, AbstractItem> AllItems { get; set; } = new();
     public Dictionary<ItemRarity, List<AbstractItem>> ItemsByRarity { get; set; } = new();
     public RandomNumberGenerator ItemRNG = new();
+    public static PackedScene ItemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
 
     public override void _EnterTree()
     {

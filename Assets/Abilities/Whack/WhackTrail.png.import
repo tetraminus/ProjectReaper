@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0616kgr53qjq"
-path="res://.godot/imported/microwave.png-2f102e1ac08f8019ecd9b54b6dd5fd24.ctex"
+uid="uid://b5nwvmw816e75"
+path="res://.godot/imported/WhackTrail.png-39e5c7e5919d3325ecc2a30618583ae1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/microwave.png"
-dest_files=["res://.godot/imported/microwave.png-2f102e1ac08f8019ecd9b54b6dd5fd24.ctex"]
+source_file="res://Assets/Abilities/Whack/WhackTrail.png"
+dest_files=["res://.godot/imported/WhackTrail.png-39e5c7e5919d3325ecc2a30618583ae1.ctex"]
 
 [params]
 

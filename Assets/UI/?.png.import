@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0616kgr53qjq"
-path="res://.godot/imported/microwave.png-2f102e1ac08f8019ecd9b54b6dd5fd24.ctex"
+uid="uid://dbd1wnher31xx"
+path="res://.godot/imported/?.png-8055aa458f3cf878302ea0a765c18a5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/microwave.png"
-dest_files=["res://.godot/imported/microwave.png-2f102e1ac08f8019ecd9b54b6dd5fd24.ctex"]
+source_file="res://Assets/UI/?.png"
+dest_files=["res://.godot/imported/?.png-8055aa458f3cf878302ea0a765c18a5d.ctex"]
 
 [params]
 

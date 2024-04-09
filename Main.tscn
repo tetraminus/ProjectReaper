@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=30 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
 [ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="5_gqeuv"]
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="6_6ggsd"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_bank.gd" id="8_bohd1"]
+[ext_resource type="AudioStream" uid="uid://buauf14nn4cmx" path="res://Assets/Audio/Ui/zwomp.mp3" id="8_i6rhl"]
 [ext_resource type="AudioStream" uid="uid://cf451p70nelqr" path="res://Assets/Audio/Ui/Blip_Select118.wav" id="8_jpto2"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
@@ -68,6 +69,14 @@ bus = ""
 volume = 0.0
 pitch = 1.0
 streams = Array[AudioStream]([ExtResource("8_jpto2")])
+
+[sub_resource type="Resource" id="Resource_85or6"]
+script = ExtResource("6_6ggsd")
+name = "Zwomp"
+bus = ""
+volume = 0.9
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("8_i6rhl")])
 
 [sub_resource type="Resource" id="Resource_6fibq"]
 script = ExtResource("10_wodfd")
@@ -150,7 +159,7 @@ mouse_filter = 2
 [node name="SoundBank" type="Node" parent="."]
 script = ExtResource("5_gqeuv")
 label = "UI"
-events = Array[ExtResource("6_6ggsd")]([SubResource("Resource_hyad5")])
+events = Array[ExtResource("6_6ggsd")]([SubResource("Resource_hyad5"), SubResource("Resource_85or6")])
 
 [node name="MusicBank" type="Node" parent="."]
 script = ExtResource("8_bohd1")
