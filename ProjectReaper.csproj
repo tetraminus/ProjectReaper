@@ -6,10 +6,10 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="HarmonyX" Version="2.12.0" />
+        <PackageReference Include="HarmonyX" Version="2.12.0"/>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="addons\" />
-      <Folder Include="Tests\" />
+        <Folder Include="addons\"/>
+        <Folder Include="Tests\"/>
     </ItemGroup>
 </Project>

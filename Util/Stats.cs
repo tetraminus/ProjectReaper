@@ -1,30 +1,83 @@
+using System.Collections.Generic;
 using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 
 namespace ProjectReaper.Util;
 
-public class Stats
+public partial class Stats : Node
 {
     public delegate void ValueChangedDelegate(float oldValue, float newValue);
+    public AbstractCreature Creature;
+
+    private float _damage;
 
     private float _health;
+    
+    private float _defense;
+    private float _armor;
+    private float _speed;
+    private float _critChance;
+    private float _critDamage;
+    private float _attackSpeed;
+    private float _range;
+    private float _attackDamage;
+    private float _attackKnockback;
+    private float _attackStun;
+    private float _attackDuration;
+    private float _attackSpread;
 
     private float _maxHealth;
     public ValueChangedDelegate HealthChanged;
     public ValueChangedDelegate MaxHealthChanged;
+    
+    private Dictionary<string, float> _calculatedStats = new ();
+
+    private float CalculateStat(float baseStat, string statName)
+    {
+        if (_calculatedStats.TryGetValue(statName, out var calculatedStat))
+        {
+            return calculatedStat;
+        }
+
+        calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName);
+        _calculatedStats[statName] = calculatedStat;
+        return calculatedStat;
+    }
+
+    public Stats()
+    {                                               
+        Callbacks.Instance.RecalculateStats += RecalculateStats;
+    }
+    
+    public void SetCreature(AbstractCreature creature)                   
+    {
+        Creature = creature;
+        Callbacks.Instance.CreatureDied += (diedcreature) =>
+        {
+            if (diedcreature == Creature)
+            {
+                Callbacks.Instance.RecalculateStats -= RecalculateStats;
+            }
+        };
+    }
+    
+    private void RecalculateStats()
+    {
+        _calculatedStats.Clear();
+    }
+    
+    
+
 
     public float Health
     {
         get => _health;
         set
         {
-            if (value != _health)
-            {
-                var handler = HealthChanged;
-                handler?.Invoke(_health, value);
-                _health = value;
-            }
+            var oldValue = _health;
+            _health = value;
+            HealthChanged?.Invoke(oldValue, value);
         }
     }
 
@@ -33,39 +86,94 @@ public class Stats
         get => _maxHealth;
         set
         {
-            if (value != _maxHealth)
-            {
-                var handler = MaxHealthChanged;
-                handler?.Invoke(_maxHealth, value);
-                _maxHealth = value;
-            }
+            var oldValue = _maxHealth;
+            _maxHealth = value;
+            MaxHealthChanged?.Invoke(oldValue, value);
+            
         }
     }
 
-    public float Damage { get; set; }
-    
-    public bool ContactDamage { get; set; }
-    public float Defense { get; set; }
+    public float Damage
+    {
+        get => CalculateStat(_damage, "Damage");
+        set => _damage = value;
+    }
 
-    public float Armor { get; set; }
+    public float Defense
+    {
+        get => CalculateStat(_defense, "Defense");
+        set => _defense = value;
+    }
 
-    public float Speed { get; set; }
-    public float CritChance { get; set; }
-    public float CritDamage { get; set; }
-    public float AttackSpeed { get; set; }
+    public float Armor
+    {
+        get => CalculateStat(_armor, "Armor");
+        set => _armor = value;
+    }
 
-    public float Range { get; set; }
+    public float Speed
+    {
+        get => CalculateStat(_speed, "Speed");
+        set => _speed = value;
+    }
 
-    public float AttackDamage { get; set; }
+    public float CritChance
+    {
+        get => CalculateStat(_critChance, "CritChance");
+        set => _critChance = value;
+    }
 
-    public float AttackKnockback { get; set; }
+    public float CritDamage
+    {
+        get => CalculateStat(_critDamage, "CritDamage");
+        set => _critDamage = value;
+    }
 
-    public float AttackStun { get; set; }
+    public float AttackSpeed
+    {
+        get => CalculateStat(_attackSpeed, "AttackSpeed");
+        set => _attackSpeed = value;
+    }
 
-    public float AttackDuration { get; set; }
+    public float Range
+    {
+        get => CalculateStat(_range, "Range");
+        set => _range = value;
+    }
 
-    public float AttackSpread { get; set; }
+    public float AttackDamage
+    {
+        get => CalculateStat(_attackDamage, "AttackDamage");
+        set => _attackDamage = value;
+    }
+
+    public float AttackKnockback
+    {
+        get => CalculateStat(_attackKnockback, "AttackKnockback");
+        set => _attackKnockback = value;
+    }
+
+    public float AttackStun
+    {
+        get => CalculateStat(_attackStun, "AttackStun");
+        set => _attackStun = value;
+    }
+
+    public float AttackDuration
+    {
+        get => CalculateStat(_attackDuration, "AttackDuration");
+        set => _attackDuration = value;
+    }
+
+    public float AttackSpread
+    {
+        get => CalculateStat(_attackSpread, "AttackSpread");
+        set => _attackSpread = value;
+    }
+
     public int Luck { get; set; }
+
+    
 
     public void Init()
     {
@@ -86,7 +194,7 @@ public class Stats
         AttackSpread = 0f;
         Luck = 0;
     }
-    
+
     public Stats Initalized()
     {
         var stats = new Stats();
@@ -97,7 +205,8 @@ public class Stats
     public static DamageReport CalculatedDamageReport(DamageReport report)
     {
         report.calculated = true;
-        report.Damage = CalculateDamage(report.Damage, report.Source, report.Target, report.SourceStats, report.TargetStats, report);
+        report.Damage = CalculateDamage(report.Damage, report.Source, report.Target, report.SourceStats,
+            report.TargetStats, report);
         return report;
     }
 
@@ -112,11 +221,11 @@ public class Stats
         var defense = targetStats.Defense;
         var armor = targetStats.Armor;
         var damageMultiplier = 1f;
-       
+
         var finalDamage = 0f;
 
         var critMultiplier = 1f;
-        int critLevel = 0;
+        var critLevel = 0;
         while (crit > 0f)
         {
             var roll = GD.Randf();
@@ -132,13 +241,9 @@ public class Stats
             }
         }
 
-        if (report != null)
-        {
-            report.critlv = critLevel;
-        }
-        
+        if (report != null) report.critlv = critLevel;
 
-     
+
         damageMultiplier = critMultiplier;
         finalDamage = damage * damageMultiplier;
 

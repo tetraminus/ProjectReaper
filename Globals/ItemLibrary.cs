@@ -102,15 +102,19 @@ public partial class ItemLibrary : Node
     ///  Roll a rarity from the library
     /// </summary>
     /// <returns></returns>
-    public ItemRarity RollRarity(bool usePlayerLuck = true)
+    public ItemRarity RollRarity(bool usePlayerLuck = true, RandomNumberGenerator rng = null)
     {
+        if (rng == null)
+        {
+            rng = ItemRNG;
+        }
         //var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
         var rarities = ItemsByRarity.Keys
             .Where(rarity => rarity.AvailableInChests && ItemsByRarity[rarity].Count > 0)
             .OrderBy(rarity => rarity.Value)
             .ToList();
         var total = rarities.Sum(rarity => rarity.Weight);
-        var roll = ItemRNG.RandfRange(0, total);
+        var roll = rng.RandfRange(0, total);
         var current = 0f;
         foreach (var rarity in rarities)
         {
@@ -122,6 +126,8 @@ public partial class ItemLibrary : Node
         }
         return ItemRarity.Common;
     }
+    
+    
 
     /// <summary>
     ///    Create an item from the library

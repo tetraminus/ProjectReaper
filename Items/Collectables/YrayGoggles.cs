@@ -42,13 +42,31 @@ public partial class YrayGoggles : AbstractItem
     {
         foreach (var indicator in _indicators)
         {
-            indicator.Value.SetRarity(indicator.Key.GetRarity());
+            var roll = GameManager.RollBool(0.1f * Stacks);
+            if (roll)
+            {
+                GD.Print("Real rarity");
+                indicator.Value.SetRarity(indicator.Key.GetRarity());
+            }
+            else
+            {
+                GD.Print("Fake rarity");
+                var rarity = ItemLibrary.Instance.RollRarity(true, GameManager.RTRng);
+                indicator.Value.SetRarity(rarity);
+            }
+            
         }
     }
     
 
     public override void Cleanup()
     {
+        Callbacks.Instance.LevelLoaded -= OnLevelLoaded;
+        foreach (var indicator in _indicators)
+        {
+            indicator.Value.QueueFree();
+        }
+        _indicators.Clear();
         
         
     }

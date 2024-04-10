@@ -43,6 +43,8 @@ public partial class GameManager : Node
     public static RandomNumberGenerator LevelRng = new RandomNumberGenerator();
     public static RandomNumberGenerator BossRng = new RandomNumberGenerator();
     
+    public static RandomNumberGenerator RTRng = new RandomNumberGenerator();
+    
     
     
     
@@ -278,9 +280,9 @@ public partial class GameManager : Node
         
         if (fadingOut) return;
         MainNode.GetNode<Bg>("%Bg").SwirlIn();
+        MainMenu.FadeIn();
         if (fadein)
         {
-            MainMenu.FadeIn();
             fadingOut = true;
             ScreenFader.FadeOut(1);
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);

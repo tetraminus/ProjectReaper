@@ -10,8 +10,12 @@ public partial class SpawnDirector : Node
     private const float CreditRate = 1;
     private const float SpawnRate = 1;
     private const float SaveChance = 0.25f;
+    public const int MaxNavGroups = 16;
     private int _credits;
     private Timer _creditsTimer = new();
+
+
+    private int _currentNavGroup = 1;
     private bool _isSpawning;
     private int _lastNumberOfOptions;
     private Spawnset _spawnset;
@@ -27,7 +31,7 @@ public partial class SpawnDirector : Node
         _creditsTimer.Timeout += OnCreditsTimerOnTimeout;
         _creditsTimer.WaitTime = CreditRate;
         _creditsTimer.OneShot = false;
-        
+
 
         AddChild(_spawnTimer);
         _spawnTimer.WaitTime = SpawnRate;
@@ -36,16 +40,15 @@ public partial class SpawnDirector : Node
             if (_isSpawning) SpawnWave();
             _spawnTimer.Start(SpawnRate + GD.Randf());
         };
-        
     }
 
     private void OnCreditsTimerOnTimeout()
     {
-        var credits = 10 ;
-        credits += + (int) GD.Randi() % (int)(10 * GameManager.GetRunDifficulty());
+        var credits = 10;
+        credits += +(int)GD.Randi() % (int)(10 * GameManager.GetRunDifficulty());
         credits *= _waiting ? 2 : 1;
-        
-        
+
+
         AddCredits(credits);
     }
 
@@ -126,9 +129,8 @@ public partial class SpawnDirector : Node
 
     private void SpawnWave()
     {
-        
-
-        if (GD.Randf() < SaveChance && _waiting == false && GetAvailableEnemies(_credits).Count < _spawnset.GetAllEnemies().Count)
+        if (GD.Randf() < SaveChance && _waiting == false &&
+            GetAvailableEnemies(_credits).Count < _spawnset.GetAllEnemies().Count)
         {
             _waiting = true;
             _lastNumberOfOptions = GetAvailableEnemies(_credits).Count;
@@ -147,68 +149,63 @@ public partial class SpawnDirector : Node
     }
 
     /// <summary>
-    ///  Spawn an enemy
+    ///     Spawn an enemy
     /// </summary>
     /// <param name="enemy"></param>
     public void SpawnEnemy(EnemySpawnCard enemy)
     {
         if (GameManager.Player.Dead) return;
         var enemyInstance = enemy.GetEnemy().Instantiate<AbstractCreature>();
-        
+
         GameManager.Level.AddChild(enemyInstance);
         var level = GameManager.Level;
-        
+
         // check if the enemy is out of bounds
         Vector2 position;
-        int attempts = 0;
-        do 
+        var attempts = 0;
+        do
         {
             position = GameManager.Level.GetSpawnPosition();
             attempts++;
-            
         } while (CheckOutOfBounds(position, level, enemyInstance) && attempts < 10);
 
-        if (attempts >= 10) {
+        if (attempts >= 10)
+        {
             enemyInstance.QueueFree();
             return;
         }
-        
+
         enemyInstance.AddToGroup("spawnedenemies");
         enemyInstance.NavGroup = GetNavGroup();
-        
-        
+
+
         enemyInstance.GlobalPosition = position;
     }
 
     /// <summary>
-    /// Check if the enemy is out of bounds
+    ///     Check if the enemy is out of bounds
     /// </summary>
     /// <param name="position"></param>
     /// <param name="level"></param>
     /// <param name="enemyInstance"></param>
     /// <returns> True if the enemy is out of bounds </returns>
-    private bool CheckOutOfBounds(Vector2 position, Level level, AbstractCreature enemyInstance) {
-        
+    private bool CheckOutOfBounds(Vector2 position, Level level, AbstractCreature enemyInstance)
+    {
         var query = new PhysicsShapeQueryParameters2D();
         query.Shape = enemyInstance.GetCollisionShape().Shape.Duplicate();
         query.Transform = new Transform2D(0, position);
-        
-        
-        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query,1);
+
+
+        var collision = level.GetWorld2D().DirectSpaceState.IntersectShape(query, 1);
         return collision.Count != 0;
     }
 
     public void KillAllEnemies()
     {
         foreach (var enemy in GameManager.Level.GetTree().GetNodesInGroup("spawnedenemies"))
-        {
-            if (enemy is AbstractCreature creature) creature.QuietDie();
-        }
+            if (enemy is AbstractCreature creature)
+                creature.QuietDie();
     }
-  
-
-    private int _currentNavGroup = 1;
-    public const int MaxNavGroups = 16;
 
     public int GetNavGroup()
     {
@@ -224,6 +221,5 @@ public partial class SpawnDirector : Node
         _waiting = false;
         _creditsTimer.Stop();
         _spawnTimer.Stop();
-        
     }
 }
