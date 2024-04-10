@@ -24,12 +24,34 @@ public partial class ForceField : AbstractItem {
 
 	public override void OnStack(int stacks)
 	{
-		if 
-		
-		for (var i = 0; i < stacks; i++)
+		if (stacks < 0)
 		{
-			AddOrbital();
+			// remove orbitals
+			for (var i = 0; i < Math.Abs(stacks); i++)
+			{
+				if (_forceFieldOrbitals.Count > 0)
+				{
+					var orbital = _forceFieldOrbitals[_forceFieldOrbitals.Count - 1];
+					_forceFieldOrbitals.RemoveAt(_forceFieldOrbitals.Count - 1);
+					orbital.QueueFree();
+				}
+			}
+			
+			for (var i = 0; i < _forceFieldOrbitals.Count; i++)
+			{
+				_forceFieldOrbitals[i].SetRotation(Mathf.Tau / _forceFieldOrbitals.Count * i);
+			
+			}
 		}
+		else
+		{
+			for (var i = 0; i < stacks; i++)
+			{
+				AddOrbital();
+			}
+		}
+		
+		
 	}
 	
 	private void AddOrbital()

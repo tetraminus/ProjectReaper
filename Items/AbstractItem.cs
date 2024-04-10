@@ -19,8 +19,10 @@ public abstract partial class AbstractItem : Node2D
         get { return _mimicStacks; }
         set
         {
+            var old_mimicStacks = _mimicStacks;
             _mimicStacks = value;
-            OnStack(value);
+            var stacksdelta = _mimicStacks - old_mimicStacks;
+            OnStack(stacksdelta);
             StacksChanged?.Invoke(this, _stacks);
         }
     }

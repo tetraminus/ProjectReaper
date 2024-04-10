@@ -66,6 +66,15 @@ public partial class ItemLibrary : Node
                 GD.Print($"Loaded item {item.Id}");
             }
         }
+        
+        // print out chances of each rarity, calculated by the weight of each rarity
+        var total = ItemsByRarity.Keys.Sum(rarity => rarity.Weight);
+        foreach (var rarity in ItemsByRarity.Keys)
+        {
+            var chance = (float) rarity.Weight / total * 100;
+            GD.Print($"{rarity.NameKey} has a {chance}% chance of being rolled");
+        }
+        
     }
     
     /// <summary>
