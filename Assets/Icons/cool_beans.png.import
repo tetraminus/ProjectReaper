@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de2x6y4kx3b4k"
-path="res://.godot/imported/New Piskel (12).png-0a04ba28900285d696fcc24e2f5a1bb0.ctex"
+uid="uid://d0b480q51g4ko"
+path="res://.godot/imported/cool_beans.png-bc24f8a49e316d7d40c49c87700f6fc5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Enemies/New Piskel (12).png"
-dest_files=["res://.godot/imported/New Piskel (12).png-0a04ba28900285d696fcc24e2f5a1bb0.ctex"]
+source_file="res://Assets/Icons/cool_beans.png"
+dest_files=["res://.godot/imported/cool_beans.png-bc24f8a49e316d7d40c49c87700f6fc5.ctex"]
 
 [params]
 

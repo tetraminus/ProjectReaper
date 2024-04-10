@@ -23,7 +23,7 @@ public abstract partial class AbstractItem : Node2D
             _mimicStacks = value;
             var stacksdelta = _mimicStacks - old_mimicStacks;
             OnStack(stacksdelta);
-            StacksChanged?.Invoke(this, _stacks);
+            StacksChanged?.Invoke(this, Stacks);
         }
     }
 
@@ -35,13 +35,21 @@ public abstract partial class AbstractItem : Node2D
     public int Stacks
     {
         get => Math.Max(_stacks + MimicStacks, 1);
-        set
-        {
-            _stacks = value;
-            StacksChanged?.Invoke(this, _stacks);
+        private set {}
 
-            if (_stacks <= 0) QueueFree();
-        }
+    }
+    
+    public void AddStacks(int stacks)
+    {
+        _stacks += stacks;
+        StacksChanged?.Invoke(this, Stacks);
+
+        if (_stacks <= 0) QueueFree();
+    }
+    
+    public int GetRealStacks()
+    {
+        return _stacks;
     }
 
 
@@ -67,10 +75,12 @@ public abstract partial class AbstractItem : Node2D
 
     public void Gain(int newstacks)
     {
+        AddStacks(newstacks);
         if (Stacks <= 1)
             OnInitalPickup();
         else
             OnStack(newstacks);
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
     }
 
     public virtual void OnStack(int newstacks)
@@ -178,5 +188,10 @@ public abstract partial class AbstractItem : Node2D
         if (GetParent().GetParent() is AbstractCreature creature)
             return creature;
         return null;
+    }
+
+    public void SetStacks(int stacks)
+    {
+        _stacks = stacks;
     }
 }

@@ -26,6 +26,8 @@ public partial class ChooseItemMenu : Control
 			_itemContainer.AddChild(itemButton);
 			itemButton.SetItem(item);
 			itemButton.ClickedItem += OnItemClicked;
+			itemButton.MouseEnteredItem += ShowItemInfo;
+			itemButton.MouseExitedItem += HideItemInfo;
 			itemButton.HideStacks();
 			itemButton.CustomMinimumSize *= 2;
 		}
@@ -37,10 +39,20 @@ public partial class ChooseItemMenu : Control
 		Clear();
 	}
 	
+	private void ShowItemInfo(AbstractItem item) {
+		GameManager.PlayerHud.ShowItemInfo(item);
+	}
+	
+	private void HideItemInfo() {
+		GameManager.PlayerHud.HideItemInfo();
+	}
+	
 	public void Clear() {
 		foreach (Node child in _itemContainer.GetChildren()) {
 			if (child is ItemDisplay itemDisplay) {
 				itemDisplay.ClickedItem -= OnItemClicked;
+				itemDisplay.MouseEnteredItem -= ShowItemInfo;
+				itemDisplay.MouseExitedItem -= HideItemInfo;
 			}
 			child.QueueFree();
 			

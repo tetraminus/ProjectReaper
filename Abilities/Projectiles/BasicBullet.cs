@@ -6,6 +6,8 @@ namespace ProjectReaper.Abilities.Projectiles;
 public partial class BasicBullet : AbstractDamageArea
 {
     private Timer _timer = new();
+    
+    private Sprite2D _sprite => GetNode<Sprite2D>("Sprite2D");
 
     public override float Speed { get; set; } = 1000f;
 
@@ -19,14 +21,22 @@ public partial class BasicBullet : AbstractDamageArea
         _timer.Timeout += () => QueueFree();
         _timer.Start(Duration);
         Knockback = 150f;
+       
 
         base._Ready();
+        
+        
     }
 
     protected override Vector2 GetKnockbackDirection(AbstractCreature creature)
     {
         //knockback in the direction of the bullet travel
         return Transform.X.Normalized();
+    }
+    
+    public void Resprite(Texture2D texture)
+    {
+        _sprite.Texture = texture;
     }
 
     public override void _PhysicsProcess(double delta)

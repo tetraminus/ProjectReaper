@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://df8p4mw66oy1y"]
+[gd_scene load_steps=3 format=3 uid="uid://df8p4mw66oy1y"]
 
 [ext_resource type="Script" path="res://Player/PauseMenu.cs" id="1_mgx64"]
-[ext_resource type="Script" path="res://Menu/ChooseItemMenu.cs" id="2_1fyhl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o68d2"]
 font_size = 100
@@ -70,54 +69,6 @@ text = "ui_library"
 layout_mode = 2
 theme_override_font_sizes/font_size = 76
 text = "ui_quit"
-
-[node name="ChooseItemMenu" type="Control" parent="."]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-script = ExtResource("2_1fyhl")
-
-[node name="ColorRect" type="ColorRect" parent="ChooseItemMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.34902)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ChooseItemMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="ChooseItemMenu/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ChooseItemMenu/VBoxContainer"]
-layout_mode = 2
-text = "ui_choose"
-label_settings = SubResource("LabelSettings_o68d2")
-horizontal_alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="ChooseItemMenu/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ItemContainer" type="HBoxContainer" parent="ChooseItemMenu/VBoxContainer/CenterContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(2.08165e-12, 512)
-layout_mode = 2
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/ResumeButton" to="PauseMenu" method="OnResumeButtonPressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/VBoxContainer/LibraryButton" to="PauseMenu" method="OnLibraryButtonPressed"]

@@ -4,6 +4,7 @@ using Godot;
 using Mono.Collections.Generic;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
+using ProjectReaper.Objects;
 using ProjectReaper.Util;
 
 namespace ProjectReaper.Abilities.Projectiles;
@@ -28,12 +29,16 @@ public abstract partial class AbstractDamageArea : Area2D
     public bool DestroyOnHit { get; set; } = true;
     public bool DestroyOnWall { get; set; } = true;
     public float ProcCoef { get; set; } = 1f;
-    
+    public List<IProjectileBlocker> ExclusionList = new();
+
     protected Vector2 startPosition;
 
     [Export] public bool overrideLayer = false;
    
     Vector2 _lastPosition;
+
+    public Dictionary<string, Dictionary<string, Variant>> Flags = new();
+    
 
     public override void _Ready()
     {
@@ -56,6 +61,8 @@ public abstract partial class AbstractDamageArea : Area2D
         }
         
         _lastPosition = GlobalPosition;
+        
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -134,10 +141,10 @@ public abstract partial class AbstractDamageArea : Area2D
         var blocker = hurtBox.GetParentBlocker();
         if (blocker == null) return;
         if (!blocker.CanBlockProjectile(this)) return;
-        if (blocker.Team == Team) return;
+        if (blocker.Team == Team || ExclusionList.Contains(blocker)) return;
         blocker.OnProjectileBlocked(this);
         
-        
+        if (DestroyOnHit) QueueFree();
          if (blocker is AbstractCreature creature)
         {
            
@@ -149,7 +156,7 @@ public abstract partial class AbstractDamageArea : Area2D
                 creature.Knockback(dir * Knockback);
             }
         }
-        if (DestroyOnHit) QueueFree();
+        
     }
 
     protected virtual Vector2 GetKnockbackDirection(AbstractCreature creature)
