@@ -89,9 +89,4 @@ func _get_configuration_warnings():
 
 
 
-func Onmove_towards_playerchild_entered_tree(node):
-	pass # Replace with function body.
 
-
-func Onfar_enoughchild_exiting_tree(node):
-	pass # Replace with function body.

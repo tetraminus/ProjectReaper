@@ -10,7 +10,7 @@ namespace ProjectReaper.Enemies.SnowPlant;
 public partial class Snowpeabert : AbstractCreature
 {
     private static PackedScene BulletScene { get; } =
-        GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
+        GD.Load<PackedScene>("res://Enemies/SnowPlant/MoleBullet.tscn");
     private const float ShootSweepAngle = 45.0f; // The angle in degrees for the sweep of the shooting state
     private const int ShootSweepCount = 10; // The number of shots to be fired in the shooting state
     private const float Accelfac = 20.0f;

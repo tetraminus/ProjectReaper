@@ -152,7 +152,7 @@ public partial class Slimebert : AbstractCreature
             Velocity = Vector2.Zero;
         }
 
-        MoveAndSlide();
+
     }
     private void Move() {
         // simulate friction with delta
