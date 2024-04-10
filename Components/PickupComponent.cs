@@ -1,43 +1,32 @@
 using Godot;
-using ProjectReaper.Globals;
 
-namespace ProjectReaper.Components; 
+namespace ProjectReaper.Components;
 
-public partial class PickupComponent : Area2D {
-
-    [Export(PropertyHint.TypeString,"Node2D")] public Node2D Pickup { get; set; }
+public partial class PickupComponent : Area2D
+{
     private IPickup _pickup;
+
+    [Export(PropertyHint.TypeString, "Node2D")]
+    public Node2D Pickup { get; set; }
+
     public override void _Ready()
     {
         _pickup = Pickup as IPickup;
         BodyEntered += OnBodyEntered;
-        
-        MouseEntered += () =>
-        {
-            _pickup.Hover();
-        };
-        MouseExited += () =>
-        {
-            _pickup.Unhover();
-        };
+
+        MouseEntered += () => { _pickup.Hover(); };
+        MouseExited += () => { _pickup.Unhover(); };
     }
 
     private void OnBodyEntered(Node body)
     {
-        if (body is Player.Player)
-        {
-            _pickup.Pickup();
-        }
+        if (body is Player.Player) _pickup.Pickup();
     }
-
-    
-    
-    
 }
+
 public interface IPickup
 {
     void Pickup();
     void Hover();
     void Unhover();
-    
 }

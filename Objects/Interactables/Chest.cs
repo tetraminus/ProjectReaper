@@ -30,7 +30,7 @@ public partial class Chest : Node2D, IInteractable
             {
                 item = ItemLibrary.Instance.RollItem(rarity);
                 tries++;
-            } while (_items.Contains(item) && tries < 10);
+            } while (_items.Exists(x => x.Id == item.Id) && tries < 10);
             _items.Add(item);
             
         }

@@ -4,7 +4,7 @@ namespace ProjectReaper.Abilities;
 
 public partial class SoldierRoll : AbstractAbility
 {
-    public override float Cooldown { get; set; } = 1f;
+    protected override float Cooldown { get; set; } = 1f;
     
     public override void Use()
     {

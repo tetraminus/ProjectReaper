@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://biccqlw2tkfca"]
+[gd_scene load_steps=27 format=3 uid="uid://ieh6gsjcl2xu"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_bmls5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ecnje"]
@@ -91,6 +91,7 @@ resource_local_to_scene = true
 size = Vector2(294.759, 26.6238)
 
 [node name="Level2-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+y_sort_enabled = true
 script = ExtResource("1_bmls5")
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
@@ -121,13 +122,15 @@ layer_1/tile_data = PackedInt32Array(4128831, 131072, 2, 4128830, 65536, 2, 4128
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap"]
 
-[node name="nav" type="Node" parent="."]
+[node name="nav" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="nav"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_48c15")
 
-[node name="spawnRects" type="Node" parent="."]
+[node name="spawnRects" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="SpawnRect" parent="spawnRects" instance=ExtResource("3_udpnv")]
 position = Vector2(-551, 194)
@@ -208,7 +211,8 @@ RectShape = SubResource("RectangleShape2D_uwm7v")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.913725, 0.913725, 0.913725, 1)
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Lamp" parent="Node" instance=ExtResource("4_6u34t")]
 position = Vector2(914, -284)
@@ -249,7 +253,8 @@ position = Vector2(294, 417)
 [node name="Lamp13" parent="Node" instance=ExtResource("4_6u34t")]
 position = Vector2(285, -30)
 
-[node name="loot" type="Node" parent="."]
+[node name="loot" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="LootPoint" parent="loot" instance=ExtResource("5_3v562")]
 position = Vector2(492, 16)

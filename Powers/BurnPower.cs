@@ -5,11 +5,11 @@ namespace ProjectReaper.Powers;
 
 public partial class BurnPower : AbstractPower
 {
-    public override string Id => "burn";
-    public override float DefaultDuration => 2;
     private Timer _damageTimer;
     public float Damage = 2;
-    
+    public override string Id => "burn";
+    public override float DefaultDuration => 2;
+
     public override void _Ready()
     {
         base._Ready();
@@ -21,7 +21,6 @@ public partial class BurnPower : AbstractPower
         };
         AddChild(_damageTimer);
         _damageTimer.Timeout += OnDamageTimerTimeout;
-        
     }
 
     public override void OnApply()
@@ -33,7 +32,7 @@ public partial class BurnPower : AbstractPower
 
     private void OnDamageTimerTimeout()
     {
-        Creature.Damage(new DamageReport(Damage, null, Creature,null, Creature.Stats));
+        Creature.Damage(new DamageReport(Damage, null, Creature, null, Creature.Stats));
     }
 
     protected override string GetImagePath()

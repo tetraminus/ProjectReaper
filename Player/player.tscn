@@ -46,7 +46,8 @@ volume = 0.0
 pitch = 1.0
 streams = Array[AudioStream]([ExtResource("13_41vha")])
 
-[node name="PlayerSceneRoot" type="Node"]
+[node name="PlayerSceneRoot" type="Node2D"]
+y_sort_enabled = true
 
 [node name="PlayerPCam" type="Node2D" parent="."]
 unique_name_in_owner = true

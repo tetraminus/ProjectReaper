@@ -1,33 +1,32 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace GodotStateCharts
+
+using Godot;
+
+namespace GodotStateCharts;
+
+/// <summary>
+///     Base class for all wrapper classes. Provides some common functionality. Not to be used directly.
+/// </summary>
+public abstract class NodeWrapper
 {
-    using Godot;
-    
     /// <summary>
-    /// Base class for all wrapper classes. Provides some common functionality. Not to be used directly.
+    ///     The wrapped node.
     /// </summary>
-    public abstract class NodeWrapper
+    protected readonly Node Wrapped;
+
+    protected NodeWrapper(Node wrapped)
     {
-        /// <summary>
-        /// The wrapped node.
-        /// </summary>
-        protected readonly Node Wrapped;
+        Wrapped = wrapped;
+    }
 
-        protected NodeWrapper(Node wrapped)
-        {
-            Wrapped = wrapped;
-        }
-          
-        /// <summary>
-        /// Allows to connect to signals on the wrapped node.
-        /// </summary>
-        /// <param name="signal"></param>
-        /// <param name="method"></param>
-        /// <param name="flags"></param>
-        public void Connect(StringName signal, Callable method, uint flags = 0u)
-        {
-            Wrapped.Connect(signal, method, flags);
-        }
-
+    /// <summary>
+    ///     Allows to connect to signals on the wrapped node.
+    /// </summary>
+    /// <param name="signal"></param>
+    /// <param name="method"></param>
+    /// <param name="flags"></param>
+    public void Connect(StringName signal, Callable method, uint flags = 0u)
+    {
+        Wrapped.Connect(signal, method, flags);
     }
 }
