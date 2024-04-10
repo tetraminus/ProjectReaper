@@ -38,7 +38,7 @@ public partial class Level : Node2D
 
 		spawnset.AddEnemy(new EnemySpawnCard(GooberScn, "Goober", 10));
 		spawnset.AddEnemy(new EnemySpawnCard(_slimeScn, "Slimebert", 50));
-		//spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 10));
+		spawnset.AddEnemy(new EnemySpawnCard(BurrowerScn, "Snowpeabert", 175));
 
 		// PhantomCamera.Set("limit/left", BoundsLeft);
 		// PhantomCamera.Set("limit/right", BoundsRight);

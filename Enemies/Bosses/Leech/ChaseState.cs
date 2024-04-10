@@ -6,10 +6,14 @@ namespace ProjectReaper.Enemies.Bosses.Leech;
 
 public partial class ChaseState : AbstractState
 {
-    
+    private Timer _shootTimer;
+    private bool _canShoot = true;
     private Timer _chargeTimer;
     private bool _canCharge = true;
-    [Export] public float ChargeCooldown = 3f;
+    [Export] public float ChargeCooldown = 2.0f;
+    [Export] public float ShootCooldown = 0.5f;
+    
+    
 
     public override void _Ready()
     {
@@ -22,6 +26,16 @@ public partial class ChaseState : AbstractState
             _canCharge = true;
         };
         AddChild(_chargeTimer);
+        
+        base._Ready();
+        _shootTimer = new Timer();
+        _shootTimer.WaitTime = ShootCooldown;
+        _shootTimer.OneShot = true;
+        _shootTimer.Timeout += () =>
+        {
+            _canShoot = true;
+        };
+        AddChild(_shootTimer);
     }
 
     public override void Update(double delta)
@@ -31,9 +45,22 @@ public partial class ChaseState : AbstractState
         if (distance < 1000 && _canCharge)
         {
             StateMachine.ChangeState("ChargeState");
-            _chargeTimer.Start();
-            _canCharge = false;
+             _chargeTimer.Start();
+             _canCharge = false;
+             
+             var timer = GetTree().CreateTimer(0.5f); // Adjust the delay as needed
+             _shootTimer.Start();
+
+
+             timer.Timeout += () =>
+             {
+                 StateMachine.ChangeState("ShootState");
+
+                 _canShoot = false;
+             };
+            
         }
+        
     }
 
     public override void PhysicsUpdate(double delta)
