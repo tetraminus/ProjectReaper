@@ -25,7 +25,7 @@ public partial class LightningRod : AbstractItem
     
     public void BulletCreated(AbstractDamageArea bullet)
     {
-        if (bullet is BasicBullet basicBullet)
+        if (bullet is BasicBullet basicBullet )
         {
             basicBullet.Resprite(lightningTexture);
             var chainInfo = new Dictionary<string, Variant>
