@@ -42,7 +42,7 @@ public partial class YrayGoggles : AbstractItem
     {
         foreach (var indicator in _indicators)
         {
-            var roll = GameManager.RollBool(0.1f * Stacks);
+            var roll = GameManager.RollBool(0.1f * Stacks, GetHolder().Stats.Luck);
             if (roll)
             {
                 GD.Print("Real rarity");

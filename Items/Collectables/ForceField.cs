@@ -24,6 +24,8 @@ public partial class ForceField : AbstractItem {
 
 	public override void OnStack(int stacks)
 	{
+		if 
+		
 		for (var i = 0; i < stacks; i++)
 		{
 			AddOrbital();

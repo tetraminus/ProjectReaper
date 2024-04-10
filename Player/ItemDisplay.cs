@@ -11,6 +11,7 @@ public partial class ItemDisplay : Control
     
     private TextureRect Icon => GetNode<TextureRect>("%Icon");
     private Label Stacks => GetNode<Label>("%Icon/Stacks");
+    private Label MimicStacks => GetNode<Label>("%Icon/MimicStacks");
     private bool focusable = false;
     
     [Export] public StyleBox FocusStyle { get; set; }
@@ -78,6 +79,15 @@ public partial class ItemDisplay : Control
         Item = item;
         Icon.Texture = item.Icon;
         Stacks.Text = item.Stacks.ToString();
+        if (item.MimicStacks > 0)
+        {
+            MimicStacks.Show();
+            MimicStacks.Text = "+" + item.MimicStacks;
+        }
+        else
+        {
+            MimicStacks.Hide();
+        }
         Item.StacksChanged += UpdateStacks;
     }
 
@@ -115,6 +125,15 @@ public partial class ItemDisplay : Control
     public int UpdateStacks(AbstractItem item, int stacks)
     {
         Stacks.Text = stacks.ToString();
+        if (item.MimicStacks > 0)
+        {
+            MimicStacks.Show();
+            MimicStacks.Text = "+" + item.MimicStacks;
+        }
+        else
+        {
+            MimicStacks.Hide();
+        }
         
         return stacks;
     }
@@ -122,11 +141,13 @@ public partial class ItemDisplay : Control
     public void HideStacks()
     {
         Stacks.Hide();
+        MimicStacks.Hide();
     }
     
     public void ShowStacks()
     {
         Stacks.Show();
+        MimicStacks.Show();
     }
 
     public override void _GuiInput(InputEvent @event)

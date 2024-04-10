@@ -43,13 +43,13 @@ d_heavy_shot,[color=red]Halves your firerate[/color] and triples your damage.
 f_heavy_shot,description tbd
 n_bug_spray,Bug Spray
 d_bug_spray,Bullets knock enemies away.
-f_bug_spray,description tbd
+f_bug_spray,"Much less effective against people. In fact, it'll probably just make them angry."
 n_confidence_boost,Confidence Booster
 d_confidence_boost,Increases your damage by your speed.
 f_confidence_boost,description tbd
 n_googly_glasses,Googly Glasses
 d_googly_glasses,Increases [color=orange]crit[/color] damage by 20%
-f_googly_glasses,description tbd
+f_googly_glasses,Silliness Incarnate Jeff would smile upon this.
 n_everything_bagel,Everything Bagel
 d_everything_bagel,"Increases your damage, firerate, [color=orange]crit[/color] chance, [color=orange]crit[/color] damage, and dash cooldown."
 f_everything_bagel,Nice comfort. Always available in my house. Really easy to buy a bunch and to just have in a bag.
@@ -58,18 +58,18 @@ d_life_leechbert,Sometimes drains health from slain enemies. Activates more ofte
 f_life_leechbert,Still has the terrible smell of Leechbert. Alluring.
 n_treasure_map,Treasure Map
 d_treasure_map,Grants an additional option when opening a chest.
-f_treasure_map,I'M A PIRATE MANNNNNNNN!! I'M LIKE THE FREAKING PIRATES OF THE CARIBEAN WOOOOOO
+f_treasure_map,I'M A PIRATE MANNNNNNNN!! I'M LIKE A FREAKING PIRATE WOOOOOO
 n_xray_goggles,Y-Ray Goggles
 d_xray_goggles,Shows the rarity of the items in chests. [color=red]WARNING: inaccurate[/color]
-d_xray_goggles,Just 10¢!
+f_xray_goggles,Just 10 cents!
 n_new_years_glasses,New Year's Glasses
-d_new_years_glasses,Grants the player luck in the new year!
+d_new_years_glasses,Grants the player new year's luck!
 f_new_years_glasses,"This year, my resolutions will definitely succeed."
 n_pizza,Pizza
 d_pizza,WEEEEEEEEEE
 f_pizza,Pizza is by far hands down the best food ever created by far.
 n_rogue_nanotech,Rogue Nano-Tech
-d_rogue_nanotech,"Boosts random Items, shifts over time."
+d_rogue_nanotech,Adds a stack to a random item in your inventory. Periodically switches focus.
 f_rogue_nanotech,[shake rate=20.0 level=2 connected=1]<ERR>[/shake].
 n_lightsaber,Glow Stick Sword
 d_lightsaber,Leaves a lingering fire in the area of your [color=green]secondary[/color] ability.
@@ -96,5 +96,17 @@ n_han_solo,Garrison Fjord
 d_han_solo,[color=red]Blanches your almond ;)[/color]
 f_han_solo,bruh
 n_healthy_breakfast,Healthy Breakfast
-d_healthy_breakfast,
+d_healthy_breakfast,Multiply your Max HP! Adds 10% per stack.
 f_healthy_breakfast,"Are burgers healthy? Well, I hope they are, since that's the only leftovers in the fridge."
+n_paper_straw,Paper Straw
+d_paper_straw,Increases the amount you heal per chest by 10
+f_paper_straw,"Being sustainable and environmentally friendly, keeping my health strong by not wasting."
+n_flower_sprout,Flower Sprout
+d_flower_sprout,"[color=red]Lowers your damage by 15%[/color], then increases it by 20% each time you kill a boss."
+f_flower_sprout,"Even in the darkest hour, there can be beauty. I found this growing out of a crack on my doorstep. It's beautiful, isn't it?"
+n_hair_strand,Hair Strand
+d_hair_strand,Bullets explode into shrapnel on impact.
+f_hair_strand,My hair is literally falling out. This is not a joke.
+n_wilting_flower,Wilting Flower
+d_wilting_flower,"Increases your speed and damage, [color=red]but loses effectiveness when you kill a boss[/color]."
+f_wilting_flower,Daniel's gift to me while I was recovering. I could never forget it.

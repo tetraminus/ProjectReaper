@@ -14,7 +14,7 @@ public partial class ItemRarity : GodotObject
     public static readonly ItemRarity Uncommon = new(200, BaseUncommonWeight, "r_uncommon", new Color(0, 1, 0));
     public static readonly ItemRarity Rare = new(300, BaseRareWeight, "r_rare", new Color(1, 0, 0.7f));
     public static ItemRarity Legendary = new(400, BaseLegendaryWeight, "r_legendary", new Color(1, 0, 0));
-    public static ItemRarity Shit = new(0, BaseShitWeight, "r_garbage", Colors.BlanchedAlmond, true, true);
+    public static ItemRarity Shit = new(-500, BaseShitWeight, "r_garbage", Colors.BlanchedAlmond, true, true);
     public bool AvailableInChests;
     public Color Color;
     public bool Hidden;

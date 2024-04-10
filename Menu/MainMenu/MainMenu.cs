@@ -21,8 +21,7 @@ public partial class MainMenu : Control
 
 
         _menuScreen.Modulate = new Color(1, 1, 1, 0);
-        _menuScreen.SetProcessInput(false);
-        _menuScreen.SetProcessUnhandledInput(false);
+        _menuScreen.ProcessMode = Control.ProcessModeEnum.Disabled;
 
         FadeIn();
 
@@ -36,21 +35,24 @@ public partial class MainMenu : Control
         tween.TweenProperty(_menuScreen, "modulate", new Color(1, 1, 1), fadetime);
         tween.Finished += () =>
         {
-            _menuScreen.SetProcessInput(true);
-            _menuScreen.SetProcessUnhandledInput(true);
+            _menuScreen.ProcessMode = Control.ProcessModeEnum.Inherit;
+            
+            SetProcessInput(true);
         };
         tween.Play();
     }
 
     public void FadeOut(float interval = 1f, float fadetime = 1.5f)
     {
+        SetProcessInput(false);
+        _menuScreen.ProcessMode = Control.ProcessModeEnum.Disabled;
+        
         var tween = GetTree().CreateTween();
         tween.TweenInterval(interval);
         tween.TweenProperty(_menuScreen, "modulate", new Color(1, 1, 1, 0), fadetime);
         tween.Finished += () =>
         {
-            _menuScreen.SetProcessInput(false);
-            _menuScreen.SetProcessUnhandledInput(false);
+            
         };
         tween.Play();
     }

@@ -1,4 +1,5 @@
 using Godot;
+using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Player;
 
@@ -15,9 +16,9 @@ public partial class DreamCar : AbstractItem
 		Callbacks.Instance.CalculateStat += CalculateStat;
 	}
 	
-	private float CalculateStat(float stat, string statName)
+	private float CalculateStat(float stat, string statName, AbstractCreature creature)
 	{
-		if (statName == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility)
+		if (statName == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
 		{
 			GD.Print("Reducing cooldown");
 			return stat * Mathf.Pow(CooldownReduction, Stacks);

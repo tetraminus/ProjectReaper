@@ -32,8 +32,8 @@ public partial class Callbacks : Node
 
     public delegate float HealEventHandler(AbstractCreature creature, float heal);
     
-    public delegate float CalculateStatEventHandler(float stat, string statName);
-    public CalculateStatEventHandler CalculateStat = (stat, statName) => stat;
+    public delegate float CalculateStatEventHandler(float stat, string statName, AbstractCreature creature);
+    public CalculateStatEventHandler CalculateStat = (stat, statName, creature) => stat;
     
     [Signal]
     public delegate void RecalculateStatsEventHandler();

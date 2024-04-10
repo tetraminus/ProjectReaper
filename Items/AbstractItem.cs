@@ -12,12 +12,27 @@ public abstract partial class AbstractItem : Node2D
 
     public static PackedScene ItemPickupScene = GD.Load<PackedScene>("res://Items/ItemPickup.tscn");
     public static PackedScene ItemDropEffectScene = GD.Load<PackedScene>("res://Vfx/ItemDropEffect.tscn");
-    public int MimicStacks = 0;
-    private int _stacks { get; set; }
+
+    private int _mimicStacks;
+    public int MimicStacks
+    {
+        get { return _mimicStacks; }
+        set
+        {
+            _mimicStacks = value;
+            OnStack(value);
+            StacksChanged?.Invoke(this, _stacks);
+        }
+    }
+
+
+
+
+    private int _stacks;
 
     public int Stacks
     {
-        get => _stacks + MimicStacks;
+        get => Math.Max(_stacks + MimicStacks, 1);
         set
         {
             _stacks = value;
@@ -75,10 +90,7 @@ public abstract partial class AbstractItem : Node2D
     }
 
 
-    public int GetStacks()
-    {
-        return Stacks;
-    }
+   
 
 
     /// <summary>

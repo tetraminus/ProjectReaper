@@ -29,7 +29,7 @@ public partial class GravityGauntlet : AbstractItem
 
     private void OnBulletHit(AbstractDamageArea bullet)
     {
-        if (bullet.Source == GetHolder() && GameManager.RollProc(0.10f, bullet))
+        if (bullet.Source == GetHolder() && GameManager.RollProc(0.10f, bullet, GetHolder().Stats.Luck))
         {
             var gravZone = _gravZoneScene.Instantiate<GravityZone>();
             gravZone.Scale *= new Vector2(1 + Sizeperstack * Stacks, 1 + Sizeperstack * Stacks);

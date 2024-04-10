@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmrt12dylli27"]
+[gd_scene load_steps=7 format=3 uid="uid://bmrt12dylli27"]
 
 [ext_resource type="Script" path="res://Player/ItemDisplay.cs" id="1_ca4px"]
 [ext_resource type="Texture2D" uid="uid://cvxn350pypkr2" path="res://Assets/Icons/boom_stick.png" id="1_mdfn4"]
@@ -32,6 +32,13 @@ anti_aliasing = false
 [sub_resource type="LabelSettings" id="LabelSettings_74anm"]
 line_spacing = 0.0
 font_size = 60
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fnhdx"]
+line_spacing = 0.0
+font_size = 30
+font_color = Color(1, 0.443137, 0.996078, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
@@ -83,3 +90,10 @@ text = "1"
 label_settings = SubResource("LabelSettings_74anm")
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="MimicStacks" type="Label" parent="Panel/Icon"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+text = "+1"
+label_settings = SubResource("LabelSettings_fnhdx")

@@ -108,23 +108,32 @@ public partial class ItemLibrary : Node
         {
             rng = ItemRNG;
         }
-        //var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
+        var rerolls = usePlayerLuck ? GameManager.Player.Stats.Luck + 1 : 1;
         var rarities = ItemsByRarity.Keys
             .Where(rarity => rarity.AvailableInChests && ItemsByRarity[rarity].Count > 0)
             .OrderBy(rarity => rarity.Value)
             .ToList();
         var total = rarities.Sum(rarity => rarity.Weight);
         var roll = rng.RandfRange(0, total);
-        var current = 0f;
-        foreach (var rarity in rarities)
+        ItemRarity bestRarity = null;
+        for (int i = 0; i < rerolls; i++)
         {
-            current += rarity.Weight;
-            if (roll < current)
+            var current = 0f;
+            foreach (var rarity in rarities)
             {
-                return rarity;
+                current += rarity.Weight;
+                if (roll < current)
+                {
+                    if (bestRarity == null || rarity.Value > bestRarity.Value)
+                    {
+                        bestRarity = rarity;
+                    }
+                    break;
+                }
             }
         }
-        return ItemRarity.Common;
+
+        return bestRarity;
     }
     
     

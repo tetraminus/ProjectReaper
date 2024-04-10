@@ -40,7 +40,7 @@ public partial class Stats : Node
             return calculatedStat;
         }
 
-        calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName);
+        calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName, Creature);
         _calculatedStats[statName] = calculatedStat;
         return calculatedStat;
     }
@@ -192,7 +192,7 @@ public partial class Stats : Node
         AttackStun = 0f;
         AttackDuration = 1f;
         AttackSpread = 0f;
-        Luck = 0;
+        Luck = 1;
     }
 
     public Stats Initalized()
@@ -228,7 +228,7 @@ public partial class Stats : Node
         var critLevel = 0;
         while (crit > 0f)
         {
-            var roll = GD.Randf();
+            var roll = GameManager.RollFloat(sourceStats.Luck);
             if (roll <= crit)
             {
                 critMultiplier *= critDamage;

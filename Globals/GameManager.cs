@@ -48,7 +48,7 @@ public partial class GameManager : Node
     
     
     
-    public static bool RollBool(float chance, int luck = 1, RandomNumberGenerator rng = null)
+    public static bool RollBool(float chance, int luck, RandomNumberGenerator rng = null)
     {
         if (rng == null)
         {
@@ -62,12 +62,12 @@ public partial class GameManager : Node
         }
     }
     
-    public static bool RollProc(float chance, AbstractDamageArea damageArea , int luck = 1)
+    public static bool RollProc(float chance, AbstractDamageArea damageArea , int luck)
     {
         return RollBool(chance * damageArea.ProcCoef, luck);
     }
     
-    public static float RollFloat( int luck = 1,  RandomNumberGenerator rng = null)
+    public static float RollFloat( int luck,  RandomNumberGenerator rng = null)
     {
         float highest = 0;
         if (rng == null)
