@@ -231,5 +231,18 @@ public partial class Player : AbstractCreature
 	}
 
 
-	
+	public List<AbstractItem> GetItems()
+	{
+		var items = new List<AbstractItem>();
+		foreach (var item in Items.GetChildren())
+		{
+			if (item is AbstractItem abstractItem)
+			{
+				items.Add(abstractItem);
+			}
+		}
+
+		return items;
+		
+	}
 }

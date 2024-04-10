@@ -1,4 +1,7 @@
-﻿namespace ProjectReaper.Items.Collectables;
+﻿using ProjectReaper.Enemies;
+using ProjectReaper.Globals;
+
+namespace ProjectReaper.Items.Collectables;
 
 public partial class CritGlasses : AbstractItem
 {
@@ -9,13 +12,21 @@ public partial class CritGlasses : AbstractItem
     
     public override void OnInitalPickup()
     {
-        GetHolder().Stats.CritChance += CritChance;
+        Callbacks.Instance.CalculateStat += CalculateStat;
         
     }
 
-    public override void OnStack(int newstacks)
+    private float CalculateStat(float stat, string statname, AbstractCreature creature)
     {
-        GetHolder().Stats.CritChance += CritChance * newstacks;
-        base.OnStack(newstacks);
+        if (statname == "CritChance" && creature == GetHolder())
+        {
+            return stat + (stat * CritChance * Stacks);
+        }
+        return stat;
+    }
+    
+    public override void Cleanup()
+    {
+        Callbacks.Instance.CalculateStat -= CalculateStat;
     }
 }

@@ -9,11 +9,11 @@ namespace ProjectReaper.Enemies.SnowPlant;
 
 public partial class Snowpeabert : AbstractCreature
 {
-	private static PackedScene BulletScene { get; } =
-		GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
-	private const float ShootSweepAngle = 45.0f; // The angle in degrees for the sweep of the shooting state
-	private const int ShootSweepCount = 10; // The number of shots to be fired in the shooting state
-	private const float Accelfac = 20.0f;
+    private static PackedScene BulletScene { get; } =
+        GD.Load<PackedScene>("res://Enemies/SnowPlant/MoleBullet.tscn");
+    private const float ShootSweepAngle = 45.0f; // The angle in degrees for the sweep of the shooting state
+    private const int ShootSweepCount = 10; // The number of shots to be fired in the shooting state
+    private const float Accelfac = 20.0f;
 
 	private float _burrowTime = 2.0f; // Time in seconds for how long the character will burrow
 	private GpuParticles2D _particles;

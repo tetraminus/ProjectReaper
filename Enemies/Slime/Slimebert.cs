@@ -153,17 +153,17 @@ public partial class Slimebert : AbstractCreature
 			Velocity = Vector2.Zero;
 		}
 
-		MoveAndSlide();
-	}
-	private void Move() {
-		// simulate friction with delta
-		if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
-		{
-			Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
-		}
-		
-		MoveAndSlide();
-	}
+
+    }
+    private void Move() {
+        // simulate friction with delta
+        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+        {
+            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+        }
+        
+        MoveAndSlide();
+    }
 
 	private async void ActorSetup()
 	{

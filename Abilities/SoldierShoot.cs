@@ -16,7 +16,7 @@ public partial class SoldierShoot : AbstractAbility
 	private static PackedScene BulletScene { get; } =
 		GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
 
-	public override float Cooldown { get; set; } = 0.2f;
+	protected override float Cooldown { get; set; } = 0.2f;
 	
 
 	public override void Use()

@@ -66,6 +66,15 @@ public partial class ItemLibrary : Node
                 GD.Print($"Loaded item {item.Id}");
             }
         }
+        
+        // print out chances of each rarity, calculated by the weight of each rarity
+        var total = ItemsByRarity.Keys.Sum(rarity => rarity.Weight);
+        foreach (var rarity in ItemsByRarity.Keys)
+        {
+            var chance = (float) rarity.Weight / total * 100;
+            GD.Print($"{rarity.NameKey} has a {chance}% chance of being rolled");
+        }
+        
     }
     
     /// <summary>
@@ -102,26 +111,41 @@ public partial class ItemLibrary : Node
     ///  Roll a rarity from the library
     /// </summary>
     /// <returns></returns>
-    public ItemRarity RollRarity(bool usePlayerLuck = true)
+    public ItemRarity RollRarity(bool usePlayerLuck = true, RandomNumberGenerator rng = null)
     {
-        //var luck = usePlayerLuck ? GameManager.Player.Stats.Luck : 0;
+        if (rng == null)
+        {
+            rng = ItemRNG;
+        }
+        var rerolls = usePlayerLuck ? GameManager.Player.Stats.Luck + 1 : 1;
         var rarities = ItemsByRarity.Keys
             .Where(rarity => rarity.AvailableInChests && ItemsByRarity[rarity].Count > 0)
             .OrderBy(rarity => rarity.Value)
             .ToList();
         var total = rarities.Sum(rarity => rarity.Weight);
-        var roll = ItemRNG.RandfRange(0, total);
-        var current = 0f;
-        foreach (var rarity in rarities)
+        var roll = rng.RandfRange(0, total);
+        ItemRarity bestRarity = null;
+        for (int i = 0; i < rerolls; i++)
         {
-            current += rarity.Weight;
-            if (roll < current)
+            var current = 0f;
+            foreach (var rarity in rarities)
             {
-                return rarity;
+                current += rarity.Weight;
+                if (roll < current)
+                {
+                    if (bestRarity == null || rarity.Value > bestRarity.Value)
+                    {
+                        bestRarity = rarity;
+                    }
+                    break;
+                }
             }
         }
-        return ItemRarity.Common;
+
+        return bestRarity;
     }
+    
+    
 
     /// <summary>
     ///    Create an item from the library

@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cf451p70nelqr" path="res://Assets/Audio/Ui/Blip_Select118.wav" id="8_jpto2"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
-[ext_resource type="AudioStream" uid="uid://clt8vpygcncqs" path="res://Assets/Audio/Music/Boss battle.mp3" id="11_e3262"]
+[ext_resource type="AudioStream" uid="uid://3a2saf5m33n7" path="res://Assets/Audio/Music/Main menu music.mp3" id="12_o0kmu"]
 [ext_resource type="AudioStream" uid="uid://ssmkn8u06bo1" path="res://Assets/Audio/Music/level1/Grand Piano and Pad_1.wav" id="12_tfygl"]
 [ext_resource type="AudioStream" uid="uid://bjtalavmldg60" path="res://Assets/Audio/Music/level1/8-Bit Grit_1.wav" id="13_4lbqq"]
 [ext_resource type="AudioStream" uid="uid://bcc0oa72lcny5" path="res://Assets/Audio/Music/level1/Studio Violins 2_1.wav" id="14_trei2"]
@@ -83,7 +83,7 @@ script = ExtResource("10_wodfd")
 name = "main"
 enabled = true
 volume = 0.0
-stream = ExtResource("11_e3262")
+stream = ExtResource("12_o0kmu")
 
 [sub_resource type="Resource" id="Resource_umwak"]
 script = ExtResource("9_7x8tp")

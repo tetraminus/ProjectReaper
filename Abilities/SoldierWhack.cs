@@ -14,7 +14,7 @@ public partial class SoldierWhack : AbstractAbility
 
     private static PackedScene WhackScene { get; } = GD.Load<PackedScene>("res://Abilities/Whack/WhackScene.tscn");
 
-    public override float Cooldown { get; set; } = 1f;
+    protected override float Cooldown { get; set; } = 1f;
 	
 
     public override void Use()

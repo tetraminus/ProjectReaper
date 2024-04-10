@@ -1,3 +1,5 @@
+using Godot;
+using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Player;
 
@@ -7,21 +9,26 @@ public partial class DreamCar : AbstractItem
 {
 	public override string Id => "dream_car";
 	public override ItemRarity Rarity => ItemRarity.Common;
-	private const float CooldownReduction = 0.1f; // 10% per stack
-	private float currentReduction = 0f;
+	private const float CooldownReduction = 0.85f; // 15% per stack
+	
 	public override void OnInitalPickup()
 	{
-		base.OnInitalPickup();
-		var originalCooldown = GameManager.Player.GetAbility(AbilityManager.AbilitySlot.Utility).Cooldown;
-		currentReduction = originalCooldown * CooldownReduction * Stacks;
-		GameManager.Player.GetAbility(AbilityManager.AbilitySlot.Utility).Cooldown -= currentReduction;
+		Callbacks.Instance.CalculateStat += CalculateStat;
 	}
-
-	public override void OnStack(int newstacks) {
-		base.OnStack(newstacks);
-		GameManager.Player.GetAbility(AbilityManager.AbilitySlot.Utility).Cooldown += currentReduction;
-		var originalCooldown = GameManager.Player.GetAbility(AbilityManager.AbilitySlot.Utility).Cooldown;
-		currentReduction = originalCooldown * CooldownReduction * Stacks;
-		GameManager.Player.GetAbility(AbilityManager.AbilitySlot.Utility).Cooldown -= currentReduction;
+	
+	private float CalculateStat(float stat, string statName, AbstractCreature creature)
+	{
+		if (statName == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
+		{
+			GD.Print("Reducing cooldown");
+			return stat * Mathf.Pow(CooldownReduction, Stacks);
+		}
+		return stat;
 	}
+	
+	public override void Cleanup()
+	{
+		Callbacks.Instance.CalculateStat -= CalculateStat;
+	}
+	
 }

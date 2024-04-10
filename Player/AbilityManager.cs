@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using ProjectReaper.Abilities;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
@@ -12,9 +13,12 @@ public partial class AbilityManager : Node
 
     public override void _Ready()
     {
+        var index = 0;
         foreach (var ability in Abilities)
         {
             ability?.SetCreature(Creature as AbstractCreature);
+            ability?.SetSlot((AbilitySlot) index);
+            index++;
         }
     }
 
