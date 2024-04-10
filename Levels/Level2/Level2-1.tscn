@@ -56,6 +56,7 @@ resource_local_to_scene = true
 size = Vector2(209.281, 176.752)
 
 [node name="Level2-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+y_sort_enabled = true
 script = ExtResource("1_7hfv5")
 NumberOfChests = 9
 SpawnRects = NodePath("Spawns")
@@ -74,13 +75,13 @@ layer_0/tile_data = PackedInt32Array(196605, 1, 2, 196606, 65537, 2, 196607, 655
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap"]
 
-[node name="Nav" type="Node" parent="."]
+[node name="Nav" type="Node2D" parent="."]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Nav"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_24hd2")
 
-[node name="Loot" type="Node" parent="."]
+[node name="Loot" type="Node2D" parent="."]
 
 [node name="LootPoint" parent="Loot" instance=ExtResource("4_hcqo2")]
 position = Vector2(-823, 841)
@@ -133,7 +134,7 @@ position = Vector2(-919, -601)
 [node name="LootPoint17" parent="Loot" instance=ExtResource("4_hcqo2")]
 position = Vector2(953, -921)
 
-[node name="Spawns" type="Node" parent="."]
+[node name="Spawns" type="Node2D" parent="."]
 
 [node name="SpawnRect" parent="Spawns" instance=ExtResource("5_mr5mf")]
 position = Vector2(-415, 35)

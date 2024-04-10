@@ -44,7 +44,7 @@ public partial class LootDirector : Node
             
             
             
-            var chests = new Node{Name = "Chests"};
+            var chests = new Node2D{Name = "Chests", YSortEnabled = true};
             for (var i = 0; i < numberOfChests; i++)
             {
                 var lootPoint = _lootPoints[GameManager.LootRng.RandiRange(0, _lootPoints.Count - 1)];

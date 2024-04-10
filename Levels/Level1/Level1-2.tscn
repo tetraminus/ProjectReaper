@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_8t50y"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_o0hb6"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="8_vixlw"]
-[ext_resource type="PackedScene" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
+[ext_resource type="PackedScene" uid="uid://cxxfh848gubsf" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
 [ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4v4sx"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_meqad"]
 
@@ -67,6 +67,7 @@ resource_local_to_scene = true
 size = Vector2(281.702, 120.976)
 
 [node name="Level1-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+y_sort_enabled = true
 script = ExtResource("1_138kq")
 FightStems = ["Violin", "Amen"]
 NumberOfChests = 8
@@ -90,6 +91,7 @@ texture = ExtResource("3_a4tpl")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
 z_index = -1
+y_sort_enabled = true
 tile_set = ExtResource("4_kqr7n")
 format = 2
 layer_0/name = "ground"
@@ -100,13 +102,15 @@ metadata/_edit_lock_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap"]
 
-[node name="nav" type="Node" parent="."]
+[node name="nav" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="nav"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_gvw8c")
 
-[node name="loot" type="Node" parent="."]
+[node name="loot" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="LootPoint" parent="loot" instance=ExtResource("5_8t50y")]
 position = Vector2(-840, 809)
@@ -153,7 +157,8 @@ position = Vector2(649, -922)
 [node name="LootPoint15" parent="loot" instance=ExtResource("5_8t50y")]
 position = Vector2(921, -743)
 
-[node name="spawnRects" type="Node" parent="."]
+[node name="spawnRects" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="SpawnRect" parent="spawnRects" instance=ExtResource("6_o0hb6")]
 position = Vector2(-824, -70)
@@ -206,7 +211,8 @@ RectShape = SubResource("RectangleShape2D_se6yj")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.913725, 0.913725, 0.913725, 1)
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Lamp" parent="Node" instance=ExtResource("8_vixlw")]
 position = Vector2(354, 43)

@@ -42,6 +42,7 @@ animations = [{
 radius = 41.0122
 
 [node name="Chest" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_muj4k")
 
 [node name="HighlightComponent" parent="." instance=ExtResource("3_2max1")]

@@ -63,7 +63,8 @@ position = Vector2(-1024, -1024)
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.913725, 0.913725, 0.913725, 1)
 
-[node name="loot" type="Node" parent="."]
+[node name="loot" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="LootPoint" parent="loot" instance=ExtResource("6_6w5hx")]
 position = Vector2(504, -151)
@@ -110,7 +111,8 @@ position = Vector2(-695, -937)
 [node name="LootPoint15" parent="loot" instance=ExtResource("6_6w5hx")]
 position = Vector2(72, -488)
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Lamp" parent="Node" instance=ExtResource("7_foyrk")]
 position = Vector2(360, 62)
@@ -154,14 +156,16 @@ position = Vector2(875, -643)
 [node name="Lamp14" parent="Node" instance=ExtResource("7_foyrk")]
 position = Vector2(837, -425)
 
-[node name="nav" type="Node" parent="."]
+[node name="nav" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Main" type="NavigationRegion2D" parent="nav"]
 visible = false
 position = Vector2(7, 7)
 navigation_polygon = SubResource("NavigationPolygon_dqg1l")
 
-[node name="SpawnAreas" type="Node" parent="."]
+[node name="SpawnAreas" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="SpawnRect" parent="SpawnAreas" instance=ExtResource("6_klwim")]
 position = Vector2(-294, 170)
