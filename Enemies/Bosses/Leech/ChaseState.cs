@@ -10,7 +10,7 @@ public partial class ChaseState : AbstractState
     private bool _canShoot = true;
     private Timer _chargeTimer;
     private bool _canCharge = true;
-    [Export] public float ChargeCooldown = 3f;
+    [Export] public float ChargeCooldown = 2.0f;
     [Export] public float ShootCooldown = 0.5f;
     
     
