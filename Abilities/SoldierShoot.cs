@@ -27,6 +27,7 @@ public partial class SoldierShoot : AbstractAbility
 		
 		var src = GameManager.Player;
 		bullet.Init(src, src.Team, src.GlobalPosition,src.AimDirection());
+		
 		GameManager.Level.AddChild(bullet);
 	}
 }

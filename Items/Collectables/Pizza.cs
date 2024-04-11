@@ -21,11 +21,12 @@ public partial class Pizza : AbstractItem
     
     public float CalculateStat(float stat, string statname, AbstractCreature creature)
     {
-        if (statname == "Speed")
+        if (statname == "Speed" && creature == GetHolder())
         {
             return stat + stat * Speed * Stacks;
         }
-        if (statname == "Damage")
+        
+        if (statname == "Damage" && creature == GetHolder())
         {
             return stat + stat * Damage * Stacks;
         }

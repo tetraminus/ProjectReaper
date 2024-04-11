@@ -12,7 +12,7 @@ public partial class LightningRod : AbstractItem
     public override string Id => "lightning_rod";
     public override ItemRarity Rarity => ItemRarity.Common;
     
-   // private const float Chance = 0.1f;
+    private const float Chance = 0.1f;
     private const int BaseChain = 1;
     private static Texture2D lightningTexture = GD.Load<Texture2D>("res://Assets/Abilities/zapbullet.png");
     
@@ -25,7 +25,7 @@ public partial class LightningRod : AbstractItem
     
     public void BulletCreated(AbstractDamageArea bullet)
     {
-        if (bullet is BasicBullet basicBullet )
+        if (bullet is BasicBullet basicBullet && GameManager.RollBool(Chance, GameManager.Player.Stats.Luck))
         {
             basicBullet.Resprite(lightningTexture);
             var chainInfo = new Dictionary<string, Variant>

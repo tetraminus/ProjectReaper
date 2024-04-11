@@ -28,30 +28,30 @@ public partial class EverythingBagel : AbstractItem
     
     public float CalculateStat(float stat, string statname, AbstractCreature creature)
     {
+        if (creature != GetHolder())
+        {
+            return stat; 
+        }
         
-        if (statname == "Damage")
+        switch (statname)
         {
-            return stat + stat * Damage * Stacks;
+            case "Damage":
+                return stat + stat * Damage * Stacks;
+            case "CritDamage":
+                return stat + CritDamage * Stacks;
+            case "CritChance":
+                return stat + CritChance * Stacks;
+            case "AttackSpeed":
+                return stat + stat * AttackSpeed * Stacks;
         }
-        if (statname == "CritDamage")
-        {
-            return stat + CritDamage * Stacks;
-        }
-        if (statname == "CritChance")
-        {
-            return stat + CritChance * Stacks;
-        }
-        if (statname == "AttackSpeed")
-        {
-            return stat + stat * AttackSpeed * Stacks;
-        }
+
         if (statname == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
         {
             return stat * Mathf.Pow(1 - CooldownReduction, Stacks);
         }
         
-
         return stat;
+        
     }
 
     public override void Cleanup()
