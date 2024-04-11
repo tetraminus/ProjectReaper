@@ -39,7 +39,7 @@ size = Vector2(455.144, 205.967)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs80i"]
 resource_local_to_scene = true
-size = Vector2(461.199, 166.775)
+size = Vector2(455.887, 170.327)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_da44w"]
 resource_local_to_scene = true

@@ -31,6 +31,7 @@ public partial class Portal : Node2D
 			(body as Player).Hide();
 			//GameManager.GoToMainMenu(true);
 			GameManager.GoToNextLevel();
+			
 		}
 		
 	}

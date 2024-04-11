@@ -29,7 +29,7 @@ public partial class Slimebert : AbstractCreature
 	{
 		base._Ready();
 		Stats.Speed = 60;
-		Stats.MaxHealth = 35 * (GameManager.GetRunDifficulty() + 2)/3; //divide by 3 for tier 1 enemies
+		Stats.MaxHealth = 35 * (GameManager.GetRunDifficulty() + 3)/4; //divide by 4 for tier 1 enemies
 		Stats.Health = Stats.MaxHealth;
 		
 
@@ -154,16 +154,16 @@ public partial class Slimebert : AbstractCreature
 		}
 
 
-    }
-    private void Move() {
-        // simulate friction with delta
-        if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
-        {
-            Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
-        }
-        
-        MoveAndSlide();
-    }
+	}
+	private void Move() {
+		// simulate friction with delta
+		if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
+		{
+			Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+		}
+		
+		MoveAndSlide();
+	}
 
 	private async void ActorSetup()
 	{

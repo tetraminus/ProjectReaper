@@ -26,7 +26,7 @@ public partial class Goober : AbstractCreature
 	{
 		base._Ready();
 		Stats.Speed = 80;
-		Stats.MaxHealth = 15 * (GameManager.GetRunDifficulty() + 2)/3; //divide by 3 for tier 1 enemies
+		Stats.MaxHealth = 15 * (GameManager.GetRunDifficulty() + 3)/4; //divide by 4 for tier 1 enemies
 		Stats.Health = Stats.MaxHealth;
 		Stats.Damage = 15;
 
