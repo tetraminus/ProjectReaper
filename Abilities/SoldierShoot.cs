@@ -24,10 +24,10 @@ public partial class SoldierShoot : AbstractAbility
 		
 		AudioManager.Instance.PlaySoundVaried("player", "shoot", GD.RandRange(0.8,1.2));
 		var bullet = (AbstractDamageArea)BulletScene.Instantiate();
-		Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
+		
 		var src = GameManager.Player;
 		bullet.Init(src, src.Team, src.GlobalPosition,src.AimDirection());
-		GetTree().Root.AddChild(bullet);
 		
+		GameManager.Level.AddChild(bullet);
 	}
 }

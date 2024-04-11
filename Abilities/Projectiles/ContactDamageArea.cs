@@ -10,7 +10,7 @@ namespace ProjectReaper.Abilities.Projectiles;
 public partial class ContactDamageArea : AbstractDamageArea
 {
     public override float Speed { get; set; } = 0;
-    public override float Damage { get; set; }
+    [Export] public override float Damage { get; set; } = -1;
 
     [Export(PropertyHint.Range, "0,100")] 
     public override float Duration { get; set; } = 0.2f;
@@ -28,7 +28,11 @@ public partial class ContactDamageArea : AbstractDamageArea
         base._Ready();
         DestroyOnHit = false;
         DestroyOnWall = false;
-        Source.Ready += () => { Damage = Source.Stats.Damage; };
+        Source.Ready += () =>
+        {
+            if (Damage < 0) Damage = Source.Stats.Damage;
+            
+        };
     }
 
     public override void OnAreaEntered(Area2D area)

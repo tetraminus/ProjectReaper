@@ -14,7 +14,7 @@ public partial class Slimebert : AbstractCreature
 
     private const float Accelfac = 20.0f;
     private const float TargetChaseDistance = 125;
-    private PackedScene _bulletScn = GD.Load<PackedScene>("res://Enemies/Slime/SlimeBullet.tscn");
+    private PackedScene _bulletScn = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
     
     public Vector2 MoveDirection { get; set; }
     private StateChart _stateChart;

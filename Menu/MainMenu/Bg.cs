@@ -8,6 +8,8 @@ public partial class Bg : ColorRect
 	private ShaderMaterial _shaderMaterial;
 	
 	[Export] public float ColorSpeed = 0.5f;
+	[Export]
+	private float _baseColorSteps = 32f;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -29,7 +31,7 @@ public partial class Bg : ColorRect
 		tween.TweenMethod(Callable.From<float>(f =>
 		{
 			_shaderMaterial.SetShaderParameter("color_steps", f);
-		}), 0.0, 6.0, dur);
+		}), 0.0, _baseColorSteps, dur);
 	
 		tween.Play();
 		
@@ -41,7 +43,7 @@ public partial class Bg : ColorRect
 		tween.TweenMethod(Callable.From<float>(f =>
 		{
 			_shaderMaterial.SetShaderParameter("color_steps", f);
-		}), 6.0, 0.0, dur);
+		}), _baseColorSteps, 0.0, dur);
 	
 		tween.Play();
 		tween.Finished += () =>

@@ -1,8 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctx23ugds1uxp"]
 
 [ext_resource type="Script" path="res://Menu/MainMenu/MainMenu.cs" id="1_syj20"]
-[ext_resource type="Script" path="res://Menu/MainMenu/VortexEffect.cs" id="2_uuh4p"]
-[ext_resource type="Texture2D" uid="uid://chsk6wl17ypw" path="res://Assets/UI/outerdemonslogo.png" id="3_y6ee4"]
+[ext_resource type="PackedScene" uid="uid://rn4m3yxcxu5o" path="res://Assets/UI/OuterDemonsLogo/Logo.tscn" id="3_04pcr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5wjf"]
+bg_color = Color(0, 0, 0, 0.772549)
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
 
 [node name="MenuLayer" type="CanvasLayer"]
 layer = 6
@@ -18,15 +22,6 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_syj20")
 
-[node name="items" type="CanvasLayer" parent="MainMenu"]
-layer = 0
-
-[node name="VortexEffect" type="Node2D" parent="MainMenu/items"]
-unique_name_in_owner = true
-visible = false
-show_behind_parent = true
-script = ExtResource("2_uuh4p")
-
 [node name="MenuScreen" type="Control" parent="MainMenu"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 1
@@ -36,6 +31,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Logo" parent="MainMenu/MenuScreen" instance=ExtResource("3_04pcr")]
+position = Vector2(960, 256)
+scale = Vector2(4, 4)
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MenuScreen"]
 layout_mode = 1
 anchors_preset = 15
@@ -44,15 +43,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainMenu/MenuScreen/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 512)
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/MenuScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 512)
 layout_mode = 2
-texture = ExtResource("3_y6ee4")
-stretch_mode = 5
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_e5wjf")
+
+[node name="Spacer" type="Control" parent="MainMenu/MenuScreen/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 34.4)
+layout_mode = 2
 
 [node name="MenuButtons" type="VBoxContainer" parent="MainMenu/MenuScreen/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="StartButton" type="Button" parent="MainMenu/MenuScreen/VBoxContainer/MenuButtons"]

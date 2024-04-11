@@ -19,7 +19,7 @@ public partial class GrapeShot : AbstractItem
 	public override string Id => "grapeshot";
 	public override ItemRarity Rarity => ItemRarity.Uncommon;
 	
-	private PackedScene _bulletScene = GD.Load<PackedScene>("res://Items/Prefabs/GrapeBullet.tscn");
+	private PackedScene _bulletScene = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
 	public override void OnInitalPickup()
 	{
 		Callbacks.Instance.AbilityUsed += OnAbilityUsed;
@@ -62,6 +62,7 @@ public partial class GrapeShot : AbstractItem
 			bullet.Init(GetHolder(), GetHolder().Team, GetHolder().GlobalPosition, angle);
 			bullet.ProcCoef = 0.5f;
 			GameManager.Level.AddChild(bullet);
+			bullet.Resprite(GD.Load<Texture2D>("res://Assets/objects/GrapeBullet.png"));
 			
 		}
 	}
