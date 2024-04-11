@@ -19,6 +19,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(327, 85, 32, 41)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="DemonsN" type="Sprite2D" parent="Demons"]
 position = Vector2(65, 32)
@@ -26,6 +27,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(295, 85, 32, 38)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="DemonsO" type="Sprite2D" parent="Demons"]
 position = Vector2(27.5, 29.5)
@@ -33,6 +35,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(248, 81, 47, 47)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="eyeO" type="Sprite2D" parent="Demons/DemonsO"]
 position = Vector2(-0.5, -0.5)
@@ -46,6 +49,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(311, 40, 54, 45)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="eyeM" type="Sprite2D" parent="Demons/DemonsM"]
 position = Vector2(0, 5.5)
@@ -59,6 +63,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(284, 39, 27, 42)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="DemonsD" type="Sprite2D" parent="Demons"]
 position = Vector2(-97, 28.5)
@@ -66,6 +71,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(248, 24, 36, 45)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="Outer" type="Node2D" parent="."]
 
@@ -75,6 +81,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(295, 123, 32, 38)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="OuterE" type="Sprite2D" parent="Outer"]
 position = Vector2(44.5, -32)
@@ -82,6 +89,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(327, 126, 23, 40)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="OuterU" type="Sprite2D" parent="Outer"]
 position = Vector2(-23, -34)
@@ -89,6 +97,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(324, 0, 48, 40)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="OuterT" type="Sprite2D" parent="Outer"]
 position = Vector2(10.5, -34)
@@ -96,6 +105,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(248, 128, 45, 40)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="OuterO" type="Sprite2D" parent="Outer"]
 position = Vector2(-65.5, -33.5)
@@ -103,6 +113,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(289, 0, 35, 39)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="foreground" type="Node2D" parent="."]
 
@@ -112,6 +123,7 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(44, 0, 245, 24)
 script = ExtResource("2_oc800")
+gravity = 5.0
 
 [node name="emblem" type="Sprite2D" parent="foreground"]
 position = Vector2(-3, -3)
@@ -119,3 +131,4 @@ texture = ExtResource("2_8qdxq")
 region_enabled = true
 region_rect = Rect2(0, 0, 44, 32)
 script = ExtResource("2_oc800")
+gravity = 5.0
