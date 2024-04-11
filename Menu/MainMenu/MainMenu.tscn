@@ -22,13 +22,6 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_syj20")
 
-[node name="items" type="CanvasLayer" parent="MainMenu"]
-layer = 0
-
-[node name="Logo" parent="MainMenu/items" instance=ExtResource("3_04pcr")]
-position = Vector2(960, 256)
-scale = Vector2(4, 4)
-
 [node name="MenuScreen" type="Control" parent="MainMenu"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 1
@@ -37,6 +30,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Logo" parent="MainMenu/MenuScreen" instance=ExtResource("3_04pcr")]
+position = Vector2(960, 256)
+scale = Vector2(4, 4)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MenuScreen"]
 layout_mode = 1
