@@ -20,6 +20,7 @@ NodeToDelete = NodePath("..")
 shape = SubResource("CircleShape2D_opi13")
 
 [node name="GravZone" type="Sprite2D" parent="."]
+modulate = Color(0.552941, 0.501961, 0.701961, 1)
 texture = ExtResource("1_6yg22")
 
 [node name="CreatureTrackerComponent" parent="." node_paths=PackedStringArray("Areas") instance=ExtResource("2_fae2y")]

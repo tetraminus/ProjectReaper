@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
@@ -390,16 +392,58 @@ public partial class GameManager : Node
 		
 	}
 
-	private static void ItemLibraryScreenOnCloseRequested()
-	{
-		GD.Print("Closing library");
-		ItemLibraryScreen.Hide();
-		if (LastScreen != null)
-		{
-			LastScreen.Show();
-		}
-		CurrentScreen = LastScreen;
-		
-		
-	}
+    private static void ItemLibraryScreenOnCloseRequested()
+    {
+        GD.Print("Closing library");
+        ItemLibraryScreen.Hide();
+        if (LastScreen != null)
+        {
+            LastScreen.Show();
+        }
+        CurrentScreen = LastScreen;
+        
+        
+    }
+
+    public static AbstractCreature GetClosestEnemy(Vector2 targetGlobalPosition, float range, List<AbstractCreature> exclude = null, AbstractCreature.Teams team = AbstractCreature.Teams.Player)
+    {
+        
+        if (exclude == null)
+        {
+            exclude = new List<AbstractCreature>();
+        }
+        
+        var Query = new PhysicsShapeQueryParameters2D();
+        Query.Shape = new CircleShape2D {Radius = range};
+        var transform = Transform2D.Identity;
+        transform.Origin += targetGlobalPosition;
+        Query.Transform = transform;
+        //everything except bit 1
+        Query.CollisionMask = 2;
+      
+        Query.CollideWithAreas = true;
+        Query.CollideWithBodies = false;
+        var result = Level.GetWorld2D().DirectSpaceState.IntersectShape(Query);
+        
+        
+        AbstractCreature closest = null;
+        float closestDistance = range;
+        foreach (var obj in result)
+        {
+            if (obj["collider"].Obj is HurtBox box)
+            {
+                var creature = box.GetParentBlocker() as AbstractCreature;
+                if (creature == null || creature.Team == team || exclude.Contains(creature)) continue;
+                var distance = creature.GlobalPosition.DistanceTo(targetGlobalPosition);
+                if (distance < closestDistance)
+                {
+                    closest = creature;
+                    closestDistance = distance;
+                }
+            }
+        }
+        
+        return closest;
+    }
+    
 }

@@ -12,18 +12,18 @@ public partial class Slimebert : AbstractCreature
 	private Vector2 _movementTargetPosition = Vector2.Zero;
 	private bool _directSight = false;
 
-	private const float Accelfac = 20.0f;
-	private const float TargetChaseDistance = 125;
-	private PackedScene _bulletScn = GD.Load<PackedScene>("res://Enemies/Slime/SlimeBullet.tscn");
-	
-	public Vector2 MoveDirection { get; set; }
-	private StateChart _stateChart;
-	
-	public Vector2 MovementTarget
-	{
-		get { return _navigationAgent.TargetPosition; }
-		set { _navigationAgent.TargetPosition = value; }
-	}
+    private const float Accelfac = 20.0f;
+    private const float TargetChaseDistance = 125;
+    private PackedScene _bulletScn = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
+    
+    public Vector2 MoveDirection { get; set; }
+    private StateChart _stateChart;
+    
+    public Vector2 MovementTarget
+    {
+        get { return _navigationAgent.TargetPosition; }
+        set { _navigationAgent.TargetPosition = value; }
+    }
 
 	public override void _Ready()
 	{

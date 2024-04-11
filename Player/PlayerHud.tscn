@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=19 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 [ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ksmrq1ho1vtv" path="res://Assets/UI/Fight/h.png" id="9_6ehji"]
 [ext_resource type="Texture2D" uid="uid://cc7n8s3gmqd8g" path="res://Assets/UI/Fight/t.png" id="10_ik2hg"]
 [ext_resource type="Texture2D" uid="uid://dl3qowx6rnadb" path="res://Assets/UI/Fight/!.png" id="11_1u6df"]
+[ext_resource type="Script" path="res://Menu/ChooseItemMenu.cs" id="12_vhg1p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v4jcw"]
 font_size = 100
@@ -101,6 +102,9 @@ _data = {
 "RESET": SubResource("Animation_vxma0"),
 "fight": SubResource("Animation_ujn38")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8h8r"]
+font_size = 100
 
 [node name="PlayerHudLayer" type="CanvasLayer"]
 layer = 4
@@ -340,3 +344,51 @@ alignment = 2
 [node name="OverFilterLayer" type="CanvasLayer" parent="PlayerHud"]
 unique_name_in_owner = true
 layer = 5
+
+[node name="ChooseItemMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("12_vhg1p")
+
+[node name="ColorRect" type="ColorRect" parent="ChooseItemMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.34902)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChooseItemMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="ChooseItemMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ChooseItemMenu/VBoxContainer"]
+layout_mode = 2
+text = "ui_choose"
+label_settings = SubResource("LabelSettings_w8h8r")
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="ChooseItemMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemContainer" type="HBoxContainer" parent="ChooseItemMenu/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2

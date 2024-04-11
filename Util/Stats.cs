@@ -32,6 +32,7 @@ public partial class Stats : Node
     public ValueChangedDelegate MaxHealthChanged;
     
     private Dictionary<string, float> _calculatedStats = new ();
+    private List<string> _uncacheableStats = new ();
 
     private float CalculateStat(float baseStat, string statName)
     {
@@ -41,7 +42,10 @@ public partial class Stats : Node
         }
 
         calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName, Creature);
-        _calculatedStats[statName] = calculatedStat;
+        if (!_uncacheableStats.Contains(statName))
+        {
+            _calculatedStats[statName] = calculatedStat;
+        }
         return calculatedStat;
     }
 
@@ -141,12 +145,7 @@ public partial class Stats : Node
         set => _range = value;
     }
 
-    public float AttackDamage
-    {
-        get => CalculateStat(_attackDamage, "AttackDamage");
-        set => _attackDamage = value;
-    }
-
+    
     public float AttackKnockback
     {
         get => CalculateStat(_attackKnockback, "AttackKnockback");
@@ -179,7 +178,7 @@ public partial class Stats : Node
     {
         Health = 100;
         MaxHealth = 100;
-        Damage = 10;
+        Damage = 1f;
         Speed = 100;
         Range = 100;
         Defense = 0;
@@ -187,7 +186,6 @@ public partial class Stats : Node
         CritChance = 0.01f;
         CritDamage = 1.2f;
         AttackSpeed = 1f;
-        AttackDamage = 10f;
         AttackKnockback = 0f;
         AttackStun = 0f;
         AttackDuration = 1f;
@@ -220,7 +218,7 @@ public partial class Stats : Node
         var critDamage = sourceStats.CritDamage;
         var defense = targetStats.Defense;
         var armor = targetStats.Armor;
-        var damageMultiplier = 1f;
+        var damageMultiplier = sourceStats.Damage;
 
         var finalDamage = 0f;
 
@@ -244,9 +242,29 @@ public partial class Stats : Node
         if (report != null) report.critlv = critLevel;
 
 
-        damageMultiplier = critMultiplier;
+        damageMultiplier *= critMultiplier;
         finalDamage = damage * damageMultiplier;
 
         return finalDamage;
+    }
+
+    public void MakeUncacheable(string name)
+    {
+        if (_calculatedStats.ContainsKey(name))
+        {
+            _calculatedStats.Remove(name);
+        }
+        if (!_uncacheableStats.Contains(name))
+        {
+            _uncacheableStats.Add(name);
+        }
+    }
+
+    public void MakeCacheable(string damage)
+    {
+        if (_uncacheableStats.Contains(damage))
+        {
+            _uncacheableStats.Remove(damage);
+        }
     }
 }
