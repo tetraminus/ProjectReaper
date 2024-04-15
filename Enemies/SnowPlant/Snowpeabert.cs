@@ -10,7 +10,8 @@ namespace ProjectReaper.Enemies.SnowPlant;
 public partial class Snowpeabert : AbstractCreature
 {
     private static PackedScene BulletScene { get; } =
-        GD.Load<PackedScene>("res://Enemies/SnowPlant/MoleBullet.tscn");
+        GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
+    private static Texture2D BulletTexture { get; } = GD.Load<Texture2D>("res://Assets/Enemies/MoleBullet.png");
     private const float ShootSweepAngle = 45.0f; // The angle in degrees for the sweep of the shooting state
     private const int ShootSweepCount = 10; // The number of shots to be fired in the shooting state
     private const float Accelfac = 20.0f;
@@ -128,20 +129,7 @@ public partial class Snowpeabert : AbstractCreature
 
         Velocity += MoveDirection * Stats.Speed * (float)delta * Accelfac;
     }
-    public void ShootingStateProcess(float delta)
-    {
-        // shoot bullets from one side to the other every 0.2 seconds
-        if (CooldownTimer > 0.2f)
-        {
-            var bullet = (AbstractDamageArea)BulletScene.Instantiate();
-            bullet.Init(this, Team, GlobalPosition, _shootangle);
-            _shootangle += ShootSweepAngle/10;
-            CooldownTimer = 0;
-        }
-        CooldownTimer += delta;
-
-
-    }
+    
 
     private void FollowPath(double delta)
     {
@@ -233,6 +221,7 @@ public partial class Snowpeabert : AbstractCreature
         bullet.Init(this, Team, GlobalPosition, rotation);
         bullet.Speed = 200;
         GameManager.Level.AddChild(bullet);
+        bullet.Resprite(BulletTexture);
     }
 
 }

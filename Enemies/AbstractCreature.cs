@@ -36,6 +36,7 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     public override void _Ready()
     {
         Stats.Init();
+        Stats.SetCreature(this);
         Hurtbox = FindChild("Hurtbox") as Area2D;
         Items = new Node
         {
@@ -129,16 +130,14 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public virtual void AddItem(string id, int stacks = 1, bool isPlayer = false)
     {
-         var item = GetItem(id);
+        var item = GetItem(id);
         if (item != null)
         {
-            item.Stacks += stacks;
             item.Gain(stacks);
         }
         else
         {
             var newItem = ItemLibrary.Instance.CreateItem(id);
-            newItem.Stacks = stacks;
             Items.AddChild(newItem);
             newItem.Gain(stacks);
             if (isPlayer)
@@ -148,20 +147,12 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     
     public virtual void AddItem(AbstractItem item)
     {
-        var existingItem = GetItem(item.Id);
-        if (existingItem != null)
+        if (item.GetRealStacks() <= 0)
         {
-            existingItem.Stacks += item.Stacks;
-            existingItem.Gain(item.Stacks);
+            AddItem(item.Id, 1);
+            return;
         }
-        else
-        {
-            if (item.Stacks <= 0) item.Stacks = 1;
-                
-            Items.AddChild(item);
-            item.Gain(1);
-            GameManager.PlayerHud.AddItem(item);
-        }
+        AddItem(item.Id, item.GetRealStacks());
     }
     
    

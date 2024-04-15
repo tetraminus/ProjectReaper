@@ -20,7 +20,7 @@ public partial class DreamCar : AbstractItem
 	{
 		if (statName == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
 		{
-			GD.Print("Reducing cooldown");
+			
 			return stat * Mathf.Pow(CooldownReduction, Stacks);
 		}
 		return stat;
