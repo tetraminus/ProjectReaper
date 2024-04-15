@@ -12,8 +12,7 @@ public partial class LightningRod : AbstractItem
     public override string Id => "lightning_rod";
     public override ItemRarity Rarity => ItemRarity.Common;
     
-    private const float Chance = 0.1f;
-    private const int BaseChain = 1;
+    private const float Chance = 1.0f;
     private static Texture2D lightningTexture = GD.Load<Texture2D>("res://Assets/Abilities/zapbullet.png");
     
     public override void OnInitalPickup()
@@ -25,12 +24,12 @@ public partial class LightningRod : AbstractItem
     
     public void BulletCreated(AbstractDamageArea bullet)
     {
-        if (bullet is BasicBullet basicBullet && GameManager.RollBool(Chance, GameManager.Player.Stats.Luck))
+        if (bullet is BasicBullet basicBullet && GameManager.RollBool(Chance, GameManager.Player.Stats.Luck) && bullet.Source == GetHolder())
         {
             basicBullet.Resprite(lightningTexture);
             var chainInfo = new Dictionary<string, Variant>
             {
-                {"Chain", BaseChain}
+                {"Chain", new Variant()}
             };
             basicBullet.Flags.Add("Chain", chainInfo);
             basicBullet.DestroyOnHit = false;
@@ -41,10 +40,10 @@ public partial class LightningRod : AbstractItem
     {
         if (bullet is BasicBullet basicBullet && bullet.Flags.ContainsKey("Chain"))
         {
-            var chainInfo = bullet.Flags["Chain"];
-            if (chainInfo["Chain"].AsInt32() > 0)
+            
+            if (bullet.Flags.ContainsKey("Chain"))
             {
-                chainInfo["Chain"] = (int) chainInfo["Chain"] - 1;
+                
                 bullet.Damage /= 2;
                 var nextEnemy = GameManager.GetClosestEnemy(target.GlobalPosition, 500,new List<AbstractCreature> {target}, GetHolder().Team);
                 if (nextEnemy != null)
@@ -54,7 +53,7 @@ public partial class LightningRod : AbstractItem
                     bullet.ExclusionList.Add(target);
                 }
                 
-                if (chainInfo["Chain"].AsInt32() == 0)
+                if (bullet.Damage <= 1)
                 {
                     bullet.DestroyOnHit = true;
                     bullet.Flags.Remove("Chain");

@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://cxk7v0kp0r2kg"]
+
+[ext_resource type="Texture2D" uid="uid://b5p0hsjs0tgjh" path="res://Assets/Enemies/Bosses/Eye/Eye_Boss_2.png" id="1_vevfj"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Eye/EyeBoss.cs" id="1_xlph1"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Eye/BossAnimController.cs" id="2_0velw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_u5dff"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_ydpd6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_002yr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_7p3df"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="8_bse3t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vply8"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_floie"]
+radius = 26.0
+
+[node name="EyeBoss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_xlph1")
+Attacks = Array[String](["Burst", "Flood"])
+
+[node name="Parts" type="Node2D" parent="."]
+
+[node name="bg" type="Sprite2D" parent="Parts"]
+texture = ExtResource("1_vevfj")
+region_enabled = true
+region_rect = Rect2(7, 7, 49, 49)
+
+[node name="eyelayer1" type="Node2D" parent="Parts"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parts/eyelayer1"]
+texture = ExtResource("1_vevfj")
+region_enabled = true
+region_rect = Rect2(85, 21, 21, 21)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parts/eyelayer1"]
+texture = ExtResource("1_vevfj")
+region_enabled = true
+region_rect = Rect2(152, 24, 15, 15)
+
+[node name="eyelayer2" type="Node2D" parent="Parts/eyelayer1"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parts/eyelayer1/eyelayer2"]
+texture = ExtResource("1_vevfj")
+region_enabled = true
+region_rect = Rect2(219, 27, 9, 9)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parts/eyelayer1/eyelayer2"]
+texture = ExtResource("1_vevfj")
+region_enabled = true
+region_rect = Rect2(286, 30, 3, 3)
+
+[node name="BossAnimController" type="Node2D" parent="." node_paths=PackedStringArray("layer1", "layer2")]
+script = ExtResource("2_0velw")
+layer1 = NodePath("../Parts/eyelayer1")
+layer2 = NodePath("../Parts/eyelayer1/eyelayer2")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_u5dff")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("5_ydpd6")
+initial_state = NodePath("Alive")
+
+[node name="Alive" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_ydpd6")
+initial_state = NodePath("ChoosingNewAttack")
+
+[node name="ChoosingNewAttack" type="Node" parent="StateChart/Root/Alive"]
+script = ExtResource("6_002yr")
+
+[node name="Burst" type="Node" parent="StateChart/Root/Alive/ChoosingNewAttack"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../Attacking/BurstFire")
+event = &"BurstPicked"
+
+[node name="Flood" type="Node" parent="StateChart/Root/Alive/ChoosingNewAttack"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../Attacking/FloodFire")
+event = &"FloodPicked"
+
+[node name="Attacking" type="Node" parent="StateChart/Root/Alive"]
+script = ExtResource("5_ydpd6")
+initial_state = NodePath("BurstFire")
+
+[node name="BurstFire" type="Node" parent="StateChart/Root/Alive/Attacking"]
+script = ExtResource("5_ydpd6")
+initial_state = NodePath("Waiting")
+
+[node name="Firing" type="Node" parent="StateChart/Root/Alive/Attacking/BurstFire"]
+script = ExtResource("6_002yr")
+
+[node name="stop" type="Node" parent="StateChart/Root/Alive/Attacking/BurstFire/Firing"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../Waiting")
+delay_seconds = 0.5
+
+[node name="Waiting" type="Node" parent="StateChart/Root/Alive/Attacking/BurstFire"]
+script = ExtResource("6_002yr")
+
+[node name="Start" type="Node" parent="StateChart/Root/Alive/Attacking/BurstFire/Waiting"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../Firing")
+
+[node name="FloodFire" type="Node" parent="StateChart/Root/Alive/Attacking"]
+script = ExtResource("6_002yr")
+
+[node name="Attacking" type="Node" parent="StateChart/Root/Alive/Attacking"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../ChoosingNewAttack")
+delay_seconds = 10.0
+
+[node name="Dead" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_002yr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vply8")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("8_bse3t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_floie")
+
+[connection signal="state_entered" from="StateChart/Root/Alive/ChoosingNewAttack" to="." method="PickNewAttack"]
+[connection signal="state_entered" from="StateChart/Root/Alive/Attacking/BurstFire/Firing" to="." method="BurstfireEnter"]
+[connection signal="state_processing" from="StateChart/Root/Alive/Attacking/BurstFire/Firing" to="." method="BurstfireProcess"]
+[connection signal="state_processing" from="StateChart/Root/Alive/Attacking/FloodFire" to="." method="FloodfireProcess"]

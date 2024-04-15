@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b55wrns32y3ki"
-path.s3tc="res://.godot/imported/OuterDemonsLogoSpriteSheet.png-3ef9b1babdac4272b96c748a0bf44f54.s3tc.ctex"
+uid="uid://b5p0hsjs0tgjh"
+path="res://.godot/imported/Eye_Boss_2.png-fdfbd47aafc81c18b646ed3e76d4c46f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/OuterDemonsLogo/OuterDemonsLogoSpriteSheet.png"
-dest_files=["res://.godot/imported/OuterDemonsLogoSpriteSheet.png-3ef9b1babdac4272b96c748a0bf44f54.s3tc.ctex"]
+source_file="res://Assets/Enemies/Bosses/Eye/Eye_Boss_2.png"
+dest_files=["res://.godot/imported/Eye_Boss_2.png-fdfbd47aafc81c18b646ed3e76d4c46f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

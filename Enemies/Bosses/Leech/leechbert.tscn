@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/WaitState.cs" id="7_ucfww"]
 [ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="7_vxpn5"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/ShootState.cs" id="8_cxtnl"]
-[ext_resource type="PackedScene" uid="uid://2litb28ag64h" path="res://Enemies/Bosses/Leech/LeechBullet.tscn" id="11_jaa8s"]
+[ext_resource type="PackedScene" path="res://Enemies/Bosses/Leech/LeechBullet.tscn" id="11_jaa8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x260n"]
 atlas = ExtResource("2_jjqqp")

@@ -242,7 +242,7 @@ public partial class GameManager : Node
         MainNode.GetNode<Bg>("%Bg").SwirlOut();
         MainMenu.FadeOut(0, 0.5f);
         await MainNode.ToSignal(MainNode, Main.SignalName.TransitionComplete);
-        ScreenFader.FadeOut(0.1f);
+        ScreenFader.FadeOut(1.0f);
         await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
         InRun = true;

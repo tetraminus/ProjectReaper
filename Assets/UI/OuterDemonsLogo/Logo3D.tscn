@@ -1,0 +1,228 @@
+[gd_scene load_steps=3 format=3 uid="uid://biadcd5r5fxh4"]
+
+[ext_resource type="Texture2D" uid="uid://b55wrns32y3ki" path="res://Assets/UI/OuterDemonsLogo/OuterDemonsLogoSpriteSheet.png" id="1_p1ng8"]
+[ext_resource type="Script" path="res://Components/UiWiggler3D.cs" id="2_74gjq"]
+
+[node name="Logo" type="Node3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="foreground" type="Node3D" parent="."]
+
+[node name="ribbon" type="Sprite3D" parent="foreground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -3, -24.1984)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(44, 0, 245, 24)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = 2.08165e-12
+
+[node name="Background" type="Sprite3D" parent="foreground/ribbon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.66495, -3.4823, -19.0616)
+pixel_size = 1.0
+no_depth_test = true
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+render_priority = -2
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(0, 32, 248, 125)
+
+[node name="emblem" type="Sprite3D" parent="foreground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -11.9816)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 32)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = 3.0
+
+[node name="Demons" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -67.402, 0)
+
+[node name="DemonsS" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98, 30.5, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(327, 85, 32, 41)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="DemonsN" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 32, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(295, 85, 32, 38)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="DemonsO" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 29.5, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(248, 81, 47, 47)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="eyeO" type="Sprite3D" parent="Demons/DemonsO"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.543, 0.3, 2)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(350, 126, 8, 8)
+script = ExtResource("2_74gjq")
+gravity = 10.0
+turbulence = 1.0
+mouseInfluence = 5.0
+
+[node name="DemonsM" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.043, 29.719, 2.08165e-12)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(311, 40, 54, 45)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="eyeM" type="Sprite3D" parent="Demons/DemonsM"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -5, 2)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(350, 126, 8, 8)
+script = ExtResource("2_74gjq")
+gravity = 10.0
+turbulence = 1.0
+mouseInfluence = 5.0
+
+[node name="DemonsE" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.5, 30, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(284, 39, 27, 42)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="DemonsD" type="Sprite3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97, 28.5, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(248, 24, 36, 45)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="Outer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.6789, 0)
+
+[node name="OuterR" type="Sprite3D" parent="Outer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, -31, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(295, 123, 32, 38)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="OuterE" type="Sprite3D" parent="Outer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, -32, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(327, 126, 23, 40)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="OuterU" type="Sprite3D" parent="Outer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -34, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(324, 0, 48, 40)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="OuterT" type="Sprite3D" parent="Outer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, -34, 0.590258)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(248, 128, 45, 40)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="OuterO" type="Sprite3D" parent="Outer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.5, -33.5, 0)
+pixel_size = 1.0
+alpha_cut = 2
+alpha_scissor_threshold = 0.463
+texture_filter = 0
+texture = ExtResource("1_p1ng8")
+region_enabled = true
+region_rect = Rect2(289, 0, 35, 39)
+script = ExtResource("2_74gjq")
+turbulence = 1.0
+mouseInfluence = -3.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 84.672)
+projection = 1
+size = 14.1

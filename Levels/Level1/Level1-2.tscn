@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_8t50y"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_o0hb6"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="8_vixlw"]
-[ext_resource type="PackedScene" uid="uid://cxxfh848gubsf" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
-[ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4v4sx"]
+[ext_resource type="PackedScene" uid="uid://cxk7v0kp0r2kg" path="res://Enemies/Bosses/Eye/EyeBoss.tscn" id="9_ctj5s"]
+[ext_resource type="PackedScene" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_meqad"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvw8c"]
@@ -261,7 +261,7 @@ position = Vector2(-326, -286)
 _spawnPoint = NodePath("Node2D")
 _bossSpawnPoint = NodePath("Node2D3")
 _portalSpawnPoint = NodePath("Node2D2")
-_bossScene = ExtResource("10_4v4sx")
+_bossScene = ExtResource("9_ctj5s")
 _phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="PhantomCamera2D" type="Node2D" parent="BossGate"]

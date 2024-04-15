@@ -17,9 +17,13 @@ public partial class BasicBullet : AbstractDamageArea
     
     public override void _Ready()
     {
-        AddChild(_timer);
-        _timer.Timeout += () => QueueFree();
-        _timer.Start(Duration);
+        if (Duration > 0)
+        {
+            AddChild(_timer);
+            _timer.Timeout += () => QueueFree();
+            _timer.Start(Duration);
+        }
+
         Knockback = 150f;
        
 
