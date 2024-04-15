@@ -69,7 +69,7 @@ public partial class ShootState : AbstractState
 		_shootDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized();
 		bullet.Init(leechbert, AbstractCreature.Teams.Enemy, _shootDirection.Angle());
 		GetTree().Root.AddChild(bullet);
-		
+
 		
 		ShootState shootState = this;
 		GetTree().CreateTimer(_shootTime).Timeout += LeaveShoot; 
@@ -83,6 +83,7 @@ public partial class ShootState : AbstractState
 		if (StateMachine.GetCurrentStateName() != Name) return;
 		var timer = GetTree().CreateTimer(0.5f);
 	    GetTree().CreateTimer(timer.TimeLeft).Timeout += ChangeToChargeState;
+	    
 		
 	}
 	

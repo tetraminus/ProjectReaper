@@ -96,7 +96,7 @@ public partial class Snowpeabert : AbstractCreature
     {
         if (group != NavGroup) return;
         MovementTarget = position;
-        GD.Print("working");
+
     }
 
     public void OnShootingStateEntered()

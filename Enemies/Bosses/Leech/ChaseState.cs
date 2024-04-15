@@ -1,4 +1,5 @@
 using Godot;
+using GodotStateCharts;
 using ProjectReaper.Components;
 using ProjectReaper.Globals;
 
@@ -50,8 +51,9 @@ public partial class ChaseState : AbstractState
              
              var timer = GetTree().CreateTimer(0.5f); // Adjust the delay as needed
              _shootTimer.Start();
-
-
+             
+             
+             
              timer.Timeout += () =>
              {
                  StateMachine.ChangeState("ShootState");
