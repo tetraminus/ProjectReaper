@@ -78,7 +78,7 @@ public partial class ItemDisplay : Control
        
         Item = item;
         Icon.Texture = item.Icon;
-        Stacks.Text = item.Stacks.ToString();
+        Stacks.Text = item.GetRealStacks().ToString();
         if (item.MimicStacks > 0)
         {
             MimicStacks.Show();
@@ -124,7 +124,7 @@ public partial class ItemDisplay : Control
 
     public int UpdateStacks(AbstractItem item, int stacks)
     {
-        Stacks.Text = stacks.ToString();
+        Stacks.Text = item.GetRealStacks().ToString();
         if (item.MimicStacks > 0)
         {
             MimicStacks.Show();

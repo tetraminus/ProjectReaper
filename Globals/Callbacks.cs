@@ -49,12 +49,14 @@ public partial class Callbacks : Node
 
     [Signal]
     public delegate void ProjectileHitWallEventHandler(AbstractDamageArea bullet);
-
+    [Signal]
+    public delegate void AbilityTriggerEventHandler(AbstractAbility ability, AbstractCreature creature, int slot, Vector2 position);
 
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
 
     public HealEventHandler HealEvent = (creature, heal) => heal;
     public static Callbacks Instance { get; private set; }
+    
 
 
     public override void _Ready()
