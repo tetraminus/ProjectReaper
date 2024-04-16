@@ -14,6 +14,9 @@ public partial class StateMachineComponent : Node
     
     public override void _Ready()
     {
+        
+        Creature = GetParent<AbstractCreature>();
+        
         if (InitialState != null)
         {
             NextFrameChangeState(InitialState.Name);

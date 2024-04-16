@@ -15,7 +15,7 @@ public partial class Leechbert : AbstractCreature
     public override void OnDeath()
     {
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.CreatureDied, this);
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BossDied);
+        
         Dead = true;
         _stateMachine.ChangeState("DeadState", _sprite);
     }
@@ -23,9 +23,9 @@ public partial class Leechbert : AbstractCreature
     public override void _Ready()
     {
         base._Ready();
-        Stats.Speed = 80;
+        Stats.Speed = 50;
         
-        Stats.MaxHealth = 500;
+        Stats.MaxHealth = 200;
         Stats.Health = Stats.MaxHealth;
 
         _sprite = GetNode<AnimatedSprite2D>("Sprite");
