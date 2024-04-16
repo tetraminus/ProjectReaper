@@ -10,6 +10,7 @@ public partial class ChargeState : AbstractState
     private Vector2 _chargeDirection;
     private bool _charging;
     [Export] private float _chargeTime;
+    private Timer _timer;
     private MeleeArea meleeArea;
     private Node2D meleePivot; 
     
@@ -20,6 +21,12 @@ public partial class ChargeState : AbstractState
         meleeArea.Disable();
         
         InitMeleeArea();
+        
+        _timer = new Timer();
+        _timer.WaitTime = _chargeTime;
+        _timer.OneShot = true;
+        _timer.Timeout += LeaveCharge;
+        AddChild(_timer);
         
         
     }
@@ -35,7 +42,7 @@ public partial class ChargeState : AbstractState
     {
         meleeArea.Enable();
         var leechbert = StateMachine.Creature as Leechbert;
-        GetTree().CreateTimer(_chargeTime).Timeout += LeaveCharge;
+        _timer.Start();
         _chargeDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized();
         meleePivot.Rotation = _chargeDirection.Angle();
         _charging = true;
@@ -71,6 +78,6 @@ public partial class ChargeState : AbstractState
     private void LeaveCharge()
     {
         if (StateMachine.GetCurrentStateName() != Name) return; 
-        StateMachine.ChangeState("ChaseState");
+        StateMachine.ChangeState("ShootState");
     }
 }

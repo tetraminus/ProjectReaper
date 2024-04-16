@@ -262,7 +262,7 @@ public partial class GameManager : Node
         CurrentRun.Player = Player;
         Level.AddPlayer(PlayerRoot);
         
-        Level.Generate();
+        
         
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
@@ -273,6 +273,11 @@ public partial class GameManager : Node
         ScreenFader.FadeIn(1);
         fadingOut = false;
         AudioManager.Instance.PlayMusic("Music", "Level1", 1);
+        
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        
+        Level.Generate();
         
         
     }

@@ -14,28 +14,12 @@ public partial class ShootState : AbstractState
 	private PackedScene _bulletScn = GD.Load<PackedScene>("res://Enemies/Bosses/Leech/LeechBullet.tscn");
 	private Node2D shootPivot;
 	private bool _shooting = true;
-	public void Timeout()
-	{
-		var leechbert = StateMachine.Creature as Leechbert;
-		var bullet = _bulletScn.Instantiate<BasicBullet>(); 
-		bullet.GlobalPosition = leechbert.GlobalPosition;
-		bullet.Init(leechbert, AbstractCreature.Teams.Enemy);
-		GetTree().Root.AddChild(bullet);
-		
-	}
-	
-	
 	
 	
 	
 	public override void OnEnter(params object[] args)
     {
         EnterShoot();
-        var leechbert = StateMachine.Creature as Leechbert;
-        GetTree().CreateTimer(_shootTime).Timeout += LeaveShoot;
-        _shootDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized(); 
-        shootPivot.Rotation = _shootDirection.Angle();
-        _shooting = true;
 	    
     }
 
@@ -47,20 +31,6 @@ public partial class ShootState : AbstractState
 	
 	
 	
-	
-	public override void _Ready()
-	{
-		shootPivot = GetNode<Node2D>("%ShootPivot");
-
-		
-
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	private void EnterShoot()
 	{
 		var leechbert = StateMachine.Creature as Leechbert;
@@ -68,27 +38,13 @@ public partial class ShootState : AbstractState
 		bullet.GlobalPosition = leechbert.GlobalPosition;
 		_shootDirection = (GameManager.Player.GlobalPosition - leechbert.GlobalPosition).Normalized();
 		bullet.Init(leechbert, AbstractCreature.Teams.Enemy, _shootDirection.Angle());
+		bullet.Speed = 300;
 		GetTree().Root.AddChild(bullet);
 		
-		
-		ShootState shootState = this;
-		GetTree().CreateTimer(_shootTime).Timeout += LeaveShoot; 
+		StateMachine.ChangeState("ChaseState");
 		
 		
-	}
-	
-	
-	private void LeaveShoot()
-	{
-		if (StateMachine.GetCurrentStateName() != Name) return;
-		var timer = GetTree().CreateTimer(0.5f);
-	    GetTree().CreateTimer(timer.TimeLeft).Timeout += ChangeToChargeState;
 		
 	}
 	
-	private void ChangeToChargeState()
-	{
-		StateMachine.ChangeState("ChargeState");
-		
-	}
 }

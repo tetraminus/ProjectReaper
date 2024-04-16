@@ -7,6 +7,7 @@ using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using ProjectReaper.Player;
 
+
 public partial class EyeBoss : AbstractCreature
 {
 	private BossAnimController _animController;
@@ -18,8 +19,13 @@ public partial class EyeBoss : AbstractCreature
 	private float _floodfireTimer = 0;
 	private int _floodfireWave = 0;
 	
+	
+	
 	[Export] public int FloodfireCount = 20;
+	[Export] public int SummonCount = 6;
 	[Export] public Array<string> Attacks;
+	private Array<string> availableAttacks = new Array<string>();
+	private Texture2D _bulletTexture = GD.Load<Texture2D>("res://Assets/Enemies/Eye_Blood.png");
 	
 	
 	private PackedScene BulletScn = GD.Load<PackedScene>("res://Abilities/Projectiles/BasicBullet.tscn");
@@ -33,6 +39,7 @@ public partial class EyeBoss : AbstractCreature
 		
 		Stats.MaxHealth = 1000;
 		Stats.Health = 1000;
+		availableAttacks.AddRange(Attacks);
 		
 		
 	}
@@ -89,9 +96,29 @@ public partial class EyeBoss : AbstractCreature
 		}
 	}
 	
+	public void SummonEnter()
+	{
+		for (int i = 0; i < SummonCount; i++)
+		{
+			var enemy = SpawnDirector.Instance.GetRandomSpawn(50);
+			var instance = enemy.GetEnemy().Instantiate<AbstractCreature>();
+			
+			instance.GlobalPosition = GlobalPosition + (Vector2.Right.Rotated(Mathf.Tau / SummonCount * i) * 50);
+			instance.AddToGroup("spawnedenemies");
+			GameManager.Level.AddChild(instance);
+			
+		}
+	}
+	
 	public void PickNewAttack()
 	{
-		_stateChart.SendEvent(Attacks[GD.RandRange(0, Attacks.Count-1)] + "Picked");
+		if (availableAttacks.Count == 0)
+		{
+			availableAttacks.AddRange(Attacks);
+		}
+		var attack = availableAttacks.PickRandom();
+		availableAttacks.Remove(attack);
+		_stateChart.SendEvent(attack + "Picked");
 	}
 
 	public override void OnDeath()
@@ -108,6 +135,7 @@ public partial class EyeBoss : AbstractCreature
 		bullet.Speed = speed;
 		bullet.Duration = -1;
 		GameManager.Level.AddChild(bullet);
+		bullet.Resprite(_bulletTexture, Vector2.Zero, -Mathf.Pi/2f);
 	}
 	
 	

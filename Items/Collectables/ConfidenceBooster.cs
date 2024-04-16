@@ -7,8 +7,8 @@ public partial class ConfidenceBooster : AbstractItem
 {
     
     public override string Id => "confidence_booster";
-    public override ItemRarity Rarity => ItemRarity.Common;
-    public const float DamageIncreaseRatio = 0.001f;
+    public override ItemRarity Rarity => ItemRarity.Rare;
+    public const float DamageIncreaseRatio = 0.0007f;
     
     public override void OnInitalPickup()
     {
@@ -22,8 +22,7 @@ public partial class ConfidenceBooster : AbstractItem
         {
             
             // increase damage by 0.1% per velocity unit per stack
-            return stat + DamageIncreaseRatio * creature.Velocity.Length() * Stacks;
-            
+            return stat + creature.Velocity.Length() * DamageIncreaseRatio * Stacks;
             
         }
         return stat;

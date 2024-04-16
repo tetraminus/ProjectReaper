@@ -66,6 +66,7 @@ public partial class Player : AbstractCreature
 
 	public override void OnHit()
 	{
+		if (HitState != HitBoxState.Normal) return;
 		HitState = HitBoxState.Invincible;
 		GetTree().CreateTimer(0.25f).Timeout += () => { HitState = HitBoxState.Normal; };
 		

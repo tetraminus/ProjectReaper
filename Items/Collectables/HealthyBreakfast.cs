@@ -15,6 +15,7 @@ public partial class HealthyBreakfast : AbstractItem
     public override void OnInitalPickup()
     {
         Callbacks.Instance.CalculateStat += CalculateStat;
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
         
     }
     
@@ -25,10 +26,6 @@ public partial class HealthyBreakfast : AbstractItem
             return stat + stat * HP * Stacks;
         }
         
-        if (statname == "Damage" && creature == GetHolder())
-        {
-            return stat + stat * Damage * Stacks;
-        }
 
         return stat;
     }

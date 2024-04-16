@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://biadcd5r5fxh4"]
+[gd_scene load_steps=4 format=3 uid="uid://biadcd5r5fxh4"]
 
 [ext_resource type="Texture2D" uid="uid://b55wrns32y3ki" path="res://Assets/UI/OuterDemonsLogo/OuterDemonsLogoSpriteSheet.png" id="1_p1ng8"]
 [ext_resource type="Script" path="res://Components/UiWiggler3D.cs" id="2_74gjq"]
+[ext_resource type="Script" path="res://Assets/UI/OuterDemonsLogo/LogoCamera.cs" id="3_ewrwv"]
 
 [node name="Logo" type="Node3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
@@ -226,3 +227,4 @@ mouseInfluence = -3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 84.672)
 projection = 1
 size = 14.1
+script = ExtResource("3_ewrwv")

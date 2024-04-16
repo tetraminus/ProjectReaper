@@ -19,7 +19,7 @@ radius = 26.0
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_xlph1")
-Attacks = Array[String](["Burst", "Flood"])
+Attacks = Array[String](["Burst", "Flood", "Summon"])
 
 [node name="Parts" type="Node2D" parent="."]
 
@@ -81,6 +81,11 @@ script = ExtResource("7_7p3df")
 to = NodePath("../../Attacking/FloodFire")
 event = &"FloodPicked"
 
+[node name="Summon" type="Node" parent="StateChart/Root/Alive/ChoosingNewAttack"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../Attacking/Summon")
+event = &"SummonPicked"
+
 [node name="Attacking" type="Node" parent="StateChart/Root/Alive"]
 script = ExtResource("5_ydpd6")
 initial_state = NodePath("BurstFire")
@@ -110,7 +115,15 @@ script = ExtResource("6_002yr")
 [node name="Attacking" type="Node" parent="StateChart/Root/Alive/Attacking"]
 script = ExtResource("7_7p3df")
 to = NodePath("../../ChoosingNewAttack")
-delay_seconds = 10.0
+delay_seconds = 5.0
+
+[node name="Summon" type="Node" parent="StateChart/Root/Alive/Attacking"]
+script = ExtResource("6_002yr")
+
+[node name="Done" type="Node" parent="StateChart/Root/Alive/Attacking/Summon"]
+script = ExtResource("7_7p3df")
+to = NodePath("../../../ChoosingNewAttack")
+delay_seconds = 0.5
 
 [node name="Dead" type="Node" parent="StateChart/Root"]
 script = ExtResource("6_002yr")
@@ -128,3 +141,4 @@ shape = SubResource("CircleShape2D_floie")
 [connection signal="state_entered" from="StateChart/Root/Alive/Attacking/BurstFire/Firing" to="." method="BurstfireEnter"]
 [connection signal="state_processing" from="StateChart/Root/Alive/Attacking/BurstFire/Firing" to="." method="BurstfireProcess"]
 [connection signal="state_processing" from="StateChart/Root/Alive/Attacking/FloodFire" to="." method="FloodfireProcess"]
+[connection signal="state_entered" from="StateChart/Root/Alive/Attacking/Summon" to="." method="SummonEnter"]

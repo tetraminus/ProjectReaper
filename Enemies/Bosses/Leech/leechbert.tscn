@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://by78vrfc67qa1"]
+[gd_scene load_steps=23 format=3 uid="uid://by78vrfc67qa1"]
 
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/Leechbert.cs" id="1_crr6j"]
 [ext_resource type="Texture2D" uid="uid://ca5n3slsgbyu8" path="res://Assets/Enemies/Bosses/Leech.png" id="2_jjqqp"]
@@ -7,10 +7,9 @@
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/ChargeState.cs" id="5_v73dl"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/DeadState.cs" id="6_q42id"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_uuc4l"]
-[ext_resource type="Script" path="res://Enemies/Bosses/Leech/WaitState.cs" id="7_ucfww"]
 [ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="7_vxpn5"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Leech/WanderState.cs" id="8_5qlp6"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/ShootState.cs" id="8_cxtnl"]
-[ext_resource type="PackedScene" path="res://Enemies/Bosses/Leech/LeechBullet.tscn" id="11_jaa8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x260n"]
 atlas = ExtResource("2_jjqqp")
@@ -111,7 +110,7 @@ animation = &"Dead"
 shape = SubResource("CapsuleShape2D_5jg3w")
 
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("InitialState") instance=ExtResource("3_pst02")]
-InitialState = NodePath("WaitState")
+InitialState = NodePath("WanderState")
 
 [node name="ChaseState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("4_gr6wk")
@@ -123,12 +122,11 @@ _chargeTime = 2.0
 [node name="DeadState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("6_q42id")
 
-[node name="WaitState" type="Node" parent="StateMachineComponent" node_paths=PackedStringArray("NextState")]
-script = ExtResource("7_ucfww")
-NextState = NodePath("../ChaseState")
-
 [node name="ShootState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("8_cxtnl")
+
+[node name="WanderState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("8_5qlp6")
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("6_uuc4l")
@@ -141,13 +139,10 @@ unique_name_in_owner = true
 
 [node name="MeleeArea" parent="MeleePivot" instance=ExtResource("7_vxpn5")]
 unique_name_in_owner = true
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleePivot/MeleeArea"]
 position = Vector2(18, 0)
 shape = SubResource("RectangleShape2D_4o40r")
 
-[node name="ShootPivot" type="Node2D" parent="."]
-unique_name_in_owner = true
-
-[node name="LeechBullet" parent="ShootPivot" instance=ExtResource("11_jaa8s")]
-unique_name_in_owner = true
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
