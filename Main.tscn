@@ -145,21 +145,9 @@ mouse_filter = 2
 script = ExtResource("3_8d6ga")
 ColorSpeed = 0.02
 
-[node name="Bg" type="ColorRect" parent="BG/Bg"]
-process_mode = 3
-material = SubResource("ShaderMaterial_xm03u")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("3_8d6ga")
-ColorSpeed = 0.02
-
 [node name="FGShader" type="CanvasLayer" parent="."]
 layer = 5
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="FGShader"]
 material = SubResource("ShaderMaterial_nwobf")

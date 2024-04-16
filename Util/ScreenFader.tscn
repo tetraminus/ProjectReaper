@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://qjq3jtfnenv8"]
+[gd_scene load_steps=7 format=3 uid="uid://qjq3jtfnenv8"]
 
 [ext_resource type="Script" path="res://Util/ScreenFader.cs" id="1_vlgyy"]
 [ext_resource type="Texture2D" uid="uid://br4cyjcsg28wc" path="res://Assets/UI/loading.png" id="2_t4lau"]
 [ext_resource type="Script" path="res://Util/LoadingSymbol.cs" id="3_afk0b"]
+[ext_resource type="Shader" path="res://Vfx/Julia.gdshader" id="4_0or1w"]
+[ext_resource type="Script" path="res://Util/julia.cs" id="5_o0ota"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h60p2"]
+shader = ExtResource("4_0or1w")
+shader_parameter/alpha = 1.0
 
 [node name="FadeoutLayer" type="CanvasLayer"]
 layer = 10
@@ -37,3 +43,15 @@ pivot_offset = Vector2(255.865, 272.36)
 mouse_filter = 2
 texture = ExtResource("2_t4lau")
 script = ExtResource("3_afk0b")
+
+[node name="Bg2" type="ColorRect" parent="ScreenFader"]
+process_mode = 3
+material = SubResource("ShaderMaterial_h60p2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_o0ota")

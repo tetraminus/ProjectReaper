@@ -12,4 +12,7 @@
         <Folder Include="addons\"/>
         <Folder Include="Tests\"/>
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="Vfx\Julia.gdshader" />
+    </ItemGroup>
 </Project>

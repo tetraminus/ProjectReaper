@@ -242,7 +242,7 @@ public partial class GameManager : Node
         MainNode.GetNode<Bg>("%Bg").SwirlOut();
         MainMenu.FadeOut(0, 0.5f);
         await MainNode.ToSignal(MainNode, Main.SignalName.TransitionComplete);
-        ScreenFader.FadeOut(0.1f);
+        ScreenFader.FadeOut(1.0f);
         await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         
         InRun = true;
@@ -262,7 +262,7 @@ public partial class GameManager : Node
         CurrentRun.Player = Player;
         Level.AddPlayer(PlayerRoot);
         
-        Level.Generate();
+        
         
         PlayerHud.Show();
         PlayerHud.SetPlayer(Player);
@@ -273,6 +273,11 @@ public partial class GameManager : Node
         ScreenFader.FadeIn(1);
         fadingOut = false;
         AudioManager.Instance.PlayMusic("Music", "Level1", 1);
+        
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        
+        Level.Generate();
         
         
     }

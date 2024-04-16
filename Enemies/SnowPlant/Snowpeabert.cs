@@ -44,8 +44,7 @@ public partial class Snowpeabert : AbstractCreature
         HitState = HitBoxState.Spectral; // Make the enemy invincible
         _particles.Emitting = true;
         
-        // Debug line to check if HitState is being updated correctly
-        GD.Print($"HitState after burrowing: {HitState}");
+        
 
 
     }
@@ -97,7 +96,6 @@ public partial class Snowpeabert : AbstractCreature
     {
         if (group != NavGroup) return;
         MovementTarget = position;
-
     }
 
     public void OnShootingStateEntered()

@@ -40,8 +40,21 @@ public partial class Stats : Node
         {
             return calculatedStat;
         }
-
-        calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName, Creature);
+        
+        float alteredStat = baseStat;
+        Callbacks.Instance.CalculateStat?.Invoke(ref alteredStat, statName, Creature);
+        calculatedStat = alteredStat;
+        if (statName == "MaxHealth")
+        {
+            calculatedStat = Mathf.Clamp(calculatedStat, 1, Mathf.Inf);
+            MaxHealthChanged?.Invoke(_maxHealth, calculatedStat);
+        }
+        if (statName == "Health")
+        {
+            calculatedStat = Mathf.Clamp(calculatedStat, 0, MaxHealth);
+            HealthChanged?.Invoke(_health, calculatedStat);
+        }
+        
         if (!_uncacheableStats.Contains(statName))
         {
             _calculatedStats[statName] = calculatedStat;
@@ -69,32 +82,37 @@ public partial class Stats : Node
     private void RecalculateStats()
     {
         _calculatedStats.Clear();
+        MaxHealthChanged?.Invoke(_maxHealth, MaxHealth);
+        HealthChanged?.Invoke(_health, Health);
     }
-    
-    
-
 
     public float Health
     {
-        get => _health;
+        get => CalculateStat(_health, "Health");
         set
         {
-            var oldValue = _health;
+            var oldHealth = _health;
             _health = value;
-            HealthChanged?.Invoke(oldValue, value);
+            RecalculateStats();
+            HealthChanged?.Invoke(oldHealth, Health);
         }
     }
 
     public float MaxHealth
     {
-        get => _maxHealth;
+        get
+        {
+            var maxHealth = CalculateStat(_maxHealth, "MaxHealth");
+            return maxHealth;
+        }
         set
         {
-            var oldValue = _maxHealth;
+            var oldMaxHealth = _maxHealth;
             _maxHealth = value;
-            MaxHealthChanged?.Invoke(oldValue, value);
-            
+            RecalculateStats();
+            MaxHealthChanged?.Invoke(oldMaxHealth, Health);
         }
+        
     }
 
     public float Damage

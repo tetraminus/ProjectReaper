@@ -51,7 +51,9 @@ public abstract partial class AbstractAbility : Node
 
     public void StartCooldown()
     {
-        var cd = Callbacks.Instance.CalculateStat(Cooldown, "AbilityCooldown" + _slot, Creature);
+        
+        var cd = Cooldown;
+        Callbacks.Instance.CalculateStat?.Invoke(ref cd, "AbilityCooldown" + _slot, Creature);
         if (AttackSpeedEffectsCooldown)
         {
             cd /= Creature.Stats.AttackSpeed;
