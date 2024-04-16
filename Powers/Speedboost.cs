@@ -19,14 +19,14 @@ public partial class Speedboost : AbstractPower
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
     }
     
-    private float OnCalculateStat(float stat, string statname, AbstractCreature creature)
+    private void OnCalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
        
         if (statname == "Speed" && creature == Creature)
         {
-            return stat + stat * Multiplier * Stacks;
+            stat += stat * Multiplier * Stacks;
         }
-        return stat;
+        
     
     }
 

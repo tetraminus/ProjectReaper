@@ -46,6 +46,8 @@ public partial class Chest : Node2D, IInteractable
         {
             _opened = true;
             
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.PreChestOpened, this);
+            
             ChooseItemMenu scr = GameManager.GetScreenByName("ChooseItemMenu") as ChooseItemMenu;
             scr?.AddItems(_items);
             GameManager.ShowScreen(scr);
@@ -78,14 +80,17 @@ public partial class Chest : Node2D, IInteractable
 
     public void AddItems(int num = 1)
     {
-        
-        AbstractItem item;
-        var tries = 0;
-        do
+        for (var i = 0; i < num; i++)
         {
-            item = ItemLibrary.Instance.RollItem(Rarity);
-            tries++;
-        } while (_items.Exists(x => x.Id == item.Id) && tries < 10);
-        _items.Add(item);
+            AbstractItem item;
+            var tries = 0;
+            do
+            {
+                item = ItemLibrary.Instance.RollItem(Rarity);
+                tries++;
+            } while (_items.Exists(x => x.Id == item.Id) && tries < 10);
+            _items.Add(item);
+        }
+        
     }
 }

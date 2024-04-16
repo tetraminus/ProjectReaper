@@ -17,17 +17,22 @@ public partial class HealthyBreakfast : AbstractItem
         Callbacks.Instance.CalculateStat += CalculateStat;
         Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
         
+        GetHolder().Heal(GetHolder().Stats.MaxHealth * HP);
+        
     }
-    
-    public float CalculateStat(float stat, string statname, AbstractCreature creature)
+
+    public override void OnStack(int newstacks)
+    {
+        base.OnStack(newstacks);
+        GetHolder().Heal(GetHolder().Stats.MaxHealth * HP * newstacks);
+    }
+
+    public void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (statname == "MaxHealth" && creature == GetHolder())
         {
-            return stat + stat * HP * Stacks;
+            stat += stat * HP * Stacks;
         }
-        
-
-        return stat;
     }
 
     public override void Cleanup()

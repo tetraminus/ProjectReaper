@@ -12,44 +12,17 @@ public partial class TreasureMap : AbstractItem
 
     public override void OnInitalPickup()
     {
-        Callbacks.Instance.LevelLoaded += OnLevelLoaded;
-        
-        var interactables = GameManager.Level.GetInteractables();
-        foreach (var interactable in interactables)
-        {
-            if (interactable is Chest chest)
-            {
-                chest.AddItems(Stacks);
-            }
-        }
+        Callbacks.Instance.PreChestOpened += OnChestOpened;
     }
     
-    private void OnLevelLoaded()
+    private void OnChestOpened(Chest chest)
     {
-        var interactables = GameManager.Level.GetInteractables();
-        foreach (var interactable in interactables)
-        {
-            if (interactable is Chest chest)
-            {
-                chest.AddItems(Stacks);
-            }
-        }
+        chest.AddItems(Stacks);
     }
     
-    public override void OnStack(int stacks)
-    {
-        var interactables = GameManager.Level.GetInteractables();
-        foreach (var interactable in interactables)
-        {
-            if (interactable is Chest chest)
-            {
-                chest.AddItems(stacks);
-            }
-        }
-    }
 
     public override void Cleanup()
     {
-        Callbacks.Instance.LevelLoaded -= OnLevelLoaded;
+        Callbacks.Instance.PreChestOpened -= OnChestOpened;
     }
 }

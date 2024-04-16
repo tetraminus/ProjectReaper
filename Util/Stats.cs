@@ -40,8 +40,10 @@ public partial class Stats : Node
         {
             return calculatedStat;
         }
-
-        calculatedStat = Callbacks.Instance.CalculateStat(baseStat, statName, Creature);
+        
+        float alteredStat = baseStat;
+        Callbacks.Instance.CalculateStat?.Invoke(ref alteredStat, statName, Creature);
+        calculatedStat = alteredStat;
         if (statName == "MaxHealth")
         {
             calculatedStat = Mathf.Clamp(calculatedStat, 1, Mathf.Inf);

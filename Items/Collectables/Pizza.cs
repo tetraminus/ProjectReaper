@@ -19,19 +19,19 @@ public partial class Pizza : AbstractItem
         
     }
     
-    public float CalculateStat(float stat, string statname, AbstractCreature creature)
+    public void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (statname == "Speed" && creature == GetHolder())
         {
-            return stat + stat * Speed * Stacks;
+            stat += stat * Speed * Stacks;
         }
         
         if (statname == "Damage" && creature == GetHolder())
         {
-            return stat + stat * Damage * Stacks;
+            stat += stat * Damage * Stacks;
         }
 
-        return stat;
+        
     }
 
     public override void Cleanup()

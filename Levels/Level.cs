@@ -136,7 +136,7 @@ public partial class Level : Node2D
 						direction *= 25f;
 					} while (!key.checkDropPosition(dropPosition, direction));
 					
-					key.GlobalPosition = dropPosition;
+					key.GlobalPosition = dropPosition + direction;
 					CallDeferred(Node.MethodName.AddChild, key);
 				}
 			}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://c2lcrviacqnts"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
+[ext_resource type="Script" path="res://Levels/Level.cs" id="1_n8soa"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="2_xch6s"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_klwim"]

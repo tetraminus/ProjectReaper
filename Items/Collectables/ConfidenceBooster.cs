@@ -16,16 +16,16 @@ public partial class ConfidenceBooster : AbstractItem
         GetHolder().Stats.MakeUncacheable("Damage");
     }
 
-    private float CalculateStat(float stat, string statname, AbstractCreature creature)
+    private void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (statname == "Damage" && creature == GetHolder())
         {
             
             // increase damage by 0.1% per velocity unit per stack
-            return stat + creature.Velocity.Length() * DamageIncreaseRatio * Stacks;
+            stat += creature.Velocity.Length() * DamageIncreaseRatio * Stacks;
             
         }
-        return stat;
+      
     }
     
     public override void Cleanup()
