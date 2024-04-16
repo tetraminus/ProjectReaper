@@ -14,13 +14,13 @@ public partial class VitaminB : AbstractItem
         Callbacks.Instance.CalculateStat += CalculateStat;
     }
 
-    private float CalculateStat(float stat, string statname, AbstractCreature creature)
+    private void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (statname == "AttackSpeed" && creature == GetHolder())
         {
-            return stat + (stat * AttackSpeed * Stacks);
+            stat += (stat * AttackSpeed * Stacks);
         }
-        return stat;
+      
     }
     
     public override void Cleanup()

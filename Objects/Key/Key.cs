@@ -23,4 +23,17 @@ public partial class Key : Node2D, IPickup
     {
         
     }
+    
+    public bool checkDropPosition(Vector2 position, Vector2 DropDirection)
+    {
+        // query for terrain
+        var parameters = new PhysicsRayQueryParameters2D();
+        parameters.From = position;
+        parameters.To = position + DropDirection;
+        parameters.CollisionMask = 1;
+
+        var ray = GameManager.Level.GetWorld2D().DirectSpaceState.IntersectRay(parameters);
+
+        return ray.Count == 0;
+    }
 }

@@ -26,31 +26,35 @@ public partial class EverythingBagel : AbstractItem
         
     }
     
-    public float CalculateStat(float stat, string statname, AbstractCreature creature)
+    public void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (creature != GetHolder())
         {
-            return stat; 
+            return; 
         }
         
         switch (statname)
         {
             case "Damage":
-                return stat + stat * Damage * Stacks;
+                stat += stat * Damage * Stacks;
+                break;
             case "CritDamage":
-                return stat + CritDamage * Stacks;
+                stat += CritDamage * Stacks;
+                break;
             case "CritChance":
-                return stat + CritChance * Stacks;
+                stat += CritChance * Stacks;
+                break;
             case "AttackSpeed":
-                return stat + stat * AttackSpeed * Stacks;
+                stat += stat * AttackSpeed * Stacks;
+                break;
         }
 
         if (statname == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
         {
-            return stat * Mathf.Pow(1 - CooldownReduction, Stacks);
+            stat *= Mathf.Pow(1 - CooldownReduction, Stacks);
         }
         
-        return stat;
+        
         
     }
 

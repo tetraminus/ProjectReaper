@@ -7,12 +7,12 @@ using ProjectReaper.Player;
 
 public partial class ChooseItemMenu : Control
 {
-	private HBoxContainer _itemContainer;
+	private HFlowContainer _itemContainer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_itemContainer = GetNode<HBoxContainer>("%ItemContainer");
+		_itemContainer = GetNode<HFlowContainer>("%ItemContainer");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

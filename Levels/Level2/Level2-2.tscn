@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://ieh6gsjcl2xu"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_bmls5"]
+[ext_resource type="Script" path="res://Levels/Level.cs" id="1_bmls5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ecnje"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="2_w62qe"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="3_udpnv"]

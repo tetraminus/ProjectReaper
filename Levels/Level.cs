@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -13,12 +14,16 @@ public partial class Level : Node2D
 	private PackedScene BurrowerScn = GD.Load<PackedScene>("res://Enemies/SnowPlant/Snowpeabert.tscn");
 	private PackedScene GooberScn = GD.Load<PackedScene>("res://Enemies/Goober.tscn");
 	private PackedScene _slimeScn = GD.Load<PackedScene>("res://Enemies/Slime/Slimebert.tscn");
+	
+	private PackedScene _leechScn = GD.Load<PackedScene>("res://Enemies/Bosses/Leech/leechbert.tscn");
+	
 	private float _totalSpawnArea;
 	private const float _minSpawnDistance = 500;
 	private Godot.Collections.Dictionary<SpawnRect, float> _spawnRectWeights = new Godot.Collections.Dictionary<SpawnRect, float>();
 	[Export] public bool DisableSpawning { get; set; }
 	[Export] public bool DropKeys = true;
-	[Export] public float KeyDropChance = 0.1f;
+	[Export] public float KeysPerMiniboss = 5;
+	
 	[Export] public Array<string> FightStems = new Array<string>();
 	
 	[Export(PropertyHint.Range, "0,1,or_greater")] public int NumberOfChests { get; set; }
@@ -114,13 +119,28 @@ public partial class Level : Node2D
 
 	public void OnEnemyDeath(AbstractCreature creature)
 	{
-		if (GameManager.RollBool(KeyDropChance,1, GameManager.LootRng) && DropKeys)
+		if (creature.IsInGroup("miniboss"))
 		{
-			var key = KeyScn.Instantiate<Key>();
-			key.GlobalPosition = creature.GlobalPosition;
-			CallDeferred(Node.MethodName.AddChild, key);
+			if (DropKeys)
+			{
+				for (int i = 0; i < KeysPerMiniboss; i++)
+				{
+					var key = (Key)KeyScn.Instantiate<Key>();
+					
+					var dropPosition = creature.GlobalPosition;
+					
+					Vector2 direction;
+					do
+					{
+						direction = Vector2.FromAngle((float)(GD.Randf() * Math.Tau));
+						direction *= 25f;
+					} while (!key.checkDropPosition(dropPosition, direction));
+					
+					key.GlobalPosition = dropPosition + direction;
+					CallDeferred(Node.MethodName.AddChild, key);
+				}
+			}
 		}
-		
 	}
 	
 
@@ -185,7 +205,81 @@ public partial class Level : Node2D
 	public void Generate()
 	{
 		LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
+		SpawnDirector.Instance.PlaceMiniBosses(4, this);
 		
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.LevelLoaded);
+	}
+
+	public AbstractCreature GetRandomMiniBoss()
+	{
+		return _leechScn.Instantiate<AbstractCreature>();
+	}
+	
+	public bool TooCloseToMiniboss(Vector2 position)
+	{
+		foreach (var node in GetTree().GetNodesInGroup("miniboss"))
+		{
+			if (node is not AbstractCreature creature)
+			{
+				continue;
+			}
+			
+			if (creature.GlobalPosition.DistanceTo(position) < 300)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Vector2 GetMinibossSpawnPosition()
+	{
+		Vector2 position = Vector2.Zero;
+		bool picked = false;
+		
+		do {
+			var totalWeight = _spawnRectWeights.Sum(x => x.Value);
+			var random = GD.Randf() * totalWeight;
+			
+			foreach (var spawnRect in _spawnRectWeights)
+			{
+				if (TooCloseToMiniboss(spawnRect.Key.GetRandomPosition()) )
+				{
+					continue;
+				}
+			
+
+				random -= spawnRect.Value;
+				if (random <= 0)
+				{
+					var possiblePosition = spawnRect.Key.GetRandomPosition();
+					if (PointSeesPlayer(possiblePosition))
+					{
+						continue;
+					}
+					
+					picked = true;
+					position = possiblePosition;
+				}
+			}
+			
+			
+		} while (!picked);
+		
+		return position;
+		
+	}
+	public bool PointSeesPlayer(Vector2 point)
+	{
+		var parameters = new PhysicsRayQueryParameters2D();
+		parameters.From = point;
+		parameters.To = GameManager.Player.GlobalPosition;
+		// bit 1 is terrain
+		parameters.CollisionMask = 1;
+        
+		var ray = GameManager.Level.GetWorld2D().DirectSpaceState.IntersectRay(parameters);
+
+		return ray.Count == 0;
+        
 	}
 }

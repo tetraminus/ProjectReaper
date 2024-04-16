@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://7vemouu4iylc"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_ogrgk"]
+[ext_resource type="Script" path="res://Levels/Level.cs" id="1_ogrgk"]
 [ext_resource type="Texture2D" uid="uid://dhchalxifdt3d" path="res://Levels/Level1/floor1levellayouts.png" id="2_o02bt"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_anhff"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="4_gaifl"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_wtqpr"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_5rnjb"]
 [ext_resource type="PackedScene" uid="uid://cxsq25gihcjll" path="res://Objects/BossGate/BossGateCornerLeft.tscn" id="9_jqqq2"]
-[ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_c85sy"]
+[ext_resource type="PackedScene" uid="uid://cxk7v0kp0r2kg" path="res://Enemies/Bosses/Eye/EyeBoss.tscn" id="9_kqy3v"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_aboha"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_hngna"]
@@ -224,7 +224,7 @@ position = Vector2(719, 188)
 _spawnPoint = NodePath("Node2D2")
 _bossSpawnPoint = NodePath("Node2D")
 _portalSpawnPoint = NodePath("Node2D3")
-_bossScene = ExtResource("10_c85sy")
+_bossScene = ExtResource("9_kqy3v")
 _phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="Node2D" type="Node2D" parent="BossGate"]

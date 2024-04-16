@@ -15,6 +15,7 @@ public partial class Chest : Node2D, IInteractable
     private List<AbstractItem> _items = new List<AbstractItem>();
     private ShaderMaterial _shaderMaterial;
     private const int Items = 2;
+    private ItemRarity Rarity;
     
     
     
@@ -22,6 +23,7 @@ public partial class Chest : Node2D, IInteractable
     {
 
         var rarity = ItemLibrary.Instance.RollRarity();
+        Rarity = rarity;
         for (var i = 0; i < Items; i++)
         {
             AbstractItem item;
@@ -43,6 +45,8 @@ public partial class Chest : Node2D, IInteractable
         if (!_opened)
         {
             _opened = true;
+            
+            Callbacks.Instance.EmitSignal(Callbacks.SignalName.PreChestOpened, this);
             
             ChooseItemMenu scr = GameManager.GetScreenByName("ChooseItemMenu") as ChooseItemMenu;
             scr?.AddItems(_items);
@@ -72,5 +76,21 @@ public partial class Chest : Node2D, IInteractable
     public ItemRarity GetRarity()
     {
         return _items[0].Rarity;
+    }
+
+    public void AddItems(int num = 1)
+    {
+        for (var i = 0; i < num; i++)
+        {
+            AbstractItem item;
+            var tries = 0;
+            do
+            {
+                item = ItemLibrary.Instance.RollItem(Rarity);
+                tries++;
+            } while (_items.Exists(x => x.Id == item.Id) && tries < 10);
+            _items.Add(item);
+        }
+        
     }
 }

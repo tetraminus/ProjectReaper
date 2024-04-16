@@ -1,14 +1,14 @@
 [gd_scene load_steps=17 format=3 uid="uid://c2lcrviacqnts"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_n8soa"]
+[ext_resource type="Script" path="res://Levels/Level.cs" id="1_n8soa"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="2_xch6s"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="6_6w5hx"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_klwim"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="7_foyrk"]
 [ext_resource type="Script" path="res://Levels/Common/SpawnRect.cs" id="7_vjclb"]
 [ext_resource type="PackedScene" uid="uid://dsr7b7kr5xrk3" path="res://Objects/BossGate/BossGate.tscn" id="9_38dtt"]
-[ext_resource type="PackedScene" uid="uid://by78vrfc67qa1" path="res://Enemies/Bosses/Leech/leechbert.tscn" id="10_4uqm6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_hbiha"]
+[ext_resource type="PackedScene" uid="uid://cxk7v0kp0r2kg" path="res://Enemies/Bosses/Eye/EyeBoss.tscn" id="11_4sluv"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_18e0b"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dqg1l"]
@@ -38,7 +38,6 @@ size = Vector2(400, 100)
 [node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
-KeyDropChance = 0.2
 FightStems = ["Violin", "Amen"]
 NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
@@ -241,7 +240,7 @@ position = Vector2(673, -308)
 _spawnPoint = NodePath("PlayerSpawn")
 _bossSpawnPoint = NodePath("BossSpawn")
 _portalSpawnPoint = NodePath("PortalSpawn")
-_bossScene = ExtResource("10_4uqm6")
+_bossScene = ExtResource("11_4sluv")
 _phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="PlayerSpawn" type="Node2D" parent="BossGate"]

@@ -99,6 +99,10 @@ public partial class PlayerHud : Control
         GetNode<TextureProgressBar>("%HealthBar").Value = health;
         GetNode<Label>("%HealthBar/Value").Text = health.ToString();
     }
+    private void UpdateMaxHealth(float i, float statsMaxHealth)
+    {
+        GetNode<TextureProgressBar>("%HealthBar").MaxValue = statsMaxHealth;
+    }
 
     public override void _Process(double delta)
     {
@@ -112,9 +116,14 @@ public partial class PlayerHud : Control
     public void SetPlayer(Player player)
     {
         player.Stats.HealthChanged += UpdateHealth;
+        player.Stats.MaxHealthChanged += UpdateMaxHealth;
         UpdateHealth(0, player.Stats.Health);
+        UpdateMaxHealth(0, player.Stats.MaxHealth);
+        
     }
+
     
+
     public void AddItem(AbstractItem item)
     {
         var itemDisplay = ItemDisplay.Instantiate<ItemDisplay>();

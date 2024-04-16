@@ -16,14 +16,14 @@ public partial class DreamCar : AbstractItem
 		Callbacks.Instance.CalculateStat += CalculateStat;
 	}
 	
-	private float CalculateStat(float stat, string statName, AbstractCreature creature)
+	private void CalculateStat(ref float stat, string statName, AbstractCreature creature)
 	{
 		if (statName == "AbilityCooldown" + AbilityManager.AbilitySlot.Utility && creature == GetHolder())
 		{
 			
-			return stat * Mathf.Pow(CooldownReduction, Stacks);
+			stat *= Mathf.Pow(CooldownReduction, Stacks);
 		}
-		return stat;
+		
 	}
 	
 	public override void Cleanup()

@@ -91,6 +91,11 @@ public abstract partial class AbstractItem : Node2D
     public virtual void OnInitalPickup()
     {
     }
+    
+    public virtual bool CanSpawn()
+    {
+        return true;
+    }
 
     public virtual void Cleanup()
     {
