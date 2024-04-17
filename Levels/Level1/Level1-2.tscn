@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_o0hb6"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="8_vixlw"]
 [ext_resource type="PackedScene" uid="uid://cxk7v0kp0r2kg" path="res://Enemies/Bosses/Eye/EyeBoss.tscn" id="9_ctj5s"]
-[ext_resource type="PackedScene" uid="uid://cxxfh848gubsf" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
+[ext_resource type="PackedScene" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_meqad"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvw8c"]
@@ -19,7 +19,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36d4k"]
 resource_local_to_scene = true
-size = Vector2(195.498, 186.4)
+size = Vector2(174.35, 183.733)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1ofu"]
 resource_local_to_scene = true
@@ -68,7 +68,7 @@ size = Vector2(281.702, 120.976)
 [node name="Level1-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
 y_sort_enabled = true
 script = ExtResource("1_138kq")
-FightStems = ["Violin", "Amen"]
+FightStems = ["Boss"]
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")

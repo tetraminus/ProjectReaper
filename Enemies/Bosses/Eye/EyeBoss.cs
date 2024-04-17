@@ -72,6 +72,7 @@ public partial class EyeBoss : AbstractCreature
 		{
 			_burstfireTimer = 0;
 			FireBullet(_burstfireDirection);
+			AudioManager.Instance.PlaySoundAtPosition("EyeBoss", "Blast", GlobalPosition);
 		}
 	}
 	
@@ -92,7 +93,7 @@ public partial class EyeBoss : AbstractCreature
 			{
 				FireBullet( (Mathf.Tau / FloodfireCount * i) + _floodfireWave * Mathf.Tau / FloodfireCount/ 2f, 100);
 			}
-			
+			AudioManager.Instance.PlaySound("EyeBoss", "Blast");
 		}
 	}
 	
