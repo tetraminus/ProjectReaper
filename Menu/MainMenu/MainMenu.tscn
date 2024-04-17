@@ -86,6 +86,34 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 101
 text = "ui_quit"
 
+[node name="VolumeSlider" type="VSlider" parent="MainMenu/MenuScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.039
+anchor_top = 0.936
+anchor_right = 0.039
+anchor_bottom = 0.936
+offset_left = -0.880002
+offset_top = -289.88
+offset_right = 15.12
+offset_bottom = 0.119947
+grow_vertical = 0
+value = 100.0
+
+[node name="Label" type="Label" parent="MainMenu/MenuScreen/VolumeSlider"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_top = -40.0
+offset_right = 31.0
+offset_bottom = -14.0
+grow_horizontal = 2
+text = "Master Volume
+"
+
 [connection signal="pressed" from="MainMenu/MenuScreen/VBoxContainer/MenuButtons/StartButton" to="MainMenu" method="OnStartButtonPressed"]
 [connection signal="pressed" from="MainMenu/MenuScreen/VBoxContainer/MenuButtons/LibraryButton" to="MainMenu" method="OnLibraryButtonPressed"]
 [connection signal="pressed" from="MainMenu/MenuScreen/VBoxContainer/MenuButtons/QuitButton" to="MainMenu" method="OnQuitButtonPressed"]
+[connection signal="value_changed" from="MainMenu/MenuScreen/VolumeSlider" to="MainMenu" method="VolumeSliderValueChanged"]

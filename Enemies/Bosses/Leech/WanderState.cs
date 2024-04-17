@@ -62,9 +62,15 @@ public partial class WanderState : AbstractState
             
         }
         
+        if (leechbert.GlobalPosition.DistanceTo(spawnPoint) > 10)
+        {
+            FollowPath(delta);
+        }
         
-        FollowPath(delta);
-        
+        if (leechbert.Velocity.Length() > leechbert.Stats.Speed || leechbert.MoveDirection == Vector2.Zero)
+        {
+            leechbert.Velocity = leechbert.Velocity.Lerp(Vector2.Zero, (float)delta * 2f);
+        }
         
     }
     
@@ -83,10 +89,7 @@ public partial class WanderState : AbstractState
         }
 
         // simulate friction with delta
-        if (leechbert.Velocity.Length() > leechbert.Stats.Speed || leechbert.MoveDirection == Vector2.Zero)
-        {
-            leechbert.Velocity = leechbert.Velocity.Lerp(Vector2.Zero, 0.1f);
-        }
+        
     }
     
     private async void ActorSetup()

@@ -23,7 +23,7 @@ public partial class SoldierWhack : AbstractAbility
         
         AudioManager.Instance.PlaySoundVaried("player", "shoot", GD.RandRange(0.4,0.6));
         var bullet = WhackScene.Instantiate<Node2D>();
-        Callbacks.Instance.EmitSignal(Callbacks.SignalName.BulletCreated, bullet);
+        
         var src = GameManager.Player;
         var offset = Vector2.FromAngle(src.AimDirection());  
         
