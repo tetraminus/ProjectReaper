@@ -215,58 +215,20 @@ public partial class Level : Node2D
 		return _leechScn.Instantiate<AbstractCreature>();
 	}
 	
-	public bool TooCloseToMiniboss(Vector2 position)
-	{
-		foreach (var node in GetTree().GetNodesInGroup("miniboss"))
-		{
-			if (node is not AbstractCreature creature)
-			{
-				continue;
-			}
-			
-			if (creature.GlobalPosition.DistanceTo(position) < 300)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	
 
 	public Vector2 GetMinibossSpawnPosition()
 	{
-		Vector2 position = Vector2.Zero;
-		bool picked = false;
-		
-		do {
-			var totalWeight = _spawnRectWeights.Sum(x => x.Value);
-			var random = GD.Randf() * totalWeight;
-			
-			foreach (var spawnRect in _spawnRectWeights)
+		var random = GD.Randf();
+		foreach (var spawnRect in _spawnRectWeights)
+		{
+			random -= spawnRect.Value;
+			if (random <= 0)
 			{
-				if (TooCloseToMiniboss(spawnRect.Key.GetRandomPosition()) )
-				{
-					continue;
-				}
-			
-
-				random -= spawnRect.Value;
-				if (random <= 0)
-				{
-					var possiblePosition = spawnRect.Key.GetRandomPosition();
-					if (PointSeesPlayer(possiblePosition))
-					{
-						continue;
-					}
-					
-					picked = true;
-					position = possiblePosition;
-				}
+				return spawnRect.Key.GetRandomPosition();
 			}
-			
-			
-		} while (!picked);
-		
-		return position;
+		}
+		return Vector2.Zero;
 		
 	}
 	public bool PointSeesPlayer(Vector2 point)
@@ -281,5 +243,12 @@ public partial class Level : Node2D
 
 		return ray.Count == 0;
         
+	}
+
+	public List<SpawnRect> GetSpawnRects()
+	{
+		
+		return _spawnRectWeights.Keys.ToList();
+		
 	}
 }

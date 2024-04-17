@@ -33,14 +33,16 @@ public partial class PlayerHud : Control
         GetNode<AnimationPlayer>("FightAnimPlayer").Connect(AnimationMixer.SignalName.AnimationFinished, new Callable(this, MethodName.OnFightAnimFinished));
         FPS = GetNode<Label>("FPS");
         Difficulty = GetNode<Label>("Difficulty");
-        GetNode<RichTextLabel>("DeathQuote").Hide();
+        GetNode<Control>("DeathHud").Hide();
         
         KeyInventory = GetNode<VBoxContainer>("%KeyInventory");
     }
     
-    public void ShowDeathQuote()
+    public void ShowDeathHud()
     {
-        var label = GetNode<RichTextLabel>("DeathQuote");
+        GetNode<Control>("DeathHud").Show();
+        
+        var label = GetNode<RichTextLabel>("%DeathQuote");
 
         label.Text = "death_" + GD.RandRange(1, Numberofdeathquotes);
         
@@ -166,6 +168,11 @@ public partial class PlayerHud : Control
         InfoHudPopup.SetInfo(infoTitle, infoText);
         InfoHudPopup.Show();
     }
+    
+    public void OnQuitButtonPressed()
+    {
+        GameManager.GoToMainMenu();
+    }
 
     public void Reset()
     {
@@ -178,7 +185,7 @@ public partial class PlayerHud : Control
         }
         UpdateKeyInventory(new Dictionary<string, int>());
         
-        GetNode<RichTextLabel>("DeathQuote").Hide();
+        GetNode<Control>("DeathHud").Hide();
     }
 }
 

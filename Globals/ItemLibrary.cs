@@ -22,6 +22,11 @@ public partial class ItemLibrary : Node
     public RandomNumberGenerator ItemRNG = new();
     public static PackedScene ItemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
 
+    public override void _Ready()
+    {
+        ProcessMode = ProcessModeEnum.Always;
+    }
+
     public override void _EnterTree()
     {
         Instance = this;

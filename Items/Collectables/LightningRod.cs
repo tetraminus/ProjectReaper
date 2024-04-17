@@ -22,6 +22,12 @@ public partial class LightningRod : AbstractItem
         
     }
     
+    public override void Cleanup()
+    {
+        Callbacks.Instance.BulletCreated -= BulletCreated;
+        Callbacks.Instance.ProjectileHit -= ProjectileHit;
+    }
+    
     public void BulletCreated(AbstractDamageArea bullet)
     {
         if (bullet is BasicBullet basicBullet && GameManager.RollBool(Chance, GameManager.Player.Stats.Luck) && bullet.Source == GetHolder())

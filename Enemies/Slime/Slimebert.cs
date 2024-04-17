@@ -71,6 +71,7 @@ public partial class Slimebert : AbstractCreature
     public override void _PhysicsProcess(double delta) {
         // raycast to player
         var player = GameManager.Player;
+        
         if (player.Dead) return;
 
         if (player.GlobalPosition.DistanceTo(GlobalPosition) < 500) {
