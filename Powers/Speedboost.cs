@@ -1,9 +1,12 @@
-﻿namespace ProjectReaper.Powers;
+﻿using ProjectReaper.Enemies;
+using ProjectReaper.Globals;
+
+namespace ProjectReaper.Powers;
 
 public partial class Speedboost : AbstractPower
 {
     private const float Multiplier = 0.2f;
-    private float _addedSpeed;
+   
     public override string Id => "speed_boost";
     public override float DefaultDuration => 1;
 
@@ -12,22 +15,32 @@ public partial class Speedboost : AbstractPower
     public override void OnApply()
     {
         StartTimer();
-
-
-        _addedSpeed = Creature.Stats.Speed * Multiplier * Stacks;
-        Creature.Stats.Speed += _addedSpeed;
+        Callbacks.Instance.CalculateStat += OnCalculateStat;
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
+    }
+    
+    private void OnCalculateStat(ref float stat, string statname, AbstractCreature creature)
+    {
+       
+        if (statname == "Speed" && creature == Creature)
+        {
+            stat += stat * Multiplier * Stacks;
+        }
+        
+    
     }
 
     public override void OnStack(int newStacks)
     {
-        Creature.Stats.Speed -= _addedSpeed;
-        _addedSpeed = Creature.Stats.Speed * Multiplier * Stacks;
-        Creature.Stats.Speed += _addedSpeed;
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
+        
     }
 
 
     public override void OnRemove()
     {
-        Creature.Stats.Speed -= _addedSpeed;
+        
+        Callbacks.Instance.CalculateStat -= OnCalculateStat;
+        Callbacks.Instance.EmitSignal(Callbacks.SignalName.RecalculateStats);
     }
 }

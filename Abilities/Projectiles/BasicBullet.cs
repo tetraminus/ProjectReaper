@@ -17,9 +17,13 @@ public partial class BasicBullet : AbstractDamageArea
     
     public override void _Ready()
     {
-        AddChild(_timer);
-        _timer.Timeout += () => QueueFree();
-        _timer.Start(Duration);
+        if (Duration > 0)
+        {
+            AddChild(_timer);
+            _timer.Timeout += () => QueueFree();
+            _timer.Start(Duration);
+        }
+
         Knockback = 150f;
        
 
@@ -34,10 +38,13 @@ public partial class BasicBullet : AbstractDamageArea
         return Transform.X.Normalized();
     }
     
-    public void Resprite(Texture2D texture)
+    public void Resprite(Texture2D texture, Vector2 offset = default, float angle = 0f)
     {
         _sprite.Texture = texture;
+        _sprite.Offset = offset;
+        _sprite.Rotation = angle;
     }
+    
 
     public override void _PhysicsProcess(double delta)
     {

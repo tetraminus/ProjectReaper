@@ -20,9 +20,9 @@ f_dream_car,"[fade start=40 length=200]Characterized by thin roof pillars, fastb
 n_gravity_gauntlet,Gravity's Gauntlet 
 d_gravity_gauntlet,Creates gravity wells that trap enemies temporarily.
 f_gravity_gauntlet,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to capture foes."
-n_soul_harvester,Soul Totem
-d_soul_harvester,Grants a temporary damage boost after you kill an enemy.
-f_soul_harvester ,"Don't worry! You're not actually taking their souls, they [size=14]Probably...[/size] dont have any!"
+n_soul_totem,Soul Totem
+d_soul_totem,Grants a temporary damage boost after you kill an enemy.
+f_soul_totem,"Don't worry! You're not actually taking their souls, they [size=14]Probably...[/size] dont have any!"
 n_vitamin_b,Vitamin B
 d_vitamin_b,Increases attack speed by exactly 8.72%
 f_vitamin_b,I'm glad I'm not a vegan
@@ -44,17 +44,17 @@ f_heavy_shot,description tbd
 n_bug_spray,Bug Spray
 d_bug_spray,Bullets knock enemies away.
 f_bug_spray,"Much less effective against people. In fact, it'll probably just make them angry."
-n_confidence_boost,Confidence Booster
-d_confidence_boost,Increases your damage by your speed.
-f_confidence_boost,description tbd
+n_confidence_booster,Confidence Booster
+d_confidence_booster,Increases your damage by your speed.
+f_confidence_booster,description tbd
 n_googly_glasses,Googly Glasses
 d_googly_glasses,Increases [color=orange]crit[/color] damage by 20%
 f_googly_glasses,Silliness Incarnate Jeff would smile upon this.
 n_everything_bagel,Everything Bagel
-d_everything_bagel,"Increases your damage, firerate, [color=orange]crit[/color] chance, [color=orange]crit[/color] damage, and dash cooldown."
+d_everything_bagel,"Increases your damage, firerate, [color=orange]crit[/color] chance, [color=orange]crit[/color] damage, and dash cooldown.	"
 f_everything_bagel,Nice comfort. Always available in my house. Really easy to buy a bunch and to just have in a bag.
 n_life_leechbert,Life Leechbert
-d_life_leechbert,Sometimes drains health from slain enemies. Activates more often in close proximity with targets.
+d_life_leechbert,"Drains health from slain enemies, [color=red]but reduces your max HP by 20[/color]. Activates more often in close proximity with targets."
 f_life_leechbert,Still has the terrible smell of Leechbert. Alluring.
 n_treasure_map,Treasure Map
 d_treasure_map,Grants an additional option when opening a chest.
@@ -87,7 +87,7 @@ n_feather_pen,Feather Pen
 d_feather_pen,Doubles your movement speed [color=red]and dash cooldown[/color].
 f_feather_pen,description tbd
 n_rocket_science,Rocket Science
-d_rocket_science,Replaces your primary attack with a [color=red]lower damage[/color] homing attack.
+d_rocket_science,[color=red]Your attack does less damage[/color] and homes in on enemies.
 f_rocket_science,Give up trying to understand it.
 n_rocket_launcher,Rocket Launcher
 d_rocket_launcher,[color=red]Replaces your secondary attack with a great ability ;)[/color]
@@ -96,17 +96,26 @@ n_han_solo,Garrison Fjord
 d_han_solo,[color=red]Blanches your almond ;)[/color]
 f_han_solo,bruh
 n_healthy_breakfast,Healthy Breakfast
-d_healthy_breakfast,Multiply your Max HP! Adds 10% per stack.
+d_healthy_breakfast,Multiply your Max HP! Adds 20% per stack.
 f_healthy_breakfast,"Are burgers healthy? Well, I hope they are, since that's the only leftovers in the fridge."
-n_paper_straw,Paper Straw
-d_paper_straw,Increases the amount you heal per chest by 10
-f_paper_straw,"Being sustainable and environmentally friendly, keeping my health strong by not wasting."
+n_toothpaste,Toothpaste
+d_toothpaste,Increases the amount you heal per chest by 10
+f_toothpaste,"My wisdom teeth are coming in. It's quite a pain, quite literally."
 n_flower_sprout,Flower Sprout
-d_flower_sprout,"[color=red]Lowers your damage by 15%[/color], then increases it by 20% each time you kill a boss."
+d_flower_sprout,"[color=red]Lowers your damage by 15%[/color], then increases it by 20% each time you kill a boss monster."
 f_flower_sprout,"Even in the darkest hour, there can be beauty. I found this growing out of a crack on my doorstep. It's beautiful, isn't it?"
 n_hair_strand,Hair Strand
 d_hair_strand,Bullets explode into shrapnel on impact.
 f_hair_strand,My hair is literally falling out. This is not a joke.
-n_wilting_flower,Wilting Flower
-d_wilting_flower,"Increases your speed and damage, [color=red]but loses effectiveness when you kill a boss[/color]."
-f_wilting_flower,Daniel's gift to me while I was recovering. I could never forget it.
+n_wilted_flower,Wilted Flower
+d_wilted_flower,"Increases your speed and damage, [color=red]but loses effectiveness when you kill a boss monster[/color]."
+f_wilted_flower,Daniel's gift to me while I was recovering. I could never forget it.
+n_ghostly_amulet,Ghostly Amulet
+d_ghostly_amulet,Higher tier enemies can drop keys upon death.
+f_ghostly_amulet,In it I see my reflection.
+n_can_of_beans,Can of Beans
+d_can_of_beans,"When you heal, consume this item and gain a stack of an item you already have."
+f_can_of_beans,Emergency snack.
+n_virus_totem,
+d_virus_totem,
+f_virus_totem,

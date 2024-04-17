@@ -2,6 +2,7 @@ using Godot;
 using ProjectReaper.Abilities;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
+using ProjectReaper.Interactables;
 
 namespace ProjectReaper.Globals;
 
@@ -32,8 +33,8 @@ public partial class Callbacks : Node
 
     public delegate float HealEventHandler(AbstractCreature creature, float heal);
     
-    public delegate float CalculateStatEventHandler(float stat, string statName, AbstractCreature creature);
-    public CalculateStatEventHandler CalculateStat = (stat, statName, creature) => stat;
+    public delegate void CalculateStatEventHandler(ref float stat, string statName, AbstractCreature creature);
+    public CalculateStatEventHandler CalculateStat;
     
     [Signal]
     public delegate void RecalculateStatsEventHandler();
@@ -51,6 +52,9 @@ public partial class Callbacks : Node
     public delegate void ProjectileHitWallEventHandler(AbstractDamageArea bullet);
     [Signal]
     public delegate void AbilityTriggerEventHandler(AbstractAbility ability, AbstractCreature creature, int slot, Vector2 position);
+    [Signal]
+    public delegate void PreChestOpenedEventHandler(Chest chest);
+    
 
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
 

@@ -16,13 +16,12 @@ public partial class CritGlasses : AbstractItem
         
     }
 
-    private float CalculateStat(float stat, string statname, AbstractCreature creature)
+    private void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {
         if (statname == "CritChance" && creature == GetHolder())
         {
-            return stat + (stat * CritChance * Stacks);
+            stat += (CritChance * Stacks);
         }
-        return stat;
     }
     
     public override void Cleanup()

@@ -222,4 +222,31 @@ public partial class SpawnDirector : Node
         _creditsTimer.Stop();
         _spawnTimer.Stop();
     }
+
+    public EnemySpawnCard GetRandomSpawn(int credits)
+    {
+        var availableEnemies = GetAvailableEnemies(credits);
+        if (availableEnemies.Count == 0) return null;
+        return availableEnemies.PickRandom();
+    }
+
+    public void PlaceMiniBosses(int count, Level level)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            
+            var enemyInstance = level.GetRandomMiniBoss();
+            
+            enemyInstance.GlobalPosition = level.GetMinibossSpawnPosition();
+            enemyInstance.AddToGroup("spawnedenemies");
+            enemyInstance.AddToGroup("miniboss");
+            level.AddChild(enemyInstance);
+            GD.Print("Placing miniboss at " + enemyInstance.GlobalPosition);
+            
+            enemyInstance.NavGroup = GetNavGroup();
+        }
+    }
+    
+    
+    
 }
