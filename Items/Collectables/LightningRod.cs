@@ -10,7 +10,7 @@ namespace ProjectReaper.Items.Collectables;
 public partial class LightningRod : AbstractItem
 {
     public override string Id => "lightning_rod";
-    public override ItemRarity Rarity => ItemRarity.Common;
+    public override ItemRarity Rarity => ItemRarity.Uncommon;
     
     private const float Chance = 0.25f;
     private static Texture2D lightningTexture = GD.Load<Texture2D>("res://Assets/Abilities/zapbullet.png");
