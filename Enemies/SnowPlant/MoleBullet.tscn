@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhqpnsufyll64"]
+
+[ext_resource type="Script" path="res://Abilities/Projectiles/BasicBullet.cs" id="1_q4fi2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pk6q5"]
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6h8e"]
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnvtq"]
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q7s7a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pk6q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6h8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnvtq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qa0df"]
+radius = 7.0
+
+[node name="ShitBall" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_q4fi2")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1, 1.03125)
+sprite_frames = SubResource("SpriteFrames_q7s7a")
+frame_progress = 0.487513
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_qa0df")
