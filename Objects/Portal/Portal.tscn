@@ -245,17 +245,17 @@ fit_margin = 20.0
 texture = ExtResource("1_ie1rb")
 
 [node name="Mid" type="Sprite2D" parent="Visuals"]
-rotation = -4.37666
+rotation = -1.7579
 scale = Vector2(1, 1)
 texture = ExtResource("2_3yn6e")
 
 [node name="Mid2" type="Sprite2D" parent="Visuals"]
-rotation = 4.37666
+rotation = 1.7579
 scale = Vector2(1, 1)
 texture = ExtResource("3_0e2xq")
 
 [node name="Mid3" type="Sprite2D" parent="Visuals"]
-rotation = -4.37666
+rotation = -1.7579
 scale = Vector2(1, 1)
 texture = ExtResource("4_l4y1r")
 
