@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
@@ -232,21 +233,52 @@ public partial class SpawnDirector : Node
 
     public void PlaceMiniBosses(int count, Level level)
     {
-        for (var i = 0; i < count; i++)
+        List<Vector2> Positions = GetSpawnPoints(level, count);
+
+        foreach (var position in Positions)
         {
-            
             var enemyInstance = level.GetRandomMiniBoss();
-            
-            enemyInstance.GlobalPosition = level.GetMinibossSpawnPosition();
+            enemyInstance.GlobalPosition = position;
             enemyInstance.AddToGroup("spawnedenemies");
             enemyInstance.AddToGroup("miniboss");
             level.AddChild(enemyInstance);
             GD.Print("Placing miniboss at " + enemyInstance.GlobalPosition);
             
             enemyInstance.NavGroup = GetNavGroup();
+            
         }
+        
+        
     }
-    
-    
-    
+
+    private List<Vector2> GetSpawnPoints(Level level, int count)
+    {
+        //pick count random spawnrects
+        // get random position in each spawnrect
+        // return list of positions
+
+        List<SpawnRect> spawnRects = new List<SpawnRect>();
+        spawnRects.AddRange(level.GetSpawnRects());
+        
+        var positions = new List<Vector2>();
+        
+        for (int i = 0; i < count; i++)
+        {
+            var spawnRect = spawnRects[(int)(GD.Randi() % spawnRects.Count)];
+            var position = spawnRect.GetRandomPosition();
+            // make sure the spawnrect cant see the player
+            while (level.PointSeesPlayer(position))
+            {
+                spawnRect = spawnRects[(int)(GD.Randi() % spawnRects.Count)];
+                position = spawnRect.GetRandomPosition();
+            }
+            
+            positions.Add(position);
+            spawnRects.Remove(spawnRect);
+        }
+        
+        return positions;
+        
+        
+    }
 }

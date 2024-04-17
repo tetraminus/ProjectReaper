@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxk7v0kp0r2kg"]
+[gd_scene load_steps=15 format=3 uid="uid://cxk7v0kp0r2kg"]
 
 [ext_resource type="Texture2D" uid="uid://b5p0hsjs0tgjh" path="res://Assets/Enemies/Bosses/Eye/Eye_Boss_2.png" id="1_vevfj"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Eye/EyeBoss.cs" id="1_xlph1"]
@@ -8,12 +8,23 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_002yr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_7p3df"]
 [ext_resource type="Script" path="res://Components/HurtBox.cs" id="8_bse3t"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="9_rh5ve"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="10_ijt3l"]
+[ext_resource type="AudioStream" uid="uid://bv2tjc7rc4xf5" path="res://Assets/Audio/EyeBoss/Fire_2.mp3" id="11_2gy2f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vply8"]
 radius = 25.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_floie"]
 radius = 26.0
+
+[sub_resource type="Resource" id="Resource_gkqhv"]
+script = ExtResource("10_ijt3l")
+name = "Blast"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("11_2gy2f")])
 
 [node name="EyeBoss" type="CharacterBody2D"]
 collision_layer = 4
@@ -136,6 +147,11 @@ script = ExtResource("8_bse3t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_floie")
+
+[node name="SoundBank" type="Node" parent="."]
+script = ExtResource("9_rh5ve")
+label = "EyeBoss"
+events = Array[ExtResource("10_ijt3l")]([SubResource("Resource_gkqhv")])
 
 [connection signal="state_entered" from="StateChart/Root/Alive/ChoosingNewAttack" to="." method="PickNewAttack"]
 [connection signal="state_entered" from="StateChart/Root/Alive/Attacking/BurstFire/Firing" to="." method="BurstfireEnter"]

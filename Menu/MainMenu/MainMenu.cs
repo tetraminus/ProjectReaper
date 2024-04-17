@@ -100,4 +100,9 @@ public partial class MainMenu : Control
     {
         GetNode<Control>("%StartButton").GrabFocus();
     }
+    
+    public void VolumeSliderValueChanged(float value)
+    {
+        AudioManager.Instance.SetMasterVolume(value);
+    }
 }
