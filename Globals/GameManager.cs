@@ -7,6 +7,7 @@ using ProjectReaper.Menu.ItemLibraryScreen;
 using ProjectReaper.Menu.MainMenu;
 using ProjectReaper.Player;
 using ProjectReaper.Util;
+using Key = ProjectReaper.Objects.Key.Key;
 
 namespace ProjectReaper.Globals;
 
@@ -231,7 +232,7 @@ public partial class GameManager : Node
 
     public static void StartRun()
     {
-        StartRun(GD.Randi());
+        StartRun(100);
     }
     
     public async static void StartRun(uint seed)
@@ -249,6 +250,7 @@ public partial class GameManager : Node
         LootRng.Seed = seed;
         LevelRng.Seed = seed;
         BossRng.Seed = seed;
+        ItemLibrary.Instance.ItemRNG.Seed = seed;
         CurrentRun = new RunInfo();
         CurrentRun.Seed = seed;
         CurrentRun.CurrentLevel = 1;
@@ -260,6 +262,7 @@ public partial class GameManager : Node
         Player = PlayerRoot.GetNode<Player.Player>("%Player");
         
         CurrentRun.Player = Player;
+        Player.AddKey(Key.BasicKeyId, 3);
         Level.AddPlayer(PlayerRoot);
         
         
