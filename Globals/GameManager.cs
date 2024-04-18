@@ -224,7 +224,7 @@ public partial class GameManager : Node
 
     public static void GameOver()
     {
-        PlayerHud.ShowDeathQuote();
+        PlayerHud.ShowDeathHud();
         CurrentRun = null;
         SpawnDirector.Instance.Clear();
         
@@ -232,7 +232,7 @@ public partial class GameManager : Node
 
     public static void StartRun()
     {
-        StartRun(100);
+        StartRun(GD.Randi());
     }
     
     public async static void StartRun(uint seed)
