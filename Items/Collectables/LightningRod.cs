@@ -69,7 +69,7 @@ public partial class LightningRod : AbstractItem
             }
             
 
-        }
+        } 
     }
 
     
