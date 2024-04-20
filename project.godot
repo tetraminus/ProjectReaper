@@ -37,6 +37,7 @@ ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 SoundManager="*res://addons/resonate/sound_manager/sound_manager.gd"
 MusicManager="*res://addons/resonate/music_manager/music_manager.gd"
 AudioManager="*res://Globals/AudioManager.cs"
+Console="*res://addons/sofiaconsole/Console.tscn"
 
 [display]
 
@@ -196,6 +197,8 @@ locale/translations=PackedStringArray("res://Loc/items.en.translation", "res://L
 [physics]
 
 common/physics_ticks_per_second=120
+2d/default_gravity=2.08165e-12
+2d/default_gravity_vector=Vector2(2.08165e-12, 2.08165e-12)
 
 [rendering]
 

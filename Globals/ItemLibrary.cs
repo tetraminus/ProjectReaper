@@ -2,8 +2,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Godot;
-
+using media.Laura.SofiaConsole;
 using ProjectReaper.Items;
+using Console = media.Laura.SofiaConsole.Console;
 
 namespace ProjectReaper.Globals;
 
@@ -206,5 +207,21 @@ public partial class ItemLibrary : Node
         var items = AllItems.Values.ToList();
         var roll = (int)(GD.Randi() % items.Count);
         return items[roll];
+    }
+    
+    
+    [ConsoleCommand("giveitem", Description = "Give an item to the player")]
+    public void GiveItem(string id, int amount = 1)
+    {
+        var item = CreateItem(id);
+        if (item == null)
+        {
+            Console.Instance.Print($"Item with id {id} does not exist", Console.PrintType.Error);
+            return;
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            GameManager.Player.AddItem(item);
+        }
     }
 }

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://3fes2e1kup7m"]
+
+[ext_resource type="Script" path="res://Objects/Goop/Goop.cs" id="1_86huy"]
+[ext_resource type="Material" uid="uid://bojxbkhbdoefb" path="res://Vfx/Goop.tres" id="2_23vdq"]
+[ext_resource type="ArrayMesh" uid="uid://c58llwrxnvvvu" path="res://Assets/goop/GoopMesh.obj" id="3_q2kym"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vu0m6"]
+radius = 2.5
+
+[node name="Gooptest" type="Node2D"]
+scale = Vector2(2000, 2000)
+script = ExtResource("1_86huy")
+
+[node name="Polygon" type="Polygon2D" parent="."]
+visible = false
+z_index = 2
+material = ExtResource("2_23vdq")
+invert_enabled = true
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+material = ExtResource("2_23vdq")
+position = Vector2(-500, -500)
+scale = Vector2(1000, 1000)
+mesh = ExtResource("3_q2kym")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vu0m6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="DamageTick"]

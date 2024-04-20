@@ -17,6 +17,8 @@ public partial class Level : Node2D
 	
 	private PackedScene _leechScn = GD.Load<PackedScene>("res://Enemies/Bosses/Leech/leechbert.tscn");
 	
+	private PackedScene _goopScn = GD.Load<PackedScene>("res://Objects/Goop/Goop.tscn");
+	
 	private float _totalSpawnArea;
 	private const float _minSpawnDistance = 500;
 	private Godot.Collections.Dictionary<SpawnRect, float> _spawnRectWeights = new Godot.Collections.Dictionary<SpawnRect, float>();
@@ -31,6 +33,7 @@ public partial class Level : Node2D
 	[Export] public Node LootPoints { get; set; }
 	
 	[Export] public Node2D CameraBounds { get; set; }
+
 
 	private Timer _renavTimer;
    
@@ -179,7 +182,7 @@ public partial class Level : Node2D
 		player.GlobalPosition = GetSpawnPosition(true);
 		if (CameraBounds != null)
 		{
-			playerroot.GetNode("%PlayerPCam").Call("set_limit_node", CameraBounds);
+			//playerroot.GetNode("%PlayerPCam").Call("set_limit_node", CameraBounds);
 			
 		}
 		playerroot.GetNode<Node2D>("%PlayerPCam").GlobalPosition = player.GlobalPosition;
@@ -208,6 +211,7 @@ public partial class Level : Node2D
 		SpawnDirector.Instance.PlaceMiniBosses(4, this);
 		
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.LevelLoaded);
+		GoopTime();
 	}
 
 	public AbstractCreature GetRandomMiniBoss()
@@ -251,4 +255,12 @@ public partial class Level : Node2D
 		return _spawnRectWeights.Keys.ToList();
 		
 	}
+
+	public void GoopTime()
+	{
+		var goop = _goopScn.Instantiate<Goop>();
+		CallDeferred(Node.MethodName.AddChild, goop);
+		goop.SetTime(60);
+	}
+	
 }

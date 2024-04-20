@@ -31,6 +31,9 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
     public HitBoxState HitState { get; set; } = HitBoxState.Normal;
     
     public int NavGroup;
+    
+    [Signal]
+    public delegate void HitEventHandler(DamageReport damageReport);
 
 
     public override void _Ready()
@@ -207,7 +210,8 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
 
     public void Damage(DamageReport damageReport)
     {
-        if (Dead || HitState == HitBoxState.Invincible) return;
+        if (Dead || HitState == HitBoxState.Invincible) return; 
+        
 
         var damage = damageReport.Damage;
         var source = damageReport.Source;
@@ -230,6 +234,8 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
             OnDeath();
         else
             OnHit();
+        
+        EmitSignal(SignalName.Hit, damageReport);
     }
     
     public enum Teams

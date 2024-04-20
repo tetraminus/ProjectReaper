@@ -135,7 +135,7 @@ public partial class Player : AbstractCreature
 		if (Input.IsActionPressed("ability3")) _abilityManager.UseAbility(2);
 		if (Input.IsActionPressed("ability4")) _abilityManager.UseAbility(3);
 		
-		if (Input.IsActionJustPressed("cheat"))
+		if (false)//Input.IsActionJustPressed("cheat"))
 		{
 			GameManager.GoToLibrary(true);
 		}

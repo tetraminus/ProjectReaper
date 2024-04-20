@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=29 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
 [ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
+[ext_resource type="Material" uid="uid://bojxbkhbdoefb" path="res://Vfx/Goop.tres" id="2_pxpsj"]
 [ext_resource type="Script" path="res://Menu/MainMenu/Bg.cs" id="3_8d6ga"]
 [ext_resource type="Shader" path="res://Vfx/Vortex.gdshader" id="3_tb2og"]
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="5_gqeuv"]
@@ -124,6 +125,14 @@ script = ExtResource("1_1eygr")
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -32
 
+[node name="ColorRect" type="ColorRect" parent="BG"]
+material = ExtResource("2_pxpsj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Bg" type="ColorRect" parent="BG"]
 unique_name_in_owner = true
 process_mode = 3
@@ -139,9 +148,9 @@ ColorSpeed = 0.02
 
 [node name="FGShader" type="CanvasLayer" parent="."]
 layer = 5
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="FGShader"]
+visible = false
 material = SubResource("ShaderMaterial_nwobf")
 anchors_preset = 15
 anchor_right = 1.0

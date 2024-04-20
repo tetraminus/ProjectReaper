@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bojxbkhbdoefb"]
+
+[ext_resource type="Shader" path="res://Vfx/Goop.gdshader" id="1_2x3up"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gc5xl"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qc6et"]
+seamless = true
+noise = SubResource("FastNoiseLite_gc5xl")
+
+[resource]
+shader = ExtResource("1_2x3up")
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_qc6et")

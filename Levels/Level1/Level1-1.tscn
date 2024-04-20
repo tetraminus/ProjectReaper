@@ -27,7 +27,7 @@ size = Vector2(105.785, 100)
 size = Vector2(98.1515, 103.377)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjagf"]
-size = Vector2(108.949, 128.913)
+size = Vector2(109.095, 119.052)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1s6f"]
 size = Vector2(200, 100)
@@ -111,6 +111,7 @@ position = Vector2(-695, -937)
 position = Vector2(72, -488)
 
 [node name="Node" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="Lamp" parent="Node" instance=ExtResource("7_foyrk")]
