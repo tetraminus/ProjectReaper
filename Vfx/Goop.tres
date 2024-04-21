@@ -1,13 +1,32 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bojxbkhbdoefb"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bojxbkhbdoefb"]
 
 [ext_resource type="Shader" path="res://Vfx/Goop.gdshader" id="1_2x3up"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gc5xl"]
+frequency = 0.1189
+offset = Vector3(0, 0, 1)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qc6et"]
+in_3d_space = true
 seamless = true
+seamless_blend_skirt = 0.009
 noise = SubResource("FastNoiseLite_gc5xl")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0faft"]
+seed = 1
+frequency = 0.0266
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a4eir"]
+height = 1
+seamless = true
+noise = SubResource("FastNoiseLite_0faft")
 
 [resource]
 shader = ExtResource("1_2x3up")
+shader_parameter/scale = 0.5
+shader_parameter/threshold = 0.251
+shader_parameter/Aberration = 0.091
+shader_parameter/pixelize = true
 shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_qc6et")
+shader_parameter/abberration_texture = SubResource("NoiseTexture2D_a4eir")

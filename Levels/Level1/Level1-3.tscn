@@ -58,17 +58,18 @@ size = Vector2(130.894, 430.527)
 resource_local_to_scene = true
 size = Vector2(241.703, 217.342)
 
-[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+[node name="Level1-3" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "DreamCollapseEndLocation")]
 y_sort_enabled = true
 script = ExtResource("1_ogrgk")
 FightStems = ["Boss"]
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
-CameraBounds = NodePath("TileMap")
+DreamCollapseEndLocation = NodePath("DreamCollapseEnd")
+LevelSize = Vector2(1024, 1024)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(318, 446)
+position = Vector2(-14, 56)
 zoom = Vector2(3, 3)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
@@ -237,7 +238,7 @@ position = Vector2(-407, 335)
 position = Vector2(-400, 249)
 
 [node name="PhantomCamera2D" type="Node2D" parent="BossGate"]
-position = Vector2(-401, 258)
+position = Vector2(-733, -132)
 script = ExtResource("11_aboha")
 priority_override = false
 priority = 0
@@ -263,3 +264,6 @@ limit/smoothed = false
 tween_parameters = null
 tween_on_load = false
 inactive_update_mode = 0
+
+[node name="DreamCollapseEnd" type="Node2D" parent="."]
+position = Vector2(372, 493)

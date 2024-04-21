@@ -17,9 +17,14 @@ public partial class Level : Node2D
 	
 	private PackedScene _leechScn = GD.Load<PackedScene>("res://Enemies/Bosses/Leech/leechbert.tscn");
 	
-	private PackedScene _goopScn = GD.Load<PackedScene>("res://Objects/Goop/Goop.tscn");
+	private PackedScene _goopScn = GD.Load<PackedScene>("res://Objects/Goop/goop.tscn");
 	
 	private float _totalSpawnArea;
+	
+	[Export]
+	public double CollapseTimeMax { get; set; } = 60 * 4;
+	public double CollapseTime;
+	public bool Collapsing { get; set; }
 	private const float _minSpawnDistance = 500;
 	private Godot.Collections.Dictionary<SpawnRect, float> _spawnRectWeights = new Godot.Collections.Dictionary<SpawnRect, float>();
 	[Export] public bool DisableSpawning { get; set; }
@@ -32,7 +37,11 @@ public partial class Level : Node2D
 	[Export] public Node SpawnRects { get; set; }
 	[Export] public Node LootPoints { get; set; }
 	
-	[Export] public Node2D CameraBounds { get; set; }
+	
+	
+	[Export] public Node2D DreamCollapseEndLocation { get; set; }
+	[Export] public Vector2 LevelSize { get; set; }
+	
 
 
 	private Timer _renavTimer;
@@ -72,8 +81,22 @@ public partial class Level : Node2D
 		AddChild(_renavTimer);
 		_renavTimer.Start();
 		
+		CollapseTime = CollapseTimeMax;
+		
 	}
-	
+
+	public override void _Process(double delta)
+	{
+		CollapseTime -= delta;
+		
+		if (CollapseTime <= 0 && !Collapsing)
+		{
+			Collapsing = true;
+			TriggerCollapse();
+		}
+	}
+
+
 	public void FadeInFightMusic(float time = 1)
 	{
 		if (FightStems.Count == 0)
@@ -124,6 +147,9 @@ public partial class Level : Node2D
 	{
 		if (creature.IsInGroup("miniboss"))
 		{
+			
+			CollapseTime -= 45;
+			
 			if (DropKeys)
 			{
 				for (int i = 0; i < KeysPerMiniboss; i++)
@@ -180,11 +206,7 @@ public partial class Level : Node2D
 		var player = playerroot.GetNode<Player.Player>("%Player");
 		AddChild(playerroot);
 		player.GlobalPosition = GetSpawnPosition(true);
-		if (CameraBounds != null)
-		{
-			//playerroot.GetNode("%PlayerPCam").Call("set_limit_node", CameraBounds);
-			
-		}
+		
 		playerroot.GetNode<Node2D>("%PlayerPCam").GlobalPosition = player.GlobalPosition;
 
 
@@ -211,7 +233,10 @@ public partial class Level : Node2D
 		SpawnDirector.Instance.PlaceMiniBosses(4, this);
 		
 		Callbacks.Instance.EmitSignal(Callbacks.SignalName.LevelLoaded);
-		GoopTime();
+		
+		
+		
+		
 	}
 
 	public AbstractCreature GetRandomMiniBoss()
@@ -256,11 +281,28 @@ public partial class Level : Node2D
 		
 	}
 
-	public void GoopTime()
+	public void TriggerCollapse()
 	{
+		Callbacks.Instance.EmitSignal(Callbacks.SignalName.CollapseStart);
+		
 		var goop = _goopScn.Instantiate<Goop>();
 		CallDeferred(Node.MethodName.AddChild, goop);
 		goop.SetTime(60);
+		goop.GlobalPosition = DreamCollapseEndLocation.GlobalPosition;
+		
+		
+		
+		var farthestcorner = new Vector2(LevelSize.X/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.X), LevelSize.Y/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.Y));
+		var radius = DreamCollapseEndLocation.GlobalPosition.DistanceTo(farthestcorner*2);
+		
+			
+		GD.Print("Radius " + radius);
+		goop.SetStartRadius(radius);
+		goop.SetStopRadius(400);
+		
+		
+		
+		
 	}
 	
 }

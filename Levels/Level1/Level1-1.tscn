@@ -35,14 +35,15 @@ size = Vector2(200, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7x32r"]
 size = Vector2(400, 100)
 
-[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+[node name="Level1-1" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "DreamCollapseEndLocation")]
 y_sort_enabled = true
 script = ExtResource("1_n8soa")
 FightStems = ["Boss"]
 NumberOfChests = 8
 SpawnRects = NodePath("SpawnAreas")
 LootPoints = NodePath("loot")
-CameraBounds = NodePath("TileMap")
+DreamCollapseEndLocation = NodePath("BossGate/PortalSpawn")
+LevelSize = Vector2(1024, 1024)
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_geometry_group"]]
 tile_set = ExtResource("2_xch6s")
