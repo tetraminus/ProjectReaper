@@ -22,7 +22,7 @@ public partial class Level : Node2D
 	private float _totalSpawnArea;
 	
 	[Export]
-	public double CollapseTimeMax { get; set; } = 60 * 4;
+	public double CollapseTimeMax { get; set; } = 1;//60 * 4;
 	public double CollapseTime;
 	public bool Collapsing { get; set; }
 	private const float _minSpawnDistance = 500;
@@ -300,8 +300,18 @@ public partial class Level : Node2D
 		goop.SetStartRadius(radius);
 		goop.SetStopRadius(400);
 		
+		AudioManager.Instance.PlayMusic("Music", "DreamCollapseStart", 1);
+		AudioManager.Instance.MusicManagerLooped += OnMusicManagerLooped;
 		
-		
+	}
+	
+	private void OnMusicManagerLooped(string bank, string sound)
+	{
+		AudioManager.Instance.MusicManagerLooped -= OnMusicManagerLooped;
+		if (sound == "DreamCollapseStart")
+		{
+			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 1.2f);
+		}
 		
 	}
 	

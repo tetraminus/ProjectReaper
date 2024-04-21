@@ -355,7 +355,6 @@ unique_name_in_owner = true
 layer = 5
 
 [node name="DeathHud" type="Control" parent="PlayerHud"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -388,6 +387,7 @@ grow_vertical = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 80
 theme_override_font_sizes/bold_font_size = 80

@@ -44,8 +44,6 @@ func _process(p_delta):
 	if is_stopping:
 		return
 	
-	if not _auto_loop:
-		return
 	
 	if _loop_endpoint_reached_emitted:
 		return
