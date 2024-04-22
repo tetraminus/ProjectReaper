@@ -40,7 +40,7 @@ vec3 hueShift(vec3 color, float hueAdjust) {
 float draw_spiral(vec2 uv, float rotation, vec2 trueuv) {
 	float uv_radius = length(uv);
 	float wobble = texture(noise, trueuv).r * noise_scale;
-	
+
     uv_radius += wobble;
 	//return uv_radius;
 	float uv_phi = atan(uv.y, uv.x) + rotation;
@@ -54,13 +54,13 @@ void fragment() {
 	vec2 uv = UV;
 	uv -= 0.5 ;
     uv = uv * 2.0;
-	
+
 	//wobble the uv
-	
-    
+
+
 	//pixelate the uv
     uv = floor(uv * resolution) / resolution;
-    
+
 	float spiral = 0.0;
 	for (float i = 0.0; i < octaves; i += 1.0) {
 		spiral += draw_spiral(uv, TIME * speed * (0.5 + sin(i)),UV);

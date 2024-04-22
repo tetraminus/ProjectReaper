@@ -335,7 +335,7 @@ public partial class GameManager : Node
         {
             await MainNode.ToSignal(AudioManager.Instance, AudioManager.SignalName.MusicManagerLoaded);
         }
-        AudioManager.Instance.PlayMusic("Music", "Menu");
+        //AudioManager.Instance.PlayMusic("Music", "Menu");
     }
 
     public static float GetRunDifficulty()

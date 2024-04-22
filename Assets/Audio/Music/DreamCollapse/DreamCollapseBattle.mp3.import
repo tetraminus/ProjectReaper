@@ -15,5 +15,5 @@ dest_files=["res://.godot/imported/DreamCollapseBattle.mp3-b295fb7de6cba82f3ef59
 loop=true
 loop_offset=0.0
 bpm=120.0
-beat_count=0
+beat_count=96
 bar_beats=4
