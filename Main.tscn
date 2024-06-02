@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=37 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
 [ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
@@ -15,9 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://c1iul3g2n0kxo" path="res://Assets/Audio/Music/level1/Main_1.wav" id="13_bn41b"]
 [ext_resource type="AudioStream" uid="uid://mjgq3p0lbh0e" path="res://Assets/Audio/Music/level1/Layer 2_1.wav" id="14_psoqt"]
 [ext_resource type="AudioStream" uid="uid://d0nvf2unqm4jw" path="res://Assets/Audio/Music/level1/Boss_1.wav" id="15_f83jc"]
-[ext_resource type="AudioStream" uid="uid://cfmigjqymt10j" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseMain.mp3" id="17_375o5"]
-[ext_resource type="AudioStream" uid="uid://dytjeaxiamw4k" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseBattle.mp3" id="18_pen57"]
-[ext_resource type="AudioStream" uid="uid://i2qh3kl248cp" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseStart.mp3" id="19_g250n"]
+[ext_resource type="AudioStream" uid="uid://cifad8e0pmma0" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-02.wav" id="17_8dqcw"]
+[ext_resource type="AudioStream" uid="uid://dtcvu2esprerv" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-03.wav" id="18_vusbp"]
+[ext_resource type="AudioStream" uid="uid://dcy8kwgc6b1hj" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-01.wav" id="19_3cknf"]
 [ext_resource type="AudioStream" uid="uid://bh1tdw4gls75o" path="res://Assets/Audio/Music/Main menu music(1).mp3" id="20_8umuy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
@@ -127,14 +127,14 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("17_375o5")
+stream = ExtResource("17_8dqcw")
 
 [sub_resource type="Resource" id="Resource_vih7h"]
 script = ExtResource("10_wodfd")
 name = "Boss"
-enabled = true
+enabled = false
 volume = 0.0
-stream = ExtResource("18_pen57")
+stream = ExtResource("18_vusbp")
 
 [sub_resource type="Resource" id="Resource_skeo6"]
 script = ExtResource("9_7x8tp")
@@ -147,47 +147,13 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("19_g250n")
+stream = ExtResource("19_3cknf")
 
 [sub_resource type="Resource" id="Resource_grf05"]
 script = ExtResource("9_7x8tp")
 name = "DreamCollapseStart"
 bus = ""
 stems = Array[ExtResource("10_wodfd")]([SubResource("Resource_2f26k")])
-
-[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_2vq80"]
-stream_count = 2
-stream_0/stream = ExtResource("18_pen57")
-stream_0/volume = 0.0
-stream_1/stream = ExtResource("17_375o5")
-stream_1/volume = 0.0
-
-[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_76hjh"]
-clip_count = 3
-clip_0/name = &"Main Menu"
-clip_0/stream = ExtResource("20_8umuy")
-clip_0/auto_advance = 0
-clip_1/name = &"Dream Collapse"
-clip_1/stream = SubResource("AudioStreamSynchronized_2vq80")
-clip_1/auto_advance = 0
-clip_2/name = &"Dream Collapse Start"
-clip_2/stream = ExtResource("19_g250n")
-clip_2/auto_advance = 1
-clip_2/next_clip = 1
-_transitions = {
-Vector2i(1, 1): {
-"fade_beats": 1,
-"fade_mode": 3,
-"from_time": 3,
-"to_time": 1
-},
-Vector2i(2, 1): {
-"fade_beats": 1,
-"fade_mode": 3,
-"from_time": 3,
-"to_time": 1
-}
-}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1eygr")
@@ -237,7 +203,3 @@ events = Array[ExtResource("6_6ggsd")]([SubResource("Resource_hyad5"), SubResour
 script = ExtResource("8_bohd1")
 label = "Music"
 tracks = Array[ExtResource("9_7x8tp")]([SubResource("Resource_umwak"), SubResource("Resource_mrcgd"), SubResource("Resource_skeo6"), SubResource("Resource_grf05")])
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamInteractive_76hjh")
-bus = &"Music"

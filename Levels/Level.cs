@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using media.Laura.SofiaConsole;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
 using Key = ProjectReaper.Objects.Key.Key;
@@ -292,7 +293,8 @@ public partial class Level : Node2D
 		
 		
 		
-		var farthestcorner = new Vector2(LevelSize.X/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.X), LevelSize.Y/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.Y));
+		var farthestcorner = new Vector2(LevelSize.X/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.X),
+			LevelSize.Y/2f * -Math.Sign(DreamCollapseEndLocation.GlobalPosition.Y));
 		var radius = DreamCollapseEndLocation.GlobalPosition.DistanceTo(farthestcorner*2);
 		
 			
@@ -313,6 +315,11 @@ public partial class Level : Node2D
 			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 1.2f);
 		}
 		
+	}
+	[ConsoleCommand("Triggercollapse", Description = "Triggers the collapse")]
+	public void TriggerCollapseConsole()
+	{
+		TriggerCollapse();
 	}
 	
 }

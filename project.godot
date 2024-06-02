@@ -59,6 +59,10 @@ naming/scene_name_casing=1
 
 enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/resonate/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 theme/custom="res://Assets/UI/MainTheme.tres"
