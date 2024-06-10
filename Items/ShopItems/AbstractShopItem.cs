@@ -13,6 +13,7 @@ public abstract partial class AbstractShopItem : Node2D, IInteractable
 	{
 		base._Ready();
 		Sprite2D = new Sprite2D();
+		AddChild(Sprite2D);
 	}
 
 	public void Interact()

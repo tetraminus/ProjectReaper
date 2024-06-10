@@ -10,9 +10,10 @@ public partial class ShopItemCollectible : AbstractShopItem
     public override void _Ready()
     {
         base._Ready();
+        Item = ItemLibrary.Instance.RollItem();
         Sprite2D.Texture = Item.Icon;
 
-        Item = ItemLibrary.Instance.RollItem();
+        
 
     }
     
