@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://tdgmuo3j5ltv"]
+[gd_scene load_steps=31 format=3 uid="uid://tdgmuo3j5ltv"]
 
 [ext_resource type="Script" path="res://Player/PlayerHud.cs" id="1_map4d"]
 [ext_resource type="Texture2D" uid="uid://swi8mthlv6mg" path="res://Assets/UI/HPBar_Under.png" id="2_pti3b"]
@@ -11,7 +11,12 @@
 [ext_resource type="Texture2D" uid="uid://ksmrq1ho1vtv" path="res://Assets/UI/Fight/h.png" id="9_6ehji"]
 [ext_resource type="Texture2D" uid="uid://cc7n8s3gmqd8g" path="res://Assets/UI/Fight/t.png" id="10_ik2hg"]
 [ext_resource type="Texture2D" uid="uid://dl3qowx6rnadb" path="res://Assets/UI/Fight/!.png" id="11_1u6df"]
+[ext_resource type="Script" path="res://Player/DreamCollapseHud.cs" id="12_mrx3d"]
 [ext_resource type="Script" path="res://Menu/ChooseItemMenu.cs" id="12_vhg1p"]
+[ext_resource type="Shader" path="res://Vfx/ChromaticAbberation.gdshader" id="13_1l7t1"]
+[ext_resource type="Texture2D" uid="uid://bnn5umsth3txs" path="res://Assets/UI/CollapseTimerBack.png" id="14_w6kt4"]
+[ext_resource type="Shader" path="res://Vfx/Goop.gdshader" id="15_snbh5"]
+[ext_resource type="Texture2D" uid="uid://dnfumsag2rx8r" path="res://Assets/UI/CollapseTimerfront.png" id="16_ib75m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v4jcw"]
 font_size = 100
@@ -103,6 +108,45 @@ _data = {
 "fight": SubResource("Animation_ujn38")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qc732"]
+shader = ExtResource("13_1l7t1")
+shader_parameter/strength = 0.002
+shader_parameter/Timescale = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_fpk0q"]
+line_spacing = 3.26
+font_size = 100
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gc5xl"]
+frequency = 0.1189
+offset = Vector3(0, 0, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qc6et"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.009
+noise = SubResource("FastNoiseLite_gc5xl")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0faft"]
+seed = 1
+frequency = 0.0266
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a4eir"]
+height = 1
+seamless = true
+noise = SubResource("FastNoiseLite_0faft")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sq3ql"]
+shader = ExtResource("15_snbh5")
+shader_parameter/scale = 0.5
+shader_parameter/threshold = 0.251
+shader_parameter/Aberration = 0.091
+shader_parameter/pixelize = false
+shader_parameter/alphaNoise = false
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_qc6et")
+shader_parameter/abberration_texture = SubResource("NoiseTexture2D_a4eir")
+
 [sub_resource type="LabelSettings" id="LabelSettings_w8h8r"]
 font_size = 100
 
@@ -133,15 +177,6 @@ grow_vertical = 0
 text = "atime
 "
 label_settings = SubResource("LabelSettings_v4jcw")
-
-[node name="Difficulty" type="Label" parent="PlayerHud"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -199.0
-offset_bottom = 77.0
-grow_horizontal = 0
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PlayerHud"]
 layout_mode = 1
@@ -333,6 +368,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerHud/DeathHud"]
 layout_mode = 1
@@ -352,11 +388,13 @@ grow_vertical = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 80
+theme_override_font_sizes/italics_font_size = 80
+theme_override_font_sizes/mono_font_size = 80
 theme_override_font_sizes/normal_font_size = 80
 theme_override_font_sizes/bold_font_size = 80
-theme_override_font_sizes/italics_font_size = 80
-theme_override_font_sizes/bold_italics_font_size = 80
-theme_override_font_sizes/mono_font_size = 80
 bbcode_enabled = true
 text = "[color=red]YOU DIED[/color]"
 fit_content = true
@@ -366,12 +404,76 @@ autowrap_mode = 0
 [node name="Control" type="Control" parent="PlayerHud/DeathHud/VBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Button" type="Button" parent="PlayerHud/DeathHud/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 1
 theme_override_font_sizes/font_size = 71
 text = "Quit"
+
+[node name="DreamCollapseHud" type="Control" parent="PlayerHud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -239.5
+offset_top = -178.0
+offset_right = 239.5
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(239, 89)
+script = ExtResource("12_mrx3d")
+
+[node name="Abbr" type="CanvasGroup" parent="PlayerHud/DreamCollapseHud"]
+material = SubResource("ShaderMaterial_qc732")
+use_parent_material = true
+
+[node name="DreamCollapseText" type="Label" parent="PlayerHud/DreamCollapseHud/Abbr"]
+visible = false
+custom_minimum_size = Vector2(700, 80)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.5
+offset_right = 589.5
+offset_bottom = 80.0
+grow_horizontal = 2
+pivot_offset = Vector2(350, 40)
+text = "The dream is collapsing!"
+label_settings = SubResource("LabelSettings_fpk0q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerBg" type="TextureRect" parent="PlayerHud/DreamCollapseHud/Abbr"]
+offset_left = 175.5
+offset_top = 25.0
+offset_right = 303.5
+offset_bottom = 153.0
+texture = ExtResource("14_w6kt4")
+
+[node name="TimerGroup" type="CanvasGroup" parent="PlayerHud/DreamCollapseHud"]
+material = SubResource("ShaderMaterial_sq3ql")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PlayerHud/DreamCollapseHud/TimerGroup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 175.5
+offset_top = 25.0
+offset_right = 303.5
+offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 66.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("16_ib75m")
 
 [node name="ChooseItemMenu" type="Control" parent="."]
 process_mode = 3

@@ -23,6 +23,9 @@ signal banks_updated
 ## [signal MusicManager.pools_updated] is emitted.
 signal updated
 
+## Emitted when a music track has completed playing and is about to loop.
+signal song_loop_completed(bank_label: String, track_name: String)
+
 ## Whether the MusicManager has completed setup and is ready to
 ## play music tracks and enable and disable stems.
 var has_loaded: bool = false
@@ -116,6 +119,7 @@ func play(p_bank_label: String, p_track_name: String, p_crossfade_time: float = 
 	player.start_stems(stems, p_crossfade_time)
 	player.stopped.connect(_on_player_stopped.bind(player))
 	
+	player.auto_loop_completed.connect(_music_finished, CONNECT_REFERENCE_COUNTED)
 	if p_auto_loop:
 		player.auto_loop_completed.connect(_on_auto_loop_completed, CONNECT_REFERENCE_COUNTED)
 	
@@ -373,5 +377,11 @@ func _on_player_stopped(p_player: StemmedMusicStreamPlayer) -> void:
 	remove_child(p_player)
 
 
+func _music_finished(p_bank_label: String, p_track_name: String, fadetime: float) -> void:
+	song_loop_completed.emit(p_bank_label, p_track_name)
+	print("Auto loop completed")
+
 func _on_auto_loop_completed(p_bank_label: String, p_track_name: String, p_crossfade_time: float) -> void:
+	
 	play(p_bank_label, p_track_name, p_crossfade_time, true)
+	

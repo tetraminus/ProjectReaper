@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 /// <summary>
@@ -16,6 +17,8 @@ public partial class AudioManager : Node
 
     [Signal]
     public delegate void SoundManagerUpdatedEventHandler();
+    
+    [Signal] public delegate void MusicManagerLoopedEventHandler(string bank, string music);
 
     public static AudioManager Instance;
 
@@ -39,6 +42,8 @@ public partial class AudioManager : Node
 
         _musicManager.Connect("updated", Callable.From(OnMusicManagerUpdated));
         _soundManager.Connect("updated", Callable.From(OnSoundManagerUpdated));
+
+        _musicManager.Connect("song_loop_completed", Callable.From(new Action<string,string>(OnMusicManagerLooped)));
     }
 
     private void OnMusicManagerLoaded()
@@ -59,6 +64,11 @@ public partial class AudioManager : Node
     private void OnSoundManagerUpdated()
     {
         EmitSignal(SignalName.SoundManagerUpdated);
+    }
+    
+    private void OnMusicManagerLooped(string bank, string music)
+    {
+        EmitSignal(SignalName.MusicManagerLooped, bank, music);
     }
         
     /*--------------------Sound--------------------*/

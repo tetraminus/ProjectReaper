@@ -2,6 +2,7 @@
 using ProjectReaper.Components;
 using ProjectReaper.Globals;
 using ProjectReaper.Player;
+using ProjectReaper.Util;
 
 namespace ProjectReaper.Enemies.Bosses.Leech;
 
@@ -11,6 +12,7 @@ public partial class WanderState : AbstractState
     private Vector2 spawnPoint;
     private NavigationAgent2D _navigationAgent;
     private Vector2 _movementTarget;
+    private TextureRect _alertTexture;
 
     public override void _Ready()
     {
@@ -18,6 +20,21 @@ public partial class WanderState : AbstractState
 
         // Make sure to not await during _Ready.
         Callable.From(ActorSetup).CallDeferred();
+        
+    }
+    
+    private void OnHit(DamageReport damageReport)
+    {
+        if (StateMachine.GetCurrentStateName() != "WanderState") return;
+        if (damageReport.Source == null) return;
+        
+        if (damageReport.Source.Team == AbstractCreature.Teams.Player && damageReport.finalDamage > 0)
+        {
+            StateMachine.ChangeState("ChaseState");
+            _alertTexture.Visible = true;
+            _alertTexture.Modulate = new Color(1, 0, 0, 1);
+        }
+        
     }
 
     public override void OnEnter(object[] args)
@@ -25,6 +42,8 @@ public partial class WanderState : AbstractState
         var leechbert = StateMachine.Creature as Leechbert;
         leechbert.MoveDirection = Vector2.Zero;
         leechbert.Velocity = Vector2.Zero;
+        if (_alertTexture != null) _alertTexture.Visible = false;
+        _interest = 0;
         
         _navigationAgent.TargetPosition = spawnPoint;
     }
@@ -36,9 +55,10 @@ public partial class WanderState : AbstractState
         var leechbert = StateMachine.Creature as Leechbert;
         var player = GameManager.Player;
         
-        if (player.GlobalPosition.DistanceTo(leechbert.GlobalPosition) < 500){
+        if (player.GlobalPosition.DistanceTo(leechbert.GlobalPosition) < 150){
             var parameters = new PhysicsRayQueryParameters2D();
             parameters.From = leechbert.GlobalPosition;
+            
             parameters.To = player.GlobalPosition;
             // bit 1 is terrain
             parameters.CollisionMask = 1;
@@ -48,15 +68,21 @@ public partial class WanderState : AbstractState
             if (ray.Count == 0)
             {
                 _interest += (float) delta;
+                _alertTexture.Visible = true;
+                _alertTexture.Modulate = new Color(1, 1, 0, 1);
             }
             else
             {
                 _interest = 0;
+                _alertTexture.Visible = false;
+                
             }
             
             if (_interest > 1)
             {
                 StateMachine.ChangeState("ChaseState");
+                _alertTexture.Visible = true;
+                _alertTexture.Modulate = new Color(1, 0, 0, 1);
             }
             
             
@@ -74,7 +100,7 @@ public partial class WanderState : AbstractState
         // simulate friction with delta
         if (leechbert.Velocity.Length() > leechbert.Stats.Speed || leechbert.MoveDirection == Vector2.Zero)
         {
-            leechbert.Velocity = leechbert.Velocity.Lerp(Vector2.Zero, (float)delta * 2f);
+            leechbert.Velocity = leechbert.Velocity.Lerp(Vector2.Zero, (float)delta * 10f);
         }
         
         
@@ -96,7 +122,16 @@ public partial class WanderState : AbstractState
 
         
     }
-    
+
+    public override void OnExit()
+    {
+        GetTree().CreateTimer(0.5f).Timeout += () =>
+        {
+            _alertTexture.Visible = false;
+        };
+        
+    }
+
     private async void ActorSetup()
     {
         // Wait for the first physics frame so the NavigationServer can sync.
@@ -113,5 +148,9 @@ public partial class WanderState : AbstractState
 
         // Now that the navigation map is no longer empty, set the movement target.
         _movementTarget = spawnPoint;
+        
+        var leechbert = StateMachine.Creature as Leechbert;
+        leechbert.Hit += OnHit;
+        _alertTexture = StateMachine.Creature.GetNode<TextureRect>("AlertTexture");
     }
 }

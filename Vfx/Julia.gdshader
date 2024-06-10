@@ -2,8 +2,8 @@ shader_type canvas_item;
 uniform float alpha = 1.0;
 
 void vertex() {
-    
-	
+
+
 }
 
 vec3 JuliaSet(vec2 c, vec2 z, float max_iter) {
@@ -23,11 +23,11 @@ void fragment() {
 	vec2 uv = UV;
 	//animation
     vec2 c = vec2(sin(TIME/2.1), cos(TIME));
-    
-    
+
+
     vec2 z = vec2(uv.x * 3.0 - 1.5, uv.y * 2.0 - 1.0);
     vec3 color = JuliaSet(c, z, 50.0);
     COLOR = vec4(color, alpha);
-	
+
 }
 

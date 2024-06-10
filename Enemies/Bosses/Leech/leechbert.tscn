@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://by78vrfc67qa1"]
+[gd_scene load_steps=24 format=3 uid="uid://by78vrfc67qa1"]
 
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/Leechbert.cs" id="1_crr6j"]
 [ext_resource type="Texture2D" uid="uid://ca5n3slsgbyu8" path="res://Assets/Enemies/Bosses/Leech.png" id="2_jjqqp"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bp4v6ckfya3da" path="res://Abilities/Projectiles/MeleeArea.tscn" id="7_vxpn5"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/WanderState.cs" id="8_5qlp6"]
 [ext_resource type="Script" path="res://Enemies/Bosses/Leech/ShootState.cs" id="8_cxtnl"]
+[ext_resource type="Texture2D" uid="uid://cicicertvgeuw" path="res://Assets/Enemies/Alert.png" id="11_n4cxb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x260n"]
 atlas = ExtResource("2_jjqqp")
@@ -146,3 +147,18 @@ position = Vector2(18, 0)
 shape = SubResource("RectangleShape2D_4o40r")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AlertTexture" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -36.0
+offset_right = 8.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("11_n4cxb")

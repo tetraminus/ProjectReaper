@@ -55,6 +55,9 @@ public partial class Callbacks : Node
     [Signal]
     public delegate void PreChestOpenedEventHandler(Chest chest);
     
+    [Signal] 
+    public delegate void CollapseStartEventHandler();
+    
 
     public FinalDamageEventHandler FinalDamageEvent = (creature, damage) => damage;
 

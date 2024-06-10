@@ -13,8 +13,8 @@ public partial class PlayerHud : Control
     
     public ItemHudPopup InfoHudPopup;
     public Label FPS;
-    public Label Difficulty ;
     public VBoxContainer KeyInventory;
+    public DreamCollapseHud DreamCollapseHud;
     
     private const int Numberofdeathquotes = 19;
     [Signal]
@@ -32,10 +32,12 @@ public partial class PlayerHud : Control
         
         GetNode<AnimationPlayer>("FightAnimPlayer").Connect(AnimationMixer.SignalName.AnimationFinished, new Callable(this, MethodName.OnFightAnimFinished));
         FPS = GetNode<Label>("FPS");
-        Difficulty = GetNode<Label>("Difficulty");
+        
         GetNode<Control>("DeathHud").Hide();
         
         KeyInventory = GetNode<VBoxContainer>("%KeyInventory");
+        
+        DreamCollapseHud = GetNode<DreamCollapseHud>("DreamCollapseHud");
     }
     
     public void ShowDeathHud()
@@ -111,7 +113,6 @@ public partial class PlayerHud : Control
         if (!GameManager.InRun) return;
         if (GameManager.CurrentRun == null) return;
         FPS.Text = $"{GameManager.CurrentRun.Time:0.00}";
-        Difficulty.Text = GameManager.GetRunDifficulty().ToString(CultureInfo.InvariantCulture);
         base._Process(delta);
     }
 
@@ -187,5 +188,7 @@ public partial class PlayerHud : Control
         
         GetNode<Control>("DeathHud").Hide();
     }
+
+    
 }
 

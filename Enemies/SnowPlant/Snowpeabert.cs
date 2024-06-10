@@ -218,6 +218,7 @@ public partial class Snowpeabert : AbstractCreature
         var bullet = BulletScene.Instantiate<BasicBullet>();
         bullet.Init(this, Team, GlobalPosition, rotation);
         bullet.Speed = 200;
+        bullet.Damage = 8;
         GameManager.Level.AddChild(bullet);
         bullet.Resprite(BulletTexture);
     }
