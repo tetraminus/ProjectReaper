@@ -1,14 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3q2khqamjam3"]
+[gd_scene load_steps=23 format=3 uid="uid://d3q2khqamjam3"]
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_138kq"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_sp7nx"]
 [ext_resource type="Texture2D" uid="uid://dhchalxifdt3d" path="res://Levels/Level1/floor1levellayouts.png" id="3_a4tpl"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="4_kqr7n"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_8t50y"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_o0hb6"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="8_vixlw"]
 [ext_resource type="PackedScene" uid="uid://cxk7v0kp0r2kg" path="res://Enemies/Bosses/Eye/EyeBoss.tscn" id="9_ctj5s"]
-[ext_resource type="PackedScene" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
+[ext_resource type="PackedScene" uid="uid://cxxfh848gubsf" path="res://Objects/BossGate/BossGateSide.tscn" id="9_sbmi3"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="11_meqad"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvw8c"]
@@ -75,13 +74,6 @@ SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
 DreamCollapseEndLocation = NodePath("BossGate/Node2D2")
 LevelSize = Vector2(1024, 1024)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-1012, 232)
-zoom = Vector2(3, 3)
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-script = ExtResource("2_sp7nx")
 
 [node name="Floor1Levellayouts" type="Sprite2D" parent="."]
 visible = false
@@ -269,7 +261,7 @@ _bossScene = ExtResource("9_ctj5s")
 _phantomCamera = NodePath("PhantomCamera2D")
 
 [node name="PhantomCamera2D" type="Node2D" parent="BossGate"]
-position = Vector2(-686, 518)
+position = Vector2(321, 286)
 script = ExtResource("11_meqad")
 priority_override = false
 priority = 0

@@ -22,4 +22,3 @@ void fragment() {
 	COLOR = vec4(red, green, blue, alpha);
 
 }
-

@@ -179,6 +179,13 @@ public partial class GameManager : Node
         screen.GrabFocus();
         CurrentScreen = screen;
         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
+        
+        // var bus = AudioServer.GetBusIndex("Music");
+        // var effect = AudioServer.GetBusEffect(bus, 0) as AudioEffectLowPassFilter;
+        //
+        // var tween = MainNode.GetTree().CreateTween();
+        // tween.TweenProperty(effect, "cutoff_hz", 100 ,1);
+
     }
 
     public static void PauseGame()
@@ -195,6 +202,13 @@ public partial class GameManager : Node
         screen.Hide();
         CurrentScreen = null;
         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
+        
+        // var bus = AudioServer.GetBusIndex("Music");
+        // var effect = AudioServer.GetBusEffect(bus, 0) as AudioEffectLowPassFilter;
+        //
+        // var tween = MainNode.GetTree().CreateTween();
+        // tween.TweenProperty(effect, "cutoff_hz", 20000 ,1);
+        
     }
 
     public static void UnpauseGame()
@@ -262,7 +276,7 @@ public partial class GameManager : Node
         Player = PlayerRoot.GetNode<Player.Player>("%Player");
         
         CurrentRun.Player = Player;
-        Player.AddKey(Key.BasicKeyId, 3);
+        Player.AddKey(Key.BasicKeyId, 2);
         Level.AddPlayer(PlayerRoot);
         
         
@@ -363,6 +377,8 @@ public partial class GameManager : Node
         Level.RemoveChild(PlayerRoot);
         Level.QueueFree();
         await Level.ToSignal(Level, Node.SignalName.TreeExited);
+        
+        
 
         CurrentRun.CurrentLevel++;
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
@@ -375,6 +391,32 @@ public partial class GameManager : Node
           ScreenFader.FadeIn(1);
         }
     }
+    
+    public static async void GoToShop(bool playAnimation = true)
+    {
+        if (playAnimation)
+        {
+
+            ScreenFader.FadeOut(1);
+            await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
+        }
+
+        Level.RemoveChild(PlayerRoot);
+        Level.QueueFree();
+        await Level.ToSignal(Level, Node.SignalName.TreeExited);
+        
+        Level = LevelLoader.Instance.GetRandomShopScene().Instantiate<Level>();
+        MainNode.AddChild(Level);
+        Level.AddPlayer(PlayerRoot);
+        Level.Generate();
+
+        if (playAnimation)
+        {
+            ScreenFader.FadeIn(1);
+        }
+    }
+    
+    
 
     public static void GoToLibrary(bool cheat = false)
     {

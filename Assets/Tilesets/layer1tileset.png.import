@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mdeqq3cc3m3i"
-path="res://.godot/imported/Microwave-1.png.png-5f6403a529c530e4d69716846b0a8a6a.ctex"
+uid="uid://doasfd3y0gdot"
+path="res://.godot/imported/layer1tileset.png-2019acd1a5274e3534c40303004aa326.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Level1/Microwave-1.png.png"
-dest_files=["res://.godot/imported/Microwave-1.png.png-5f6403a529c530e4d69716846b0a8a6a.ctex"]
+source_file="res://Assets/Tilesets/layer1tileset.png"
+dest_files=["res://.godot/imported/layer1tileset.png-2019acd1a5274e3534c40303004aa326.ctex"]
 
 [params]
 

@@ -14,6 +14,7 @@ public partial class PlayerHud : Control
     public ItemHudPopup InfoHudPopup;
     public Label FPS;
     public VBoxContainer KeyInventory;
+    public DreamCollapseHud DreamCollapseHud;
     
     private const int Numberofdeathquotes = 19;
     [Signal]
@@ -35,6 +36,8 @@ public partial class PlayerHud : Control
         GetNode<Control>("DeathHud").Hide();
         
         KeyInventory = GetNode<VBoxContainer>("%KeyInventory");
+        
+        DreamCollapseHud = GetNode<DreamCollapseHud>("DreamCollapseHud");
     }
     
     public void ShowDeathHud()

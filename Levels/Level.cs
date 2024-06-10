@@ -6,6 +6,7 @@ using Godot.Collections;
 using media.Laura.SofiaConsole;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
+using ProjectReaper.Player;
 using Key = ProjectReaper.Objects.Key.Key;
 
 namespace ProjectReaper;
@@ -23,14 +24,21 @@ public partial class Level : Node2D
 	private float _totalSpawnArea;
 	
 	[Export]
-	public double CollapseTimeMax { get; set; } = 1;//60 * 4;
+	public double CollapseTimeMax { get; set; } = 60 * 1;
 	public double CollapseTime;
+	[Export]
+	public int MaxCollapseStrikes { get; set; } = 2;
+	
+	private int _currentCollapseStrikes;
+	
+	public bool CollapseTimeRunning { get; set; }
+	
 	public bool Collapsing { get; set; }
 	private const float _minSpawnDistance = 500;
 	private Godot.Collections.Dictionary<SpawnRect, float> _spawnRectWeights = new Godot.Collections.Dictionary<SpawnRect, float>();
 	[Export] public bool DisableSpawning { get; set; }
 	[Export] public bool DropKeys = true;
-	[Export] public float KeysPerMiniboss = 5;
+	[Export] public float KeysPerMiniboss = 3;
 	
 	[Export] public Array<string> FightStems = new Array<string>();
 	
@@ -83,12 +91,23 @@ public partial class Level : Node2D
 		_renavTimer.Start();
 		
 		CollapseTime = CollapseTimeMax;
+		_currentCollapseStrikes = MaxCollapseStrikes;
+		CollapseTimeRunning = false;
+		GameManager.PlayerHud.DreamCollapseHud.HideHud();
 		
 	}
 
 	public override void _Process(double delta)
 	{
-		CollapseTime -= delta;
+		if (CollapseTimeRunning)
+		{
+			CollapseTime -= delta;
+		}
+		else
+		{
+			CollapseTime = CollapseTimeMax;
+		}
+		
 		
 		if (CollapseTime <= 0 && !Collapsing)
 		{
@@ -148,8 +167,18 @@ public partial class Level : Node2D
 	{
 		if (creature.IsInGroup("miniboss"))
 		{
+			if (!CollapseTimeRunning)
+			{
+				_currentCollapseStrikes--;
+				if (_currentCollapseStrikes <= 0)
+				{
+					CollapseTimeRunning = true;
+					GameManager.PlayerHud.DreamCollapseHud.ShowHud();
+				}
+			}
 			
-			CollapseTime -= 45;
+			
+			
 			
 			if (DropKeys)
 			{
@@ -228,7 +257,7 @@ public partial class Level : Node2D
 	
 	
 
-	public void Generate()
+	public virtual void Generate()
 	{
 		LootDirector.Instance.PlaceInteractables(NumberOfChests, this);
 		SpawnDirector.Instance.PlaceMiniBosses(4, this);
@@ -312,7 +341,7 @@ public partial class Level : Node2D
 		AudioManager.Instance.MusicManagerLooped -= OnMusicManagerLooped;
 		if (sound == "DreamCollapseStart")
 		{
-			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 1.2f);
+			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 0.001f);
 		}
 		
 	}
