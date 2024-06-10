@@ -24,6 +24,6 @@ public partial class SoldierRoll : AbstractAbility
                 // add layer 3
                 player.SetCollisionMaskValue(3, true);
             };
-        }
-    }
+        }   
+    }   
 }
