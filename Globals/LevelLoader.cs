@@ -8,6 +8,7 @@ public partial class LevelLoader : Node
     private const string LevelPath = "res://Levels/";
 
     public Dictionary<int, Array<PackedScene>> LevelScenes = new();
+    public Array<PackedScene> ShopScenes = new();
 
     public static LevelLoader Instance { get; private set; }
 
@@ -15,7 +16,9 @@ public partial class LevelLoader : Node
     {
         Instance = this;
         LoadLevelScenes();
+        LoadShopScenes();
         PrintVariantScenes();
+        PrintShopScenes();
     }
 
     private void LoadLevelScenes()
@@ -42,6 +45,26 @@ public partial class LevelLoader : Node
             LevelScenes.Add(levelIndex, levelScenes);
         }
     }
+    
+    public void LoadShopScenes()
+    {
+        // all scenes in the shop folder
+        var shopDir = LevelPath + "Shops";
+        var shopScenes = new Array<PackedScene>();
+
+        for (var shopIndex = 1;; shopIndex++)
+        {
+            var shopScenePath = shopDir + "/Shop" + shopIndex + ".tscn";
+
+            if (ResourceLoader.Exists(shopScenePath) == false)
+                break;
+
+            var shopScene = GD.Load<PackedScene>(shopScenePath);
+            shopScenes.Add(shopScene);
+        }
+        
+        ShopScenes = shopScenes;
+    }
 
     public PackedScene GetLevelScene(int levelIndex, int variantIndex)
     {
@@ -59,5 +82,16 @@ public partial class LevelLoader : Node
     {
         foreach (var (levelIndex, levelScenes) in LevelScenes)
             GD.Print("Level " + levelIndex + " has " + levelScenes.Count + " variants");
+    }
+    
+    public void PrintShopScenes()
+    {
+        GD.Print("Shop has " + ShopScenes.Count + " scenes");
+    }
+
+    public PackedScene GetRandomShopScene()
+    {
+        var randomIndex = GameManager.LevelRng.RandiRange(0, ShopScenes.Count - 1);
+        return ShopScenes[randomIndex];
     }
 }

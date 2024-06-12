@@ -24,8 +24,12 @@ public partial class HealthyBreakfast : AbstractItem
     public override void OnStack(int newstacks)
     {
         base.OnStack(newstacks);
-        GetHolder().Heal(GetHolder().Stats.MaxHealth * HP * newstacks);
+        if (newstacks > 0)
+        {
+            GetHolder().Heal(GetHolder().Stats.MaxHealth * HP * newstacks);
+        }
     }
+
 
     public void CalculateStat(ref float stat, string statname, AbstractCreature creature)
     {

@@ -12,7 +12,7 @@ public partial class Lightsaber : AbstractItem
     public override string Id => "lightsaber";
     public override ItemRarity Rarity => ItemRarity.Uncommon;
     private static readonly PackedScene _fireZoneScene =
-        ResourceLoader.Load<PackedScene>("res://Items/Prefabs/FireZone.tscn");
+        GD.Load<PackedScene>("res://Items/Prefabs/FireZone.tscn");
     
     public override void OnInitalPickup()
     {
