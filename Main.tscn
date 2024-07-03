@@ -12,13 +12,13 @@
 [ext_resource type="AudioStream" uid="uid://cf451p70nelqr" path="res://Assets/Audio/Ui/Blip_Select118.wav" id="8_jpto2"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
-[ext_resource type="AudioStream" uid="uid://bh1tdw4gls75o" path="res://Assets/Audio/Music/Main menu music(1).mp3" id="12_kjb3i"]
 [ext_resource type="AudioStream" uid="uid://c1iul3g2n0kxo" path="res://Assets/Audio/Music/level1/Main_1.wav" id="13_bn41b"]
 [ext_resource type="AudioStream" uid="uid://mjgq3p0lbh0e" path="res://Assets/Audio/Music/level1/Layer 2_1.wav" id="14_psoqt"]
 [ext_resource type="AudioStream" uid="uid://d0nvf2unqm4jw" path="res://Assets/Audio/Music/level1/Boss_1.wav" id="15_f83jc"]
-[ext_resource type="AudioStream" uid="uid://cfmigjqymt10j" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseMain.mp3" id="17_375o5"]
-[ext_resource type="AudioStream" uid="uid://dytjeaxiamw4k" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseBattle.mp3" id="18_pen57"]
-[ext_resource type="AudioStream" uid="uid://i2qh3kl248cp" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapseStart.mp3" id="19_g250n"]
+[ext_resource type="AudioStream" uid="uid://cifad8e0pmma0" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-02.wav" id="17_8dqcw"]
+[ext_resource type="AudioStream" uid="uid://dtcvu2esprerv" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-03.wav" id="18_vusbp"]
+[ext_resource type="AudioStream" uid="uid://dcy8kwgc6b1hj" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-01.wav" id="19_3cknf"]
+[ext_resource type="AudioStream" uid="uid://bh1tdw4gls75o" path="res://Assets/Audio/Music/Main menu music(1).mp3" id="20_8umuy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
 frequency = 0.0049
@@ -45,9 +45,9 @@ shader_parameter/noise = SubResource("NoiseTexture2D_tpl5i")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nwobf"]
 shader = ExtResource("2_f4j4b")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.303
-shader_parameter/scanlines_width = 0.13
-shader_parameter/grille_opacity = 0.058
+shader_parameter/scanlines_opacity = 0.3
+shader_parameter/scanlines_width = 0.058
+shader_parameter/grille_opacity = 0.2
 shader_parameter/resolution = Vector2(480, 270)
 shader_parameter/pixelate = false
 shader_parameter/roll = true
@@ -58,7 +58,7 @@ shader_parameter/distort_intensity = 0.001
 shader_parameter/noise_opacity = 0.018
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.03
-shader_parameter/aberration = 4.75e-08
+shader_parameter/aberration = 0.00400005
 shader_parameter/brightness = 1.0
 shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.0
@@ -87,7 +87,7 @@ script = ExtResource("10_wodfd")
 name = "main"
 enabled = true
 volume = 0.0
-stream = ExtResource("12_kjb3i")
+stream = ExtResource("20_8umuy")
 
 [sub_resource type="Resource" id="Resource_umwak"]
 script = ExtResource("9_7x8tp")
@@ -127,14 +127,14 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("17_375o5")
+stream = ExtResource("17_8dqcw")
 
 [sub_resource type="Resource" id="Resource_vih7h"]
 script = ExtResource("10_wodfd")
 name = "Boss"
 enabled = false
 volume = 0.0
-stream = ExtResource("18_pen57")
+stream = ExtResource("18_vusbp")
 
 [sub_resource type="Resource" id="Resource_skeo6"]
 script = ExtResource("9_7x8tp")
@@ -147,7 +147,7 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("19_g250n")
+stream = ExtResource("19_3cknf")
 
 [sub_resource type="Resource" id="Resource_grf05"]
 script = ExtResource("9_7x8tp")
@@ -190,6 +190,8 @@ material = SubResource("ShaderMaterial_nwobf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

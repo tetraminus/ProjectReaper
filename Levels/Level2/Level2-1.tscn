@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_7hfv5"]
 [ext_resource type="Texture2D" uid="uid://btuua2dk6si1e" path="res://Levels/Level2/Level2-2.png" id="2_ryd3e"]
-[ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Tilesets/Floor1.tres" id="3_xkg8b"]
+[ext_resource type="TileSet" uid="uid://df7hll4gvr0yv" path="res://Assets/Tilesets/Floor1.tres" id="3_xkg8b"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="4_hcqo2"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="5_mr5mf"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_1amfb"]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dpguib8f3vaes"]
+
+[node name="ShopItemSpawn" type="Node2D" groups=["ShopItemSpawnPoints"]]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+gizmo_extents = 32.0

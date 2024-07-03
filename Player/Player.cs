@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using ProjectReaper.Abilities;
@@ -10,6 +11,7 @@ namespace ProjectReaper.Player;
 public partial class Player : AbstractCreature
 {
 	
+	private AnimatedSprite2D _sprite;
 	private const float Accelfac = 20.0f;
 	[Export(PropertyHint.NodeType)] private AbilityManager _abilityManager;
 	public Vector2 MoveDirection { get; set; }
@@ -19,6 +21,7 @@ public partial class Player : AbstractCreature
 	
 	private bool _controllerMode = false;
 	private float _lastAim = 0;
+
 
 	public override void _Input(InputEvent @event)
 	{
@@ -46,6 +49,8 @@ public partial class Player : AbstractCreature
 
 	public override void _Ready()
 	{
+
+		
 		base._Ready();
 		if (_abilityManager.GetParent() != this) _abilityManager.Reparent(this);
 		GameManager.Player = this;
@@ -53,6 +58,7 @@ public partial class Player : AbstractCreature
 		Team = Teams.Player;
 		LastNavPos = GlobalPosition;
 		Dead = false;
+		_sprite = GetNode<AnimatedSprite2D>("Sprite");
 	}
 
 	public override void _ExitTree()
@@ -104,13 +110,12 @@ public partial class Player : AbstractCreature
 		}
 		
 		var inputDir = Input.GetVector("Move_Left", "Move_Right", "Move_Up", "Move_Down");
-		// add less speed when moving fast
 		
 		Velocity += inputDir * Stats.Speed * delta * Accelfac;
 		
 		MoveDirection = inputDir;
 	}
-
+	
 	
 
 
@@ -118,6 +123,55 @@ public partial class Player : AbstractCreature
 	{
 		
 		if (Dead) return;
+
+		var StopMove = false;
+		var aimDir = AimDirection();
+		var aimVec = Vector2.FromAngle(aimDir).Normalized();
+		
+		if (aimVec.Dot(Vector2.Up) > 0.5)
+		{
+			_sprite.Play("MoveUp");
+		}
+		else if (aimVec.Dot(Vector2.Down) > 0.5)
+		{
+			_sprite.Play("MoveDown");
+		}
+		else if (aimVec.Dot(Vector2.Right) > 0.5)
+		{
+			_sprite.Play("MoveRight");
+		}
+		else if (aimVec.Dot(Vector2.Left) > 0.5)
+		{
+			_sprite.Play("MoveLeft");
+		}
+		
+		
+		if (MoveDirection == Vector2.Zero)
+		{
+			StopMove = true;
+
+			if ( aimVec.Dot(Vector2.Up) > 0.5)
+			{
+				_sprite.Play("IdleUp");
+			}
+			else if (aimVec.Dot(Vector2.Down) > 0.5)
+			{
+				_sprite.Play("IdleDown");
+			}
+			else if (aimVec.Dot(Vector2.Right) > 0.5)
+			{
+				_sprite.Play("IdleRight");
+			}
+			else if (aimVec.Dot(Vector2.Left) > 0.5)
+			{
+				_sprite.Play("IdleLeft");
+			}
+			{
+				
+			}
+		}
+		
+		
 		
 		if (_controllerMode)
 		{

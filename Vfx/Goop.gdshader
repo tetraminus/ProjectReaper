@@ -7,6 +7,7 @@ uniform float scale : hint_range(0.0, 8.0);
 uniform float threshold : hint_range(0.0, 1.0);
 uniform float Aberration : hint_range(0.0, 1.0);
 uniform bool pixelize;
+uniform bool alphaNoise = false;
 
 
 void fragment() {
@@ -14,25 +15,45 @@ void fragment() {
 	vec2 pixelUV = SCREEN_UV;
 	vec2 purePixelUV = SCREEN_UV;
 
-	
+
 	pixelUV.y += TIME * 0.1;
 	pixelUV.x += sin(TIME* 0.5)/ 50.;
 	//pixelize 480 x 270
-	
-	pixelUV.x = floor(pixelUV.x * 480.0) / 480.0;
-	pixelUV.y = floor(pixelUV.y * 270.0) / 270.0;
+
+	vec2 res = 1.0/SCREEN_PIXEL_SIZE;
+	res /= 4.0;
+
+	pixelUV.x = floor(pixelUV.x * res.x) / res.x;
+	pixelUV.y = floor(pixelUV.y * res.y) / res.y;
+
+
+
 	if (pixelize) {
-		purePixelUV.x = floor(purePixelUV.x * 480.0) / 480.0;
-		purePixelUV.y = floor(purePixelUV.y * 270.0) / 270.0;
+		purePixelUV.x = floor(purePixelUV.x * res.x) / res.x;
+		purePixelUV.y = floor(purePixelUV.y * res.y) / res.y;
+
 	} else {
 		purePixelUV = SCREEN_UV;
 	}
-	
-	
-	
+
+	vec2 alphaUV = purePixelUV;
+
+	if (alphaNoise) {
+		// apply pixelized noise to alpha channel
+
+		// snapped offset for animation
+		float offset = TIME * 0.01;
+
+		vec4 alphax = texture(NOISE_TEXTURE, mod(purePixelUV*scale + offset + 0.1, 1.0));
+		vec4 alphay = texture(NOISE_TEXTURE, mod(purePixelUV*scale + offset, 1.0));
+		//alphaUV += (vec2(alpha.r, alpha.g)-0.5 ) * 0.1;
+		alphaUV.x += (alphax.r - 0.5) * 0.1;
+		alphaUV.y += (alphay.g - 0.5) * 0.1;
+	}
+
 
 	//vec4 c = texture(NOISE_TEXTURE, mod(pixelUV*4.0, 1.0));
-	
+
 	//c.a = distanceToVertex;
 
 	// Chromatic Aberration based on noise texture and time
@@ -40,7 +61,7 @@ void fragment() {
 	abberrationuv.x += TIME * 0.1;
 
 	float offset = Aberration * 0.01 * texture(abberration_texture, abberrationuv).r;
-	
+
 
 	vec4 red = texture(NOISE_TEXTURE, mod(pixelUV*scale + offset, 1.0));
 	vec4 green = texture(NOISE_TEXTURE, mod(pixelUV*scale, 1.0));
@@ -49,13 +70,9 @@ void fragment() {
 	green = green.x < threshold ? vec4(1.0, 1.0, 1.0, 1.0) : vec4(0.0, 0.0, 0.0, 1.0);
 	blue = blue.x < threshold ? vec4(1.0, 1.0, 1.0, 1.0) : vec4(0.0, 0.0, 0.0, 1.0);
 
+	COLOR = vec4(alphaUV.x, alphaUV.y, 0.0, 1.0);
 
-	COLOR = vec4(red.r, green.g, blue.b, texture(SCREEN_TEXTURE, purePixelUV).a);
+	COLOR = vec4(red.r, green.g, blue.b, texture(SCREEN_TEXTURE, alphaUV).a);
 }
 
-void light() {
-
-
-	
-	
-}
+void light() {}
