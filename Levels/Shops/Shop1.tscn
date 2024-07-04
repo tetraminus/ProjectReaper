@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://fboe2c3ylm87"]
+[gd_scene load_steps=5 format=4 uid="uid://fboe2c3ylm87"]
 
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="1_of5k6"]
 [ext_resource type="Script" path="res://Levels/ShopFloor.cs" id="1_sbile"]
 [ext_resource type="PackedScene" uid="uid://dpguib8f3vaes" path="res://Levels/Shops/ShopItemSpawn.tscn" id="2_wn2i2"]
+[ext_resource type="PackedScene" uid="uid://82k0r2tj0awo" path="res://Objects/Portal/Portal.tscn" id="4_io4t4"]
 
 [node name="Shop1" type="Node2D"]
 script = ExtResource("1_sbile")
@@ -23,3 +24,6 @@ position = Vector2(-17, 76)
 
 [node name="ShopItemSpawn3" parent="." instance=ExtResource("2_wn2i2")]
 position = Vector2(105, 74)
+
+[node name="Portal" parent="." instance=ExtResource("4_io4t4")]
+position = Vector2(0, -80)

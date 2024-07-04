@@ -38,6 +38,7 @@ namespace ProjectReaper.Interactables
             }
             Area2D.BodyEntered += OnBodyEntered;
             Area2D.BodyExited += OnBodyExited;
+            Area2D.CollisionMask = 4;
             
             TextureRect.Hide();
         }

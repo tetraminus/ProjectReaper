@@ -8,6 +8,7 @@ uniform float threshold : hint_range(0.0, 1.0);
 uniform float Aberration : hint_range(0.0, 1.0);
 uniform bool pixelize;
 uniform bool alphaNoise = false;
+uniform float alphaNoiseScale : hint_range(0.0, 8.0);
 
 
 void fragment() {
@@ -44,8 +45,8 @@ void fragment() {
 		// snapped offset for animation
 		float offset = TIME * 0.01;
 
-		vec4 alphax = texture(NOISE_TEXTURE, mod(purePixelUV*scale + offset + 0.1, 1.0));
-		vec4 alphay = texture(NOISE_TEXTURE, mod(purePixelUV*scale + offset, 1.0));
+		vec4 alphax = texture(NOISE_TEXTURE, mod(purePixelUV*scale*alphaNoiseScale + offset + 0.1, 1.0));
+		vec4 alphay = texture(NOISE_TEXTURE, mod(purePixelUV*scale*alphaNoiseScale + offset, 1.0));
 		//alphaUV += (vec2(alpha.r, alpha.g)-0.5 ) * 0.1;
 		alphaUV.x += (alphax.r - 0.5) * 0.1;
 		alphaUV.y += (alphay.g - 0.5) * 0.1;

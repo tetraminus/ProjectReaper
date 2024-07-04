@@ -13,12 +13,26 @@ public partial class ChooseItemMenu : Control
 	public override void _Ready()
 	{
 		_itemContainer = GetNode<HFlowContainer>("%ItemContainer");
+		FocusMode = FocusModeEnum.Click;
+		FocusEntered += () =>
+		{
+			if (_itemContainer.GetChildCount() > 0)
+			{
+				if (_itemContainer.GetChild(0) is ItemDisplay itemDisplay) {
+					itemDisplay.GrabFocus();
+				}
+				
+			}
+		};
 	}
+	
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
+	
+	
 	
 	public void AddItems(List<AbstractItem> items) {
 		foreach (var item in items) {
@@ -36,6 +50,7 @@ public partial class ChooseItemMenu : Control
 	private void OnItemClicked(AbstractItem item) {
 		GameManager.Player.AddItem(item);
 		GameManager.HideScreen(this);
+		
 		Clear();
 	}
 	

@@ -115,6 +115,7 @@ text = "Master Volume
 "
 
 [node name="KeyboardControls" type="TextureRect" parent="MainMenu/MenuScreen"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

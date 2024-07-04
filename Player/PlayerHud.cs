@@ -9,7 +9,7 @@ namespace ProjectReaper.Player;
 public partial class PlayerHud : Control
 {
     public static PackedScene ItemHudPopupScn => GD.Load<PackedScene>("res://Items/ItemHudPopup.tscn");
-    public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
+    public static PackedScene ItemDisplay => GD.Load<PackedScene>("res://Items/ItemDisplay.tscn");
     
     public ItemHudPopup InfoHudPopup;
     public Label FPS;

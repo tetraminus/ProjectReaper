@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dr3jhirf4kvwb"]
+
+[ext_resource type="Script" path="res://Items/ShopItems/ShopItemCollectible.cs" id="1_0mp2a"]
+[ext_resource type="PackedScene" uid="uid://djs4w12bsfxbc" path="res://Components/InteractableComponent.tscn" id="3_j41oq"]
+[ext_resource type="PackedScene" uid="uid://d15m3s7c27m4g" path="res://Components/HighlightComponent.tscn" id="3_wtyia"]
+[ext_resource type="Texture2D" uid="uid://cvxn350pypkr2" path="res://Assets/Icons/boom_stick.png" id="3_y5r0d"]
+[ext_resource type="Shader" path="res://Shaders/Highlight.gdshader" id="4_wy7aq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j2rw0"]
+radius = 32.0156
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hunb2"]
+resource_local_to_scene = true
+shader = ExtResource("4_wy7aq")
+shader_parameter/on = false
+
+[node name="ShopItemCollectible" type="Node2D"]
+script = ExtResource("1_0mp2a")
+
+[node name="Label" type="RichTextLabel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 10.0
+offset_right = 20.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "1 key"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("Interactable", "Highlight") instance=ExtResource("3_j41oq")]
+Interactable = NodePath("..")
+Highlight = NodePath("../HighlightComponent")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 8
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+shape = SubResource("CircleShape2D_j2rw0")
+
+[node name="HighlightComponent" parent="." instance=ExtResource("3_wtyia")]
+material = SubResource("ShaderMaterial_hunb2")
+
+[node name="Sprite" type="Sprite2D" parent="HighlightComponent"]
+unique_name_in_owner = true
+texture = ExtResource("3_y5r0d")

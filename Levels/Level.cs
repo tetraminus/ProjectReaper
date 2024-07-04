@@ -73,14 +73,17 @@ public partial class Level : Node2D
 
 		SpawnDirector.Instance.Init(spawnset);
 		if (!DisableSpawning) SpawnDirector.Instance.StartSpawning();
-
-		foreach (var spawnRect in SpawnRects.GetChildren()) {
-			_totalSpawnArea += ((SpawnRect)spawnRect).GetArea();
+		if (SpawnRects != null)
+		{
+			foreach (var spawnRect in SpawnRects.GetChildren()) {
+				_totalSpawnArea += ((SpawnRect)spawnRect).GetArea();
+			}
+		
+			foreach (var spawnRect in SpawnRects.GetChildren()) {
+				_spawnRectWeights.Add((SpawnRect)spawnRect, ((SpawnRect)spawnRect).GetArea() / _totalSpawnArea);
+			}
 		}
 		
-		foreach (var spawnRect in SpawnRects.GetChildren()) {
-			_spawnRectWeights.Add((SpawnRect)spawnRect, ((SpawnRect)spawnRect).GetArea() / _totalSpawnArea);
-		}
 		
 		Callbacks.Instance.CreatureDied += OnEnemyDeath;
 		
@@ -345,7 +348,7 @@ public partial class Level : Node2D
 		}
 		
 	}
-	[ConsoleCommand("Triggercollapse", Description = "Triggers the collapse")]
+	//[ConsoleCommand("Triggercollapse", Description = "Triggers the collapse")]
 	public void TriggerCollapseConsole()
 	{
 		TriggerCollapse();

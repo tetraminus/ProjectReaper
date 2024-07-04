@@ -6,14 +6,12 @@ using Key = ProjectReaper.Objects.Key.Key;
 public abstract partial class AbstractShopItem : Node2D, IInteractable
 {
 	
-	public int Cost { get; set; }
-	public Sprite2D Sprite2D;
+	
 
 	public override void _Ready()
 	{
 		base._Ready();
-		Sprite2D = new Sprite2D();
-		AddChild(Sprite2D);
+		
 	}
 
 	public void Interact()
@@ -30,10 +28,11 @@ public abstract partial class AbstractShopItem : Node2D, IInteractable
 	}
 
 	public abstract void Buy();
+	public abstract bool CheckCost();
 
 	public bool CanInteract()
 	{
-		if (GameManager.Player.HasKey(Key.BasicKeyId, Cost))
+		if (CheckCost())
 		{
 			return true;
 		}

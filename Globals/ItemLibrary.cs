@@ -21,7 +21,7 @@ public partial class ItemLibrary : Node
     public Dictionary<string, AbstractItem> AllItems { get; set; } = new();
     public Dictionary<ItemRarity, List<AbstractItem>> ItemsByRarity { get; set; } = new();
     public RandomNumberGenerator ItemRNG = new();
-    public static PackedScene ItemDisplayScene = GD.Load<PackedScene>("res://Player/ItemDisplay.tscn");
+    public static PackedScene ItemDisplayScene = GD.Load<PackedScene>("res://Items/ItemDisplay.tscn");
 
     public override void _Ready()
     {

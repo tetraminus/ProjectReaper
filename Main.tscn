@@ -1,24 +1,25 @@
-[gd_scene load_steps=37 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=43 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
-[ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
 [ext_resource type="Material" uid="uid://bojxbkhbdoefb" path="res://Vfx/Goop.tres" id="2_pxpsj"]
 [ext_resource type="Script" path="res://Menu/MainMenu/Bg.cs" id="3_8d6ga"]
 [ext_resource type="Shader" path="res://Vfx/Vortex.gdshader" id="3_tb2og"]
+[ext_resource type="Texture2D" uid="uid://b0k6aahr7bixc" path="res://Assets/kenney_particle-pack/PNG (Transparent)/scorch_03.png" id="5_5a2lh"]
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="5_gqeuv"]
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="6_6ggsd"]
+[ext_resource type="Shader" path="res://Vfx/VHS.gdshader" id="6_mjppm"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_bank.gd" id="8_bohd1"]
 [ext_resource type="AudioStream" uid="uid://buauf14nn4cmx" path="res://Assets/Audio/Ui/zwomp.mp3" id="8_i6rhl"]
 [ext_resource type="AudioStream" uid="uid://cf451p70nelqr" path="res://Assets/Audio/Ui/Blip_Select118.wav" id="8_jpto2"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
 [ext_resource type="Script" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
+[ext_resource type="AudioStream" uid="uid://dp1lhxro6trka" path="res://Assets/Audio/Music/BrokenContracts.mp3" id="13_2dohf"]
 [ext_resource type="AudioStream" uid="uid://c1iul3g2n0kxo" path="res://Assets/Audio/Music/level1/Main_1.wav" id="13_bn41b"]
 [ext_resource type="AudioStream" uid="uid://mjgq3p0lbh0e" path="res://Assets/Audio/Music/level1/Layer 2_1.wav" id="14_psoqt"]
 [ext_resource type="AudioStream" uid="uid://d0nvf2unqm4jw" path="res://Assets/Audio/Music/level1/Boss_1.wav" id="15_f83jc"]
 [ext_resource type="AudioStream" uid="uid://cifad8e0pmma0" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-02.wav" id="17_8dqcw"]
 [ext_resource type="AudioStream" uid="uid://dtcvu2esprerv" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-03.wav" id="18_vusbp"]
 [ext_resource type="AudioStream" uid="uid://dcy8kwgc6b1hj" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-01.wav" id="19_3cknf"]
-[ext_resource type="AudioStream" uid="uid://bh1tdw4gls75o" path="res://Assets/Audio/Music/Main menu music(1).mp3" id="20_8umuy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
 frequency = 0.0049
@@ -42,29 +43,56 @@ shader_parameter/octaves = 10.0
 shader_parameter/noise_scale = -0.5
 shader_parameter/noise = SubResource("NoiseTexture2D_tpl5i")
 
+[sub_resource type="Curve" id="Curve_qigks"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.901333, 0.840961), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_m3t1n"]
+curve = SubResource("Curve_qigks")
+
+[sub_resource type="Curve" id="Curve_w48nt"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_76h7a"]
+curve = SubResource("Curve_w48nt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ercx"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1122.0
+emission_ring_inner_radius = 1121.0
+angular_velocity_min = -270.2
+angular_velocity_max = 249.17
+orbit_velocity_min = 0.0500001
+orbit_velocity_max = 0.1
+radial_velocity_min = -285.39
+radial_velocity_max = -148.31
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_m3t1n")
+scale_over_velocity_curve = SubResource("CurveTexture_76h7a")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nwobf"]
-shader = ExtResource("2_f4j4b")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.3
-shader_parameter/scanlines_width = 0.058
-shader_parameter/grille_opacity = 0.2
-shader_parameter/resolution = Vector2(480, 270)
-shader_parameter/pixelate = false
-shader_parameter/roll = true
-shader_parameter/roll_speed = 4.0
-shader_parameter/roll_size = 8.548
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.001
-shader_parameter/noise_opacity = 0.018
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.03
-shader_parameter/aberration = 0.00400005
-shader_parameter/brightness = 1.0
-shader_parameter/discolor = false
-shader_parameter/warp_amount = 0.0
-shader_parameter/clip_warp = false
+shader = ExtResource("6_mjppm")
+shader_parameter/resolution = Vector2(960, 540)
+shader_parameter/scan_line_amount = 0.715
+shader_parameter/warp_amount = 0.01
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
 shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.325
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.01
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
 
 [sub_resource type="Resource" id="Resource_hyad5"]
 script = ExtResource("6_6ggsd")
@@ -87,7 +115,7 @@ script = ExtResource("10_wodfd")
 name = "main"
 enabled = true
 volume = 0.0
-stream = ExtResource("20_8umuy")
+stream = ExtResource("13_2dohf")
 
 [sub_resource type="Resource" id="Resource_umwak"]
 script = ExtResource("9_7x8tp")
@@ -182,10 +210,20 @@ mouse_filter = 2
 script = ExtResource("3_8d6ga")
 ColorSpeed = 0.02
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BG/Bg"]
+modulate = Color(0, 0, 0, 0.203922)
+texture_filter = 1
+position = Vector2(960, 540)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_0ercx")
+texture = ExtResource("5_5a2lh")
+lifetime = 2.75
+
 [node name="FGShader" type="CanvasLayer" parent="."]
 layer = 5
 
 [node name="ColorRect" type="ColorRect" parent="FGShader"]
+visible = false
 material = SubResource("ShaderMaterial_nwobf")
 anchors_preset = 15
 anchor_right = 1.0

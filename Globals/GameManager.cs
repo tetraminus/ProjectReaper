@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
+using media.Laura.SofiaConsole;
 using ProjectReaper.Abilities.Projectiles;
 using ProjectReaper.Enemies;
 using ProjectReaper.Menu.ItemLibraryScreen;
@@ -176,9 +177,27 @@ public partial class GameManager : Node
         Paused = true;
         Level.GetTree().Paused = true;
         screen.Show();
-        screen.GrabFocus();
+        
+        bool found = false;
+        foreach (var child in screen.GetChildren())
+        {
+            if (child is FocusRedirectComponent focus)
+            {
+                focus.Focus();
+                found = true;
+                break;
+            }
+            
+        }
+        if (!found)
+        {
+            screen.GrabFocus();
+        }
+        
+        
         CurrentScreen = screen;
         AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
+        
         
         // var bus = AudioServer.GetBusIndex("Music");
         // var effect = AudioServer.GetBusEffect(bus, 0) as AudioEffectLowPassFilter;
@@ -254,6 +273,7 @@ public partial class GameManager : Node
         
         fadingOut = true;
         AudioManager.Instance.PlaySound("UI", "Zwomp");
+        AudioManager.Instance.StopMusic(1);
         MainNode.GetNode<Bg>("%Bg").SwirlOut();
         MainMenu.FadeOut(0, 0.5f);
         await MainNode.ToSignal(MainNode, Main.SignalName.TransitionComplete);
@@ -392,6 +412,12 @@ public partial class GameManager : Node
         }
     }
     
+    [ConsoleCommand("shop", Description = "Go to shop")]
+    public void GotoShopCommand()
+    {
+        GoToShop(false);
+    }
+    
     public static async void GoToShop(bool playAnimation = true)
     {
         if (playAnimation)
@@ -449,6 +475,7 @@ public partial class GameManager : Node
         if (LastScreen != null)
         {
             LastScreen.Show();
+            LastScreen.GrabFocus();
         }
         CurrentScreen = LastScreen;
         
