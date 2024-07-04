@@ -17,9 +17,9 @@
 [ext_resource type="AudioStream" uid="uid://c1iul3g2n0kxo" path="res://Assets/Audio/Music/level1/Main_1.wav" id="13_bn41b"]
 [ext_resource type="AudioStream" uid="uid://mjgq3p0lbh0e" path="res://Assets/Audio/Music/level1/Layer 2_1.wav" id="14_psoqt"]
 [ext_resource type="AudioStream" uid="uid://d0nvf2unqm4jw" path="res://Assets/Audio/Music/level1/Boss_1.wav" id="15_f83jc"]
-[ext_resource type="AudioStream" uid="uid://cifad8e0pmma0" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-02.wav" id="17_8dqcw"]
-[ext_resource type="AudioStream" uid="uid://dtcvu2esprerv" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-03.wav" id="18_vusbp"]
-[ext_resource type="AudioStream" uid="uid://dcy8kwgc6b1hj" path="res://Assets/Audio/Music/DreamCollapse/out/DreamCollapsebase-01.wav" id="19_3cknf"]
+[ext_resource type="AudioStream" uid="uid://dinwyvihb1yd3" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-01.ogg" id="18_2swcd"]
+[ext_resource type="AudioStream" uid="uid://ccmvwvw3pte5e" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-02.ogg" id="19_6reb5"]
+[ext_resource type="AudioStream" uid="uid://bd1evtyxvhde7" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-03.ogg" id="20_8i7y7"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
 frequency = 0.0049
@@ -155,14 +155,14 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("17_8dqcw")
+stream = ExtResource("18_2swcd")
 
 [sub_resource type="Resource" id="Resource_vih7h"]
 script = ExtResource("10_wodfd")
 name = "Boss"
 enabled = false
 volume = 0.0
-stream = ExtResource("18_vusbp")
+stream = ExtResource("19_6reb5")
 
 [sub_resource type="Resource" id="Resource_skeo6"]
 script = ExtResource("9_7x8tp")
@@ -175,7 +175,7 @@ script = ExtResource("10_wodfd")
 name = "Main"
 enabled = true
 volume = 0.0
-stream = ExtResource("19_3cknf")
+stream = ExtResource("20_8i7y7")
 
 [sub_resource type="Resource" id="Resource_grf05"]
 script = ExtResource("9_7x8tp")
