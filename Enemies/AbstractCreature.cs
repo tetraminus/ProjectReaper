@@ -78,6 +78,14 @@ public abstract partial class AbstractCreature : CharacterBody2D, IProjectileBlo
         return null;
     }
     
+    public T GetPower<T>(string id) where T : AbstractPower
+    {
+        foreach (var power in Powers)
+            if (power.Id == id)
+                return power as T;
+        return null;
+    }
+    
     public void RemovePower(AbstractPower power)
     {
         power.OnRemove();

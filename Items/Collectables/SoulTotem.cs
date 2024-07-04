@@ -6,11 +6,11 @@ using ProjectReaper.Powers;
 namespace ProjectReaper.Items.Collectables;
 
 /// <summary>
-///     20% speed increase per stack on kill
+///     15% Damage increase per stack on kill
 /// </summary>
-public partial class AlarmingTotem : AbstractItem
+public partial class SoulTotem : AbstractItem
 {
-    public override string Id => "alarming_totem";
+    public override string Id => "soul_totem";
     public override ItemRarity Rarity => ItemRarity.Uncommon;
     public override List<string> Tags => new List<string> { TotemTag };
 
@@ -28,15 +28,18 @@ public partial class AlarmingTotem : AbstractItem
 
     public void OnCreatureDied(AbstractCreature creature)
     {
-        var powid = AbstractPower.GetId<Speedboost>();
-        if (GameManager.Player.HasPower(powid))
+        var powid = AbstractPower.GetId<StatBoostPower>();
+        if (GameManager.Player.HasPower(powid) && GameManager.Player.GetPower<StatBoostPower>(powid).Source == Id)
         {
-            if (GameManager.Player.GetPower(powid).Stacks < 5) GameManager.Player.GetPower(powid).AddStacks(1, true);
+            GameManager.Player.GetPower<StatBoostPower>(powid).AddStacks(1);
         }
         else
         {
-            var power = new Speedboost();
+            var power = new StatBoostPower();
             power.SetStacks(1);
+            power.Multiplier = 0.15f;
+            power.StatName = "Damage";
+            power.Source = Id;
             GameManager.Player.AddPower(power);
         }
     }

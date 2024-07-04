@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using ProjectReaper.Enemies;
 using ProjectReaper.Globals;
@@ -12,7 +13,9 @@ public abstract partial class AbstractItem : Node2D
 
     public static PackedScene ItemPickupScene = GD.Load<PackedScene>("res://Items/ItemPickup.tscn");
     public static PackedScene ItemDropEffectScene = GD.Load<PackedScene>("res://Vfx/ItemDropEffect.tscn");
-
+    
+    public virtual List<string> Tags => new List<string>();
+        
     private int _mimicStacks;
     public int MimicStacks
     {
@@ -199,4 +202,14 @@ public abstract partial class AbstractItem : Node2D
     {
         _stacks = stacks;
     }
+    
+    
+    // --- Tags ---
+    public bool HasTag(string tag)
+    {
+        return Tags.Contains(tag);
+    }
+    
+    public static string TotemTag = "totem";
+    
 }
