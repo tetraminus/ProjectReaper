@@ -395,6 +395,7 @@ public partial class GameManager : Node
         }
 
         Level.RemoveChild(PlayerRoot);
+        PlayerRoot.ProcessMode = ProcessModeEnum.Disabled;
         Level.QueueFree();
         await Level.ToSignal(Level, Node.SignalName.TreeExited);
         
@@ -404,6 +405,10 @@ public partial class GameManager : Node
         Level = LevelLoader.Instance.GetRandomLevelScene(CurrentRun.CurrentLevel).Instantiate<Level>();
         MainNode.AddChild(Level);
         Level.AddPlayer(PlayerRoot);
+        PlayerRoot.ProcessMode = ProcessModeEnum.Pausable;
+        
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
         Level.Generate();
 
         if (playAnimation)
@@ -435,6 +440,9 @@ public partial class GameManager : Node
         MainNode.AddChild(Level);
         Level.AddPlayer(PlayerRoot);
         Level.Generate();
+        
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
+        await MainNode.ToSignal(MainNode.GetTree(), SceneTree.SignalName.PhysicsFrame);
 
         if (playAnimation)
         {

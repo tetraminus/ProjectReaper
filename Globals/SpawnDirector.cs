@@ -271,6 +271,7 @@ public partial class SpawnDirector : Node
             {
                 spawnRect = spawnRects[(int)(GD.Randi() % spawnRects.Count)];
                 position = spawnRect.GetRandomPosition();
+                GD.Print("Trying again :" + position + " sees player: " + level.PointSeesPlayer(position));
             }
             
             positions.Add(position);

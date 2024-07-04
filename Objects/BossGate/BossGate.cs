@@ -67,10 +67,12 @@ public partial class BossGate : StaticBody2D, IInteractable
         
         // set camera to follow player and boss
         _phantomCamera.Set("priority", 15);
-        _phantomCamera.Call("append_follow_group_node", GameManager.Player);
-        _phantomCamera.Call("append_follow_group_node", boss);
+        _phantomCamera.Call("append_follow_targets", GameManager.Player);
+        _phantomCamera.Call("append_follow_targets", boss);
         boss.TreeExiting += () =>
         {
+            _phantomCamera.Call("erase_follow_targets", boss);
+            _phantomCamera.Call("erase_follow_targets", GameManager.Player);
             _phantomCamera.Set("priority", 0);
         };
         GameManager.PlayerHud.PlayFightAnim();
