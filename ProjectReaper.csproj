@@ -10,9 +10,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="addons\" />
-    <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vfx\Julia.gdshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Tests\**" />
   </ItemGroup>
 </Project>

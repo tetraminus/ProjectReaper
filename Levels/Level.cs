@@ -344,7 +344,7 @@ public partial class Level : Node2D
 		AudioManager.Instance.MusicManagerLooped -= OnMusicManagerLooped;
 		if (sound == "DreamCollapseStart")
 		{
-			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 0.001f);
+			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 0);
 		}
 		
 	}

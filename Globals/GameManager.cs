@@ -394,6 +394,7 @@ public partial class GameManager : Node
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         }
 
+        AudioManager.Instance.StopMusic();
         Level.RemoveChild(PlayerRoot);
         PlayerRoot.ProcessMode = ProcessModeEnum.Disabled;
         Level.QueueFree();
@@ -431,7 +432,8 @@ public partial class GameManager : Node
             ScreenFader.FadeOut(1);
             await ScreenFader.ToSignal(ScreenFader, ScreenFader.SignalName.FadeOutComplete);
         }
-
+        
+        AudioManager.Instance.StopMusic();
         Level.RemoveChild(PlayerRoot);
         Level.QueueFree();
         await Level.ToSignal(Level, Node.SignalName.TreeExited);

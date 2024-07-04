@@ -6,7 +6,7 @@ public partial class PickupComponent : Area2D
 {
     private IPickup _pickup;
 
-    [Export(PropertyHint.TypeString, "Node2D")]
+    [Export]
     public Node2D Pickup { get; set; }
 
     public override void _Ready()
