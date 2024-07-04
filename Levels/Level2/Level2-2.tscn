@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://ieh6gsjcl2xu"]
+[gd_scene load_steps=27 format=3 uid="uid://ieh6gsjcl2xu"]
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_bmls5"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ecnje"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="2_w62qe"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="3_udpnv"]
 [ext_resource type="PackedScene" uid="uid://0sy7n2q74083" path="res://Levels/Level1/Prefabs/Lamp.tscn" id="4_6u34t"]
@@ -95,6 +96,17 @@ script = ExtResource("1_bmls5")
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-13, 210)
+zoom = Vector2(3, 3)
+limit_left = -1024
+limit_top = -1024
+limit_right = 1024
+limit_bottom = 1024
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("1_ecnje")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
 z_index = -1
@@ -199,11 +211,9 @@ RectShape = SubResource("RectangleShape2D_uwm7v")
 color = Color(0.913725, 0.913725, 0.913725, 1)
 
 [node name="Node" type="Node2D" parent="."]
-visible = false
 y_sort_enabled = true
 
 [node name="Lamp" parent="Node" instance=ExtResource("4_6u34t")]
-visible = false
 position = Vector2(914, -284)
 
 [node name="Lamp2" parent="Node" instance=ExtResource("4_6u34t")]

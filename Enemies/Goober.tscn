@@ -100,7 +100,7 @@ script = ExtResource("3_38o8w")
 shape = SubResource("CircleShape2D_uxt6j")
 
 [node name="ContactDamageArea" parent="." instance=ExtResource("4_35p8f")]
-Damage = 10.0
+Damage = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamageArea"]
 shape = SubResource("CircleShape2D_aosvu")

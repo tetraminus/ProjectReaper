@@ -5,9 +5,10 @@ namespace ProjectReaper.Items.Collectables;
 
 public partial class VitaminB : AbstractItem
 {
-    public const float AttackSpeed = 0.1172f; // it NEEDs to be this, i promise
-    public override string Id => "vitamin_b";
-    public override ItemRarity Rarity => ItemRarity.Common;
+	public override string Id => "vitamin_b";
+	public override ItemRarity Rarity => ItemRarity.Common;
+	
+	public const float AttackSpeed = 0.0872f; // it NEEDs to be this, i promise
 
     public override void OnInitalPickup()
     {
