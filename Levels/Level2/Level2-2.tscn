@@ -90,13 +90,12 @@ size = Vector2(294.759, 26.6238)
 resource_local_to_scene = true
 size = Vector2(294.759, 26.6238)
 
-[node name="Level2-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints", "CameraBounds")]
+[node name="Level2-2" type="Node2D" node_paths=PackedStringArray("SpawnRects", "LootPoints")]
 y_sort_enabled = true
 script = ExtResource("1_bmls5")
 NumberOfChests = 8
 SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
-CameraBounds = NodePath("TileMap")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-13, 210)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://7vemouu4iylc"]
+[gd_scene load_steps=20 format=3 uid="uid://7vemouu4iylc"]
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_ogrgk"]
-[ext_resource type="Texture2D" uid="uid://dhchalxifdt3d" path="res://Levels/Level1/floor1levellayouts.png" id="2_o02bt"]
 [ext_resource type="TileSet" uid="uid://bhqd573kwswfk" path="res://Levels/Level1/Level1-1.tres" id="4_gaifl"]
 [ext_resource type="PackedScene" uid="uid://b5gs84n8k3y28" path="res://Levels/Common/LootPoint.tscn" id="5_mr5hu"]
 [ext_resource type="PackedScene" uid="uid://qsqme4udwsnc" path="res://Levels/Common/SpawnRect.tscn" id="6_wtqpr"]
@@ -66,13 +65,6 @@ SpawnRects = NodePath("spawnRects")
 LootPoints = NodePath("loot")
 DreamCollapseEndLocation = NodePath("DreamCollapseEnd")
 LevelSize = Vector2(1024, 1024)
-
-[node name="Floor1Levellayouts" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-position = Vector2(-1024, 1024)
-scale = Vector2(16, 16)
-texture = ExtResource("2_o02bt")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
 z_index = -1

@@ -297,11 +297,11 @@ public partial class Level : Node2D
 		parameters.To = GameManager.Player.GlobalPosition;
 		// bit 1 is terrain
 		parameters.CollisionMask = 1;
-        
+		
 		var ray = GameManager.Level.GetWorld2D().DirectSpaceState.IntersectRay(parameters);
 
 		return ray.Count == 0;
-        
+		
 	}
 
 	public List<SpawnRect> GetSpawnRects()
