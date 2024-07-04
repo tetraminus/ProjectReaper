@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b6447c6lsiptv"]
+[gd_scene load_steps=44 format=3 uid="uid://b6447c6lsiptv"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
 [ext_resource type="Material" uid="uid://bojxbkhbdoefb" path="res://Vfx/Goop.tres" id="2_pxpsj"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dinwyvihb1yd3" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-01.ogg" id="18_2swcd"]
 [ext_resource type="AudioStream" uid="uid://ccmvwvw3pte5e" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-02.ogg" id="19_6reb5"]
 [ext_resource type="AudioStream" uid="uid://bd1evtyxvhde7" path="res://Assets/Audio/Music/DreamCollapse/DreamCollapse-03.ogg" id="20_8i7y7"]
+[ext_resource type="PackedScene" uid="uid://3fes2e1kup7m" path="res://Objects/Goop/goop.tscn" id="21_v14u8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0muwn"]
 frequency = 0.0049
@@ -243,3 +244,6 @@ events = Array[ExtResource("6_6ggsd")]([SubResource("Resource_hyad5"), SubResour
 script = ExtResource("8_bohd1")
 label = "Music"
 tracks = Array[ExtResource("9_7x8tp")]([SubResource("Resource_umwak"), SubResource("Resource_mrcgd"), SubResource("Resource_skeo6"), SubResource("Resource_grf05")])
+
+[node name="Gooptest" parent="." instance=ExtResource("21_v14u8")]
+position = Vector2(1508, 592)

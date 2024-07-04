@@ -17,6 +17,6 @@ dest_files=["res://.godot/imported/GoopMesh.obj-bda11618a061bac5e670051437b58f42
 
 generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
-offset_mesh=Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=false
 force_disable_mesh_compression=false

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckqcoryvavs5i" path="res://Components/CreatureOwnerComponent.tscn" id="4_luyen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4t4l"]
-size = Vector2(16, 4)
+size = Vector2(12, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bh177"]
 atlas = ExtResource("2_mt0c2")
