@@ -93,7 +93,7 @@ public partial class ChaseState : AbstractState
         // simulate friction with delta
         if (leechbert.Velocity.Length() > leechbert.Stats.Speed || leechbert.MoveDirection == Vector2.Zero)
         {
-            leechbert.Velocity = leechbert.Velocity.Lerp(Vector2.Zero, 0.1f);
+            leechbert.Velocity = Mathutils.FriLerp(leechbert.Velocity, Vector2.Zero, 10f, (float)delta);
         }
     }
 }

@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://bqfhb3v2cxvmr"]
+
+[ext_resource type="Texture2D" uid="uid://bsbb3fnw4fxrv" path="res://Assets/Enemies/Bosses/wizard/Wizard.png" id="1_53jry"]
+[ext_resource type="Script" path="res://Enemies/Bosses/Wizard/WizardBoss.cs" id="1_icfqp"]
+[ext_resource type="Script" path="res://Components/HurtBox.cs" id="2_h2hgl"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_6b0h5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_4lnq6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_3ugue"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_kg0ba"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0d8f"]
+radius = 13.0
+height = 38.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15i7x"]
+radius = 14.0
+height = 62.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jnvh"]
+radius = 7.0
+height = 40.0
+
+[node name="WizardBoss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_icfqp")
+
+[node name="Wizard" type="Sprite2D" parent="."]
+texture = ExtResource("1_53jry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_o0d8f")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_h2hgl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_15i7x")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -28)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6jnvh")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_6b0h5")
+
+[node name="root" type="Node" parent="StateChart"]
+script = ExtResource("4_4lnq6")
+initial_state = NodePath("Teleporting")
+
+[node name="Teleporting" type="Node" parent="StateChart/root"]
+script = ExtResource("5_3ugue")
+
+[node name="ChoosingMove" type="Node" parent="StateChart/root/Teleporting"]
+script = ExtResource("6_kg0ba")
+to = NodePath("../../ChoosingMove")
+event = &"PickMove"
+
+[node name="SpreadShot" type="Node" parent="StateChart/root"]
+script = ExtResource("5_3ugue")
+
+[node name="Transition" type="Node" parent="StateChart/root/SpreadShot"]
+script = ExtResource("6_kg0ba")
+to = NodePath("../../Teleporting")
+event = &"MoveDone"
+
+[node name="Swirl" type="Node" parent="StateChart/root"]
+script = ExtResource("5_3ugue")
+
+[node name="ExitMove" type="Node" parent="StateChart/root/Swirl"]
+script = ExtResource("6_kg0ba")
+to = NodePath("../../Teleporting")
+event = &"MoveDone"
+
+[node name="ChoosingMove" type="Node" parent="StateChart/root"]
+script = ExtResource("5_3ugue")
+
+[node name="PickedSpread" type="Node" parent="StateChart/root/ChoosingMove"]
+script = ExtResource("6_kg0ba")
+to = NodePath("../../SpreadShot")
+event = &"PickedSpread"
+
+[node name="PickedSwirl" type="Node" parent="StateChart/root/ChoosingMove"]
+script = ExtResource("6_kg0ba")
+to = NodePath("../../Swirl")
+event = &"PickedSwirl"
+
+[connection signal="state_entered" from="StateChart/root/Teleporting" to="." method="EnterTeleport"]
+[connection signal="state_processing" from="StateChart/root/Teleporting" to="." method="UpdateTeleport"]
+[connection signal="state_entered" from="StateChart/root/SpreadShot" to="." method="EnterSpreadfire"]
+[connection signal="state_processing" from="StateChart/root/SpreadShot" to="." method="UpdateSpreadfire"]
+[connection signal="state_entered" from="StateChart/root/Swirl" to="." method="EnterSwirlfire"]
+[connection signal="state_processing" from="StateChart/root/Swirl" to="." method="UpdateSwirlfire"]
+[connection signal="state_entered" from="StateChart/root/ChoosingMove" to="." method="ChoosingMove"]

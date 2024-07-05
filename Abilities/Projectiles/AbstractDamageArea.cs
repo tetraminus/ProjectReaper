@@ -122,6 +122,7 @@ public abstract partial class AbstractDamageArea : Area2D
         Source = source;
         Team = team;
         _lastPosition = GlobalPosition;
+        PostInit();
     }
     
     public void Init(AbstractCreature source, AbstractCreature.Teams team, float rotation = 0f)
@@ -131,7 +132,10 @@ public abstract partial class AbstractDamageArea : Area2D
         Team = team;
         startPosition = Position;
         _lastPosition = Position;
+        PostInit();
     }
+    
+    public virtual void PostInit() { }
     
     
     public virtual void OnAreaEntered(Area2D area)

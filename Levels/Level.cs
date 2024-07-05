@@ -306,6 +306,24 @@ public partial class Level : Node2D
 		return ray.Count == 0;
 		
 	}
+	
+	public static Vector2 CastToWall(Vector2 from, Vector2 to)
+	{
+		var parameters = new PhysicsRayQueryParameters2D();
+		parameters.From = from;
+		parameters.To = to;
+		// bit 1 is terrain
+		parameters.CollisionMask = 1;
+		
+		var ray = GameManager.Level.GetWorld2D().DirectSpaceState.IntersectRay(parameters);
+
+		if (ray.Count == 0)
+		{
+			return to;
+		}
+		return (Vector2)ray["position"];
+	
+	}
 
 	public List<SpawnRect> GetSpawnRects()
 	{

@@ -21,7 +21,11 @@ void fragment() {
 	pixelUV.x += sin(TIME* 0.5)/ 50.;
 	//pixelize 480 x 270
 
-	vec2 res = 1.0/SCREEN_PIXEL_SIZE;
+	vec2 trueres = 1. / SCREEN_PIXEL_SIZE;
+
+	float aspectratio = trueres.x / trueres.y;
+
+	vec2 res = vec2(1920., (1920. / aspectratio) );
 	res /= 4.0;
 
 	pixelUV.x = floor(pixelUV.x * res.x) / res.x;

@@ -65,10 +65,10 @@ public partial class ForcefieldOrbital : Node2D, IProjectileBlocker
         Speed = speed;
     }
 
-    public void SetRotation(float rotation)
-    {
-        Rotation = rotation;
-    }
+    // public void SetRotation(float rotation)
+    // {
+    //     Rotation = rotation;
+    // }
 
     public void Dissipate()
     {

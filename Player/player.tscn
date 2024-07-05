@@ -1,7 +1,8 @@
-[gd_scene load_steps=66 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=68 format=3 uid="uid://chdn5sa1ckg2s"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_3ywav"]
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_dcxjm"]
 [ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
 [ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
 [ext_resource type="Texture2D" uid="uid://c4325btrhhxos" path="res://Assets/Player/PlayerTest-turnaround.png" id="4_cjbk4"]
@@ -14,6 +15,12 @@
 [ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="12_6jalh"]
 [ext_resource type="AudioStream" uid="uid://7nxpejc7qakk" path="res://Assets/Audio/Player/shoot.wav" id="13_41vha"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_2liwo"]
+
+[sub_resource type="Resource" id="Resource_87uut"]
+script = ExtResource("2_dcxjm")
+duration = 1.0
+transition = 0
+ease = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8gnh"]
 atlas = ExtResource("4_cjbk4")
@@ -445,6 +452,7 @@ priority = 5
 follow_mode = 1
 follow_target = NodePath("../Player")
 zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_87uut")
 tween_on_load = false
 follow_damping = true
 
@@ -509,6 +517,7 @@ label = "player"
 events = Array[ExtResource("12_6jalh")]([SubResource("Resource_ownk1")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 2
 zoom = Vector2(3, 3)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]

@@ -106,7 +106,7 @@ public partial class Goober : AbstractCreature
 		// simulate friction with delta
 		if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
 		{
-			Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+			Velocity = Mathutils.FriLerp(Velocity, Vector2.Zero, 10f, (float)delta);
 		}
 	}
 	private void FollowPath(double delta)
@@ -125,7 +125,7 @@ public partial class Goober : AbstractCreature
 		// simulate friction with delta
 		if (Velocity.Length() > Stats.Speed || MoveDirection == Vector2.Zero)
 		{
-			Velocity = Velocity.Lerp(Vector2.Zero, 0.1f);
+			Velocity = Mathutils.FriLerp(Velocity, Vector2.Zero, 10f, (float)delta);
 		}
 	}
 
