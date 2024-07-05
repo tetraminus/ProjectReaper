@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using ProjectReaper.Globals;
 
 public partial class BossAnimController : Node2D
 {
@@ -21,9 +22,10 @@ public partial class BossAnimController : Node2D
 	public override void _Process(double delta)
 	{
 		
-		layer1.Position = layer1.Position.Lerp(_direction.Normalized() * 8,  (float)delta * 2);
-		layer2.Position = layer2.Position.Lerp(_direction.Normalized() * 2,  (float)delta * 2); 
+		// layer1.Position = layer1.Position.Lerp(_direction.Normalized() * 8,  (float)delta * 2);
+		// layer2.Position = layer2.Position.Lerp(_direction.Normalized() * 2,  (float)delta * 2); 
 		
-		
+		layer1.Position = Mathutils.FriLerp(layer1.Position, _direction.Normalized() * 8, 2f, (float)delta); 
+		layer2.Position = Mathutils.FriLerp(layer2.Position, _direction.Normalized() * 2, 2f, (float)delta);
 	}
 }
