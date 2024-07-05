@@ -99,7 +99,7 @@ offset_top = -289.88
 offset_right = 15.12
 offset_bottom = 0.119947
 grow_vertical = 0
-value = 100.0
+value = 50.0
 
 [node name="Label" type="Label" parent="MainMenu/MenuScreen/VolumeSlider"]
 layout_mode = 1

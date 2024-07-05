@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://1e51hc5m5bxt"]
+[gd_scene load_steps=6 format=3 uid="uid://1e51hc5m5bxt"]
 
-[ext_resource type="Script" path="res://Enemies/Bosses/Wizard/SwirlfireBullet.cs" id="1_u3bht"]
+[ext_resource type="Script" path="res://Components/BulletGroup.cs" id="1_3rd4x"]
 [ext_resource type="Texture2D" uid="uid://ddtj4448wax1g" path="res://Abilities/Projectiles/BasicBullet.png" id="1_wlr7v"]
+[ext_resource type="Script" path="res://Abilities/Projectiles/ManagedBullet.cs" id="2_jy4x5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysnsk"]
 size = Vector2(8, 4)
@@ -10,9 +11,10 @@ size = Vector2(8, 4)
 size = Vector2(8, 4)
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_3rd4x")
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("1_u3bht")
+script = ExtResource("2_jy4x5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-15, 0)
@@ -22,7 +24,7 @@ shape = SubResource("RectangleShape2D_ysnsk")
 texture = ExtResource("1_wlr7v")
 
 [node name="Area2D2" type="Area2D" parent="."]
-script = ExtResource("1_u3bht")
+script = ExtResource("2_jy4x5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D2"]
 position = Vector2(15, 0)
