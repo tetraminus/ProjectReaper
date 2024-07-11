@@ -8,7 +8,7 @@ public partial class CritGlasses : AbstractItem
     
     public override string Id => "critglasses";
     public override ItemRarity Rarity => ItemRarity.Common;
-    public const float CritChance = 0.15f;
+    public const float CritChance = 0.25f;
     
     public override void OnInitalPickup()
     {

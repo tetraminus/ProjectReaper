@@ -4,9 +4,17 @@ using ProjectReaper.Player;
 
 public partial class Portal : Node2D
 {
+
+    public enum PortalTypes
+    {
+        NextLevel,
+        Shop
+    }
+    
     private AnimationPlayer _animationPlayer;
     private bool ready;
-
+    public PortalTypes PortalType = PortalTypes.NextLevel;
+ 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -22,12 +30,20 @@ public partial class Portal : Node2D
 
     public void OnBodyEntered(Node body)
     {
-        if (body is Player && ready)
+        if (body is Player player && ready)
         {
             _animationPlayer.Play("Vanish");
-            (body as Player).Hide();
-            //GameManager.GoToShop();
-            GameManager.GoToNextLevel();
+            player.Hide();
+            
+            if (PortalType == PortalTypes.NextLevel)
+            {
+                GameManager.GoToNextLevel();
+            }
+            else if (PortalType == PortalTypes.Shop)
+            {
+                GameManager.GoToShop();
+            }
+            
         }
     }
 }

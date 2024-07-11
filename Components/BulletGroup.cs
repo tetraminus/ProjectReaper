@@ -12,13 +12,22 @@ public partial class BulletGroup : Node2D
     [Export]
     private float rotationSpeed = 0f;
 
-    
+    private Transform2D Heading;
+
+    [Export]
+    private float _damage = 0f;
+
+    public override void _Ready()
+    {
+        SetDamage(_damage);
+        base._Ready();
+    }
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         
-        Translate(Transform.X * speed * (float)delta);
+        Translate(Heading.X * speed * (float)delta);
         Rotation += rotationSpeed * (float)delta;
         
         var children = GetChildren();
@@ -41,6 +50,9 @@ public partial class BulletGroup : Node2D
     public void Init(AbstractCreature source, AbstractCreature.Teams team, Vector2 position, float rotation = 0f)
     {
         GlobalPosition = position;
+        GlobalRotation = rotation;
+        
+        Heading = Transform;
         
         for (int i = 0; i < GetChildCount(); i++)
         {

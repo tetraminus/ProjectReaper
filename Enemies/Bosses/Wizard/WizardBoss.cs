@@ -1,6 +1,7 @@
 ﻿using Godot;
 using GodotStateCharts;
 using ProjectReaper.Abilities.Projectiles;
+using ProjectReaper.Components;
 using ProjectReaper.Globals;
 
 namespace ProjectReaper.Enemies.Bosses.Wizard;
@@ -207,10 +208,8 @@ public partial class WizardBoss : AbstractCreature
     
     private void FireSwirlfireBullet(float direction)
     {
-        var bullet = _swirlfireBulletScn.Instantiate<SwirlfireBullet>();
+        var bullet = _swirlfireBulletScn.Instantiate<BulletGroup>();
         bullet.Init(this, Team, GlobalPosition, direction);
-        bullet.Speed = 150;
-        bullet.Duration = -1;
         GameManager.Level.AddChild(bullet);
     }
     

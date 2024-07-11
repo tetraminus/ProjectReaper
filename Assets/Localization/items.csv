@@ -1,0 +1,151 @@
+keys,en
+n_boom_stick,The Boomstick
+d_boom_stick,Creates an explosion when an enemy dies.
+f_boom_stick,"Frankly a misuse of the tool, but if they didn't want it to be a bomb they shouldn't have given it that name."
+n_grapeshot,Grapeshot
+d_grapeshot,Fires a spread of low damaging fruity bullets every other attack.
+f_grapeshot,"A good soldier can turn anything into a weapon, and makes a nasty adversary at a cafeteria food fight."
+n_force_field,Force Field
+d_force_field,Summons a protective shield that spins around you and can slam into enemies.
+f_force_field,Generally considered a weak weapon in any situation involving bugs.
+n_revenge_bomber,Bomb of Revenge
+d_revenge_bomber,"Explodes whenever you take damage, knocking foes away."
+f_revenge_bomber,Note: Do not go out of way to activate! Is very uncomfortable. Frankly how it manages to devastate the enemies but not hurt me is beyond my understanding.
+n_alarming_totem,Alarming Totem
+d_alarming_totem,Gain a temporary 40% speed boost when you kill an enemy.
+f_alarming_totem,"It's engravings showcase, specifically, a bird. Probably a hawk or eagle or something. Definitely NOT a snail. Frankly I'm not sure how one could confuse it as such."
+n_dream_car,Non-Copyrightable '60s Car
+d_dream_car,Groovy! Oh yeah this lets you dash more frequently.
+f_dream_car,"[fade start=40 length=200]Characterized by thin roof pillars, fastback styling and implied aerodynamics, it symbolized 1960s Jet Age design. The '60 and '61 Models shared their roof lines and chassis, with the 1961 Model featuring substantially revised front and rear styling.[/fade]"
+n_gravity_gauntlet,Gravity's Gauntlet 
+d_gravity_gauntlet,Creates gravity wells that temporarily trap enemies.
+f_gravity_gauntlet,"This gauntlet, created by Sir Gravity himself, harnesses the power of Magnetism to capture foes."
+n_soul_totem,Soul Totem
+d_soul_totem,Grants a temporary 15% damage boost after you kill an enemy.
+f_soul_totem,"Don't worry! You're not actually taking their souls, they [size=14]probably...[/size] dont have any!"
+n_vitamin_b,Vitamin B
+d_vitamin_b,Increases attack speed by exactly 11.72%
+f_vitamin_b,I'm glad I'm not a vegan
+n_microwave,Microwave
+d_microwave,Applies burn damage to the target
+f_microwave,In 7th grade I accidentally created a fire in the microwave. I don't think I used one again for years.
+n_dual_gun,Watch Your Six
+d_dual_gun,Mimics your forward attacks backwards
+f_dual_gun,Pay attention on the road. Pay attention on the road. Pay attention on the road. Pay attention on the road.
+n_critglasses,Disguise
+d_critglasses,Increases [color=orange]crit[/color] chance by 25%
+f_critglasses,The lens doesn't work but I still feel more accurate!
+n_lightning_rod,Lightning Rod
+d_lightning_rod,Arcs half-damage bolts between enemies.
+f_lightning_rod,"Thunderstorms have always felt calming. A little risk of rain can be quite thrilling, and knowing I'm safe in my house is oh so satisfying."
+n_heavy_shot,Heavy Bullet
+d_heavy_shot,[color=red]Halves your firerate[/color] and triples your damage.
+f_heavy_shot,description tbd
+n_bug_spray,Bug Spray
+d_bug_spray,Bullets knock enemies away.
+f_bug_spray,"Much less effective against people. In fact, it'll probably just make them angry."
+n_confidence_booster,Confidence Booster
+d_confidence_booster,Increases your damage by your speed.
+f_confidence_booster,description tbd
+n_googly_glasses,Googly Glasses
+d_googly_glasses,Increases [color=orange]crit[/color] damage by 30%
+f_googly_glasses,Silliness Incarnate Jeff would smile upon this.
+n_everything_bagel,Everything Bagel
+d_everything_bagel,"Increases your damage, firerate, [color=orange]crit[/color] chance, [color=orange]crit[/color] damage, and dash cooldown.	"
+f_everything_bagel,Nice comfort. Always available in my house. Really easy to buy a bunch and to just have in a bag.
+n_life_leechbert,Life Leechbert
+d_life_leechbert,"Drains health from slain enemies, [color=red]but reduces your max HP by 20[/color]. Activates more often in close proximity with targets."
+f_life_leechbert,Still has the terrible smell of Leechbert. Alluring.
+n_treasure_map,Treasure Map
+d_treasure_map,Grants an additional option when opening a chest.
+f_treasure_map,I'M A PIRATE MANNNNNNNN!! I'M LIKE A FREAKING PIRATE WOOOOOO
+n_xray_goggles,Y-Ray Goggles
+d_xray_goggles,Shows the rarity of the items in chests. [color=red]WARNING: inaccurate[/color]
+f_xray_goggles,Just 10 cents!
+n_new_years_glasses,New Year's Glasses
+d_new_years_glasses,Grants the player new year's luck!
+f_new_years_glasses,"This year, my resolutions will definitely succeed."
+n_pizza,Pizza
+d_pizza,WEEEEEEEEEE (go nyoom) (vroom vroom brrrrrrrrr)
+f_pizza,Pizza is by far hands down the best food ever created by far.
+n_rogue_nanotech,Rogue Nano-Tech
+d_rogue_nanotech,Adds a stack to a random item in your inventory. Periodically switches focus.
+f_rogue_nanotech,[shake rate=20.0 level=2 connected=1]<ERR>[/shake].
+n_lightsaber,Glow Stick Sword
+d_lightsaber,Leaves a lingering fire in the area of your [color=green]secondary[/color] ability.
+f_lightsaber,"The non-copyrightable weapon of the characters in my favorite movie, Space Battle: The Organization Fights Again."
+n_cool_beans,Cool Beans
+d_cool_beans,Bullets slow down non-boss enemies.
+f_cool_beans,"Okay, they're not that cold, but I probably want to put them in the microwave first."
+n_bullet_biter,Bullet Biter
+d_bullet_biter,Decreases damage taken by 3.
+f_bullet_biter,"As far as stupid things you can do on the way to the military, this has gotta be a lot stupider than what I did."
+n_gold_armor,Gold Armor
+d_gold_armor,Gives a 10% chance to gain a key when you are hit. Gain 3% [color=cyan]defense[/color].
+f_gold_armor,"Honestly probably hurts more than it helps, but at least it looks nice?"
+n_feather_pen,Feather Pen
+d_feather_pen,Doubles your movement speed [color=red]and dash cooldown[/color].
+f_feather_pen,description tbd
+n_rocket_science,Rocket Science
+d_rocket_science,[color=red]Your attacks do less damage[/color] and home in on enemies.
+f_rocket_science,Give up trying to understand it.
+n_rocket_launcher,Rocket Launcher
+d_rocket_launcher,[color=red]Replaces your secondary attack with a great ability ;)[/color]
+f_rocket_launcher,ok
+n_han_solo,Garrison Fjord
+d_han_solo,[color=red]Blanches your almond ;)[/color]
+f_han_solo,bruh
+n_healthy_breakfast,Healthy Breakfast
+d_healthy_breakfast,Multiply your Max HP! Adds 25% per stack.
+f_healthy_breakfast,"Are burgers healthy? Well, I hope they are, since that's the only leftovers in the fridge."
+n_toothpaste,Toothpaste
+d_toothpaste,Increases the amount you heal per chest by 10
+f_toothpaste,"My wisdom teeth are coming in. It's quite a pain, quite literally. And my brain keeps going back to the good ol' ""tooth hurty"" pun. I hate myself."
+n_flower_sprout,Flower Sprout
+d_flower_sprout,"[color=red]Lowers your damage by 20%[/color], then increases it by 25% each time you kill a boss monster."
+f_flower_sprout,"Even in the darkest hour, there can be beauty. I found this growing out of a crack on my doorstep. It's beautiful, isn't it?"
+n_hair_strand,Hair Strand
+d_hair_strand,Bullets explode into shrapnel on impact.
+f_hair_strand,My hair is literally falling out. This is not a joke.
+n_wilted_flower,Wilted Flower
+d_wilted_flower,"Greatly increases your speed and damage, [color=red]but loses effectiveness each time you kill a boss monster[/color]."
+f_wilted_flower,Daniel's gift to me while I was recovering. I could never forget it.
+n_ghostly_amulet,Ghostly Amulet
+d_ghostly_amulet,Higher tier enemies can drop keys upon death.
+f_ghostly_amulet,In it I see my reflection.
+n_can_of_beans,Can of Beans
+d_can_of_beans,"Gain 25% damage. When you defeat a miniboss, [color=red]consume this item[/color] and gain a stack of an item you already have."
+f_can_of_beans,Emergency snack.
+n_virus_totem,Virus Totem
+d_virus_totem,Gain a temporary 10% [color=red]crit[/color] chance and 30% [color=red]crit[/color] damage when you kill an enemy.
+f_virus_totem,"A virus was the culpreit in my firing, or so I'm told. Really sucks, especially considering the CEO fired the guy who protects our software against viruses!"
+n_melatonin,Melatonin
+d_melatonin,Dream Collapses take 15% longer.
+f_melatonin,"From the creators of melanin, metal, and medicine... maybe... sleep drugs!"
+n_growth_totem,Growth Totem
+d_growth_totem,Permanently gain the effects of one stack of each totem you have.
+f_growth_totem,It's like a little baby totem! Kinda cute.
+n_power_totem,Power Totem
+d_power_totem,Shoot a frenzy of bullets in all directions every time an enemy dies.
+f_power_totem,"The collector's edition, certainly, with a much grander size and posture than any that came before."
+n_banana,Banana
+d_banana,Launches endocarp in all directions from bullets during their travel time.
+f_banana,Fun fact: you don't know what endocarp means.
+n_mortar,Basket of Atomic Bomb
+d_mortar,Replaces your primary attack with a slow-firing lobbed explosion that travels directly to the target location.
+f_mortar,Two-for-one deal with the Basket of American Doll.
+n_wishing_star,Wishing Star
+d_wishing_star,Gain 2% damage per rare item you have and 5% damage per legendary item.
+f_wishing_star,"When you wish upon a star, you won't get hit by a car!!!"
+n_fists_of_fury,Fists of Fury
+d_fists_of_fury,"When you kill an enemy, begin a combo. Gain 4% damage for each enemy in the combo. The combo ends when no enemies are killed for 2 seconds."
+f_fists_of_fury,Because furious fists definitely lead to more deadly bullets.
+n_sale,1.1 for 1 Sale!
+d_sale,Gain 10% more buff per buff! Buff on sale! Only works on food items.
+f_sale,Least scammy grocery store sale.
+n_dull_sword,Dull Sword
+d_dull_sword,Enemies are knocked back from your melee more than usual.
+f_dull_sword,"Blunt force murder! Yay, death!"
+n_ancient_curse,Ancient Curse
+d_ancient_curse,"[color=red]Become unlucky[/color], but much more powerful."
+f_ancient_curse,Always take a deal with the devil.

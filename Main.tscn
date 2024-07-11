@@ -79,12 +79,12 @@ scale_over_velocity_curve = SubResource("CurveTexture_76h7a")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nwobf"]
 shader = ExtResource("6_mjppm")
-shader_parameter/r_displacement = Vector2(3, 0)
+shader_parameter/r_displacement = Vector2(5, 0)
 shader_parameter/g_displacement = Vector2(0, 0)
-shader_parameter/b_displacement = Vector2(-3, 0)
-shader_parameter/height = 0.7
-shader_parameter/width = 0.5
-shader_parameter/fade = 0.7
+shader_parameter/b_displacement = Vector2(-5, 0)
+shader_parameter/height = 1.0
+shader_parameter/width = 1.0
+shader_parameter/fade = 0.71
 
 [sub_resource type="Resource" id="Resource_hyad5"]
 script = ExtResource("6_6ggsd")

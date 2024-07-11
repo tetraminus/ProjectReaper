@@ -39,6 +39,7 @@ public partial class BossGate : StaticBody2D, IInteractable
         _phantomCamera.Set("priority", 0);
         var portal = _portalScene.Instantiate<Portal>();
         portal.GlobalPosition = _portalSpawnPoint.GlobalPosition;
+        portal.PortalType = Portal.PortalTypes.Shop;
         
         var bossChest = _bossChestScene.Instantiate<BossChest>();
         bossChest.GlobalPosition = _bossSpawnPoint.GlobalPosition;

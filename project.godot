@@ -192,7 +192,7 @@ cheat={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Loc/items.en.translation", "res://Loc/Ui.en.translation", "res://Loc/Dialogs.en.translation")
+locale/translations=PackedStringArray("res://Assets/Localization/Dialogs.en.translation", "res://Assets/Localization/items.en.translation", "res://Assets/Localization/Ui.en.translation")
 
 [layer_names]
 
@@ -208,8 +208,10 @@ locale/translations=PackedStringArray("res://Loc/items.en.translation", "res://L
 [physics]
 
 common/physics_ticks_per_second=120
+common/physics_jitter_fix=0.0
 2d/default_gravity=2.08165e-12
 2d/default_gravity_vector=Vector2(2.08165e-12, 2.08165e-12)
+common/physics_interpolation=true
 
 [rendering]
 

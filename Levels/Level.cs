@@ -97,6 +97,7 @@ public partial class Level : Node2D
 		_currentCollapseStrikes = MaxCollapseStrikes;
 		CollapseTimeRunning = false;
 		GameManager.PlayerHud.DreamCollapseHud.HideHud();
+		AudioManager.Instance.MusicManagerLooped += OnMusicManagerLooped;
 		
 	}
 
@@ -125,6 +126,11 @@ public partial class Level : Node2D
 		if (FightStems.Count == 0)
 		{
 			return;
+		}
+		
+		if (AudioManager.IsPlaying("Music", "DreamCollapseStart"))
+		{
+			AudioManager.Instance.PlayMusic("Music", "DreamCollapse", 0);
 		}
 
 		foreach (var stem in FightStems)
@@ -163,6 +169,7 @@ public partial class Level : Node2D
 	public override void _ExitTree()
 	{
 		Callbacks.Instance.CreatureDied -= OnEnemyDeath;
+		AudioManager.Instance.MusicManagerLooped -= OnMusicManagerLooped;
 		base._ExitTree();
 	}
 
@@ -353,7 +360,7 @@ public partial class Level : Node2D
 		goop.SetStopRadius(400);
 		
 		AudioManager.Instance.PlayMusic("Music", "DreamCollapseStart", 1);
-		AudioManager.Instance.MusicManagerLooped += OnMusicManagerLooped;
+		
 		
 	}
 	

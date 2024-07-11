@@ -144,12 +144,18 @@ public partial class AudioManager : Node
         _musicManager.Call("disable_stem", name);
     }
 
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    /// <summary>
+    /// 
+    /// ## Check whether the MusicManager is playing from a specific bank, or any track
+    ///## with the given name, or more specifically a certain track from a certain bank.
+    ///   func is_playing(p_bank_label: String = "", p_track_name: String = "") -> bool:
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsPlaying(string bank = "", string track = "")
     {
+        return Instance._musicManager.Call("is_playing", bank, track).AsBool();
     }
-
+    
     public void StopMusic(float time = 0f)
     {
         _musicManager.Call("stop", time);
@@ -164,6 +170,15 @@ public partial class AudioManager : Node
     {
         _musicManager.Call("disable_stem", stem, time);
     }
+    
+    /* --------------------Misc--------------------*/
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+    }
+
+    
 
     public void SetMasterVolume(float value)
     {
@@ -174,4 +189,8 @@ public partial class AudioManager : Node
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), valueDb);
         GD.Print("Set volume to " + valueDb);
     }
+
+    
+    
+   
 }

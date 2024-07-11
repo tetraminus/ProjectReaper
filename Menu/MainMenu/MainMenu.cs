@@ -26,6 +26,7 @@ public partial class MainMenu : Control
         FadeIn();
 
         GetBgNode();
+        
     }
 
     public void FadeIn(float interval = 1f, float fadetime = 1.5f)
@@ -62,6 +63,7 @@ public partial class MainMenu : Control
     {
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         _bg = GameManager.MainNode.GetNode<Bg>("%Bg");
+        AudioManager.Instance.SetMasterVolume((float)GetNode<Slider>("%VolumeSlider").Value);
     }
 
 
@@ -100,6 +102,8 @@ public partial class MainMenu : Control
     {
         GetNode<Control>("%StartButton").GrabFocus();
     }
+    
+   
     
     public void VolumeSliderValueChanged(float value)
     {

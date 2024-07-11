@@ -49,7 +49,7 @@ public partial class PlayerHud : Control
         label.Text = "death_" + GD.RandRange(1, Numberofdeathquotes);
         
         
-        label.Show();
+        //label.Show();
         label.VisibleRatio = 0;
         var tween = GetTree().CreateTween();
         tween.TweenProperty(label, "visible_ratio", 1, 1);
@@ -74,7 +74,7 @@ public partial class PlayerHud : Control
         foreach (var key in inventory)
         {
             var keyDisplay = new Label();
-            keyDisplay.AutoTranslate = false;
+            
             keyDisplay.Text = $"{Tr(key.Key)}: {key.Value}";
             keyDisplay.LabelSettings = KeyDisplaySettings;
             
@@ -101,7 +101,7 @@ public partial class PlayerHud : Control
     public void UpdateHealth(float oldHealth, float health)
     {
         GetNode<TextureProgressBar>("%HealthBar").Value = health;
-        GetNode<Label>("%HealthBar/Value").Text = health.ToString();
+        GetNode<Label>("%HealthBar/Value").Text = Mathf.Round(health).ToString(CultureInfo.InvariantCulture);
     }
     private void UpdateMaxHealth(float i, float statsMaxHealth)
     {
