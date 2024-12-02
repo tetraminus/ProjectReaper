@@ -1,0 +1,23 @@
+<Project Sdk="Godot.NET.Sdk/4.3.0-beta.2">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HarmonyX" Version="2.12.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="addons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Vfx\Julia.gdshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Tests\**" />
+  </ItemGroup>
+</Project>
