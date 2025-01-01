@@ -1,5 +1,7 @@
 using System;
+using GDExtension.Wrappers;
 using Godot;
+using ProjectReaper.Globals;
 
 /// <summary>
 ///     interface with the Resonate GDscript file
@@ -21,6 +23,10 @@ public partial class AudioManager : Node
     [Signal] public delegate void MusicManagerLoopedEventHandler(string bank, string music);
 
     public static AudioManager Instance;
+    /// <summary>
+    /// get the FmodServer singleton node
+    /// </summary>
+    public static FmodServer fmodServer;
 
     private Node _musicManager;
     private Node _soundManager;
@@ -33,6 +39,7 @@ public partial class AudioManager : Node
     public override void _Ready()
     {
         Instance = this;
+        fmodServer = FmodServer.Bind(GameManager.MainNode.GetTree().Root.GetNode("FmodServer"));
 
         _soundManager = GetTree().Root.GetNode("SoundManager");
         _musicManager = GetTree().Root.GetNode("MusicManager");

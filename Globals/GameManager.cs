@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GDExtension.Wrappers;
 using Godot;
 using Godot.Collections;
 using media.Laura.SofiaConsole;
@@ -110,7 +111,7 @@ public partial class GameManager : Node
                 
                 button.Pressed += () =>
                 {
-                    AudioManager.Instance.PlaySound("UI", "blip");
+                    AudioManager.fmodServer.CreateEventInstance("event:/UI/Blip").Start();
                 };
             }
         };

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://5yc0t4vmofhv"
+path="res://.godot/imported/CastleOfDreams.mp3-43728f8555fee496a056b383b41c2ca2.mp3str"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/tests/CastleOfDreams.mp3"
+dest_files=["res://.godot/imported/CastleOfDreams.mp3-43728f8555fee496a056b383b41c2ca2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

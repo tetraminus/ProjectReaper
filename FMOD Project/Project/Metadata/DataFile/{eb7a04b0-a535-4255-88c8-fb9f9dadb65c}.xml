@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{eb7a04b0-a535-4255-88c8-fb9f9dadb65c}">
+		<property name="assetPath">
+			<value>music/DreamCollapse/DreamCollapse-02.ogg.import</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c0cb5e27-967e-4690-b2a1-18903bd5781b}</destination>
+		</relationship>
+	</object>
+</objects>

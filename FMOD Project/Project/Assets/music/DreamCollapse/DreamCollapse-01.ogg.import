@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dinwyvihb1yd3"
+path="res://.godot/imported/DreamCollapse-01.ogg-ff54b8ab666f0fc9d9bdeb698b821d6c.oggvorbisstr"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/DreamCollapse/DreamCollapse-01.ogg"
+dest_files=["res://.godot/imported/DreamCollapse-01.ogg-ff54b8ab666f0fc9d9bdeb698b821d6c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://egd65rfua2hn"
+path="res://.godot/imported/BrokenContracts.wav-9bae0d5c74c845bc1fe09aaea2d2769c.sample"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/BrokenContracts.wav"
+dest_files=["res://.godot/imported/BrokenContracts.wav-9bae0d5c74c845bc1fe09aaea2d2769c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

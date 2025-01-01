@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0tsud8vlv8b7"
+path="res://.godot/imported/brandneworiginalidea001.mp3-106e719db1204dd20f0c39f535f523ed.mp3str"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/tests/brandneworiginalidea001.mp3"
+dest_files=["res://.godot/imported/brandneworiginalidea001.mp3-106e719db1204dd20f0c39f535f523ed.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

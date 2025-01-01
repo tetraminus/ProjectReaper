@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://grjb42llcgt1"
+path="res://.godot/imported/DreamCollapse_combat_lair.mp3-0589cdb4c94ad9d7d685445c3ed75689.mp3str"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/tests/DreamCollapse_combat_lair.mp3"
+dest_files=["res://.godot/imported/DreamCollapse_combat_lair.mp3-0589cdb4c94ad9d7d685445c3ed75689.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

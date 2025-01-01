@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ssmkn8u06bo1"
+path="res://.godot/imported/Grand Piano and Pad_1.wav-c2cb8e8723d05d4e686f34df3719385f.sample"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/level1/Grand Piano and Pad_1.wav"
+dest_files=["res://.godot/imported/Grand Piano and Pad_1.wav-c2cb8e8723d05d4e686f34df3719385f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

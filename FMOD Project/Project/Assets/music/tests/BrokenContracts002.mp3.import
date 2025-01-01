@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://euqjac3664je"
+path="res://.godot/imported/BrokenContracts002.mp3-3e441b4b44f281b2a46d3ae129d1a550.mp3str"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/tests/BrokenContracts002.mp3"
+dest_files=["res://.godot/imported/BrokenContracts002.mp3-3e441b4b44f281b2a46d3ae129d1a550.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

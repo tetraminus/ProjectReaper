@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{10ca5ea0-b2f2-4e4e-934d-50de944e9ceb}">
+		<property name="assetPath">
+			<value>EyeBoss/Fire_2.mp3.import</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c0cb5e27-967e-4690-b2a1-18903bd5781b}</destination>
+		</relationship>
+	</object>
+</objects>

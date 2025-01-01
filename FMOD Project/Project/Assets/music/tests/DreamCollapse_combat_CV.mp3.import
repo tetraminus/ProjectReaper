@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmqv3pqwi5srv"
+path="res://.godot/imported/DreamCollapse_combat_CV.mp3-0fcae16726cc7e6ab2225f94378a0406.mp3str"
+
+[deps]
+
+source_file="res://FMOD Project/Project/Assets/music/tests/DreamCollapse_combat_CV.mp3"
+dest_files=["res://.godot/imported/DreamCollapse_combat_CV.mp3-0fcae16726cc7e6ab2225f94378a0406.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

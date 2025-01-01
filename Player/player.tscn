@@ -1,20 +1,17 @@
-[gd_scene load_steps=68 format=3 uid="uid://chdn5sa1ckg2s"]
+[gd_scene load_steps=64 format=3 uid="uid://chdn5sa1ckg2s"]
 
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_3ywav"]
-[ext_resource type="Script" path="res://Player/Player.cs" id="1_vrt2t"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_dcxjm"]
-[ext_resource type="Script" path="res://Player/AbilityManager.cs" id="3_u00fe"]
-[ext_resource type="Script" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
+[ext_resource type="Script" uid="uid://bexkkuws1itxy" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_3ywav"]
+[ext_resource type="Script" uid="uid://c8rovorhfgfl2" path="res://Player/Player.cs" id="1_vrt2t"]
+[ext_resource type="Script" uid="uid://fmhyy4hybn6k" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_dcxjm"]
+[ext_resource type="Script" uid="uid://74ip2b2x1541" path="res://Player/AbilityManager.cs" id="3_u00fe"]
+[ext_resource type="Script" uid="uid://6iqnxt0i3b2i" path="res://Abilities/SoldierShoot.cs" id="4_2082f"]
 [ext_resource type="Texture2D" uid="uid://c4325btrhhxos" path="res://Assets/Player/PlayerTest-turnaround.png" id="4_cjbk4"]
 [ext_resource type="Texture2D" uid="uid://ci6vbkuv1b123" path="res://Assets/Player/PlayerTest-roll.png" id="5_i4r5b"]
-[ext_resource type="Script" path="res://Abilities/SoldierRoll.cs" id="6_aui5x"]
-[ext_resource type="Script" path="res://Components/HurtBox.cs" id="6_k1hhn"]
+[ext_resource type="Script" uid="uid://dil437cm6gpob" path="res://Abilities/SoldierRoll.cs" id="6_aui5x"]
+[ext_resource type="Script" uid="uid://djj835mc1xcv1" path="res://Components/HurtBox.cs" id="6_k1hhn"]
 [ext_resource type="Texture2D" uid="uid://dlw46nl7053h4" path="res://Assets/General/Light.webp" id="8_cacyo"]
-[ext_resource type="Script" path="res://Abilities/SoldierWhack.cs" id="9_37wai"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="11_x6bjh"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="12_6jalh"]
-[ext_resource type="AudioStream" uid="uid://7nxpejc7qakk" path="res://Assets/Audio/Player/shoot.wav" id="13_41vha"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_2liwo"]
+[ext_resource type="Script" uid="uid://dhc5xxmgwo2uo" path="res://Abilities/SoldierWhack.cs" id="9_37wai"]
+[ext_resource type="Script" uid="uid://dxy18ii18iuw0" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_2liwo"]
 
 [sub_resource type="Resource" id="Resource_87uut"]
 script = ExtResource("2_dcxjm")
@@ -434,14 +431,6 @@ radius = 7.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qjn8v"]
 polygon = PackedVector2Array(3, -6, 4, -5, 1, 0, 3, 2, 3, 6, 2, 8, -4, 8, -5, 6, -5, 2, -3, 1, -3, 0, -5, -4, -4, -5, -2, -7, 2, -7)
 
-[sub_resource type="Resource" id="Resource_ownk1"]
-script = ExtResource("12_6jalh")
-name = "shoot"
-bus = ""
-volume = 0.0
-pitch = 1.0
-streams = Array[AudioStream]([ExtResource("13_41vha")])
-
 [node name="PlayerSceneRoot" type="Node2D"]
 y_sort_enabled = true
 
@@ -510,11 +499,6 @@ visible = false
 position = Vector2(1, 0)
 occluder = SubResource("OccluderPolygon2D_qjn8v")
 sdf_collision = false
-
-[node name="SoundBank" type="Node" parent="Player"]
-script = ExtResource("11_x6bjh")
-label = "player"
-events = Array[ExtResource("12_6jalh")]([SubResource("Resource_ownk1")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
 physics_interpolation_mode = 2
