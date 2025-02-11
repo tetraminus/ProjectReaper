@@ -1,17 +1,17 @@
 [gd_scene load_steps=37 format=3 uid="uid://b6447c6lsiptv"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_1eygr"]
-[ext_resource type="Shader" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
+[ext_resource type="Script" uid="uid://bppdwoif3snto" path="res://Main.cs" id="1_1eygr"]
+[ext_resource type="Shader" uid="uid://dgwvswg1g7gml" path="res://Vfx/CRT.gdshader" id="2_f4j4b"]
 [ext_resource type="Material" uid="uid://bojxbkhbdoefb" path="res://Vfx/Goop.tres" id="2_pxpsj"]
-[ext_resource type="Script" path="res://Menu/MainMenu/Bg.cs" id="3_8d6ga"]
-[ext_resource type="Shader" path="res://Vfx/Vortex.gdshader" id="3_tb2og"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="5_gqeuv"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="6_6ggsd"]
-[ext_resource type="Script" path="res://addons/resonate/music_manager/music_bank.gd" id="8_bohd1"]
+[ext_resource type="Script" uid="uid://rh8sai76ujwq" path="res://Menu/MainMenu/Bg.cs" id="3_8d6ga"]
+[ext_resource type="Shader" uid="uid://bj1161eadjn0b" path="res://Vfx/Vortex.gdshader" id="3_tb2og"]
+[ext_resource type="Script" uid="uid://cpf1v7c443hgv" path="res://addons/resonate/sound_manager/sound_bank.gd" id="5_gqeuv"]
+[ext_resource type="Script" uid="uid://dfsvb5rcbc5y" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="6_6ggsd"]
+[ext_resource type="Script" uid="uid://cfmy1xr6yu6da" path="res://addons/resonate/music_manager/music_bank.gd" id="8_bohd1"]
 [ext_resource type="AudioStream" uid="uid://buauf14nn4cmx" path="res://Assets/Audio/Ui/zwomp.mp3" id="8_i6rhl"]
 [ext_resource type="AudioStream" uid="uid://cf451p70nelqr" path="res://Assets/Audio/Ui/Blip_Select118.wav" id="8_jpto2"]
-[ext_resource type="Script" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
-[ext_resource type="Script" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
+[ext_resource type="Script" uid="uid://w1v1n6vh7lej" path="res://addons/resonate/music_manager/music_track_resource.gd" id="9_7x8tp"]
+[ext_resource type="Script" uid="uid://q1y4kxjrlehf" path="res://addons/resonate/music_manager/music_stem_resource.gd" id="10_wodfd"]
 [ext_resource type="AudioStream" uid="uid://c1iul3g2n0kxo" path="res://Assets/Audio/Music/level1/Main_1.wav" id="13_bn41b"]
 [ext_resource type="AudioStream" uid="uid://mjgq3p0lbh0e" path="res://Assets/Audio/Music/level1/Layer 2_1.wav" id="14_psoqt"]
 [ext_resource type="AudioStream" uid="uid://d0nvf2unqm4jw" path="res://Assets/Audio/Music/level1/Boss_1.wav" id="15_f83jc"]
@@ -39,8 +39,8 @@ shader_parameter/speed = 1.0
 shader_parameter/brightness = 1.2
 shader_parameter/balance = 0.39
 shader_parameter/octaves = 10.0
-shader_parameter/noise_scale = -0.5
 shader_parameter/noise = SubResource("NoiseTexture2D_tpl5i")
+shader_parameter/noise_scale = -0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nwobf"]
 shader = ExtResource("2_f4j4b")

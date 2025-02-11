@@ -16,7 +16,10 @@ dest_files=["res://.godot/imported/GoopMesh.obj-bda11618a061bac5e670051437b58f42
 [params]
 
 generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-optimize_mesh=false
 force_disable_mesh_compression=false
